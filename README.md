@@ -1,6 +1,6 @@
 ﻿__Moses__ is a Lua library which provides a set of utilities and helpers acting as shortcuts for common programming tasks. 
 It extends the built-in __Lua table library__, making easier operations on arrays, lists, collections, objects, etc.<br/>
-__Moses__ was deeply inspired by [Underscore.js][]. It brings to Lua most of [Underscore.js][] functions to Lua and lot more!
+__Moses__ was deeply inspired by [Underscore.js][]. It brings to Lua most of [Underscore.js][] functions and  A lot more!
 
 ##Installation##
 Put the file [Moses.lua][] inside your project folder and call it using *require* command.
@@ -28,7 +28,7 @@ A set of tests for all functions provided can be found here : [Moses_Lib_Test.lu
 
 ##Credits and Thanks##
 * [Jeremy Ashkenas][], for the amazing [Underscore.js][]
-* [Marcus Irven][], for his Lua port, [Underscore.lua][]
+* [Marcus Irven][], for his Lua port, [Underscore.lua] []
 
 ##License##
 This work is under [MIT-LICENSE][]<br/>
@@ -54,7 +54,7 @@ Copyright (c) 2012 Roland Yonaba
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [Underscore.js]: http://documentcloud.github.com/underscore/
-[Moses.lua]: https://github.com/Yonaba/Moses/blob/master/Moses/Moses.lua
+[Moses.lua]: https://github.com/Yonaba/Moses/blob/master/Lib/Moses.lua
 [Documentation]: https://github.com/Yonaba/Moses/blob/master/Documentation
 [Moses_Lib_Test.lua]: https://github.com/Yonaba/Moses/blob/master/Moses_Lib_Test.lua
 [Underscore.lua]: http://mirven.github.com/underscore.lua/
