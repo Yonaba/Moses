@@ -498,10 +498,5 @@ function _.result(obj,property,...)
 	if obj[property] then return (type(obj[property])=='function' and obj[property](obj,...) or obj[property]) end
 end
 
-local list = _.range(10)
-list = _.map(list, function(_,value) return value*10+value end)
-list = _.filter(list,function(i,value) return value%2==0 end)
-_.each(list,print)
-
 -- Returns bundled functions
 return  _
