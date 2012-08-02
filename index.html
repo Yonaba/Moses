@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Moses by Yonaba</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Moses</h1>
+        <p>A utility library to manipulate tables in Lua</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/Yonaba/Moses" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/Yonaba/Moses/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/Yonaba/Moses/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <p><strong>Moses</strong> is a Lua library which provides a set of utilities and helpers acting as shortcuts for common programming tasks. 
+It extends the built-in <strong>Lua table library</strong>, making easier operations on arrays, lists, collections, objects, etc.<br><strong>Moses</strong> was deeply inspired by <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>. It brings to Lua most of <a href="http://documentcloud.github.com/underscore/">Underscore.js</a> functions and  A lot more!</p>
+
+<h2>Installation</h2>
+
+<p>Put the file <a href="https://github.com/Yonaba/Moses/blob/master/Lib/Moses.lua">Moses.lua</a> inside your project folder and call it using <em>require</em> command.
+It will return a table containing a set of functions.</p>
+
+<h2>Usage example</h2>
+
+<pre><code>local list = _.range(10)
+=&gt; {0,1,2,3,4,5,6,7,8,9,10}
+list = _.map(list, function(_,value) return value*10+value end)
+  =&gt; {0,11,22,33,44,55,66,77,88,99,110} 
+list = _.filter(list,function(i,value) return value%2==0 end)
+  =&gt; {0,22,44,66,88,110}    
+_.each(list,print)
+=&gt;  1   0
+=&gt;  2   22
+=&gt;  3   44
+=&gt;  4   66
+=&gt;  5   88
+=&gt;  6   110
+</code></pre>
+
+<h2>API Overview</h2>
+
+<p><strong>Moses</strong> offers functions, iterators to operate on arrays, collections, lists, nested tables.
+A fully complete documentation, with usage examples can be found here : <a href="https://github.com/Yonaba/Moses/blob/master/Documentation">Documentation</a><br>
+A set of tests for all functions provided can be found here : <a href="https://github.com/Yonaba/Moses/blob/master/Moses_Lib_Test.lua">Moses_Lib_Test.lua</a></p>
+
+<h2>Moses and the built-in table library</h2>
+
+<p><strong>Moses</strong> provides a very handy function named <em>_.import</em>, which links Lua's native table library with <strong>Moses</strong> functions.</p>
+
+<pre><code>_.import()
+local t = table.shuffle({1,2,3,4,5})
+_.each(t,print)
+=&gt; 1    5
+=&gt; 2    3
+=&gt; 3    1
+=&gt; 4    4
+=&gt; 5    2
+</code></pre>
+
+<h2>Credits and Thanks</h2>
+
+<ul>
+<li>
+<a href="https://github.com/jashkenas">Jeremy Ashkenas</a>, for the amazing <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>
+</li>
+<li>
+<a href="http://www.marcusirven.com">Marcus Irven</a>, for his Lua port, <a href="http://mirven.github.com/underscore.lua/">Underscore.lua</a>
+</li>
+</ul><h2>License</h2>
+
+<p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
+Copyright (c) 2012 Roland Yonaba</p>
+
+<pre><code>Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
