@@ -26,6 +26,18 @@ __Moses__ offers functions, iterators to operate on arrays, collections, lists, 
 A fully complete documentation, with usage examples can be found here : [Documentation][]<br/>
 A set of tests for all functions provided can be found here : [Moses_Lib_Test.lua][]
 
+##Moses and the built-in table library##
+__Moses__ provides a very handy function named *_.import*, which links Lua's native table library with __Moses__ functions.
+
+    _.import()
+    local t = table.shuffle({1,2,3,4,5})
+    _.each(t,print)
+	=> 1	5
+	=> 2	3
+	=> 3	1
+	=> 4	4
+	=> 5	2
+
 ##Credits and Thanks##
 * [Jeremy Ashkenas][], for the amazing [Underscore.js][]
 * [Marcus Irven][], for his Lua port, [Underscore.lua] []
