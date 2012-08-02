@@ -22,7 +22,11 @@
 
 
 <h1>Documentation</h1>
-
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
 
 
 <!-- Module list -->
@@ -35,17 +39,17 @@
 <ul>
 
 	<li>
-		<a href="../files/Array Functions.html">Array Functions</a>
+		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
 	</li>
 
 	<li>
-		<a href="../files/Collection Functions.html">Collection Functions</a>
+		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions.lua</a>
 	</li>
 
 	<li><strong>Object Functions</strong></li>
 	
 	<li>
-		<a href="../files/Utility Functions.html">Utility Functions</a>
+		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
 	</li>
 
 </ul>
@@ -58,9 +62,9 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-
+<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
 <h1><code>Object Functions</code></h1>
-<p><small><b>Release:</b> $Id: Moses.lua,v 0.1 07/2012 Roland_Yonaba$ </small></p>
+
 
 
 
@@ -98,6 +102,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.result">_.result</a>&nbsp;(obj, property, ...)</td>
 	<td class="summary">Invokes an object's method with custom arguments </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.template">_.template</a>&nbsp;(obj, template)</td>
+	<td class="summary">Transforms a table and makes it look like a given template </td>
 	</tr>
 
 	<tr>
@@ -185,7 +194,7 @@ an array
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Object Functions.html#_.methods">
+	<li><a href="../files/Moses_Doc_Gen_ObjectFunctions.html#_.methods">
 		_.methods
 	</a>
 	
@@ -294,7 +303,7 @@ an array
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Object Functions.html#_.functions">
+	<li><a href="../files/Moses_Doc_Gen_ObjectFunctions.html#_.functions">
 		_.functions
 	</a>
 	
@@ -337,6 +346,42 @@ Invokes an object's method with custom arguments
 
 <h3>Return value:</h3>
 the expected result from the call <tt>obj:property(...)</tt>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.template"></a><strong>_.template</strong>&nbsp;(obj, template)</dt>
+<dd>
+Transforms a table and makes it look like a given template
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  obj: an object
+	</li>
+	
+	<li>
+	  template: a given template
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local templateVector = {x = 0, y = 0} <br/> local particle = {velocity = 10, mass = 1} <br/> _.template(particle,templateVector) --> {velocity = 10, mass = 1, x = 0, y = 0} </pre>
+
+
+
+<h3>Return value:</h3>
+a table</tt>
 
 
 

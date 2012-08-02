@@ -22,7 +22,11 @@
 
 
 <h1>Documentation</h1>
-
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
 
 
 <!-- Module list -->
@@ -37,15 +41,15 @@
 	<li><strong>Array Functions</strong></li>
 	
 	<li>
-		<a href="../files/Collection Functions.html">Collection Functions</a>
+		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
 	</li>
 
 	<li>
-		<a href="../files/Object Functions.html">Object Functions</a>
+		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
 	</li>
 
 	<li>
-		<a href="../files/Utility Functions.html">Utility Functions</a>
+		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
 	</li>
 
 </ul>
@@ -58,9 +62,9 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-
+<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
 <h1><code>Array Functions</code></h1>
-<p><small><b>Release:</b> $Id: Moses.lua,v 0.1 07/2012 Roland_Yonaba$ </small></p>
+
 
 
 
@@ -69,6 +73,11 @@
 
 <h2>Functions</h2>
 <table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#_.append">_.append</a>&nbsp;(array, ...)</td>
+	<td class="summary">Pushes values at the end of an array.</td>
+	</tr>
 
 	<tr>
 	<td class="name" nowrap><a href="#_.compact">_.compact</a>&nbsp;(array)</td>
@@ -106,6 +115,11 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#_.invert">_.invert</a>&nbsp;(..., array)</td>
+	<td class="summary">Inverts an array, permuting keys with corresponding values.</td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#_.last">_.last</a>&nbsp;(array, n)</td>
 	<td class="summary">Returns the last n elements of an array </td>
 	</tr>
@@ -118,6 +132,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.push">_.push</a>&nbsp;(array, ...)</td>
 	<td class="summary">Pushes values at the end of an array </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.range">_.range</a>&nbsp;(...)</td>
+	<td class="summary">Returns an array of integers varying between start and stop values, regards to a given step </td>
 	</tr>
 
 	<tr>
@@ -175,6 +194,51 @@
 
 <h2><a name="functions"></a>Functions</h2>
 <dl class="function">
+
+
+
+<dt><a name="_.append"></a><strong>_.append</strong>&nbsp;(array, ...)</dt>
+<dd>
+Pushes values at the end of an array. Alias for <tt>_.push</tt>
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  array: the given array
+	</li>
+	
+	<li>
+	  ...: a list of values to be pushed at the end of the array
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {} <br/> _.append(t,1,2,3,4,5) --> {1,2,3,4,5} </pre>
+
+
+
+<h3>Return value:</h3>
+the array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.push">
+		_.push
+	</a>
+	
+</ul>
+
+</dd>
+
 
 
 
@@ -280,7 +344,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.head">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.head">
 		_.head
 	</a>
 	
@@ -361,7 +425,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.first">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.first">
 		_.first
 	</a>
 	
@@ -436,6 +500,42 @@ Returns the intersection of all given arrays (each value of the result being pre
 
 <h3>Return value:</h3>
 an array of values
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.invert"></a><strong>_.invert</strong>&nbsp;(..., array)</dt>
+<dd>
+Inverts an array, permuting keys with corresponding values.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  ...: 
+	</li>
+	
+	<li>
+	  array: an array
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {'a','b','c','d'} <br/> _.invert(t) --> {a = 1, b = 2, c = 3, d = 4} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
 
 
 
@@ -543,6 +643,47 @@ the array
 
 
 
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.append">
+		_.append
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.range"></a><strong>_.range</strong>&nbsp;(...)</dt>
+<dd>
+Returns an array of integers varying between start and stop values, regards to a given step
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  ...: Up to three parameters can be given. If <em>one</em> value was given, will range from 0 to that value, stepping 1. If <em>two</em> values were given, will range from value 1 to value 2, stepping 1. If <em>three</em> values were given, will range from value 1 to value 2, stepping value 3 each time.
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.range(1,10) --> {1,2,3,4,5,6,7,8,9,10}  <br/> _.range(5,-15,-3)  --> {5,2,-1,-4,-7,-10,-13}  <br/> _.range(5)  --> {0,1,2,3,4,5} </pre>
+
+
+
+<h3>Return value:</h3>
+an array of integers
+
+
+
 </dd>
 
 
@@ -582,7 +723,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.tail">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.tail">
 		_.tail
 	</a>
 	
@@ -667,7 +808,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.rest">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.rest">
 		_.rest
 	</a>
 	
@@ -749,7 +890,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.unique">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.unique">
 		_.unique
 	</a>
 	
@@ -802,7 +943,7 @@ an array of values
 <h3>See also:</h3>
 <ul>
 	
-	<li><a href="../files/Array Functions.html#_.uniq">
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.uniq">
 		_.uniq
 	</a>
 	

@@ -1,7 +1,7 @@
 ﻿--------------------------------------------------------------------------
 -- Set of utility functions for arrays
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v 0.1 07/24/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
  
  --Copyright (c) 2012 Roland Yonaba
@@ -34,7 +34,19 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -- local t = {} <br/>
 -- _.push(t,1,2,3,4,5) --> {1,2,3,4,5} 
 -- </pre>
+-- @see _.append
 function _.push(array,...) end
+
+--- Pushes values at the end of an array. Alias for <tt>_.push</tt>
+-- @param array the given array
+-- @param ... a list of values to be pushed at the end of the array
+-- @return the array
+-- @usage <pre class='example'> 
+-- local t = {} <br/>
+-- _.append(t,1,2,3,4,5) --> {1,2,3,4,5} 
+-- </pre>
+-- @see _.push
+function _.append(array,...) end
 
 --- Pops (removes and returns) the value at the top of an array
 -- @param array the given array
@@ -226,7 +238,7 @@ function _.intersection(array,...) end
 -- </pre>
 function _.zip(...) end
 
--- Returns an array of integers varying between start and stop values, regards to a given step
+--- Returns an array of integers varying between start and stop values, regards to a given step
 -- @param ... Up to three parameters can be given. If <em>one</em> value was given, will range from 0 to that value, stepping 1. If <em>two</em> values were given, will range from value 1 to value 2, stepping 1. If <em>three</em> values were given, will range from value 1 to value 2, stepping value 3 each time.
 -- @return an array of integers
 -- @usage <pre class='example'>
@@ -235,3 +247,12 @@ function _.zip(...) end
 -- _.range(5)  --> {0,1,2,3,4,5}
 -- </pre>
 function _.range(...) end
+
+--- Inverts an array, permuting keys with corresponding values.
+-- @param array an array 
+-- @return an array 
+-- @usage <pre class='example'>
+-- local t = {'a','b','c','d'} <br/>
+-- _.invert(t) --> {a = 1, b = 2, c = 3, d = 4} 
+-- </pre>
+function _.invert(...) end

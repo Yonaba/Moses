@@ -22,7 +22,11 @@
 
 
 <h1>Documentation</h1>
-
+<ul>
+	
+	<li><a href="../index.html">Index</a></li>
+	
+</ul>
 
 
 <!-- Module list -->
@@ -35,15 +39,15 @@
 <ul>
 
 	<li>
-		<a href="../files/Array Functions.html">Array Functions</a>
+		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
 	</li>
 
 	<li>
-		<a href="../files/Collection Functions.html">Collection Functions</a>
+		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
 	</li>
 
 	<li>
-		<a href="../files/Object Functions.html">Object Functions</a>
+		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
 	</li>
 
 	<li><strong>Utility Functions</strong></li>
@@ -58,9 +62,9 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-
+<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
 <h1><code>Utility Functions</code></h1>
-<p><small><b>Release:</b> $Id: Moses.lua,v 0.1 07/2012 Roland_Yonaba$ </small></p>
+
 
 
 
@@ -81,8 +85,18 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#_.curry">_.curry</a>&nbsp;(f, args)</td>
+	<td class="summary">Curries a given function.</td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#_.findValue">_.findValue</a>&nbsp;(t, v)</td>
 	<td class="summary">Returns the key at which a given value is stored inside a table </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.import">_.import</a>&nbsp;()</td>
+	<td class="summary">Links Lua's native table library with Moses functions </td>
 	</tr>
 
 	<tr>
@@ -191,6 +205,42 @@ the result expected from the first function given in the list of arguments
 
 
 
+<dt><a name="_.curry"></a><strong>_.curry</strong>&nbsp;(f, args)</dt>
+<dd>
+Curries a given function. The resulting function will always use the provided argument as its first argument each call.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  f: a function
+	</li>
+	
+	<li>
+	  args: an argument
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local function say(str) print(str) end <br/> local _say = _.curry(say,1) <br/> _say(2,3,4) --> 1 </pre>
+
+
+
+<h3>Return value:</h3>
+a function
+
+
+
+</dd>
+
+
+
+
 <dt><a name="_.findValue"></a><strong>_.findValue</strong>&nbsp;(t, v)</dt>
 <dd>
 Returns the key at which a given value is stored inside a table
@@ -219,6 +269,29 @@ Returns the key at which a given value is stored inside a table
 
 <h3>Return value:</h3>
 a key value
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.import"></a><strong>_.import</strong>&nbsp;()</dt>
+<dd>
+Links Lua's native table library with Moses functions
+
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.import() <br/> local t = table.shuffle({1,2,3,4,5}) --> {4,3,5,1,2}<br/> </pre>
+
+
+
+<h3>Return value:</h3>
+nothing
 
 
 

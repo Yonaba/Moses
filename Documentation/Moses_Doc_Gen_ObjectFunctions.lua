@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions for objects
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v 0.1 07/24/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba
@@ -95,3 +95,14 @@ function _.isEqual(objA,objB) end
 -- _.result(vector,'move',5,10) --> vector { x = 5, y = 10 }
 -- </pre>
 function _.result(obj,property,...) end
+
+--- Transforms a table and makes it look like a given template
+-- @param obj an object
+-- @param template a given template
+-- @return a table</tt>
+-- @usage <pre class='example'>
+-- local templateVector = {x = 0, y = 0} <br/>
+-- local particle = {velocity = 10, mass = 1} <br/>
+-- _.template(particle,templateVector) --> {velocity = 10, mass = 1, x = 0, y = 0}
+-- </pre>
+function _.template(obj,template) end

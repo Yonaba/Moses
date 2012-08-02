@@ -1,3 +1,8 @@
+--------------------------------------------------------------------------
+-- Moses Library
+-- Release Id: Moses.lua,v1.0 08/02/2012
+--------------------------------------------------------------------------
+
 -- Copyright (c) 2012 Roland Yonaba
 
 --[[
@@ -262,6 +267,12 @@ _.push(t,1,2,3,4,5)
 _.each(t,print)
 ]])
 
+addSnippet('_.append(array,...)',
+[[local t = {}
+_.append(t,1,2,3,4,5)
+_.each(t,print)
+]])
+
 addSnippet('_.pop(array)',
 [[local t = {0,2,7,10}
    local val
@@ -388,6 +399,11 @@ print('Range from 0 to 5,step 1')
 _.each(_.range(5),print)
 ]])
 
+addSnippet('_.invert(array)',
+[[
+local t = {'a','b','c','d'}
+_.each(_.invert(t),print)
+]])
 
 run()
 reset()
@@ -462,9 +478,22 @@ end)
 print(jibjab('Ronald','John'))
 ]])
 
+addSnippet('_.curry(func,args)',
+[[local function say(str) print(str) end
+local _say = _.curry(say,1)
+_say(2,3,4)
+]])
+
+
 addSnippet('_.times(n,iterator)',
 [[_.times(5,print)]])
 
+
+addSnippet('_.import()',
+[[_.import()
+local t = table.shuffle({1,2,3,4,5})
+_.each(t,print)
+]])
 run()
 reset()
 print(' ==== Object Functions ==== \n')
@@ -502,6 +531,13 @@ addSnippet('_.result(obj,property,...)',
 function vector:move(dx,dy) self.x,self.y = self.x+dx,self.y+dy end
 _.result(vector,'move',5,10)
 print('vector: x '..vector.x,'y '..vector.y)
+]])
+
+addSnippet('_.template(obj,template)',
+[[local templateVector = {x = 0, y = 0}
+local particle = {velocity = 10, mass = 1}
+particle = _.template(particle,templateVector)
+_.each(particle,print)
 ]])
 
 run()

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions for collections
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v 0.1 07/24/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba

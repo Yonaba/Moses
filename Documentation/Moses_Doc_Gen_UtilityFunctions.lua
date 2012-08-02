@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v 0.1 07/24/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba
@@ -106,6 +106,17 @@ function _.compose(...) end
 -- </pre>
 function _.wrap(func,wrapper) end
 
+--- Curries a given function. The resulting function will always use the provided argument as its first argument each call.
+-- @param f a function
+-- @param args an argument
+-- @return a function
+-- @usage <pre class='example'> 
+-- local function say(str) print(str) end <br/>
+-- local _say = _.curry(say,1) <br/>
+-- _say(2,3,4) --> 1
+-- </pre>
+function _.curry(f,args) end
+
 --- Calls an iterator n times, passing it each call an integer value growing from 1 to n
 -- @param n the number of calls
 -- @param iterator an iterator or a function
@@ -119,5 +130,13 @@ function _.wrap(func,wrapper) end
 -- ==> 5 <br/>
 -- </pre>
 function _.times(n,iterator) end
+
+--- Links Lua's native table library with Moses functions
+-- @return nothing
+-- @usage <pre class='example'> 
+-- _.import() <br/>
+-- local t = table.shuffle({1,2,3,4,5}) --> {4,3,5,1,2}<br/>
+-- </pre>
+function _.import() end
 
 

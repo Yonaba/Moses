@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v 0.1 07/24/2012
+-- Release Id: Moses.lua,v1.0 08/02/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -34,6 +34,7 @@ local setmetatable, getmetatable = setmetatable, getmetatable
 local t_insert, t_sort, t_remove = table.insert, table.sort, table.remove
 local randomseed, random = math.randomseed, math.random
 local floor, max, min = math.floor, math.max, math.min
+local getfenv = getfenv
 local _ = {}
 
 -- Private Helpers
@@ -257,6 +258,7 @@ function _.push(array,...)
 	_.each({...}, function(i,v) t_insert(array,v) end)
 	return array
 end
+_.append = _.push
 
 -- Pops the value at the top of an array
 function _.pop(array)
@@ -378,6 +380,13 @@ function _.range(...)
 	return _ranged
 end
 
+-- Returns a table where keys and values were inverted
+function _.invert(array)
+	local _ret = {}
+	_.each(array,function(i,v) _ret[v] = i end)
+	return _ret
+end
+
 --------------------------------------------------------------------------
 -- Functions
 --------------------------------------------------------------------------
@@ -435,9 +444,20 @@ end
 -- Wraps a function inside a wrapper provided
 function _.wrap(func,wrapper) return function (...) return  wrapper(func,...) end end
 
+-- Curry functions
+function _.curry(f,args) return function(...) f(args,...) end end
+
 -- Calls an iterator n times
 function _.times(n,iterator)
 	for i = 1,n do iterator(i)	end
+end
+
+-- Links all functions with Lua's built-in table library
+function _.import()
+	local fn = _.functions()
+	_.each(fn,function(i,fName)
+		if fName ~='import' then getfenv().table[fName] = _[fName] end
+	end)
 end
 
 --------------------------------------------------------------------------
@@ -477,6 +497,13 @@ function _.clone(obj)
 		else _obj[i] = v
 		end
 	end
+	return _obj
+end
+
+-- Applies a template over an object
+function _.template(obj,template)
+	local _obj = _.clone(obj)
+	_.each(template,function(i,v) _obj[i] = v end)
 	return _obj
 end
 
