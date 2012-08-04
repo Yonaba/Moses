@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.0 08/02/2012
+-- Release Id: Moses.lua,v1.1 08/04/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -35,11 +35,13 @@ local t_insert, t_sort, t_remove = table.insert, table.sort, table.remove
 local randomseed, random = math.randomseed, math.random
 local floor, max, min = math.floor, math.max, math.min
 local getfenv = getfenv
+local unpack = unpack
 local _ = {}
 
 -- Private Helpers
 local function f_max(a,b) return a>b end
 local function f_min(a,b) return a<b end
+local function clamp(var,a,b) return (var<a) and a or (var>b and b or var) end
 randomseed(random())
 
 --------------------------------------------------------------------------
@@ -99,7 +101,6 @@ function _.include(list,criteria)
 	end
 	return nil,nil
 end
-_.contains = _.include
 
 -- Tests if a list contains a value matching a given pattern
 function _.includeLast(list,criteria)
@@ -249,6 +250,21 @@ function _.size(list)
 	return _i
 end
 
+-- Checks if all the keys of table 'other' are inside table t
+function _.contains(t,other)
+	for key in _.iterate(other) do
+		if not t[key] then return false end
+	end
+	return true
+end
+
+-- Checks if tables have the same keys
+function _.sameKeys(t1,t2)
+	local _t1 = _.flatten(t1)
+	local _t2 = _.flatten(t2)
+	return _.contains(t1,t2) and _.contains(t2,t1)
+end
+
 --------------------------------------------------------------------------
 -- Array functions
 --------------------------------------------------------------------------
@@ -274,6 +290,25 @@ function _.unshift(array)
 	return retValue
 end
 
+function _.removeRange(array,start,finish)
+	local array = _.clone(array)
+	local n = #array
+	if n < 1 then return array end
+
+	local start = start and clamp(start or 1,1,n)
+	local finish = finish or clamp(finish or n,1,n)
+
+	if finish < start then return end
+
+	local count = finish - start + 1
+	local i = start
+	while count > 0 do
+		t_remove(array,i)
+		count = count - 1
+	end
+	return array
+end
+_.rmRange = _.removeRange
 
 -- Returns the portion of an array between left and right indexes
 function _.slice(array,left,right) return _.select(array, function(index,_) return (index >= (left or 1) and index <= (right or #array)) end) end
@@ -450,6 +485,11 @@ function _.curry(f,args) return function(...) f(args,...) end end
 -- Calls an iterator n times
 function _.times(n,iterator)
 	for i = 1,n do iterator(i)	end
+end
+
+-- Binds a value to the first argument of a given function
+function _.bind(func,v)
+	return function (...) return func(v,...) end
 end
 
 -- Links all functions with Lua's built-in table library

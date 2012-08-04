@@ -38,20 +38,22 @@
 <h1>Categories</h1>
 <ul>
 
-	<li>
-		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-	</li>
+<li>
+<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
+</li>
 
-	<li><strong>Collection Functions</strong></li>
+<li>
+<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
+</li>
+
+<li>
+<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+</li>
+
+<li>
+<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
+</li>
 	
-	<li>
-		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-	</li>
-
-	<li>
-		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
-	</li>
-
 </ul>
 
 
@@ -62,7 +64,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
 <h1><code>Collection Functions</code></h1>
 
 
@@ -90,8 +92,8 @@
 	</tr>
 
 	<tr>
-	<td class="name" nowrap><a href="#_.contains">_.contains</a>&nbsp;(list, criteria)</td>
-	<td class="summary">Checks if a list contains a value matching a given pattern.Alias for <tt>_.include</tt> </td>
+	<td class="name" nowrap><a href="#_.contains">_.contains</a>&nbsp;(t, other)</td>
+	<td class="summary">Checks if all the keys of table <tt>other</tt> are inside table <tt>t</tt> </td>
 	</tr>
 
 	<tr>
@@ -207,6 +209,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.reverse">_.reverse</a>&nbsp;(array_list)</td>
 	<td class="summary">Returns an array with values in reversing order </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.sameKeys">_.sameKeys</a>&nbsp;(t1, t2)</td>
+	<td class="summary">Checks if given tables have the same keys </td>
 	</tr>
 
 	<tr>
@@ -401,20 +408,20 @@ a table
 
 
 
-<dt><a name="_.contains"></a><strong>_.contains</strong>&nbsp;(list, criteria)</dt>
+<dt><a name="_.contains"></a><strong>_.contains</strong>&nbsp;(t, other)</dt>
 <dd>
-Checks if a list contains a value matching a given pattern.Alias for <tt>_.include</tt>
+Checks if all the keys of table <tt>other</tt> are inside table <tt>t</tt>
 
 
 <h3>Parameters</h3>
 <ul>
 	
 	<li>
-	  list: a table of values
+	  t: a table
 	</li>
 	
 	<li>
-	  criteria: a value or a matching pattern function prototyped as <tt>func(value)</tt>
+	  other: another table
 	</li>
 	
 </ul>
@@ -423,29 +430,14 @@ Checks if a list contains a value matching a given pattern.Alias for <tt>_.inclu
 
 
 <h3>Usage:</h3>
-<pre class='example'> local t = {1,2,3,4,5} <br/> _.contains(t, 4) --> true,4 <br/> _.contains(t, function(value) return value%3==0 end) --> true,3 <br/> _.contains(t, function(value) return value>5 end) --> nil,nil </pre>
+<pre class='example'> local t = {1,2,3} <br/> local v = {x = 1, y = 2} <br/> _.contains(t,{1,2,3}) --> true <br/> _.contains(t,{1,2,4}) --> true <br/> _.contains(t,{1,2,5,3}) --> false <br/> _.contains(v,{x = 10}) --> true <br/> _.contains(v,{x = 1, y = 8}) --> true <br/> _.contains(v,{x = 1, y = 8, z = 13}) --> false </pre>
 
 
 
-<h3>Return values:</h3>
-<ol>
-	
-	<li>a boolean
-	
-	<li>the key where value was found
-	
-</ol>
+<h3>Return value:</h3>
+a boolean
 
 
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.include">
-		_.include
-	</a>
-	
-</ul>
 
 </dd>
 
@@ -898,15 +890,6 @@ Checks if a list contains a value matching a given pattern
 </ol>
 
 
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.contains">
-		_.contains
-	</a>
-	
-</ul>
 
 </dd>
 
@@ -1492,6 +1475,42 @@ Returns an array with values in reversing order
 
 <h3>Return value:</h3>
 a table
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.sameKeys"></a><strong>_.sameKeys</strong>&nbsp;(t1, t2)</dt>
+<dd>
+Checks if given tables have the same keys
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  t1: a table
+	</li>
+	
+	<li>
+	  t2: another table
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {1,2,3} local v = {x = 1, y = 2} _.contains(t,{1,2,3}) --> true <br/> _.contains(t,{1,2,4}) --> true <br/> _.contains(t,{1,2,5,3}) --> false  <br/> _.contains(v,{x = 10})  --> false  <br/> _.contains(v,{x = 1, y = 8}) --> true  <br/> _.contains(v,{x = 1, y = 8, z = 13})  --> false </pre>
+
+
+
+<h3>Return value:</h3>
+a boolean
 
 
 

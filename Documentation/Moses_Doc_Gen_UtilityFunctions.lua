@@ -131,6 +131,16 @@ function _.curry(f,args) end
 -- </pre>
 function _.times(n,iterator) end
 
+--- Binds value <tt>v</tt> to the first argument of a given function
+-- @param func a function
+-- @param v a value to b the first argument of the given function
+-- @return a function
+-- @usage <pre class='example'> 
+-- local sqrt2 = _.bind(math.sqrt,2) <br/>
+-- sqrt2() --> 1.4142135623731
+-- </pre>
+function _.bind(func,v) end
+
 --- Links Lua's native table library with Moses functions
 -- @return nothing
 -- @usage <pre class='example'> 

@@ -38,20 +38,22 @@
 <h1>Categories</h1>
 <ul>
 
-	<li><strong>Array Functions</strong></li>
+<li>
+<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
+</li>
+
+<li>
+<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
+</li>
+
+<li>
+<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+</li>
+
+<li>
+<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
+</li>
 	
-	<li>
-		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
-	</li>
-
-	<li>
-		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-	</li>
-
-	<li>
-		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
-	</li>
-
 </ul>
 
 
@@ -62,7 +64,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
 <h1><code>Array Functions</code></h1>
 
 
@@ -140,8 +142,18 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#_.removeRange">_.removeRange</a>&nbsp;(array, start, finish)</td>
+	<td class="summary">Removes values between start and finish indices in a given array </td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#_.rest">_.rest</a>&nbsp;(array, index)</td>
 	<td class="summary">Returns an array excluding all elements before index position </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.rmRange">_.rmRange</a>&nbsp;(array, start, finish)</td>
+	<td class="summary">Removes values between start and finish indices in a given array.</td>
 	</tr>
 
 	<tr>
@@ -689,6 +701,55 @@ an array of integers
 
 
 
+<dt><a name="_.removeRange"></a><strong>_.removeRange</strong>&nbsp;(array, start, finish)</dt>
+<dd>
+Removes values between start and finish indices in a given array
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  array: the array
+	</li>
+	
+	<li>
+	  start: an index. Defaults to 1 if not given
+	</li>
+	
+	<li>
+	  finish: an index. Defaults to the array size if not given
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {1,2,3,4,5,6,7,8,9,10} <br/> _.removeRange(t,3,5) --> {1,2,6,7,8,9,10} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.rmRange">
+		_.rmRange
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
 <dt><a name="_.rest"></a><strong>_.rest</strong>&nbsp;(array, index)</dt>
 <dd>
 Returns an array excluding all elements before index position
@@ -725,6 +786,55 @@ an array of values
 	
 	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.tail">
 		_.tail
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.rmRange"></a><strong>_.rmRange</strong>&nbsp;(array, start, finish)</dt>
+<dd>
+Removes values between start and finish indices in a given array. Alias for <tt>_.removeRange</tt>
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  array: the array
+	</li>
+	
+	<li>
+	  start: an index. Defaults to 1 if not given
+	</li>
+	
+	<li>
+	  finish: an index. Defaults to the array size if not given
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {1,2,3,4,5,6,7,8,9,10} <br/> _.rmRange(t,3,5) --> {1,2,6,7,8,9,10} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_ArrayFunctions.html#_.removeRange">
+		_.removeRange
 	</a>
 	
 </ul>

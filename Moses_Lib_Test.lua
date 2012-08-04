@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.0 08/02/2012
+-- Release Id: Moses.lua,v1.1 08/04/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -257,6 +257,30 @@ t = {x = 1,2,3}
 print(_.size(t), #t)
 ]])
 
+addSnippet('_.contains(t,other)',
+[[local t = {1,2,3}
+local v = {x = 1, y = 2}
+print(_.contains(t,{1,2,3}))
+print(_.contains(t,{1,2,4}))
+print(_.contains(t,{1,2,5,3}))
+
+print(_.contains(v,{x = 10}))
+print(_.contains(v,{x = 1, y = 8}))
+print(_.contains(v,{x = 1, y = 8, z = 13}))
+]])
+
+addSnippet('_.sameKeys(t,other)',
+[[local t = {1,2,3}
+local v = {x = 1, y = 2}
+print(_.contains(t,{1,2,3}))
+print(_.contains(t,{1,2,4}))
+print(_.contains(t,{1,2,5,3}))
+
+print(_.contains(v,{x = 10}))
+print(_.contains(v,{x = 1, y = 8}))
+print(_.contains(v,{x = 1, y = 8, z = 13}))
+]])
+
 run()
 reset()
 print(' ==== Array Functions ==== \n')
@@ -289,6 +313,18 @@ addSnippet('_.unshift(array)',
    val = _.unshift(t)
    print(val)
    until not val
+]])
+
+addSnippet('_.removeRange(array,start,finish)',
+[[local t = {1,2,3,4,5,6,7,8,9,10}
+_.each(_.removeRange(t,3),print)
+_.each(_.removeRange(t,3,5),print)
+]])
+
+addSnippet('_.rmRange(array,start,finish)',
+[[local t = {1,2,3,4,5,6,7,8,9,10}
+_.each(_.rmRange(t,3),print)
+_.each(_.rmRange(t,3,5),print)
 ]])
 
 addSnippet('_.slice(array,left,right)',
@@ -487,6 +523,11 @@ _say(2,3,4)
 
 addSnippet('_.times(n,iterator)',
 [[_.times(5,print)]])
+
+addSnippet('_.bind(func,v)',
+[[local sqrt2 = _.bind(math.sqrt,2)
+print('Square Root of 2:',sqrt2())
+]])
 
 
 addSnippet('_.import()',

@@ -70,6 +70,30 @@ function _.pop(array) end
 -- </pre>
 function _.unshift(array) end
 
+--- Removes values between start and finish indices in a given array
+-- @param array the array
+-- @param start an index. Defaults to 1 if not given
+-- @param finish an index. Defaults to the array size if not given
+-- @return an array
+-- @usage <pre class='example'> 
+-- local t = {1,2,3,4,5,6,7,8,9,10} <br/>
+-- _.removeRange(t,3,5) --> {1,2,6,7,8,9,10}
+-- </pre>
+-- @see _.rmRange
+function _.removeRange(array,start,finish) end
+
+--- Removes values between start and finish indices in a given array. Alias for <tt>_.removeRange</tt>
+-- @param array the array
+-- @param start an index. Defaults to 1 if not given
+-- @param finish an index. Defaults to the array size if not given
+-- @return an array
+-- @usage <pre class='example'> 
+-- local t = {1,2,3,4,5,6,7,8,9,10} <br/>
+-- _.rmRange(t,3,5) --> {1,2,6,7,8,9,10}
+-- </pre>
+-- @see _.removeRange
+function _.rmRange(array,start,finish) end
+
 --- Returns the portion of an array between left and right indexes
 -- @param array the given array
 -- @param left the left bound index. Defaults to 1 if not given.

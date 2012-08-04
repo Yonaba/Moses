@@ -166,22 +166,7 @@ function _.foldr(list,memo,func,...) end
 -- _.include(t, function(value) return value%3==0 end) --> true,3 <br/>
 -- _.include(t, function(value) return value>5 end) --> nil,nil
 -- </pre>
--- @see _.contains
 function _.include(list,criteria) end
-
---- Checks if a list contains a value matching a given pattern.Alias for <tt>_.include</tt>
--- @param list a table of values
--- @param criteria a value or a matching pattern function prototyped as <tt>func(value)</tt>
--- @return a boolean
--- @return the key where value was found
--- @usage <pre class='example'> 
--- local t = {1,2,3,4,5} <br/>
--- _.contains(t, 4) --> true,4 <br/>
--- _.contains(t, function(value) return value%3==0 end) --> true,3 <br/>
--- _.contains(t, function(value) return value>5 end) --> nil,nil
--- </pre>
--- @see _.include
-function _.contains(list,criteria) end
 
 --- Tests if a list contains, seeking from right to left, any value matching a given pattern
 -- @param list a table of values
@@ -433,3 +418,35 @@ function _.groupBy(list,criteria) end
 -- _.size({x = 1,2,3}) --> 3
 -- </pre>
 function _.size(list) end
+
+--- Checks if all the keys of table <tt>other</tt> are inside table <tt>t</tt>
+-- @param t a table
+-- @param other another table
+-- @return a boolean
+-- @usage <pre class='example'> 
+-- local t = {1,2,3} <br/>
+-- local v = {x = 1, y = 2} <br/>
+-- _.contains(t,{1,2,3}) --> true <br/>
+-- _.contains(t,{1,2,4}) --> true <br/>
+-- _.contains(t,{1,2,5,3}) --> false <br/>
+-- _.contains(v,{x = 10}) --> true <br/>
+-- _.contains(v,{x = 1, y = 8}) --> true <br/>
+-- _.contains(v,{x = 1, y = 8, z = 13}) --> false
+-- </pre>
+function _.contains(t,other) end
+
+--- Checks if given tables have the same keys
+-- @param t1 a table
+-- @param t2 another table
+-- @return a boolean
+-- @usage <pre class='example'> 
+-- local t = {1,2,3}
+-- local v = {x = 1, y = 2}
+-- _.contains(t,{1,2,3}) --> true <br/>
+-- _.contains(t,{1,2,4}) --> true <br/>
+-- _.contains(t,{1,2,5,3}) --> false  <br/>
+-- _.contains(v,{x = 10})  --> false  <br/>
+-- _.contains(v,{x = 1, y = 8}) --> true  <br/>
+-- _.contains(v,{x = 1, y = 8, z = 13})  --> false
+-- </pre>
+function _.sameKeys(t1,t2) end

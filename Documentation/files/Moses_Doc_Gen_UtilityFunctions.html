@@ -37,20 +37,21 @@
 
 <h1>Categories</h1>
 <ul>
+<li>
+<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
+</li>
 
-	<li>
-		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-	</li>
+<li>
+<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
+</li>
 
-	<li>
-		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
-	</li>
+<li>
+<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+</li>
 
-	<li>
-		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-	</li>
-
-	<li><strong>Utility Functions</strong></li>
+<li>
+<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
+</li>
 	
 </ul>
 
@@ -62,7 +63,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
 <h1><code>Utility Functions</code></h1>
 
 
@@ -77,6 +78,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.after">_.after</a>&nbsp;(f, count)</td>
 	<td class="summary">Returns a version of function f that will run only after being called <em>count minus 1</em> times.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.bind">_.bind</a>&nbsp;(func, v)</td>
+	<td class="summary">Binds value <tt>v</tt> to the first argument of a given function </td>
 	</tr>
 
 	<tr>
@@ -160,6 +166,42 @@ Returns a version of function f that will run only after being called <em>count 
 
 <h3>Usage:</h3>
 <pre class='example'> local function say(str) return (str) end <br/> say = _.after(say,3) <br/> say('hello!') --> nil <br/> say('hi!')  --> nil <br/> say('howdy!')  --> 'howdy!' <br/> say('heya!')  --> 'heya!' <br/> say('yeah!')  --> 'yeah!' </pre>
+
+
+
+<h3>Return value:</h3>
+a function
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.bind"></a><strong>_.bind</strong>&nbsp;(func, v)</dt>
+<dd>
+Binds value <tt>v</tt> to the first argument of a given function
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  func: a function
+	</li>
+	
+	<li>
+	  v: a value to b the first argument of the given function
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local sqrt2 = _.bind(math.sqrt,2) <br/> sqrt2() --> 1.4142135623731 </pre>
 
 
 
