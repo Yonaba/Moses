@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba
@@ -133,13 +133,24 @@ function _.times(n,iterator) end
 
 --- Binds value <tt>v</tt> to the first argument of a given function
 -- @param func a function
--- @param v a value to b the first argument of the given function
+-- @param v a value to be the first argument of the given function
 -- @return a function
 -- @usage <pre class='example'> 
 -- local sqrt2 = _.bind(math.sqrt,2) <br/>
 -- sqrt2() --> 1.4142135623731
 -- </pre>
 function _.bind(func,v) end
+
+--- Binds a list of values to a function and returns a copy of that function. So that if <tt>a(a1,a2,...,an)</tt> is a function,  and assuming <tt>b = bindn(a, arg1,arg2,...argn)</tt>, calling <tt>b</tt> will result in <tt>b(arg1,arg2,...argn,a1,a2,...an)</tt>
+-- @param func a function
+-- @param ... a list of values to be the first arguments of the given function
+-- @return a function
+-- @usage <pre class='example'> 
+-- function a(...) print(...) end <br/>
+-- a = _.bindn(a,1,2,3) <br/>
+-- a(4,5,6) --> 1, 2, 3, 4, 5, 6 
+-- </pre>
+function _.bindn(func,...) end
 
 --- Links Lua's native table library with Moses functions
 -- @return nothing

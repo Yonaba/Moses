@@ -38,22 +38,20 @@
 <h1>Categories</h1>
 <ul>
 
-<li>
-<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-</li>
+	<li>
+		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
+	</li>
 
-<li>
-<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
-</li>
-
-<li>
-<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-</li>
-
-<li>
-<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
-</li>
+	<li><strong>Collection Functions</strong></li>
 	
+	<li>
+		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+	</li>
+
+	<li>
+		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
+	</li>
+
 </ul>
 
 
@@ -64,7 +62,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$ </small></p>
 <h1><code>Collection Functions</code></h1>
 
 
@@ -177,6 +175,26 @@
 	</tr>
 
 	<tr>
+	<td class="name" nowrap><a href="#_.mapReduce">_.mapReduce</a>&nbsp;(list, memo, func, ...)</td>
+	<td class="summary">Reduces a list of values from left ro right to an array, storing each state of reduction.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.mapReduceRight">_.mapReduceRight</a>&nbsp;(list, memo, func, ...)</td>
+	<td class="summary">Reduces a list of values from right ro left to an array, storing each state of reduction.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.mapr">_.mapr</a>&nbsp;(list, memo, func, ...)</td>
+	<td class="summary">Reduces a list of values from left ro right to an array, storing each state of reduction.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.maprr">_.maprr</a>&nbsp;(list, memo, func, ...)</td>
+	<td class="summary">Reduces a list of values from right ro left to an array, storing each state of reduction.</td>
+	</tr>
+
+	<tr>
 	<td class="name" nowrap><a href="#_.max">_.max</a>&nbsp;(list, extractCriterion)</td>
 	<td class="summary">Returns the maximum value found in an array.</td>
 	</tr>
@@ -219,6 +237,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.select">_.select</a>&nbsp;(list, func, ...)</td>
 	<td class="summary">Extracts values from a list truthfully matching a given criteria </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.selectWhile">_.selectWhile</a>&nbsp;(list, func, ...)</td>
+	<td class="summary">Collect values from a given table, as long as these values satisfies a given criteria.</td>
 	</tr>
 
 	<tr>
@@ -1154,6 +1177,218 @@ a table
 
 
 
+<dt><a name="_.mapReduce"></a><strong>_.mapReduce</strong>&nbsp;(list, memo, func, ...)</dt>
+<dd>
+Reduces a list of values from left ro right to an array, storing each state of reduction. The function used for reduction must return a new state at each step.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: a table of values
+	</li>
+	
+	<li>
+	  memo: a state of reduction
+	</li>
+	
+	<li>
+	  func: a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+	</li>
+	
+	<li>
+	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.mapReduce({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 1, 3, 6, 10, 15} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.mapr">
+		_.mapr
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.mapReduceRight"></a><strong>_.mapReduceRight</strong>&nbsp;(list, memo, func, ...)</dt>
+<dd>
+Reduces a list of values from right ro left to an array, storing each state of reduction. The function used for reduction must return a new state at each step.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: a table of values
+	</li>
+	
+	<li>
+	  memo: a state of reduction
+	</li>
+	
+	<li>
+	  func: a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+	</li>
+	
+	<li>
+	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.mapReduceRight({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 5, 9, 12, 14, 15} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.maprr">
+		_.maprr
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.mapr"></a><strong>_.mapr</strong>&nbsp;(list, memo, func, ...)</dt>
+<dd>
+Reduces a list of values from left ro right to an array, storing each state of reduction. The function used for reduction must return a new state at each step. Alias for <tt>_.mapReduce</tt>
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: a table of values
+	</li>
+	
+	<li>
+	  memo: a state of reduction
+	</li>
+	
+	<li>
+	  func: a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+	</li>
+	
+	<li>
+	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.mapr({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 1, 3, 6, 10, 15} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.mapReduce">
+		_.mapReduce
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.maprr"></a><strong>_.maprr</strong>&nbsp;(list, memo, func, ...)</dt>
+<dd>
+Reduces a list of values from right ro left to an array, storing each state of reduction. The function used for reduction must return a new state at each step. Alias for <tt>_.mapReduceRight</tt>
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: a table of values
+	</li>
+	
+	<li>
+	  memo: a state of reduction
+	</li>
+	
+	<li>
+	  func: a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+	</li>
+	
+	<li>
+	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.maprr({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 5, 9, 12, 14, 15} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.mapReduceRight">
+		_.mapReduceRight
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
 <dt><a name="_.max"></a><strong>_.max</strong>&nbsp;(list, extractCriterion)</dt>
 <dd>
 Returns the maximum value found in an array.
@@ -1562,6 +1797,46 @@ an array of values
 	</a>
 	
 </ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.selectWhile"></a><strong>_.selectWhile</strong>&nbsp;(list, func, ...)</dt>
+<dd>
+Collect values from a given table, as long as these values satisfies a given criteria. It returns on the first false test.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: a table of values
+	</li>
+	
+	<li>
+	  func: a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+	</li>
+	
+	<li>
+	  ...: 
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> local t = {'a','b','c','.','e','f'} <br/> _.selectWhile(t,function(_,v) return v:match('%w') end) --> {'a','b','c'} </pre>
+
+
+
+<h3>Return value:</h3>
+an array of values
+
+
 
 </dd>
 

@@ -37,21 +37,20 @@
 
 <h1>Categories</h1>
 <ul>
-<li>
-<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-</li>
 
-<li>
-<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
-</li>
+	<li>
+		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
+	</li>
 
-<li>
-<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-</li>
+	<li>
+		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
+	</li>
 
-<li>
-<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
-</li>
+	<li>
+		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+	</li>
+
+	<li><strong>Utility Functions</strong></li>
 	
 </ul>
 
@@ -63,7 +62,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$ </small></p>
 <h1><code>Utility Functions</code></h1>
 
 
@@ -83,6 +82,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.bind">_.bind</a>&nbsp;(func, v)</td>
 	<td class="summary">Binds value <tt>v</tt> to the first argument of a given function </td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.bindn">_.bindn</a>&nbsp;(func, ...)</td>
+	<td class="summary">Binds a list of values to a function and returns a copy of that function.</td>
 	</tr>
 
 	<tr>
@@ -192,7 +196,7 @@ Binds value <tt>v</tt> to the first argument of a given function
 	</li>
 	
 	<li>
-	  v: a value to b the first argument of the given function
+	  v: a value to be the first argument of the given function
 	</li>
 	
 </ul>
@@ -202,6 +206,42 @@ Binds value <tt>v</tt> to the first argument of a given function
 
 <h3>Usage:</h3>
 <pre class='example'> local sqrt2 = _.bind(math.sqrt,2) <br/> sqrt2() --> 1.4142135623731 </pre>
+
+
+
+<h3>Return value:</h3>
+a function
+
+
+
+</dd>
+
+
+
+
+<dt><a name="_.bindn"></a><strong>_.bindn</strong>&nbsp;(func, ...)</dt>
+<dd>
+Binds a list of values to a function and returns a copy of that function. So that if <tt>a(a1,a2,...,an)</tt> is a function,  and assuming <tt>b = bindn(a, arg1,arg2,...argn)</tt>, calling <tt>b</tt> will result in <tt>b(arg1,arg2,...argn,a1,a2,...an)</tt>
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  func: a function
+	</li>
+	
+	<li>
+	  ...: a list of values to be the first arguments of the given function
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> function a(...) print(...) end <br/> a = _.bindn(a,1,2,3) <br/> a(4,5,6) --> 1, 2, 3, 4, 5, 6 </pre>
 
 
 

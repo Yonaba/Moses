@@ -38,22 +38,20 @@
 <h1>Categories</h1>
 <ul>
 
-<li>
-<a href="Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-</li>
-
-<li>
-<a href="Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
-</li>
-
-<li>
-<a href="Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
-</li>
-
-<li>
-<a href="Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
-</li>
+	<li><strong>Array Functions</strong></li>
 	
+	<li>
+		<a href="../files/Moses_Doc_Gen_CollectionFunctions.html">Collection Functions</a>
+	</li>
+
+	<li>
+		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
+	</li>
+
+	<li>
+		<a href="../files/Moses_Doc_Gen_UtilityFunctions.html">Utility Functions</a>
+	</li>
+
 </ul>
 
 
@@ -64,7 +62,7 @@
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.1 08/04/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$ </small></p>
 <h1><code>Array Functions</code></h1>
 
 
@@ -79,6 +77,11 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.append">_.append</a>&nbsp;(array, ...)</td>
 	<td class="summary">Pushes values at the end of an array.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#_.appendLists">_.appendLists</a>&nbsp;(list, other)</td>
+	<td class="summary">Appends two lists altogether.</td>
 	</tr>
 
 	<tr>
@@ -117,7 +120,7 @@
 	</tr>
 
 	<tr>
-	<td class="name" nowrap><a href="#_.invert">_.invert</a>&nbsp;(..., array)</td>
+	<td class="name" nowrap><a href="#_.invert">_.invert</a>&nbsp;(array)</td>
 	<td class="summary">Inverts an array, permuting keys with corresponding values.</td>
 	</tr>
 
@@ -248,6 +251,42 @@ the array
 	</a>
 	
 </ul>
+
+</dd>
+
+
+
+
+<dt><a name="_.appendLists"></a><strong>_.appendLists</strong>&nbsp;(list, other)</dt>
+<dd>
+Appends two lists altogether.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  list: an array
+	</li>
+	
+	<li>
+	  other: another array
+	</li>
+	
+</ul>
+
+
+
+
+<h3>Usage:</h3>
+<pre class='example'> _.appendLists({1,2},{3,4}) --> {1,2,3,4} </pre>
+
+
+
+<h3>Return value:</h3>
+an array
+
+
 
 </dd>
 
@@ -520,17 +559,13 @@ an array of values
 
 
 
-<dt><a name="_.invert"></a><strong>_.invert</strong>&nbsp;(..., array)</dt>
+<dt><a name="_.invert"></a><strong>_.invert</strong>&nbsp;(array)</dt>
 <dd>
 Inverts an array, permuting keys with corresponding values.
 
 
 <h3>Parameters</h3>
 <ul>
-	
-	<li>
-	  ...: 
-	</li>
 	
 	<li>
 	  array: an array

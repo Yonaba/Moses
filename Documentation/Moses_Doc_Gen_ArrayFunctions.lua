@@ -1,7 +1,7 @@
 ﻿--------------------------------------------------------------------------
 -- Set of utility functions for arrays
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
  
  --Copyright (c) 2012 Roland Yonaba
@@ -279,4 +279,13 @@ function _.range(...) end
 -- local t = {'a','b','c','d'} <br/>
 -- _.invert(t) --> {a = 1, b = 2, c = 3, d = 4} 
 -- </pre>
-function _.invert(...) end
+function _.invert(array) end
+
+--- Appends two lists altogether.
+-- @param list an array
+-- @param other another array
+-- @return an array 
+-- @usage <pre class='example'>
+-- _.appendLists({1,2},{3,4}) --> {1,2,3,4} 
+-- </pre>
+function _.appendLists(list,other) end

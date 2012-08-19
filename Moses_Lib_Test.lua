@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.1 08/04/2012
+-- Release Id: Moses.lua,v1.2 08/19/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -104,6 +104,26 @@ addSnippet('_.reduceRight(list,memo,func,...)',
 print(_.reduceRight(t, 500, function(state,value) return state/value end))
 ]])
 
+addSnippet('_.mapReduce(list,memo,func,...)',
+[[local t = {1,2,3,4,5}
+_.each(_.mapReduce(t,0,function(memo,value) return memo+value end),print)
+]])
+
+addSnippet('_.mapr(list,memo,func,...)',
+[[local t = {1,2,3,4,5}
+_.each(_.mapr(t,0,function(memo,value) return memo+value end),print)
+]])
+
+addSnippet('_.mapReduceRight(list,memo,func,...)',
+[[local t = {1,2,3,4,5}
+print(_.mapReduceRight(t, 500, function(state,value) return state/value end))
+]])
+
+addSnippet('_.maprr(list,memo,func,...)',
+[[local t = {1,2,3,4,5}
+print(_.maprr(t, 500, function(state,value) return state/value end))
+]])
+
 addSnippet('_.include(list,criteria)',
 [[local t = {1,2,3,4,5}
 print(_.include(t, 4))
@@ -136,6 +156,12 @@ addSnippet('_.select(list,func,...)',
 local s = _.select(t, function(i,v) return v:len() > 3 end)
 _.each(s,print)
 ]])
+
+addSnippet('_.selectWhile(list,func,...)',
+[[local t = {'a','b','c','.','e','f'}
+_.each(_.selectWhile(t,function(_,v) return v:match('%w') end),print)
+]])
+
 
 addSnippet('_.reject(list,func,...)',
 [[local t = {'Hello','Lua','Programming'}
@@ -263,7 +289,6 @@ local v = {x = 1, y = 2}
 print(_.contains(t,{1,2,3}))
 print(_.contains(t,{1,2,4}))
 print(_.contains(t,{1,2,5,3}))
-
 print(_.contains(v,{x = 10}))
 print(_.contains(v,{x = 1, y = 8}))
 print(_.contains(v,{x = 1, y = 8, z = 13}))
@@ -275,7 +300,6 @@ local v = {x = 1, y = 2}
 print(_.contains(t,{1,2,3}))
 print(_.contains(t,{1,2,4}))
 print(_.contains(t,{1,2,5,3}))
-
 print(_.contains(v,{x = 10}))
 print(_.contains(v,{x = 1, y = 8}))
 print(_.contains(v,{x = 1, y = 8, z = 13}))
@@ -425,6 +449,10 @@ _.each(_.zip(names,IDs, ages),function(i,v)
    end)
 ]])
 
+addSnippet('_.appendLists(...)',
+[[_.each(_.appendLists({1,2},{3,4}),print)
+]])
+
 addSnippet('_.range(...)',
 [[
 print('Range from 1 to 10, default step 1')
@@ -457,9 +485,7 @@ addSnippet('_.once(f)',
 [[local function say(str)
    print(str)
 end
-
 say = _.once(say)
-
 say('hello!')
 say('hi!')
 say('howdy!')
@@ -472,13 +498,13 @@ local function cosi(n)
    return math.cos(n) + cosi(n-1)
 end
 local st_time = os.time()
-for i = 1,7500 do cosi(i) end
+for i = 1,1000 do cosi(i) end
 local end_time = os.time()
 print(('original function took %d secs'):format(end_time-st_time))
 
 cosi = _.memoize(cosi)
 local st_time = os.time()
-for i = 1,7500 do cosi(i) end
+for i = 1,1000 do cosi(i) end
 local end_time = os.time()
 print(('Memoized function took %d secs'):format(end_time-st_time))
 ]])
@@ -487,9 +513,7 @@ addSnippet('_.after(f,count)',
 [[local function say(str)
    print(str)
 end
-
 say = _.after(say,3)
-
 say('hello!')
 say('hi!')
 say('howdy!')
@@ -529,6 +553,11 @@ addSnippet('_.bind(func,v)',
 print('Square Root of 2:',sqrt2())
 ]])
 
+addSnippet('_.bind(func,v)',
+[[function a(...) print(...) end
+a = _.bindn(a,1,2,3)
+a(4,5,6)
+]])
 
 addSnippet('_.import()',
 [[_.import()

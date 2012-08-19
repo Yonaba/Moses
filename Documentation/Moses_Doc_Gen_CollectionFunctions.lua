@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions for collections
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v1.0 08/02/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba
@@ -100,6 +100,54 @@ function _.reverse(array_list) end
 -- @see _.inject
 -- @see _.foldl
 function _.reduce(list,memo,func,...) end
+
+--- Reduces a list of values from left ro right to an array, storing each state of reduction. The function used for reduction must return a new state at each step.
+-- @param list a table of values
+-- @param memo a state of reduction
+-- @param func a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array
+-- @usage <pre class='example'> 
+-- _.mapReduce({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 1, 3, 6, 10, 15}
+-- </pre>
+-- @see _.mapr
+function _.mapReduce(list,memo,func,...) end
+
+--- Reduces a list of values from left ro right to an array, storing each state of reduction. The function used for reduction must return a new state at each step. Alias for <tt>_.mapReduce</tt>
+-- @param list a table of values
+-- @param memo a state of reduction
+-- @param func a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array
+-- @usage <pre class='example'> 
+-- _.mapr({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 1, 3, 6, 10, 15}
+-- </pre>
+-- @see _.mapReduce
+function _.mapr(list,memo,func,...) end
+
+--- Reduces a list of values from right ro left to an array, storing each state of reduction. The function used for reduction must return a new state at each step.
+-- @param list a table of values
+-- @param memo a state of reduction
+-- @param func a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array
+-- @usage <pre class='example'> 
+-- _.mapReduceRight({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 5, 9, 12, 14, 15}
+-- </pre>
+-- @see _.maprr
+function _.mapReduceRight(list,memo,func,...) end
+
+--- Reduces a list of values from right ro left to an array, storing each state of reduction. The function used for reduction must return a new state at each step. Alias for <tt>_.mapReduceRight</tt>
+-- @param list a table of values
+-- @param memo a state of reduction
+-- @param func a transformation function used for reduction, should be prototyped as <tt> func(memo,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array
+-- @usage <pre class='example'> 
+-- _.maprr({1,2,3,4,5},0,function(memo,value) return memo+value end) --> { 5, 9, 12, 14, 15}
+-- </pre>
+-- @see _.mapReduceRight
+function _.maprr(list,memo,func,...) end
 
 --- Reduces a list of values to a single value, processing from left to right, given an initial state of reduction. The function used for reduction must return a new state at each step. Alias for <tt>_.reduce</tt>
 -- @param list a table of values
@@ -235,6 +283,16 @@ function _.filter(list,func,...) end
 -- </pre>
 -- @see _.select
 function _.reject(list,func,...) end
+
+--- Collect values from a given table, as long as these values satisfies a given criteria. It returns on the first false test.
+-- @param list a table of values
+-- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @return an array of values
+-- @usage <pre class='example'> 
+-- local t = {'a','b','c','.','e','f'} <br/>
+-- _.selectWhile(t,function(_,v) return v:match('%w') end) --> {'a','b','c'}
+-- </pre>
+function _.selectWhile(list,func,...) end
 
 --- Checks if all values in a list matches a given criteria
 -- @param list a table of values

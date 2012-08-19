@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.1 08/04/2012
+-- Release Id: Moses.lua,v1.2 08/19/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -88,6 +88,25 @@ end
 _.inject = _.reduce
 _.foldl = _.reduce
 
+-- Reduces an entire list from left to right,
+-- storing each intermediate state of reduction along
+function _.mapReduce(list,memo,func,...)
+	local t = {}
+	for i,value in _.iterate(list) do
+		t[i] = func(memo,value,...)
+		memo = t[i]
+	end
+	return t
+end
+_.mapr = _.mapReduce
+
+-- Reduces an entire list from right to left,
+-- storing each intermediate state of reduction along
+function _.mapReduceRight(list,memo,func,...)
+	return _.mapReduce(_.reverse(list),memo,func,...)
+end
+_.maprr = _.mapReduceRight
+
 -- Reduces an entire list from right to left to a single value, given an initial state of reduction.
 -- The given function must return the new state after each step
 function _.reduceRight(list,memo,func,...) return _.reduce(_.reverse(list),memo,func,...) end
@@ -126,6 +145,17 @@ function _.select(list,func,...)
 	return _list
 end
 _.filter = _.select
+
+-- Collects values from a given list as long as they satisfy a given condition
+function _.selectWhile(list,func,...)
+	local t = {}
+	for i,v in _.iterate(list) do
+		if func(i,v,...) then t[i] = v
+		else break
+		end
+	end
+	return (#t < 1 and nil or t)
+end
 
 -- Rejects from a given list values matching a given criteria
 function _.reject(list,func,...)
@@ -311,7 +341,9 @@ end
 _.rmRange = _.removeRange
 
 -- Returns the portion of an array between left and right indexes
-function _.slice(array,left,right) return _.select(array, function(index,_) return (index >= (left or 1) and index <= (right or #array)) end) end
+function _.slice(array,left,right) 
+	return _.select(array, function(index,_) return (index >= (left or 1) and index <= (right or #array)) end) 
+end
 
 -- Returns the n-first elements of an array
 function _.first(array,n)
@@ -396,6 +428,14 @@ function _.zip(...)
 	local _ans = {}
 	for i = 1,_len do _ans[i] = _.pluck(arg,i) end
 	return _ans
+end
+
+-- Appends two lists altogether
+function _.appendLists(list,other)
+	local t = {}
+	for i,v in ipairs(list) do t[i] = v end
+	for i,v in ipairs(other) do t[#t+1] = v end
+	return t
 end
 
 -- Returns an array of integers between start/stop values, regards to a given step
@@ -490,6 +530,14 @@ end
 -- Binds a value to the first argument of a given function
 function _.bind(func,v)
 	return function (...) return func(v,...) end
+end
+
+-- Binds n values to a given given function
+function _.bindn(func,...)
+	local iArg = {...}
+	return function (...)
+		return func(unpack(_.appendLists(iArg,{...})))
+	end
 end
 
 -- Links all functions with Lua's built-in table library
