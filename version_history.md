@@ -1,5 +1,11 @@
 #Version history#
 
+##1.2.1 (08/20/12)
+* Added <tt>_.takeWhile</tt> (as alias to <tt>_.selectWhile</tt>)
+* Added <tt>_.dropWhile</tt> and <tt>_.rejectWhile</tt> (as alias)
+* Updated Moses_Lib_Test.lua
+* Updated documentation
+
 ##1.2 (08/19/12)
 * Added <tt>_.selectWhile</tt>
 * Added <tt>_.mapReduce</tt> and <tt>_.mapr</tt> (as alias)

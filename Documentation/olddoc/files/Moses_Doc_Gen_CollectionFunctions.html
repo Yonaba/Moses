@@ -36,15 +36,14 @@
 <!-- File list -->
 
 <h1>Categories</h1>
-
 <ul>
 
 	<li>
 		<a href="../files/Moses_Doc_Gen_ArrayFunctions.html">Array Functions</a>
-	</li>	
-	
-	<li><strong>Collection Functions</strong></li>	
+	</li>
 
+	<li><strong>Collection Functions</strong></li>
+	
 	<li>
 		<a href="../files/Moses_Doc_Gen_ObjectFunctions.html">Object Functions</a>
 	</li>
@@ -58,10 +57,12 @@
 
 
 
+
+
 </div> <!-- id="navigation" -->
 
 <div id="content">
-<p><small><b>Release:</b> $Id: Moses.lua,v1.2.1 08/20/2012 Roland_Yonaba$ </small></p>
+<p><small><b>Release:</b> $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$ </small></p>
 <h1><code>Collection Functions</code></h1>
 
 
@@ -101,11 +102,6 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.detectLast">_.detectLast</a>&nbsp;(list, criteria)</td>
 	<td class="summary">Returns the key of the last occurrence matching a given pattern in a list.</td>
-	</tr>
-
-	<tr>
-	<td class="name" nowrap><a href="#_.dropWhile">_.dropWhile</a>&nbsp;(list, func, ...)</td>
-	<td class="summary">Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria.</td>
 	</tr>
 
 	<tr>
@@ -229,11 +225,6 @@
 	</tr>
 
 	<tr>
-	<td class="name" nowrap><a href="#_.rejectWhile">_.rejectWhile</a>&nbsp;(list, func, ...)</td>
-	<td class="summary">Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria.</td>
-	</tr>
-
-	<tr>
 	<td class="name" nowrap><a href="#_.reverse">_.reverse</a>&nbsp;(array_list)</td>
 	<td class="summary">Returns an array with values in reversing order </td>
 	</tr>
@@ -250,7 +241,7 @@
 
 	<tr>
 	<td class="name" nowrap><a href="#_.selectWhile">_.selectWhile</a>&nbsp;(list, func, ...)</td>
-	<td class="summary">Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria.</td>
+	<td class="summary">Collect values from a given table, as long as these values satisfies a given criteria.</td>
 	</tr>
 
 	<tr>
@@ -276,11 +267,6 @@
 	<tr>
 	<td class="name" nowrap><a href="#_.sortedIndex">_.sortedIndex</a>&nbsp;(list, item, comp)</td>
 	<td class="summary">Returns the index at which a value should be inserted in a array regards to a given comparision method.</td>
-	</tr>
-
-	<tr>
-	<td class="name" nowrap><a href="#_.takeWhile">_.takeWhile</a>&nbsp;(list, func, ...)</td>
-	<td class="summary">Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria.</td>
 	</tr>
 
 	<tr>
@@ -553,55 +539,6 @@ the key of the matching value found
 
 
 
-<dt><a name="_.dropWhile"></a><strong>_.dropWhile</strong>&nbsp;(list, func, ...)</dt>
-<dd>
-Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test. Alias for <tt>_.rejectWhile</tt>
-
-
-<h3>Parameters</h3>
-<ul>
-	
-	<li>
-	  list: a table of values
-	</li>
-	
-	<li>
-	  func: a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
-	</li>
-	
-	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
-	</li>
-	
-</ul>
-
-
-
-
-<h3>Usage:</h3>
-<pre class='example'> local t = {1,2,3,4,5,6} <br/> _.dropWhile(t,function(_,v) return v < 3 end) --> { 3,4,5,6} </pre>
-
-
-
-<h3>Return value:</h3>
-an array of values
-
-
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.rejectWhile">
-		_.rejectWhile
-	</a>
-	
-</ul>
-
-</dd>
-
-
-
-
 <dt><a name="_.each"></a><strong>_.each</strong>&nbsp;(list, func, ...)</dt>
 <dd>
 Runs func(key,value,...) passing each key-value pairs from the table as arguments.
@@ -713,7 +650,7 @@ Extracts a list of values truthfully matching a given criteria from a given list
 	</li>
 	
 	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	  ...: 
 	</li>
 	
 </ul>
@@ -1717,7 +1654,7 @@ Wipes from a given list values passing thruthfully a given criteria. This functi
 	</li>
 	
 	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	  ...: 
 	</li>
 	
 </ul>
@@ -1740,55 +1677,6 @@ an array of values
 	
 	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.select">
 		_.select
-	</a>
-	
-</ul>
-
-</dd>
-
-
-
-
-<dt><a name="_.rejectWhile"></a><strong>_.rejectWhile</strong>&nbsp;(list, func, ...)</dt>
-<dd>
-Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test.
-
-
-<h3>Parameters</h3>
-<ul>
-	
-	<li>
-	  list: a table of values
-	</li>
-	
-	<li>
-	  func: a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
-	</li>
-	
-	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
-	</li>
-	
-</ul>
-
-
-
-
-<h3>Usage:</h3>
-<pre class='example'> local t = {1,2,3,4,5,6} <br/> _.rejectWhile(t,function(_,v) return v < 3 end) --> { 3,4,5,6} </pre>
-
-
-
-<h3>Return value:</h3>
-an array of values
-
-
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.dropWhile">
-		_.dropWhile
 	</a>
 	
 </ul>
@@ -1883,7 +1771,7 @@ Extracts values from a list truthfully matching a given criteria
 	</li>
 	
 	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	  ...: 
 	</li>
 	
 </ul>
@@ -1917,7 +1805,7 @@ an array of values
 
 <dt><a name="_.selectWhile"></a><strong>_.selectWhile</strong>&nbsp;(list, func, ...)</dt>
 <dd>
-Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test.
+Collect values from a given table, as long as these values satisfies a given criteria. It returns on the first false test.
 
 
 <h3>Parameters</h3>
@@ -1932,7 +1820,7 @@ Collect values from a given table, processing from start to end, as long as thes
 	</li>
 	
 	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
+	  ...: 
 	</li>
 	
 </ul>
@@ -1949,15 +1837,6 @@ Collect values from a given table, processing from start to end, as long as thes
 an array of values
 
 
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.takeWhile">
-		_.takeWhile
-	</a>
-	
-</ul>
 
 </dd>
 
@@ -2147,55 +2026,6 @@ Returns the index at which a value should be inserted in a array regards to a gi
 an index
 
 
-
-</dd>
-
-
-
-
-<dt><a name="_.takeWhile"></a><strong>_.takeWhile</strong>&nbsp;(list, func, ...)</dt>
-<dd>
-Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test. Alias for <tt>_.selectWhile</tt>
-
-
-<h3>Parameters</h3>
-<ul>
-	
-	<li>
-	  list: a table of values
-	</li>
-	
-	<li>
-	  func: a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
-	</li>
-	
-	<li>
-	  ...: a list of extra arguments to be passed to function <tt>func</tt>
-	</li>
-	
-</ul>
-
-
-
-
-<h3>Usage:</h3>
-<pre class='example'> local t = {'a','b','c','.','e','f'} <br/> _.takeWhile(t,function(_,v) return v:match('%w') end) --> {'a','b','c'} </pre>
-
-
-
-<h3>Return value:</h3>
-an array of values
-
-
-
-<h3>See also:</h3>
-<ul>
-	
-	<li><a href="../files/Moses_Doc_Gen_CollectionFunctions.html#_.selectWhile">
-		_.selectWhile
-	</a>
-	
-</ul>
 
 </dd>
 

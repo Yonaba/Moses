@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.2 08/19/2012
+-- Release Id: Moses.lua,v1.2.1 08/20/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -162,11 +162,25 @@ addSnippet('_.selectWhile(list,func,...)',
 _.each(_.selectWhile(t,function(_,v) return v:match('%w') end),print)
 ]])
 
+addSnippet('_.takeWhile(list,func,...)',
+[[local t = {'a','b','c','.','e','f'}
+_.each(_.takeWhile(t,function(_,v) return v:match('%w') end),print)
+]])
 
 addSnippet('_.reject(list,func,...)',
 [[local t = {'Hello','Lua','Programming'}
 local s = _.reject(t, function(i,v) return v:len() <= 3 end)
 _.each(s,print)
+]])
+
+addSnippet('_.rejectWhile(list,func,...)',
+[[local t = {1,2,3,4,5,6}
+_.each(_.rejectWhile(t,function(_,v) return v < 3 end),print)
+]])
+
+addSnippet('_.dropWhile(list,func,...)',
+[[local t = {1,2,3,4,5,6}
+_.each(_.dropWhile(t,function(_,v) return v < 3 end),print)
 ]])
 
 addSnippet('_.all(list,criteria)',

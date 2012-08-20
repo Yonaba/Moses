@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions for collections
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.2.1 08/20/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba
@@ -254,6 +254,7 @@ function _.detectLast(list,criteria) end
 --- Extracts values from a list truthfully matching a given criteria
 -- @param list a table of values
 -- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
 -- @return an array of values
 -- @usage <pre class='example'> 
 -- local t = {'Hello','Lua','Programming'} <br/>
@@ -265,6 +266,7 @@ function _.select(list,func,...) end
 --- Extracts a list of values truthfully matching a given criteria from a given list. Alias for <tt>_.select</tt>
 -- @param list a table of values
 -- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
 -- @return an array of values
 -- @usage <pre class='example'> 
 -- local t = {'Hello','Lua','Programming'} <br/>
@@ -276,6 +278,7 @@ function _.filter(list,func,...) end
 --- Wipes from a given list values passing thruthfully a given criteria. This function is the opposite of <tt>_.select</tt>
 -- @param list a table of values
 -- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
 -- @return an array of values
 -- @usage <pre class='example'> 
 -- local t = {'Hello','Lua','Programming'} <br/>
@@ -284,15 +287,53 @@ function _.filter(list,func,...) end
 -- @see _.select
 function _.reject(list,func,...) end
 
---- Collect values from a given table, as long as these values satisfies a given criteria. It returns on the first false test.
+--- Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test.
 -- @param list a table of values
 -- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
 -- @return an array of values
 -- @usage <pre class='example'> 
 -- local t = {'a','b','c','.','e','f'} <br/>
 -- _.selectWhile(t,function(_,v) return v:match('%w') end) --> {'a','b','c'}
 -- </pre>
+-- @see _.takeWhile
 function _.selectWhile(list,func,...) end
+
+--- Collect values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test. Alias for <tt>_.selectWhile</tt>
+-- @param list a table of values
+-- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array of values
+-- @usage <pre class='example'> 
+-- local t = {'a','b','c','.','e','f'} <br/>
+-- _.takeWhile(t,function(_,v) return v:match('%w') end) --> {'a','b','c'}
+-- </pre>
+-- @see _.selectWhile
+function _.takeWhile(list,func,...) end
+
+--- Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test.
+-- @param list a table of values
+-- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array of values
+-- @usage <pre class='example'> 
+-- local t = {1,2,3,4,5,6} <br/>
+-- _.rejectWhile(t,function(_,v) return v < 3 end) --> { 3,4,5,6}
+-- </pre>
+-- @see _.dropWhile
+function _.rejectWhile(list,func,...) end
+
+--- Rejects values from a given table, processing from start to end, as long as these values satisfies a given criteria. It returns on the first false test. Alias for <tt>_.rejectWhile</tt>
+-- @param list a table of values
+-- @param func a matching pattern function. Should be prototyped as <tt> func(index,value,...) </tt>
+-- @param ... a list of extra arguments to be passed to function <tt>func</tt>
+-- @return an array of values
+-- @usage <pre class='example'> 
+-- local t = {1,2,3,4,5,6} <br/>
+-- _.dropWhile(t,function(_,v) return v < 3 end) --> { 3,4,5,6}
+-- </pre>
+-- @see _.rejectWhile
+function _.dropWhile(list,func,...) end
 
 --- Checks if all values in a list matches a given criteria
 -- @param list a table of values

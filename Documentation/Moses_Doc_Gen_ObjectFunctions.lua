@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- Set of utility functions for objects
 -- @author Roland Yonaba
--- @release $Id: Moses.lua,v1.2 08/19/2012 Roland_Yonaba$
+-- @release $Id: Moses.lua,v1.2.1 08/20/2012 Roland_Yonaba$
 --------------------------------------------------------------------------
 
 --Copyright (c) 2012 Roland Yonaba

@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- Moses Library
--- Release Id: Moses.lua,v1.2 08/19/2012
+-- Release Id: Moses.lua,v1.2.1 08/20/2012
 --------------------------------------------------------------------------
 
 -- Copyright (c) 2012 Roland Yonaba
@@ -156,6 +156,20 @@ function _.selectWhile(list,func,...)
 	end
 	return (#t < 1 and nil or t)
 end
+_.takeWhile = _.selectWhile
+
+-- Rejects values from a given list as long as they satisfy a given condiction
+function _.dropWhile(list, func,...)
+	local _i
+	for i,v in _.iterate(list) do
+		if not func(i,v) then
+			_i = i
+			break
+		end
+	end
+	return _.rest(list,_i)
+end
+_.rejectWhile = _.dropWhile
 
 -- Rejects from a given list values matching a given criteria
 function _.reject(list,func,...)
@@ -341,8 +355,8 @@ end
 _.rmRange = _.removeRange
 
 -- Returns the portion of an array between left and right indexes
-function _.slice(array,left,right) 
-	return _.select(array, function(index,_) return (index >= (left or 1) and index <= (right or #array)) end) 
+function _.slice(array,left,right)
+	return _.select(array, function(index,_) return (index >= (left or 1) and index <= (right or #array)) end)
 end
 
 -- Returns the n-first elements of an array
