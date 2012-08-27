@@ -42,25 +42,25 @@ local topics = {}
 
 -- Adds a new snippet
 local function addSnippet(topic,snippet)
-	t_insert(topics,topic)
-	t_insert(snippets,snippet)
+  t_insert(topics,topic)
+  t_insert(snippets,snippet)
 end
 
 -- Resets snippets list
 local function reset()
-	snippets = {}
-	topics = {}
+  snippets = {}
+  topics = {}
 end
 
 -- Run all tests
 local function run()
-	_.each(snippets, function(i,snippet)
-			print(i..'. Function name : '..topics[i])
-			print('\nExample : \n\n'..snippet)
-			print('\n--- Output : --- \n')
-			loadstring(snippet)()
-			print('\n')
-		end)
+  _.each(snippets, function(i,snippet)
+      print(i..'. Function name : '..topics[i])
+      print('\nExample : \n\n'..snippet)
+      print('\n--- Output : --- \n')
+      loadstring(snippet)()
+      print('\n')
+    end)
 end
 
 
@@ -286,8 +286,8 @@ addSnippet('_.groupBy(list,criteria)',
 [[local dic = {'a','ab','ac','b','ba','bc','c','ca','cb','abc','acb','bac','bca','cab','cba'}
 local new_dic = _.groupBy(dic,function(i,v) return v:sub(1,1) end)
 _.each(new_dic,function(i,v)
-	print('key '..i)
-	_.each(v,print)
+  print('key '..i)
+  _.each(v,print)
 end)]])
 
 addSnippet('_.size(list)',
