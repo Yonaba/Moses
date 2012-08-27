@@ -24,7 +24,7 @@ It will return a table containing a set of functions.
 ##API Overview##
 __Moses__ offers functions, iterators to operate on arrays, collections, lists, nested tables.
 A fully complete documentation, with usage examples can be found here : [Documentation][]<br/>
-A set of tests for all functions provided can be found here : [Moses_Lib_Test.lua][]
+A set of tests for all functions provided can be found here : [Moses_Lib_Snippets.lua][]
 
 ##Moses and the built-in table library##
 __Moses__ provides a very handy function named *_.import*, which links Lua's native table library with __Moses__ functions.
@@ -68,7 +68,7 @@ Copyright (c) 2012 Roland Yonaba
 [Underscore.js]: http://documentcloud.github.com/underscore/
 [Moses.lua]: https://github.com/Yonaba/Moses/blob/master/Lib/Moses.lua
 [Documentation]: https://github.com/Yonaba/Moses/blob/master/Documentation
-[Moses_Lib_Test.lua]: https://github.com/Yonaba/Moses/blob/master/Moses_Lib_Test.lua
+[Moses_Lib_Snippets.lua]: https://github.com/Yonaba/Moses/blob/master/Moses_Lib_Snippets.lua
 [Underscore.lua]: http://mirven.github.com/underscore.lua/
 [Marcus Irven]: http://www.marcusirven.com
 [Jeremy Ashkenas]: https://github.com/jashkenas
