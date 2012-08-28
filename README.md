@@ -7,19 +7,22 @@ Put the file [Moses.lua][] inside your project folder and call it using *require
 It will return a table containing a set of functions.
 
 ##Usage example##
-    local list = _.range(10)
-    => {0,1,2,3,4,5,6,7,8,9,10}
-    list = _.map(list, function(_,value) return value*10+value end)
-	  => {0,11,22,33,44,55,66,77,88,99,110}	
-    list = _.filter(list,function(i,value) return value%2==0 end)
-	  => {0,22,44,66,88,110}	
-    _.each(list,print)
-    =>  1	0
-    =>  2	22
-    =>  3	44
-    =>  4	66
-    =>  5	88
-    =>  6	110
+
+```lua 
+local list = _.range(10)
+-- => {0,1,2,3,4,5,6,7,8,9,10}
+list = _.map(list, function(_,value) return value*10+value end)
+-- => {0,11,22,33,44,55,66,77,88,99,110}	
+list = _.filter(list,function(i,value) return value%2==0 end)
+-- => {0,22,44,66,88,110}	
+_.each(list,print)
+-- =>  1	0
+-- =>  2	22
+-- =>  3	44
+-- =>  4	66
+-- =>  5	88
+-- =>  6	110
+```
 	
 ##API Overview##
 __Moses__ offers functions, iterators to operate on arrays, collections, lists, nested tables.
@@ -29,14 +32,16 @@ A set of tests for all functions provided can be found here : [Moses_Lib_Snippet
 ##Moses and the built-in table library##
 __Moses__ provides a very handy function named *_.import*, which links Lua's native table library with __Moses__ functions.
 
-    _.import()
-    local t = table.shuffle({1,2,3,4,5})
-    _.each(t,print)
-	=> 1	5
-	=> 2	3
-	=> 3	1
-	=> 4	4
-	=> 5	2
+```lua 
+_.import()
+local t = table.shuffle({1,2,3,4,5})
+_.each(t,print)
+-- => 1	5
+-- => 2	3
+-- => 3	1
+-- => 4	4
+-- => 5	2
+```
 
 ##Credits and Thanks##
 * [Jeremy Ashkenas][], for the amazing [Underscore.js][]
