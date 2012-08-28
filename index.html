@@ -49,20 +49,20 @@ It will return a table containing a set of functions.</p>
 
 <h2>Usage example</h2>
 
-<pre><code>local list = _.range(10)
-=&gt; {0,1,2,3,4,5,6,7,8,9,10}
-list = _.map(list, function(_,value) return value*10+value end)
-  =&gt; {0,11,22,33,44,55,66,77,88,99,110} 
-list = _.filter(list,function(i,value) return value%2==0 end)
-  =&gt; {0,22,44,66,88,110}    
-_.each(list,print)
-=&gt;  1   0
-=&gt;  2   22
-=&gt;  3   44
-=&gt;  4   66
-=&gt;  5   88
-=&gt;  6   110
-</code></pre>
+<div class="highlight"><pre><span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1">-- =&gt; {0,1,2,3,4,5,6,7,8,9,10}</span>
+<span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">return</span> <span class="n">value</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">value</span> <span class="k">end</span><span class="p">)</span>
+<span class="c1">-- =&gt; {0,11,22,33,44,55,66,77,88,99,110}    </span>
+<span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">return</span> <span class="n">value</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span> <span class="k">end</span><span class="p">)</span>
+<span class="c1">-- =&gt; {0,22,44,66,88,110}   </span>
+<span class="n">_</span><span class="p">.</span><span class="n">each</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="nb">print</span><span class="p">)</span>
+<span class="c1">-- =&gt;  1    0</span>
+<span class="c1">-- =&gt;  2    22</span>
+<span class="c1">-- =&gt;  3    44</span>
+<span class="c1">-- =&gt;  4    66</span>
+<span class="c1">-- =&gt;  5    88</span>
+<span class="c1">-- =&gt;  6    110</span>
+</pre></div>
 
 <h2>API Overview</h2>
 
@@ -74,15 +74,15 @@ A set of tests for all functions provided can be found here : <a href="https://g
 
 <p><strong>Moses</strong> provides a very handy function named <em>_.import</em>, which links Lua's native table library with <strong>Moses</strong> functions.</p>
 
-<pre><code>_.import()
-local t = table.shuffle({1,2,3,4,5})
-_.each(t,print)
-=&gt; 1    5
-=&gt; 2    3
-=&gt; 3    1
-=&gt; 4    4
-=&gt; 5    2
-</code></pre>
+<div class="highlight"><pre><span class="n">_</span><span class="p">.</span><span class="n">import</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="n">table</span><span class="p">.</span><span class="n">shuffle</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">})</span>
+<span class="n">_</span><span class="p">.</span><span class="n">each</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">print</span><span class="p">)</span>
+<span class="c1">-- =&gt; 1 5</span>
+<span class="c1">-- =&gt; 2 3</span>
+<span class="c1">-- =&gt; 3 1</span>
+<span class="c1">-- =&gt; 4 4</span>
+<span class="c1">-- =&gt; 5 2</span>
+</pre></div>
 
 <h2>Credits and Thanks</h2>
 
