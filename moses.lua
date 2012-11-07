@@ -321,11 +321,12 @@ _.takeWhile = _.selectWhile
 function _.dropWhile(array, func,...)
   local _i
   for i,v in ipairs(array) do
-    if not func(i,v) then
+    if not func(i,v,...) then
       _i = i
       break
     end
   end
+  if _.isNil(_i) then return {} end
   return _.rest(array,_i)
 end
 _.rejectWhile = _.dropWhile
