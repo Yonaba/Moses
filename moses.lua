@@ -420,11 +420,13 @@ _.take = _.first
 
 -- Returns an array excluding the last n elements
 function _.initial(array,n)
+  if n and n < 0 then return end
   return _.slice(array,1, n and #array-(min(n,#array)) or #array-1)
 end
 
 -- Returns the last n elements of an array
 function _.last(array,n)
+  if n and n <= 0 then return end
   return _.slice(array,n and #array-min(n-1,#array-1) or 2,#array)
 end
 
