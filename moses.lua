@@ -828,7 +828,10 @@ end
 
 -- Is array an array ?
 function _.isArray(obj)
-	return _.isObject(obj) and (next(obj))==1
+	if not _.isObject(obj) then return false end
+	return _.all(_.keys(obj),function(i,v)
+			return _.isNumber(v)
+		end)
 end
 
 -- Is Obj empty ?
@@ -860,7 +863,7 @@ end
 
 -- Is value a number
 function _.isNumber(value)
-	return tonumber(value)~="number"
+	return type(value) == 'number'
 end
 
 -- Tests is value is NaN
