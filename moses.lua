@@ -373,6 +373,7 @@ function _.pop(array)
   t_remove(array,1)
   return retValue
 end
+_.shift = _.pop
 
 -- Pops the value at the end of an array
 function _.unshift(array)
@@ -384,13 +385,13 @@ end
 -- Remove values mapped at all keys within a given range
 function _.removeRange(array,start,finish)
   local array = _.clone(array)
-  local n = #array
+  local i,n = (next(array)),#array
   if n < 1 then return array end
 
-  local start = start and clamp(start or 1,1,n)
-  local finish = finish or clamp(finish or n,1,n)
+  start = clamp(start or i,i,n)
+  finish = clamp(finish or n,i,n)
 
-  if finish < start then return end
+  if finish < start then return array end
 
   local count = finish - start + 1
   local i = start
