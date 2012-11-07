@@ -461,9 +461,9 @@ end
 
 -- Returns an array made of values not present in others arrays
 function _.difference(array,...)
-  local flattened = _.flatten {...}
+  local values = _.toArray(...)
   return _.select(array,function(i,value)
-      return not _.include(flattened,value)
+      return not _.include(values,value)
     end)
 end
 _.without = _.difference
