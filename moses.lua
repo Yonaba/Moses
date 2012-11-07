@@ -474,14 +474,18 @@ function _.uniq(array,isSorted,iter,...)
   local result = {}
   if not isSorted then
     for __,v in ipairs(init) do
-      if not _.include(result,v) then result[#result+1] = v end
+      if not _.include(result,v) then
+		result[#result+1] = v
+		end
     end
   return result
   end
 
   result[#result+1] = init[1]
   for i = 2,#init do
-    if init[i] ~= result[#result] then result[#result+1] = init[i] end
+    if init[i] ~= result[#result] then
+		result[#result+1] = init[i]
+	end
   end
   return result
 end
