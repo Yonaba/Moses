@@ -405,7 +405,7 @@ _.rmRange = _.removeRange
 
 -- Returns the portion of an array between left and right indexes
 function _.slice(array,left,right)
-  return _.select(array, function(index,_)
+  return _.select(array, function(index)
       return (index >= (left or 1) and index <= (right or #array))
     end)
 end
