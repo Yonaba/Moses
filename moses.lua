@@ -358,6 +358,7 @@ end
 -- Add values at the top of an array
 function _.add(array,...)
   _.each({...},function(i,v) t_insert(array,1,v) end)
+  return array
 end
 
 -- Pushes values at the end of an array
