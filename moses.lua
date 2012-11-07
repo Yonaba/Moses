@@ -547,6 +547,7 @@ function _.range(...)
   if #_ranged>0 then t_insert(_ranged,1,_start) end
   return _ranged
 end
+_.count = _.range
 
 -- Returns a table where keys and values were inverted
 function _.invert(array)
@@ -557,12 +558,12 @@ end
 _.mirror = _.invert
 
 -- Concats values inside an array
-function _.concat(array,sep)
-  local buf = ''
-  _.each(array,function(i,v)
-    buf = buf .. tostring(v) .. (sep or '')
-  end)
-  return buf
+function _.concat(array,sep,i,j)
+  local _array = _.map(array,function(i,v)
+		return tostring(v)
+	end)
+	return t_concat(_array,sep,i,j)
+
 end
 _.join = _.concat
 _.attach = _.concat
