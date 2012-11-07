@@ -333,10 +333,9 @@ _.rejectWhile = _.dropWhile
 
 -- Returns the index at which a value should be inserted in a array
 -- with respect to a given comparison function
-function _.sortedIndex(array,value,comp,isSorted)
+function _.sortedIndex(array,value,comp,sort)
   local _comp = comp or f_min
-  if not isSorted then array = _.sort(array,_comp) end
-  local low, high = 1,#t
+  if sort then array = _.sort(array,_comp) end
   for i = 1,#array do
     if not _comp(array[i],value) then return i end
   end
