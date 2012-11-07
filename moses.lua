@@ -432,6 +432,7 @@ end
 
 -- Returns an array excluding elements before index position
 function _.rest(array,index)
+  if index and index > #array then return {} end
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
 _.tail = _.rest
