@@ -708,20 +708,6 @@ function _.extend(destObj,...)
 	return destObj
 end
 
--- Returns an object which inherits from  a given object
-function _.implements(obj)
-	if _.isObject(obj) then
-		obj.__index = obj
-		return setmetatable({},obj)
-	end
-end
-_.extends = _.implements
-
--- Checks if an object inherits from a superObj
-function _.inherit(obj,superObj)
-	return getmetatable(obj) == superObj
-end
-
 -- Returns an array-list of method names in an object
 function _.functions(obj)
   if not obj then return _.sort(_.keys(_)) end
