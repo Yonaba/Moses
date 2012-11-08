@@ -488,7 +488,11 @@ context('Array function specs', function()
       assert_equal(_.concat({1,3,false,'A'},' ',2,3),'3 false')
       assert_equal(_.concat({1,3,false,'A'},', ',2,3),'3, false')
       assert_equal(_.concat({1,3,false,'A','K'},' ',2),'3 false A K')
-    end)     
+    end)
+
+    test('is aliased as "join"', function()
+      assert_equal(_.concat,_.join)
+    end)      
   
   end)  
   

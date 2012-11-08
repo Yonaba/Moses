@@ -566,8 +566,6 @@ function _.concat(array,sep,i,j)
 
 end
 _.join = _.concat
-_.attach = _.concat
-_.tie = _.concat
 
 --------------------------------------------------------------------------
 -- Functions
