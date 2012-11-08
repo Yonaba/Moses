@@ -1,6 +1,6 @@
 _G._ = require 'moses'
 
-context('Utility functions specs', function()
+context('Object functions specs', function()
 
   context('identity', function()
   

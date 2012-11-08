@@ -1,6 +1,6 @@
 _G._ = require 'moses'
 
-context('Array function specs', function()
+context('Array functions specs', function()
 
   context('reverse', function()
   

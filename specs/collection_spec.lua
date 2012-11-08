@@ -1,6 +1,6 @@
 _G._ = require 'moses'
 
-context('collection function specs', function()
+context('Collection functions specs', function()
 
   context('each', function()
   
