@@ -55,6 +55,7 @@ local unique_id_counter = -1
 
 -- Calls func(key,value,...) on each key-value pair in a table
 function _.each(list,func,...)
+  if not _.isObject(list) then return end
   for index,value in pairs(list) do
     func(index,value,...)
   end
@@ -709,13 +710,19 @@ function _.extend(destObj,...)
 end
 
 -- Returns an array-list of method names in an object
-function _.functions(obj)
+function _.functions(obj,output)
   if not obj then return _.sort(_.keys(_)) end
-  local _methods = {}
+  local _methods = output or {}
   _.each(obj,function(key,value)
-      if _.isFunction(value) then _methods[#_methods+1]=key end
+      if _.isFunction(value) then
+		_methods[#_methods+1]=key
+	  end
     end)
-  return _.sort(_methods)
+	local mt = getmetatable(obj)
+	if mt and mt.__index then
+		_.functions(mt.__index,_methods)
+	end
+   return _.sort(_methods)
 end
 _.methods = _.functions
 
