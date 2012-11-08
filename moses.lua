@@ -590,7 +590,7 @@ end
 -- Returns a memoized version of function f
 function _.memoize(f,hash)
   local _cache = setmetatable({},{__mode = 'kv'})
-  local _hasher = hash or function(v) return v end
+  local _hasher = hash or _.identity
   return function (...)
       local _hashKey = _hasher(...)
       local _result = _cache[_hashKey]
