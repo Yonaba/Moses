@@ -601,7 +601,7 @@ end
 _.cache = _.memoize
 
 -- Returns a version of function f that will be run
--- only after being called count minus 1 times
+-- only after being called count times
 function _.after(f,count)
   local _limit,_internal = count, 0
   return function(...)
@@ -628,11 +628,6 @@ function _.wrap(func,wrapper)
 	return function (...)
       return  wrapper(func,...)
     end
-end
-
--- Curryies functions
-function _.curry(f,args)
-  return function(...) f(args,...) end
 end
 
 -- Calls an iterator n times
