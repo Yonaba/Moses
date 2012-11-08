@@ -729,7 +729,6 @@ _.methods = _.functions
 -- Clones an object (recursively)
 function _.clone(obj,shallow)
   local _obj = {}
---  if not _.isObject(obj) then return obj end
   _.each(obj,function(i,v)
     if _.isObject(v) then
       if not shallow then
@@ -739,9 +738,7 @@ function _.clone(obj,shallow)
 	else
 		_obj[i] = v
 	end
-
   end)
-
   return _obj
 end
 
