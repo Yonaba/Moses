@@ -598,6 +598,7 @@ function _.memoize(f,hash)
       return _cache[_hashKey]
     end
 end
+_.cache = _.memoize
 
 -- Returns a version of function f that will be run
 -- only after being called count minus 1 times
