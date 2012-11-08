@@ -183,7 +183,7 @@ context('Utility functions specs', function()
       end     
     end)
     
-    test('accept a string template to format the returned id',function()
+    test('accepts a string template to format the returned id',function()
       local ids = {}
       for i = 1,100 do
         local newId = _.uniqueId('ID:%s')
@@ -191,7 +191,18 @@ context('Utility functions specs', function()
         assert_false(_.include(ids,newId))
         _.push(ids,newId)
       end        
-    end) 
+    end)
+    
+    test('accepts a function as a template to edit the returned id',function()
+      local ids = {}
+      local formatter = function(ID) return '$'..ID..'$' end
+      for i = 1,100 do
+        local newId = _.uniqueId(formatter)
+        assert_not_nil(newId:match('^%$%d+%$$'))
+        assert_false(_.include(ids,newId))
+        _.push(ids,newId)
+      end        
+    end)     
     
     test('is aliased as "uId"',function()
       assert_equal(_.uniqueId,_.uId)

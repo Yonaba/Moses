@@ -655,13 +655,16 @@ function _.bindn(func,...)
 end
 
 -- Generates (incrementally) and unique ID
-function _.uniqueId(template)
+function _.uniqueId(template,...)
 	unique_id_counter = unique_id_counter + 1
-	if template and type(template) == 'string' then
-		return template:format(unique_id_counter)
-	else
-    return unique_id_counter
+	if template then
+		if _.isString(template) then
+			return template:format(unique_id_counter)
+		elseif _.isFunction(template) then
+			return template(unique_id_counter,...)
+		end
 	end
+	return unique_id_counter
 end
 _.uId = _.uniqueId
 
