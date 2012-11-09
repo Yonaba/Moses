@@ -792,8 +792,14 @@ function _.isEqual(objA,objB,useMt)
   if typeObjA~=typeObjB then return false end
   if typeObjA~='table' then return (objA==objB) end
 
-  local mt = getmetatable(objA)
-  if useMt and mt and mt.__eq then return objA==objB end
+  local mtA = getmetatable(objA)
+  local mtB = getmetatable(objB)
+
+  if useMt then
+	if mtA or mtB and mtA.__eq or mtB.__eq then
+		return (objA==objB)
+	end
+  end
 
   if _.size(objA)~=_.size(objB) then return false end
 
@@ -811,13 +817,14 @@ function _.isEqual(objA,objB,useMt)
 end
 
 -- Invokes an object's method with custom arguments
-function _.result(obj,property,...)
-  if obj[property] then
-    if _.isCallable(object[property]) then
-      return obj[property](obj,...)
-    else return obj[property]
+function _.result(obj,method,...)
+  if obj[method] then
+    if _.isCallable(obj[method]) then
+      return obj[method](obj,...)
+    else return obj[method]
     end
   end
+  if _.isCallable(method) then return method(obj,...) end
 end
 
 -- Tests if arg is an object
