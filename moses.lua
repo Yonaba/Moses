@@ -894,11 +894,12 @@ end
 -- Exporting public interface
 --------------------------------------------------------------------------
 
--- Links all functions with Lua's built-in table library
+-- Import all functions in the current env
 local function import()
   local fn = _.functions()
+  local env = getfenv()
   _.each(fn,function(i,fName)
-    (getfenv()).table[fName] = _[fName]
+    env[fName] = _[fName]
   end)
 end
 
