@@ -871,7 +871,8 @@ end
 
 -- Is value a finite number ?
 function _.isFinite(value)
-	return _.isNumber(value) and value > -huge and value < huge
+	if not _.isNumber(value) then return false end
+	return value > -huge and value < huge
 end
 
 -- Is value a number
