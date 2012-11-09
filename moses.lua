@@ -750,11 +750,11 @@ end
 
 -- Picks specified properties and their matching values in a object
 function _.pick(obj, ...)
-	local prop = {...}
+	local whitelist = _.flatten {...}
 	local _picked = {}
-	_.each(prop,function(_,v)
-			if obj[v] then
-				_picked[v] = obj[v]
+	_.each(whitelist,function(key,property)
+			if obj[property] then
+				_picked[property] = obj[property]
 			end
 		end)
 	return _picked
@@ -763,11 +763,11 @@ _.choose = _.pick
 
 -- Clones an object while denying specified properties and their matching values
 function _.omit(obj,...)
-	local prop = {...}
-	local _picked = {...}
-	_.each(obj,function(k,v)
-			if not _.include(prop,k) then
-				_picked[k] = v
+	local blacklist = _.flatten {...}
+	local _picked = {}
+	_.each(obj,function(key,value)
+			if not _.include(blacklist,key) then
+				_picked[key] = value
 			end
 		end)
 	return _picked
@@ -776,9 +776,12 @@ _.drop = _.omit
 
 -- Applies a template over an object
 function _.template(obj,template)
-  local _obj = _.clone(obj)
-  _.each(template,function(i,v) _obj[i] = v end)
-  return _obj
+  _.each(template,function(i,v)
+	if not obj[i] then
+		obj[i] = v
+	end
+  end)
+  return obj
 end
 _.defaults = _.template
 
