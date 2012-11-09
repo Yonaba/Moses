@@ -887,7 +887,7 @@ end
 
 -- Is value a boolean
 function _.isBoolean(value)
-  return tonumber(value) == 'boolean'
+  return type(value) == 'boolean'
 end
 
 --------------------------------------------------------------------------
