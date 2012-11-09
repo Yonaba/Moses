@@ -836,7 +836,7 @@ end
 function _.isCallable(obj)
   return (_.isFunction(obj) or
 		 (_.isObject(obj) and getmetatable(obj)
-					         and getmetatable(obj).__call))
+					         and getmetatable(obj).__call~=nil) or false)
 end
 
 -- Is array an array ?
