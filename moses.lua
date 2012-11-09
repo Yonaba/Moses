@@ -849,9 +849,9 @@ end
 
 -- Is Obj empty ?
 function _.isEmpty(obj)
-	return not obj and true
-			or (not _.isObject(obj) and true
-				or ((next(obj))==nil))
+	if _.isString(obj) then return #obj==0 end
+	if _.isObject(obj) then return next(obj)==nil end
+	return true
 end
 
 -- Is obj a string
