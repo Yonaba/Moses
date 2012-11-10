@@ -369,6 +369,54 @@
 	<td class="name" nowrap><a href="#join">join&nbsp;(array, sep, i, j)</a></td>
 	<td class="summary">Alias for <a href="index.html#concat">concat</a>.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#identity">identity&nbsp;(value)</a></td>
+	<td class="summary">Returns the passed-in value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#once">once&nbsp;(f)</a></td>
+	<td class="summary">Returns a version of <code>f</code> that runs only once.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#memoize">memoize&nbsp;(f, hash)</a></td>
+	<td class="summary">Memoizes a given function by caching the computed result.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cache">cache&nbsp;(f, hash)</a></td>
+	<td class="summary">Alias for <a href="index.html#memoize">memoize</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#after">after&nbsp;(f, count)</a></td>
+	<td class="summary">Returns a version of <code>f</code> that runs on the <code>count-th</code> call.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compose">compose&nbsp;(...)</a></td>
+	<td class="summary">Composes functions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#wrap">wrap&nbsp;(f, wrapper)</a></td>
+	<td class="summary">Wraps <code>f</code> inside of the <code>wrapper</code> function, passing it as the first argument.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#times">times&nbsp;(n, iter, ...)</a></td>
+	<td class="summary">Runs <code>iter</code> function <code>n</code> times.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bind">bind&nbsp;(f, v)</a></td>
+	<td class="summary">Binds <code>v</code> to be the first argument to function <code>f</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bindn">bindn&nbsp;(f, ...)</a></td>
+	<td class="summary">Binds <code>...</code> to be the N-first arguments to function <code>f</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uniqueId">uniqueId&nbsp;(template, ...)</a></td>
+	<td class="summary">Generates a unique Id (unique for the current session).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uId">uId&nbsp;(template, ...)</a></td>
+	<td class="summary">Alias for <a href="index.html#uniqueId">uniqueId</a>.</td>
+	</tr>
 </table>
 
 <br/>
@@ -2604,6 +2652,339 @@
 
 </li>
       <li><span class="parameter">j</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "identity"></a>
+    <strong>identity&nbsp;(value)</strong>
+    </dt>
+    <dd>
+    Returns the passed-in value.  Used internally as a default iterator.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">value</span>
+        <span class="types"><span class="type">arg</span></span>
+       a value</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">arg</span></span>
+        the passed-in value
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "once"></a>
+    <strong>once&nbsp;(f)</strong>
+    </dt>
+    <dd>
+    Returns a version of <code>f</code> that runs only once.  Successive calls will make <code>f</code>
+ keep yielding the same answer, no matter what the passed-in arguments are. Can be used to
+ init variables as well.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a new function
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "memoize"></a>
+    <strong>memoize&nbsp;(f, hash)</strong>
+    </dt>
+    <dd>
+    Memoizes a given function by caching the computed result. <br/>
+ Useful for speeding up slow-running functions. If function <code>hash</code> is passed,
+ it will be used to compute unique keys from args passed to <code>hash</code> for results caching.
+ <br/><em>Aliased as <a href="index.html#cache">cache</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function</li>
+      <li><span class="parameter">hash</span>
+        <span class="types"><span class="type">function</span></span>
+       a hash function</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a new function
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#cache">cache</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "cache"></a>
+    <strong>cache&nbsp;(f, hash)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#memoize">memoize</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">hash</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "after"></a>
+    <strong>after&nbsp;(f, count)</strong>
+    </dt>
+    <dd>
+    Returns a version of <code>f</code> that runs on the <code>count-th</code> call. <br/>
+ Useful when dealing with asynchronous tasks.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function</li>
+      <li><span class="parameter">count</span>
+        <span class="types"><span class="type">number</span></span>
+       the number of calls before <code>f</code> answers</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a new function
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "compose"></a>
+    <strong>compose&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Composes functions.  Each passed-in function consumes the return value of the function that follows.
+ In math terms, composing the functions <code>f</code>, <code>g</code>, and <code>h</code> produces <code>f(g(h(...)))</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of functions</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a new function
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "wrap"></a>
+    <strong>wrap&nbsp;(f, wrapper)</strong>
+    </dt>
+    <dd>
+    Wraps <code>f</code> inside of the <code>wrapper</code> function, passing it as the first argument. <br/>
+ This allows the wrapper to execute code before and after <code>f</code> runs,
+ adjust the arguments, and execute it conditionally.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function to be wrapped, prototyped as <code>f(...)</code></li>
+      <li><span class="parameter">wrapper</span>
+        <span class="types"><span class="type">function</span></span>
+       a wrapper function, prototyped as <code>wrapper(f,...)</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a new function
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "times"></a>
+    <strong>times&nbsp;(n, iter, ...)</strong>
+    </dt>
+    <dd>
+    Runs <code>iter</code> function <code>n</code> times. <br/>
+ Collects the results of each run and returns them in an array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">n</span>
+        <span class="types"><span class="type">number</span></span>
+       the number of times <code>iter</code> should be called</li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>iter(i,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to <code>iter</code> function</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of results
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "bind"></a>
+    <strong>bind&nbsp;(f, v)</strong>
+    </dt>
+    <dd>
+    Binds <code>v</code> to be the first argument to function <code>f</code>.  As a result,
+ calling <code>f(...)</code> will result to <code>f(v,...)</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function</li>
+      <li><span class="parameter">v</span>
+        <span class="types"><span class="type">arg</span></span>
+       an argument</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a function, prototyped as <code>f(v,...)</code>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "bindn"></a>
+    <strong>bindn&nbsp;(f, ...)</strong>
+    </dt>
+    <dd>
+    Binds <code>...</code> to be the N-first arguments to function <code>f</code>.  As a result,
+ calling <code>f(a1,a2,...,aN)</code> will result to <code>f(...,a1,a2,...,aN)</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       a function</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable numer of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        a function, prototyped as <code>f(v,...)</code>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "uniqueId"></a>
+    <strong>uniqueId&nbsp;(template, ...)</strong>
+    </dt>
+    <dd>
+    Generates a unique Id (unique for the current session).  If given a sring <code>template</code>
+ will use this template for output formatting. Otherwise, if <code>template</code> is a function,
+ will compute an output running <code>template(id,...)</code>.
+ <br/><em>Aliased as <a href="index.html#uId">uId</a></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">template</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">function</span></span>
+       either a string or a function</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable numer of arguments to be passed to <code>template</code>, in case it is a function.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">id</span></span>
+        a formatted Id
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#uId">uId</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "uId"></a>
+    <strong>uId&nbsp;(template, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#uniqueId">uniqueId</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">template</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
 
 
 </li>

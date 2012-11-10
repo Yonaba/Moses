@@ -999,10 +999,20 @@ _.join = _.concat
 
 -- ========= Utility functions
  
+--- Returns the passed-in value. Used internally as a default iterator.
+-- @name identity
+-- @tparam arg value a value
+-- @treturn arg the passed-in value
 function _.identity(value)
   return value
 end
 
+--- Returns a version of `f` that runs only once. Successive calls will make `f`
+-- keep yielding the same answer, no matter what the passed-in arguments are. Can be used to 
+-- init variables as well.
+-- @name once
+-- @tparam function f a function
+-- @treturn function a new function
 function _.once(f)
   local _internal = 0
   local _args = {}
@@ -1013,6 +1023,15 @@ function _.once(f)
     end
 end
 
+--- Memoizes a given function by caching the computed result. 
+-- Useful for speeding up slow-running functions. If function `hash` is passed,
+-- it will be used to compute unique keys from args passed to `hash` for results caching.
+-- <br/><em>Aliased as @{cache}</em> 
+-- @name memoize
+-- @tparam function f a function
+-- @tparam function hash a hash function
+-- @treturn function a new function
+-- @see cache
 function _.memoize(f,hash)
   local _cache = setmetatable({},{__mode = 'kv'})
   local _hasher = hash or _.identity
@@ -1023,8 +1042,19 @@ function _.memoize(f,hash)
       return _cache[_hashKey]
     end
 end
+
+--- Alias for @{memoize}.
+-- @function cache
+-- @param f
+-- @param hash
 _.cache = _.memoize
 
+--- Returns a version of `f` that runs on the `count-th` call. 
+-- Useful when dealing with asynchronous tasks.
+-- @name after
+-- @tparam function f a function
+-- @tparam number count the number of calls before `f` answers
+-- @treturn function a new function
 function _.after(f,count)
   local _limit,_internal = count, 0
   return function(...)
@@ -1033,6 +1063,11 @@ function _.after(f,count)
     end
 end
 
+--- Composes functions. Each passed-in function consumes the return value of the function that follows.
+-- In math terms, composing the functions `f`, `g`, and `h` produces `f(g(h(...)))`.
+-- @name compose
+-- @tparam var_arg ... a variable number of functions
+-- @treturn function a new function
 function _.compose(...)
   local f = _.reverse {...}
   return function (...)
@@ -1044,12 +1079,26 @@ function _.compose(...)
     end
 end
 
-function _.wrap(func,wrapper)
+--- Wraps `f` inside of the `wrapper` function, passing it as the first argument. 
+-- This allows the wrapper to execute code before and after `f` runs,
+-- adjust the arguments, and execute it conditionally.
+-- @name wrap
+-- @tparam function f a function to be wrapped, prototyped as `f(...)`
+-- @tparam function wrapper a wrapper function, prototyped as `wrapper(f,...)`
+-- @treturn function a new function
+function _.wrap(f,wrapper)
 	return function (...)
-      return  wrapper(func,...)
+      return  wrapper(f,...)
     end
 end
 
+--- Runs `iter` function `n` times. 
+-- Collects the results of each run and returns them in an array.
+-- @name times
+-- @tparam number n the number of times `iter` should be called
+-- @tparam function iter an iterator function, prototyped as `iter(i,...)`
+-- @tparam var_arg ... extra-args to be passed to `iter` function
+-- @treturn table an array of results
 function _.times(n,iter,...)
   local results = {}
   for i = 1,n do
@@ -1058,19 +1107,40 @@ function _.times(n,iter,...)
   return results
 end
 
-function _.bind(func,v)
+--- Binds `v` to be the first argument to function `f`. As a result,
+-- calling `f(...)` will result to `f(v,...)`.
+-- @name bind
+-- @tparam function f a function
+-- @tparam arg v an argument
+-- @treturn function a function, prototyped as `f(v,...)`
+function _.bind(f,v)
   return function (...)
-      return func(v,...)
+      return f(v,...)
     end
 end
 
-function _.bindn(func,...)
+--- Binds `...` to be the N-first arguments to function `f`. As a result,
+-- calling `f(a1,a2,...,aN)` will result to `f(...,a1,a2,...,aN)`.
+-- @name bindn
+-- @tparam function f a function
+-- @tparam var_arg ... a variable numer of arguments
+-- @treturn function a function, prototyped as `f(v,...)`
+function _.bindn(f,...)
   local iArg = {...}
   return function (...)
-      return func(unpack(_.append(iArg,{...})))
+      return f(unpack(_.append(iArg,{...})))
     end
 end
 
+--- Generates a unique Id (unique for the current session). If given a sring `template`
+-- will use this template for output formatting. Otherwise, if `template` is a function,
+-- will compute an output running `template(id,...)`.
+-- <br/><em>Aliased as @{uId}</em>.
+-- @name uniqueId
+-- @tparam string|function template either a string or a function
+-- @tparam var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
+-- @treturn id a formatted Id
+-- @see uId
 function _.uniqueId(template,...)
 	unique_id_counter = unique_id_counter + 1
 	if template then
@@ -1082,8 +1152,14 @@ function _.uniqueId(template,...)
 	end
 	return unique_id_counter
 end
+
+--- Alias for @{uniqueId}.
+-- @function uId
+-- @param template
+-- @param ...
 _.uId = _.uniqueId
 
+-- ========= Object functions
 
 function _.keys(obj)
   local _oKeys = {}
