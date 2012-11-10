@@ -1161,18 +1161,30 @@ _.uId = _.uniqueId
 
 -- ========= Object functions
 
+--- Returns the names of the object properties.
+-- @name keys
+-- @tparam table obj an object
+-- @treturn table an array 
 function _.keys(obj)
   local _oKeys = {}
   _.each(obj,function(key,_) _oKeys[#_oKeys+1]=key end)
   return _oKeys
 end
 
+--- Returns the values of the object properties.
+-- @name values
+-- @tparam table obj an object
+-- @treturn table an array 
 function _.values(obj)
   local _oValues = {}
   _.each(obj,function(_,value) _oValues[#_oValues+1]=value end)
   return _oValues
 end
 
+--- Returns an array of `obj` key-values pairs
+-- @name pairs
+-- @tparam table obj an object
+-- @treturn table an array 
 function _.pairs(obj)
   local paired= {}
   _.each(obj,function(k,v)
@@ -1181,6 +1193,13 @@ function _.pairs(obj)
 	return paired
 end
 
+--- Extends an object properties. It copies all of the properties of extra passed-in objects 
+-- over to the destination object, and returns the destination object.
+-- The last object in `...` will override properties of the same name in the previous one
+-- @name extend
+-- @tparam table destObj a destination object
+-- @tparam var_arg ... a variable number of array arguments
+-- @treturn table the destination object extended
 function _.extend(destObj,...)
 	local sources = {...}
 	_.each(sources,function(__,source)
@@ -1193,6 +1212,15 @@ function _.extend(destObj,...)
 	return destObj
 end
 
+--- Returns a sorted list of all methods names found in an object. If the given object
+-- has a metatable implementing an `__index` field pointing to another table, will also recurse on this
+-- table. If `output` is provided, will export results in this table.
+-- <br/><em>Aliased as @{methods}</em>.
+-- @name functions
+-- @tparam table obj an object
+-- @tparam table output a table to collect the results
+-- @treturn table an array of methods names
+-- @see methods
 function _.functions(obj,output)
   if not obj then return _.sort(_.keys(_)) end
   local _methods = output or {}
@@ -1207,8 +1235,19 @@ function _.functions(obj,output)
 	end
    return _.sort(_methods)
 end
+
+--- Alias for @{functions}.
+-- @function methods
+-- @param obj
+-- @param output
 _.methods = _.functions
 
+--- Clones a given object properties. If `shallow` is passed 
+-- will also clone nested array properties.
+-- @name clone
+-- @tparam table obj an object
+-- @tparam boolean shallow whether or not nested array-properties should be cloned, defaults to false.
+-- @treturn table a clone of the passed-in object
 function _.clone(obj,shallow)
 	if not _.isObject(obj) then return obj end
   local _obj = {}
@@ -1225,10 +1264,22 @@ function _.clone(obj,shallow)
   return _obj
 end
 
+--- Checks if a given object implements a property.
+-- @name has
+-- @tparam table obj an object
+-- @tparam key key a key property to be checked
+-- @treturn boolean __true__ or __false__
 function _.has(obj, key)
   return obj[key]~=nil
 end
 
+--- Return a filtered copy of the object. The returned object will only have
+-- the whitelisted properties. <br/><em>Aliased as @{choose}</em>.
+-- @name pick
+-- @tparam table obj an object
+-- @tparam var_arg ... a variable number of string keys
+-- @treturn table the filtered object
+-- @see choose
 function _.pick(obj, ...)
 	local whitelist = _.flatten {...}
 	local _picked = {}
@@ -1239,8 +1290,20 @@ function _.pick(obj, ...)
 		end)
 	return _picked
 end
+
+--- Alias for @{pick}.
+-- @function choose
+-- @param obj
+-- @param ...
 _.choose = _.pick
 
+--- Return a filtered copy of the object. The returned object will not have
+-- the blacklisted properties. <br/><em>Aliased as @{drop}</em>.
+-- @name omit
+-- @tparam table obj an object
+-- @tparam var_arg ... a variable number of string keys
+-- @treturn table the filtered object
+-- @see drop
 function _.omit(obj,...)
 	local blacklist = _.flatten {...}
 	local _picked = {}
@@ -1251,8 +1314,20 @@ function _.omit(obj,...)
 		end)
 	return _picked
 end
+
+--- Alias for @{omit}.
+-- @function drop
+-- @param obj
+-- @param ...
 _.drop = _.omit
 
+--- Fills nil properties in an object with the given `template` object. Pre-existing 
+-- properties will be preserved. <br/><em>Aliased as @{defaults}</em>.
+-- @name template
+-- @tparam table obj an object
+-- @tparam table template a template object
+-- @treturn table the passed-in object filled
+-- @see defaults
 function _.template(obj,template)
   _.each(template,function(i,v)
 	if not obj[i] then
@@ -1261,8 +1336,22 @@ function _.template(obj,template)
   end)
   return obj
 end
+
+--- Alias for @{template}.
+-- @function defaults
+-- @param obj
+-- @param template
 _.defaults = _.template
 
+--- Performs an equality test between two objects. 
+-- Can compare strings, functions (by reference), nil, booleans. Compares tables by reference or by component-values.
+-- Comparing objects, if `useMt` is passed, the equality operator `==` will be used if one of 
+-- the given objects has a metatable implementing `mt.__eq`
+-- @name isEqual
+-- @tparam table objA an object
+-- @tparam table objB another object
+-- @tparam boolean useMt whether or not `mt.__eq` should be used
+-- @treturn boolean __true__ or __false__
 function _.isEqual(objA,objB,useMt)
 	local typeObjA = type(objA)
 	local typeObjB = type(objB)
@@ -1293,6 +1382,13 @@ function _.isEqual(objA,objB,useMt)
   return true
 end
 
+--- Invokes an object method, passing the object as the first argument. if `method` is not
+-- callable, will return `obj[method]`.
+-- @name result
+-- @tparam table obj an object
+-- @tparam string method a string key to index in object `obj`.
+-- @tparam var_arg ... extra-args to be passed to `method`
+-- @treturn value the returned value of `method(obj,...)` call
 function _.result(obj,method,...)
   if obj[method] then
     if _.isCallable(obj[method]) then
@@ -1300,61 +1396,114 @@ function _.result(obj,method,...)
     else return obj[method]
     end
   end
-  if _.isCallable(method) then return method(obj,...) end
+  if _.isCallable(method) then 
+    return method(obj,...) 
+  end
 end
 
+--- Checks if the given arg is an object (i.e a Lua table).
+-- @name isObject
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isObject(obj)
   return type(obj) == 'table'
 end
 
+--- Checks if the given arg is an callable. Assumes `obj` is callable if 
+-- it is either a function or a table having a metatable implementing `__call` metamethod.
+-- @name isCallable
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isCallable(obj)
   return (_.isFunction(obj) or
 		 (_.isObject(obj) and getmetatable(obj)
 					         and getmetatable(obj).__call~=nil) or false)
 end
 
+--- Checks if the given arg is an array. Assumes `obj` is an array 
+-- if is a table with integer numbers as indexes.
+-- @name isArray
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isArray(obj)
 	if not _.isObject(obj) then return false end
 	return _.all(_.keys(obj),function(i,v)
-			return _.isNumber(v)
+			return _.isNumber(v) and (floor(v)==v)
 		end)
 end
 
+--- Checks if the given is empty. If `obj` is a @{string}, will return __true__
+-- if `#obj==0`. Otherwise, if `obj` is a table, will return whether or not this table
+-- is empty.
+-- @name isEmpty
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isEmpty(obj)
 	if _.isString(obj) then return #obj==0 end
 	if _.isObject(obj) then return next(obj)==nil end
 	return true
 end
 
-function _.isString(value)
-  return type(value) == 'string'
+--- Checks if the given arg is a @{string}.
+-- @name isString
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
+function _.isString(obj)
+  return type(obj) == 'string'
 end
 
+--- Checks if the given arg is a function.
+-- @name isFunction
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isFunction(obj)
    return type(obj) == 'function'
 end
 
+--- Checks if the given arg is nil.
+-- @name isNil
+-- @tparam object obj an object
+-- @treturn boolean __true__ or __false__
 function _.isNil(obj)
 	return obj==nil
 end
 
-function _.isFinite(value)
-	if not _.isNumber(value) then return false end
-	return value > -huge and value < huge
+--- Checks if the given arg is a finite number.
+-- @name isFinite
+-- @tparam object obj a number
+-- @treturn boolean __true__ or __false__
+function _.isFinite(obj)
+	if not _.isNumber(obj) then return false end
+	return obj > -huge and obj < huge
 end
 
-function _.isNumber(value)
-	return type(value) == 'number'
+--- Checks if the given arg is a number.
+-- @name isNumber
+-- @tparam object obj a number
+-- @treturn boolean __true__ or __false__
+function _.isNumber(obj)
+	return type(obj) == 'number'
 end
 
-function _.isNaN(value)
-  return _.isNumber(value) and value~=value
+--- Checks if the given arg is NaN (see [Not-A-Number](http://en.wikipedia.org/wiki/NaN)).
+-- @name isNaN
+-- @tparam object obj a number
+-- @treturn boolean __true__ or __false__
+function _.isNaN(obj)
+  return _.isNumber(obj) and obj~=obj
 end
 
-function _.isBoolean(value)
-  return type(value) == 'boolean'
+--- Checks if the given arg is a boolean.
+-- @name isBoolean
+-- @tparam object obj a boolean
+-- @treturn boolean __true__ or __false__
+function _.isBoolean(obj)
+  return type(obj) == 'boolean'
 end
 
+--- Imports all library functions in the global environment. <br/><em>Aliased as @{mixin}</em>
+-- @name import
+-- @see mixin
 local function import()
   local fn = _.functions()
   local env = getfenv()
@@ -1363,6 +1512,10 @@ local function import()
   end)
 end
 
-local _mt = {import = import, mixin = import}
+--- Alias for @{import}.
+-- @function mixin
+local mixin = import
+
+local _mt = {import = import, mixin = mixin}
 _mt.__index = _mt
 return setmetatable (_, _mt)

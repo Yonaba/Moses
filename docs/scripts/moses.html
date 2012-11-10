@@ -417,6 +417,122 @@
 	<td class="name" nowrap><a href="#uId">uId&nbsp;(template, ...)</a></td>
 	<td class="summary">Alias for <a href="../index.html#uniqueId">uniqueId</a>.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#keys">keys&nbsp;(obj)</a></td>
+	<td class="summary">Returns the names of the object properties.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#values">values&nbsp;(obj)</a></td>
+	<td class="summary">Returns the values of the object properties.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pairs">pairs&nbsp;(obj)</a></td>
+	<td class="summary">Returns an array of <code>obj</code> key-values pairs</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#extend">extend&nbsp;(destObj, ...)</a></td>
+	<td class="summary">Extends an object properties.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#functions">functions&nbsp;(obj, output)</a></td>
+	<td class="summary">Returns a sorted list of all methods names found in an object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#methods">methods&nbsp;(obj, output)</a></td>
+	<td class="summary">Alias for <a href="../index.html#functions">functions</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#clone">clone&nbsp;(obj, shallow)</a></td>
+	<td class="summary">Clones a given object properties.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#has">has&nbsp;(obj, key)</a></td>
+	<td class="summary">Checks if a given object implements a property.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pick">pick&nbsp;(obj, ...)</a></td>
+	<td class="summary">Return a filtered copy of the object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#choose">choose&nbsp;(obj, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#pick">pick</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#omit">omit&nbsp;(obj, ...)</a></td>
+	<td class="summary">Return a filtered copy of the object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#drop">drop&nbsp;(obj, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#omit">omit</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#template">template&nbsp;(obj, template)</a></td>
+	<td class="summary">Fills nil properties in an object with the given <a href="../index.html#template">template</a>  object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#defaults">defaults&nbsp;(obj, template)</a></td>
+	<td class="summary">Alias for <a href="../index.html#template">template</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isEqual">isEqual&nbsp;(objA, objB, useMt)</a></td>
+	<td class="summary">Performs an equality test between two objects.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#result">result&nbsp;(obj, method, ...)</a></td>
+	<td class="summary">Invokes an object method, passing the object as the first argument.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isObject">isObject&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is an object (i.e a Lua table).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isCallable">isCallable&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is an callable.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isArray">isArray&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isEmpty">isEmpty&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given is empty.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isString">isString&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is a <a href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isFunction">isFunction&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is a function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isNil">isNil&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is nil.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isFinite">isFinite&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is a finite number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isNumber">isNumber&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is a number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isNaN">isNaN&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is NaN (see <a href="http://en.wikipedia.org/wiki/NaN">Not-A-Number</a>).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isBoolean">isBoolean&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is a boolean.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#import">import&nbsp;()</a></td>
+	<td class="summary">Imports all library functions in the global environment.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mixin">mixin&nbsp;()</a></td>
+	<td class="summary">Alias for <a href="../index.html#import">import</a>.</td>
+	</tr>
 </table>
 
 <br/>
@@ -2942,8 +3058,8 @@
     <strong>uniqueId&nbsp;(template, ...)</strong>
     </dt>
     <dd>
-    Generates a unique Id (unique for the current session).  If given a sring <code>template</code>
- will use this template for output formatting. Otherwise, if <code>template</code> is a function,
+    Generates a unique Id (unique for the current session).  If given a sring <a href="../index.html#template">template</a>
+ will use this template for output formatting. Otherwise, if <a href="../index.html#template">template</a>  is a function,
  will compute an output running <code>template(id,...)</code>.
  <br/><em>Aliased as <a href="../index.html#uId">uId</a></em>.
 
@@ -2954,7 +3070,7 @@
        either a string or a function</li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       a variable numer of arguments to be passed to <code>template</code>, in case it is a function.</li>
+       a variable numer of arguments to be passed to <a href="../index.html#template">template</a> , in case it is a function.</li>
     </ul>
 
 
@@ -2989,6 +3105,744 @@
 
 </li>
     </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "keys"></a>
+    <strong>keys&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Returns the names of the object properties.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "values"></a>
+    <strong>values&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Returns the values of the object properties.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "pairs"></a>
+    <strong>pairs&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Returns an array of <code>obj</code> key-values pairs
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "extend"></a>
+    <strong>extend&nbsp;(destObj, ...)</strong>
+    </dt>
+    <dd>
+    Extends an object properties.  It copies all of the properties of extra passed-in objects
+ over to the destination object, and returns the destination object.
+ The last object in <code>...</code> will override properties of the same name in the previous one
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">destObj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a destination object</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of array arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the destination object extended
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "functions"></a>
+    <strong>functions&nbsp;(obj, output)</strong>
+    </dt>
+    <dd>
+    Returns a sorted list of all methods names found in an object.  If the given object
+ has a metatable implementing an <code>__index</code> field pointing to another table, will also recurse on this
+ table. If <code>output</code> is provided, will export results in this table.
+ <br/><em>Aliased as <a href="../index.html#methods">methods</a></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">output</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a table to collect the results</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of methods names
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#methods">methods</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "methods"></a>
+    <strong>methods&nbsp;(obj, output)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#functions">functions</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+
+
+</li>
+      <li><span class="parameter">output</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "clone"></a>
+    <strong>clone&nbsp;(obj, shallow)</strong>
+    </dt>
+    <dd>
+    Clones a given object properties.  If <code>shallow</code> is passed
+ will also clone nested array properties.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">shallow</span>
+        <span class="types"><span class="type">boolean</span></span>
+       whether or not nested array-properties should be cloned, defaults to false.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a clone of the passed-in object
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "has"></a>
+    <strong>has&nbsp;(obj, key)</strong>
+    </dt>
+    <dd>
+    Checks if a given object implements a property.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">key</span>
+        <span class="types"><span class="type">key</span></span>
+       a key property to be checked</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "pick"></a>
+    <strong>pick&nbsp;(obj, ...)</strong>
+    </dt>
+    <dd>
+    Return a filtered copy of the object.  The returned object will only have
+ the whitelisted properties. <br/><em>Aliased as <a href="../index.html#choose">choose</a></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of string keys</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the filtered object
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#choose">choose</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "choose"></a>
+    <strong>choose&nbsp;(obj, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#pick">pick</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "omit"></a>
+    <strong>omit&nbsp;(obj, ...)</strong>
+    </dt>
+    <dd>
+    Return a filtered copy of the object.  The returned object will not have
+ the blacklisted properties. <br/><em>Aliased as <a href="../index.html#drop">drop</a></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of string keys</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the filtered object
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#drop">drop</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "drop"></a>
+    <strong>drop&nbsp;(obj, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#omit">omit</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "template"></a>
+    <strong>template&nbsp;(obj, template)</strong>
+    </dt>
+    <dd>
+    Fills nil properties in an object with the given <a href="../index.html#template">template</a>  object.  Pre-existing
+ properties will be preserved. <br/><em>Aliased as <a href="../index.html#defaults">defaults</a></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">template</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a template object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in object filled
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#defaults">defaults</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "defaults"></a>
+    <strong>defaults&nbsp;(obj, template)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#template">template</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+
+
+</li>
+      <li><span class="parameter">template</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "isEqual"></a>
+    <strong>isEqual&nbsp;(objA, objB, useMt)</strong>
+    </dt>
+    <dd>
+    Performs an equality test between two objects. <br/>
+ Can compare strings, functions (by reference), nil, booleans. Compares tables by reference or by component-values.
+ Comparing objects, if <code>useMt</code> is passed, the equality operator <code>==</code> will be used if one of
+ the given objects has a metatable implementing <code>mt.__eq</code>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">objA</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">objB</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       another object</li>
+      <li><span class="parameter">useMt</span>
+        <span class="types"><span class="type">boolean</span></span>
+       whether or not <code>mt.__eq</code> should be used</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "result"></a>
+    <strong>result&nbsp;(obj, method, ...)</strong>
+    </dt>
+    <dd>
+    Invokes an object method, passing the object as the first argument.  if <code>method</code> is not
+ callable, will return <code>obj[method]</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">method</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+       a string key to index in object <code>obj</code>.</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to <code>method</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">value</span></span>
+        the returned value of <code>method(obj,...)</code> call
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isObject"></a>
+    <strong>isObject&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is an object (i.e a Lua table).
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isCallable"></a>
+    <strong>isCallable&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is an callable.  Assumes <code>obj</code> is callable if
+ it is either a function or a table having a metatable implementing <code>__call</code> metamethod.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isArray"></a>
+    <strong>isArray&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is an array.  Assumes <code>obj</code> is an array
+ if is a table with integer numbers as indexes.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isEmpty"></a>
+    <strong>isEmpty&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given is empty.  If <code>obj</code> is a <a href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, will return <strong>true</strong>
+ if <code>#obj==0</code>. Otherwise, if <code>obj</code> is a table, will return whether or not this table
+ is empty.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isString"></a>
+    <strong>isString&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is a <a href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isFunction"></a>
+    <strong>isFunction&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is a function.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isNil"></a>
+    <strong>isNil&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is nil.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       an object</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isFinite"></a>
+    <strong>isFinite&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is a finite number.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       a number</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isNumber"></a>
+    <strong>isNumber&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is a number.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       a number</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isNaN"></a>
+    <strong>isNaN&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is NaN (see <a href="http://en.wikipedia.org/wiki/NaN">Not-A-Number</a>).
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       a number</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "isBoolean"></a>
+    <strong>isBoolean&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is a boolean.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       a boolean</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "import"></a>
+    <strong>import&nbsp;()</strong>
+    </dt>
+    <dd>
+    Imports all library functions in the global environment.  <br/><em>Aliased as <a href="../index.html#mixin">mixin</a></em>
+
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#mixin">mixin</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "mixin"></a>
+    <strong>mixin&nbsp;()</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#import">import</a>.
+
 
 
 
