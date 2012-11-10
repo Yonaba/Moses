@@ -1,0 +1,1371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Moses documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Moses</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Scripts</h2>
+<ul>
+  <li><strong>moses</strong></li>
+</ul>
+<h2>Topics</h2>
+<ul>
+  <li><a href="../topics/moses.md.html">moses.md</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Script <code>moses</code></h1>
+
+<p>
+<h2>Moses: <em>A utility-belt library for functional programming in Lua.</em><br/></h2>
+</p>
+<p>
+
+</p>
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#each">each&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Calls function <code>f</code> on each key-value of a given collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forEach">forEach&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#each">each</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#map">map&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Maps function <code>f</code> on each key-value of a given collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#collect">collect&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#map">map</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reduce">reduce&nbsp;(list, f, state)</a></td>
+	<td class="summary">Reduces an entire collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#inject">inject&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#reduce">reduce</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#foldl">foldl&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#reduce">reduce</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reduceRight">reduceRight&nbsp;(list, f, state)</a></td>
+	<td class="summary">Reduces an entire collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#injectr">injectr&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#reduceRight">reduceRight</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#foldr">foldr&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#reduceRight">reduceRight</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mapReduce">mapReduce&nbsp;(list, f, state)</a></td>
+	<td class="summary">Reduces a collection while saving intermediate states.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mapr">mapr&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#mapReduce">mapReduce</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mapReduceRight">mapReduceRight&nbsp;(list, f, state)</a></td>
+	<td class="summary">Reduces a collection (in reverse order) while saving intermediate states.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#maprr">maprr&nbsp;(list, f, state)</a></td>
+	<td class="summary">Alias for <a href="../index.html#mapReduceRight">mapReduceRight</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#include">include&nbsp;(list, item)</a></td>
+	<td class="summary">Looks for an object in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#any">any&nbsp;(list, item)</a></td>
+	<td class="summary">Alias for <a href="../index.html#include">include</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#some">some&nbsp;(list, item)</a></td>
+	<td class="summary">Alias for <a href="../index.html#include">include</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#detect">detect&nbsp;(list, item)</a></td>
+	<td class="summary">Looks for an object index in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#find">find&nbsp;(list, item)</a></td>
+	<td class="summary">Alias for <a href="../index.html#detect">detect</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#where">where&nbsp;(list, item)</a></td>
+	<td class="summary">Alias for <a href="../index.html#detect">detect</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#select">select&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Selects and extracts objects passing an iterator test.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#filter">filter&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#select">select</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reject">reject&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Clones a collection, rejecting objects passing an iterator test.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#discard">discard&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#reject">reject</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#all">all&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Tests if all the objects in a collection passes an iterator test.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#every">every&nbsp;(list, f, ...)</a></td>
+	<td class="summary">Alias for <a href="../index.html#all">all</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#invoke">invoke&nbsp;(list, method, ...)</a></td>
+	<td class="summary">Invokes a method on each object in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pluck">pluck&nbsp;(list, a)</a></td>
+	<td class="summary">Extracts property-values from a collection of objects.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#max">max&nbsp;(list, iter, ...)</a></td>
+	<td class="summary">Returns the maximum value in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#min">min&nbsp;(list, iter, ...)</a></td>
+	<td class="summary">Returns the minimum value in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shuffle">shuffle&nbsp;(list, seed)</a></td>
+	<td class="summary">Returns a shuffled copy of a given collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#same">same&nbsp;(a, b)</a></td>
+	<td class="summary">Tests if two collections are the same.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sort">sort&nbsp;(list, comp)</a></td>
+	<td class="summary">Sorts a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#toArray">toArray&nbsp;(...)</a></td>
+	<td class="summary">Converts a list of <strong>var_args</strong> to a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#groupBy">groupBy&nbsp;(list, iter, ...)</a></td>
+	<td class="summary">Splits a collection into subsets.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#countBy">countBy&nbsp;(list, iter, ...)</a></td>
+	<td class="summary">Sorts a list into groups and counts for the number of objects in each group.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#size">size&nbsp;(...)</a></td>
+	<td class="summary">Counts the number of values in a collection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#contains">contains&nbsp;(list, other)</a></td>
+	<td class="summary">Checks if all the keys of <code>other</code> object exists in a <code>list</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sameKeys">sameKeys&nbsp;(listA, listB)</a></td>
+	<td class="summary">Checks if both given lists have the same keys.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "each"></a>
+    <strong>each&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Calls function <code>f</code> on each key-value of a given collection.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#forEach">forEach</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "forEach"></a>
+    <strong>forEach&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#each">each</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "map"></a>
+    <strong>map&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Maps function <code>f</code> on each key-value of a given collection.  Collects
+ and returns the outputs.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a table of results
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#collect">collect</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "collect"></a>
+    <strong>collect&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#map">map</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reduce"></a>
+    <strong>reduce&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Reduces an entire collection.  Folds from left to right to a single value,
+ with respect to a given iterator and an initial state.
+ The given function takes a state and a value, and returns a new state
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(state,value)</code></li>
+      <li><span class="parameter">state</span>
+        <span class="types"><span class="type">state</span></span>
+       an initial state of reduction. Defaults to the first value in the list.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">state</span></span>
+        state a final state of reduction
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="../index.html#inject">inject</a></li>
+         <li><a href="../index.html#foldl">foldl</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "inject"></a>
+    <strong>inject&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#reduce">reduce</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "foldl"></a>
+    <strong>foldl&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#reduce">reduce</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reduceRight"></a>
+    <strong>reduceRight&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Reduces an entire collection.  Folds from right to left to a single value,
+ with respect to a given iterator and an initial state.
+ The given function takes a state and a value, and returns a new state
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(state,value)</code></li>
+      <li><span class="parameter">state</span>
+        <span class="types"><span class="type">state</span></span>
+       an initial state of reduction. Defaults to the last value in the list.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">state</span></span>
+        state a final state of reduction
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="../index.html#injectr">injectr</a></li>
+         <li><a href="../index.html#foldr">foldr</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "injectr"></a>
+    <strong>injectr&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#reduceRight">reduceRight</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "foldr"></a>
+    <strong>foldr&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#reduceRight">reduceRight</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mapReduce"></a>
+    <strong>mapReduce&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Reduces a collection while saving intermediate states.
+ Folds the collection from left to right to a single value,
+ with respect to a given iterator and an initial state.
+ The given function takes a state and a value, and returns a new state.
+ The function returns an array of intermediate states.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(state,value)</code></li>
+      <li><span class="parameter">state</span>
+        <span class="types"><span class="type">state</span></span>
+       an initial state of reduction. Defaults to the last value in the list.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of states
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#mapr">mapr</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "mapr"></a>
+    <strong>mapr&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#mapReduce">mapReduce</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mapReduceRight"></a>
+    <strong>mapReduceRight&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Reduces a collection (in reverse order) while saving intermediate states.
+ Folds the collection from right to left to a single value,
+ with respect to a given iterator and an initial state.
+ The given function takes a state and a value, and returns a new state.
+ The function returns an array of intermediate states.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(state,value)</code></li>
+      <li><span class="parameter">state</span>
+        <span class="types"><span class="type">state</span></span>
+       an initial state of reduction. Defaults to the last value in the list.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of states
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#maprr">maprr</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "maprr"></a>
+    <strong>maprr&nbsp;(list, f, state)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#mapReduceRight">mapReduceRight</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">state</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "include"></a>
+    <strong>include&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Looks for an object in a collection.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">item</span>
+        <span class="types"><span class="type">object</span></span>
+       a value to be searched</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        a boolean : <strong>true</strong> when found, <strong>false</strong> otherwise
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="../index.html#any">any</a></li>
+         <li><a href="../index.html#some">some</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "any"></a>
+    <strong>any&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#include">include</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">item</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "some"></a>
+    <strong>some&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#include">include</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">item</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "detect"></a>
+    <strong>detect&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Looks for an object index in a collection.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">item</span>
+        <span class="types"><span class="type">object</span></span>
+       a value to be searched</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">key</span></span>
+        the object key or <strong>nil</strong>
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="../index.html#find">find</a></li>
+         <li><a href="../index.html#where">where</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "find"></a>
+    <strong>find&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#detect">detect</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">item</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "where"></a>
+    <strong>where&nbsp;(list, item)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#detect">detect</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">item</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "select"></a>
+    <strong>select&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Selects and extracts objects passing an iterator test.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the selected objects
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#filter">filter</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "filter"></a>
+    <strong>filter&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#select">select</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "reject"></a>
+    <strong>reject&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Clones a collection, rejecting objects passing an iterator test.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the remaining objects
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#discard">discard</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "discard"></a>
+    <strong>discard&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#reject">reject</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "all"></a>
+    <strong>all&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Tests if all the objects in a collection passes an iterator test.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#every">every</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "every"></a>
+    <strong>every&nbsp;(list, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="../index.html#all">all</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "invoke"></a>
+    <strong>invoke&nbsp;(list, method, ...)</strong>
+    </dt>
+    <dd>
+    Invokes a method on each object in a collection.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">method</span>
+        <span class="types"><span class="type">function</span></span>
+       a function, prototyped as <code>f(object,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>method</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of results
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "pluck"></a>
+    <strong>pluck&nbsp;(list, a)</strong>
+    </dt>
+    <dd>
+    Extracts property-values from a collection of objects.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">a</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+       property, to index in each object: <code>object[property]</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of values for the specified property
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "max"></a>
+    <strong>max&nbsp;(list, iter, ...)</strong>
+    </dt>
+    <dd>
+    Returns the maximum value in a collection.  If an iterator is passed, it will
+ be used to extract the property value by which all objects will be ranked.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>iter(value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>iter</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">value</span></span>
+        the maximum property value found
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "min"></a>
+    <strong>min&nbsp;(list, iter, ...)</strong>
+    </dt>
+    <dd>
+    Returns the minimum value in a collection.  If an iterator is passed, it will
+ be used to extract the property value by which all objects will be ranked.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>iter(value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>iter</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">value</span></span>
+        the minimum property value found
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "shuffle"></a>
+    <strong>shuffle&nbsp;(list, seed)</strong>
+    </dt>
+    <dd>
+    Returns a shuffled copy of a given collection.  If a seed is provided, it will
+ be used to init the random number generator.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">seed</span>
+        <span class="types"><span class="type">number</span></span>
+       a seed</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a shuffled copy of the given collection
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "same"></a>
+    <strong>same&nbsp;(a, b)</strong>
+    </dt>
+    <dd>
+    Tests if two collections are the same.  I.e, they feature the same objects, but not
+ necessarily at the same keys
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">a</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">b</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "sort"></a>
+    <strong>sort&nbsp;(list, comp)</strong>
+    </dt>
+    <dd>
+    Sorts a collection.  If a comparison function is given, it will be used to sort objects
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">comp</span>
+        <span class="types"><span class="type">function</span></span>
+       a comparison function prototyped as <code>comp(a,b)</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the given list, sorted.
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "toArray"></a>
+    <strong>toArray&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Converts a list of <strong>var_args</strong> to a collection.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       variable number of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of all passed-in args
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "groupBy"></a>
+    <strong>groupBy&nbsp;(list, iter, ...)</strong>
+    </dt>
+    <dd>
+    Splits a collection into subsets.  Each subset feature objects grouped by the result of passing it through an iterator.
+ If iterator is a string instead of a function, groups by the property named by iterator on each of the values.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>iter(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>iter</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array subsets
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "countBy"></a>
+    <strong>countBy&nbsp;(list, iter, ...)</strong>
+    </dt>
+    <dd>
+    Sorts a list into groups and counts for the number of objects in each group.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>iter(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>iter</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an table of subsets paired with their count
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "size"></a>
+    <strong>size&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Counts the number of values in a collection.  If being passed more than one args
+ it will return the number of passed-in args.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">number</span></span>
+        a size
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "contains"></a>
+    <strong>contains&nbsp;(list, other)</strong>
+    </dt>
+    <dd>
+    Checks if all the keys of <code>other</code> object exists in a <code>list</code>.  It does not
+ compares values. The test is not commutative, i.e <code>list</code> may contains keys
+ not existing in <code>other</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">other</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "sameKeys"></a>
+    <strong>sameKeys&nbsp;(listA, listB)</strong>
+    </dt>
+    <dd>
+    Checks if both given lists have the same keys.  It does not compares values.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">listA</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">listB</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

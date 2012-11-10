@@ -1,12 +1,10 @@
---------------------------------------------------------------------------
--- Moses Library
--- Release Id: Moses.lua,v1.3.0 11/08/2012
---------------------------------------------------------------------------
+--- ## Moses: <em>A utility-belt library for functional programming in Lua.</em><br/>
+-- @author Roland_Yonaba
+-- @copyright 2012
+-- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
+-- @script moses
 
---------------------------------------------------------------------------
--- Internalization
---------------------------------------------------------------------------
-
+-- Internalisation
 local next, type, unpack, select = next, type, unpack, select
 local setmetatable, getmetatable = setmetatable, getmetatable
 local t_insert, t_sort = table.insert, table.sort
@@ -18,7 +16,9 @@ local unpack = unpack
 local pairs,ipairs = pairs,ipairs
 local _ = {}
 
--- Private Helpers
+
+-- ======== Private helpers
+
 local function f_max(a,b) return a>b end
 local function f_min(a,b) return a<b end
 local function clamp(var,a,b) return (var<a) and a or (var>b and b or var) end
@@ -26,7 +26,7 @@ local function isTrue(_,value) return value and true end
 local function iNot(value) return not value end
 local function count(t)
 	local i
-	for k,v in pairs(t) do i = (i or 0) + 1 end
+    for k,v in pairs(t) do i = (i or 0) + 1 end
 	return i
 end
 
@@ -43,77 +43,170 @@ local function extract(list,comp,transform,...)
   return _ans
 end
 
--- A bit of randomness
-randomseed(os.time())
-
--- Internal increment for unique Id's generation
+-- Internal counter for unique ids generation
 local unique_id_counter = -1
 
---------------------------------------------------------------------------
--- Collection Functions (Arrays and Objects)
---------------------------------------------------------------------------
+-- ========= Collection functions
 
--- Calls func(key,value,...) on each key-value pair in a table
-function _.each(list,func,...)
+--- Calls function `f` on each key-value of a given collection.
+-- @name each
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @see forEach
+function _.each(list,f,...)
   if not _.isObject(list) then return end
   for index,value in pairs(list) do
-    func(index,value,...)
+    f(index,value,...)
   end
   return list
 end
+
+--- Alias for @{each}.
+-- @function forEach
+-- @param list
+-- @param f 
+-- @param ...
 _.forEach = _.each
 
--- Returns a table where each value is the result of func(key,value,...)
-function _.map(list,func,...)
+--- Maps function `f` on each key-value of a given collection. Collects
+-- and returns the outputs.
+-- @name map
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn table a table of results
+-- @see collect
+function _.map(list,f,...)
   local _list = {}
   for index,value in pairs(list) do
-    _list[index] = func(index,value,...)
+    _list[index] = f(index,value,...)
   end
   return _list
 end
+
+--- Alias for @{map}.
+-- @function collect
+-- @param list
+-- @param f 
+-- @param ...
 _.collect = _.map
 
--- Reduces an entire list from left to right to a single value,
--- with respect to a given initial state of reduction.
--- The given function must return a new state after each step
-function _.reduce(list,func,memo)
+--- Reduces an entire collection. Folds from left to right to a single value, 
+-- with respect to a given iterator and an initial state.
+-- The given function takes a state and a value, and returns a new state
+-- @name reduce
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(state,value)`
+-- @tparam state state an initial state of reduction. Defaults to the first value in the list.
+-- @treturn state state a final state of reduction
+-- @see inject
+-- @see foldl
+function _.reduce(list,f,state)
   for _,value in pairs(list) do
-    memo = not memo and value or func(memo,value)
+    state = not state and value or f(state,value)
   end
-  return memo
+  return state
 end
+
+--- Alias for @{reduce}.
+-- @function inject
+-- @param list
+-- @param f 
+-- @param state
 _.inject = _.reduce
+
+--- Alias for @{reduce}.
+-- @function foldl
+-- @param list
+-- @param f 
+-- @param state
 _.foldl = _.reduce
 
--- Reduces an entire list from right to left to a single value,
--- given an initial state of reduction.
--- The given function must return the new state after each step
-function _.reduceRight(list,func,memo)
-  return _.reduce(_.reverse(list),func,memo)
+--- Reduces an entire collection. Folds from right to left to a single value, 
+-- with respect to a given iterator and an initial state.
+-- The given function takes a state and a value, and returns a new state
+-- @name reduceRight
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(state,value)`
+-- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @treturn state state a final state of reduction
+-- @see injectr
+-- @see foldr
+function _.reduceRight(list,f,state)
+  return _.reduce(_.reverse(list),f,state)
 end
+
+--- Alias for @{reduceRight}.
+-- @function injectr
+-- @param list
+-- @param f 
+-- @param state
 _.injectr = _.reduceRight
+
+--- Alias for @{reduceRight}.
+-- @function foldr
+-- @param list
+-- @param f 
+-- @param state
 _.foldr = _.reduceRight
 
--- Reduces an entire list from left to right,
--- storing each intermediate state of reduction along
-function _.mapReduce(list,func,memo)
+--- Reduces a collection while saving intermediate states.
+-- Folds the collection from left to right to a single value, 
+-- with respect to a given iterator and an initial state.
+-- The given function takes a state and a value, and returns a new state. 
+-- The function returns an array of intermediate states.
+-- @name mapReduce
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(state,value)`
+-- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @treturn table an array of states
+-- @see mapr
+function _.mapReduce(list,f,state)
   local t = {}
   for i,value in pairs(list) do
-    t[i] = not memo and value or func(memo,value)
-    memo = t[i]
+    t[i] = not state and value or f(state,value)
+    state = t[i]
   end
   return t
 end
+
+--- Alias for @{mapReduce}.
+-- @function mapr
+-- @param list
+-- @param f 
+-- @param state
 _.mapr = _.mapReduce
 
--- Reduces an entire list from right to left,
--- storing each intermediate state of reduction along
-function _.mapReduceRight(list,func,memo)
-  return _.mapReduce(_.reverse(list),func,memo)
+--- Reduces a collection (in reverse order) while saving intermediate states.
+-- Folds the collection from right to left to a single value, 
+-- with respect to a given iterator and an initial state.
+-- The given function takes a state and a value, and returns a new state. 
+-- The function returns an array of intermediate states.
+-- @name mapReduceRight
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(state,value)`
+-- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @treturn table an array of states
+-- @see maprr
+function _.mapReduceRight(list,f,state)
+  return _.mapReduce(_.reverse(list),f,state)
 end
+
+--- Alias for @{mapReduceRight}.
+-- @function maprr
+-- @param list
+-- @param f 
+-- @param state
 _.maprr = _.mapReduceRight
 
--- Does list contains an item ?
+--- Looks for an object in a collection.
+-- @name include
+-- @tparam table list a collection
+-- @tparam object item a value to be searched
+-- @treturn boolean a boolean : __true__ when found, __false__ otherwise
+-- @see any
+-- @see some
 function _.include(list,item)
   local _iter = _.isFunction(item) and item or _.isEqual
   for _,value in pairs(list) do
@@ -121,49 +214,115 @@ function _.include(list,item)
   end
   return false
 end
+
+--- Alias for @{include}.
+-- @function any
+-- @param list
+-- @param item
 _.any = _.include
+
+--- Alias for @{include}.
+-- @function some
+-- @param list
+-- @param item
 _.some = _.include
 
--- Returns the key of an item in a list
+--- Looks for an object index in a collection.
+-- @name detect
+-- @tparam table list a collection
+-- @tparam object item a value to be searched
+-- @treturn key the object key or __nil__
+-- @see find
+-- @see where
 function _.detect(list,item)
   local _iter = _.isFunction(item) and item or _.isEqual
   for key,arg in pairs(list) do
     if _iter(arg,item) then return key end
   end
 end
+
+--- Alias for @{detect}.
+-- @function find
+-- @param list
+-- @param item
 _.find = _.detect
+
+--- Alias for @{detect}.
+-- @function where
+-- @param list
+-- @param item
 _.where = _.detect
 
--- Extracts a list of values passing a given test
-function _.select(list,func,...)
-  local _mapped = _.map(list,func,...)
+--- Selects and extracts objects passing an iterator test.
+-- @name select
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn table the selected objects
+-- @see filter
+function _.select(list,f,...)
+  local _mapped = _.map(list,f,...)
   local _list = {}
   for index,value in pairs(_mapped) do
     if value then _list[#_list+1] = list[index] end
   end
   return _list
 end
+
+--- Alias for @{select}.
+-- @function filter
+-- @param list
+-- @param f
+-- @param ...
 _.filter = _.select
 
--- Rejects from a given list all values passing a given test
-function _.reject(list,func,...)
-  local _mapped = _.map(list,func,...)
+--- Clones a collection, rejecting objects passing an iterator test.
+-- @name reject
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn table the remaining objects
+-- @see discard
+function _.reject(list,f,...)
+  local _mapped = _.map(list,f,...)
   local _list = {}
   for index,value in pairs (_mapped) do
     if not value then _list[#_list+1] = list[index] end
   end
   return _list
 end
+
+--- Alias for @{reject}.
+-- @function discard
+-- @param list
+-- @param f
+-- @param ...
 _.discard = _.reject
 
--- Tests if all values in a list pass a given test
-function _.all(list,iter)
-  return ((#_.select(_.map(list,iter), isTrue)) == (#list))
+--- Tests if all the objects in a collection passes an iterator test.
+-- @name all
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn boolean __true__ or __false__
+-- @see every
+function _.all(list,f,...)
+  return ((#_.select(_.map(list,f,...), isTrue)) == (#list))
 end
+
+--- Alias for @{all}.
+-- @function every
+-- @param list
+-- @param f
+-- @param ...
 _.every = _.all
 
--- Calls a method over each element in a collection of
--- objects and returns their results in an array
+--- Invokes a method on each object in a collection.
+-- @name invoke
+-- @tparam table list a collection
+-- @tparam function method a function, prototyped as `f(object,...)`
+-- @tparam var_arg ... extra-args to be passed to function `method`
+-- @treturn table an array of results
 function _.invoke(list,method,...)
   local args = {...}
   return _.map(list, function(__,v)
@@ -184,7 +343,11 @@ function _.invoke(list,method,...)
 	end)
 end
 
--- Returns a array of values of a targetted property in a  collection of objects.
+--- Extracts property-values from a collection of objects.
+-- @name pluck
+-- @tparam table list a collection
+-- @tparam string a property, to index in each object: `object[property]`
+-- @treturn table an array of values for the specified property
 function _.pluck(list,property)
   return _.reject(_.map(list,function(__,value)
       return value[property]
@@ -192,18 +355,34 @@ function _.pluck(list,property)
   iNot)
 end
 
--- Extracts the maximum value in a collection of objects
-function _.max(list,extractCriterion,...)
-  return extract(list,f_max,extractCriterion,...)
+--- Returns the maximum value in a collection. If an iterator is passed, it will
+-- be used to extract the property value by which all objects will be ranked.
+-- @name max
+-- @tparam table list a collection
+-- @tparam function iter an iterator function, prototyped as `iter(value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @treturn value the maximum property value found
+function _.max(list,iter,...)
+  return extract(list,f_max,iter,...)
 end
 
--- Extracts the minimum value in a collection of objects
-function _.min(list, extractCriterion,...)
-  return extract(list,f_min, extractCriterion,...)
+--- Returns the minimum value in a collection. If an iterator is passed, it will
+-- be used to extract the property value by which all objects will be ranked.
+-- @name min
+-- @tparam table list a collection
+-- @tparam function iter an iterator function, prototyped as `iter(value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @treturn value the minimum property value found
+function _.min(list, iter,...)
+  return extract(list,f_min, iter,...)
 end
 
-
--- Shuffles a list
+--- Returns a shuffled copy of a given collection. If a seed is provided, it will 
+-- be used to init the random number generator.
+-- @name shuffle
+-- @tparam table list a collection
+-- @tparam number seed a seed
+-- @treturn table a shuffled copy of the given collection
 function _.shuffle(list,seed)
   if seed then randomseed(seed) end
   local _shuffled = {}
@@ -215,26 +394,46 @@ function _.shuffle(list,seed)
   return _shuffled
 end
 
--- Returns whether all values from both collections exists in each other
+--- Tests if two collections are the same. I.e, they feature the same objects, but not
+-- necessarily at the same keys 
+-- @name same
+-- @tparam table a a collection
+-- @tparam table b a collection
+-- @treturn boolean __true__ or __false__
 function _.same(a,b)
   return _.all(a, function (i,v)
 			return _.include(b,v)
 		end)
-	and _.all(b, function (i,v)
+    and _.all(b, function (i,v)
 			return _.include(a,v)
 		end)
 end
 
--- Sorts a list
+--- Sorts a collection. If a comparison function is given, it will be used to sort objects
+-- @name sort
+-- @tparam table list a collection
+-- @tparam function comp a comparison function prototyped as `comp(a,b)`
+-- @treturn table the given list, sorted.
 function _.sort(list,comp)
   t_sort(list,comp)
   return list
 end
 
--- Converts a list of values to an array
-function _.toArray(...) return {...} end
+--- Converts a list of __var_args__ to a collection.
+-- @name toArray
+-- @tparam var_arg ... variable number of arguments
+-- @treturn table an array of all passed-in args
+function _.toArray(...) 
+  return {...} 
+end
 
--- Groups values with restect to a given criterion
+--- Splits a collection into subsets. Each subset feature objects grouped by the result of passing it through an iterator. 
+-- If iterator is a string instead of a function, groups by the property named by iterator on each of the values. 
+-- @name groupBy
+-- @tparam table list a collection
+-- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @treturn table an array subsets
 function _.groupBy(list,iter,...)
   local var_arg = {...}
   local _list = {}
@@ -252,39 +451,58 @@ function _.groupBy(list,iter,...)
   return _list
 end
 
--- Splits values into subsets with respect to a given
--- iterator and returns the number of element in each subset.
-function _.countBy(list,iter)
+--- Sorts a list into groups and counts for the number of objects in each group.
+-- @name countBy
+-- @tparam table list a collection
+-- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @treturn table an table of subsets paired with their count
+function _.countBy(list,iter,...)
+  local var_arg = {...}
 	local stats = {}
 	_.each(list,function(i,v)
-			local key = iter(i,v)
+			local key = iter(i,v,unpack(var_arg))
 			stats[key] = (stats[key] or 0) +1
 		end)
 	return stats
 end
 
--- Returns the size of a list (counts the very number of items inside)
+--- Counts the number of values in a collection. If being passed more than one args
+-- it will return the number of passed-in args.
+-- @name size
+-- @tparam var_arg ... a variable number of arguments
+-- @treturn number a size
 function _.size(...)
   local args = {...}
   local arg1 = args[1]
   if _.isNil(arg1) then
-	return 0
+    return 0
   elseif _.isObject(arg1) then
-	return count(args[1])
+    return count(args[1])
   else
-	return count(args)
+    return count(args)
   end
 end
 
--- Checks if all the keys of table 'other' are inside table t
-function _.contains(t,other)
+--- Checks if all the keys of `other` object exists in a `list`. It does not
+-- compares values. The test is not commutative, i.e `list` may contains keys
+-- not existing in `other`.
+-- @name contains
+-- @tparam table list a collection
+-- @tparam table other a collection
+-- @treturn boolean __true__ or __false__
+function _.contains(list,other)
   for key in pairs(other) do
-    if not t[key] then return false end
+    if not list[key] then return false end
   end
   return true
 end
 
--- Checks if two lists have the same keys
+--- Checks if both given lists have the same keys. It does not compares values.
+-- @name sameKeys
+-- @tparam table listA a collection
+-- @tparam table listB a collection
+-- @treturn boolean __true__ or __false__
 function _.sameKeys(listA,listB)
   _.each(listA,function(key)
       if not listB[key] then return false end
@@ -295,11 +513,8 @@ function _.sameKeys(listA,listB)
   return true
 end
 
---------------------------------------------------------------------------
--- Array functions
---------------------------------------------------------------------------
+-- ========= Array functions
 
--- Reverses values in a given array
 function _.reverse(array)
   local _array = {}
   for i = #array,1,-1 do
@@ -308,7 +523,6 @@ function _.reverse(array)
   return _array
 end
 
--- Collects values from a given array as long as they pass a given test
 function _.selectWhile(array,func,...)
   local t = {}
   for i,v in ipairs(array) do
@@ -318,7 +532,6 @@ function _.selectWhile(array,func,...)
 end
 _.takeWhile = _.selectWhile
 
--- Rejects values from a given array as long as they pass a given test
 function _.dropWhile(array, func,...)
   local _i
   for i,v in ipairs(array) do
@@ -332,8 +545,6 @@ function _.dropWhile(array, func,...)
 end
 _.rejectWhile = _.dropWhile
 
--- Returns the index at which a value should be inserted in a array
--- with respect to a given comparison function
 function _.sortedIndex(array,value,comp,sort)
   local _comp = comp or f_min
   if sort then array = _.sort(array,_comp) end
@@ -343,32 +554,27 @@ function _.sortedIndex(array,value,comp,sort)
   return #array+1
 end
 
--- Returns the key at which a value is mapped in an array
 function _.indexOf(array, value)
   for k = 1,#array do
     if array[k] == value then return k end
   end
 end
 
--- Returns the key of the last occurence of an item array
 function _.lastIndexOf(array,value)
   local key = _.indexOf(_.reverse(array),value)
   if key then return #array-key+1 end
 end
 
--- Add values at the top of an array
 function _.add(array,...)
   _.each({...},function(i,v) t_insert(array,1,v) end)
   return array
 end
 
--- Pushes values at the end of an array
 function _.push(array,...)
   _.each({...}, function(i,v) array[#array+1] = v end)
   return array
 end
 
--- Pops the value at the top of an array
 function _.pop(array)
   local retValue = array[1]
   t_remove(array,1)
@@ -376,14 +582,12 @@ function _.pop(array)
 end
 _.shift = _.pop
 
--- Pops the value at the end of an array
 function _.unshift(array)
   local retValue = array[#array]
   t_remove(array)
   return retValue
 end
 
--- Remove values mapped at all keys within a given range
 function _.removeRange(array,start,finish)
   local array = _.clone(array)
   local i,n = (next(array)),#array
@@ -404,14 +608,12 @@ function _.removeRange(array,start,finish)
 end
 _.rmRange = _.removeRange
 
--- Returns the portion of an array between left and right indexes
 function _.slice(array,left,right)
   return _.select(array, function(index)
       return (index >= (left or next(array)) and index <= (right or #array))
     end)
 end
 
--- Returns the n-first elements of an array
 function _.first(array,n)
   local n = n or 1
   return _.slice(array,1, min(n,#array))
@@ -419,33 +621,28 @@ end
 _.head = _.first
 _.take = _.first
 
--- Returns an array excluding the last n elements
 function _.initial(array,n)
   if n and n < 0 then return end
   return _.slice(array,1, n and #array-(min(n,#array)) or #array-1)
 end
 
--- Returns the last n elements of an array
 function _.last(array,n)
   if n and n <= 0 then return end
   return _.slice(array,n and #array-min(n-1,#array-1) or 2,#array)
 end
 
--- Returns an array excluding elements before index position
 function _.rest(array,index)
   if index and index > #array then return {} end
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
 _.tail = _.rest
 
--- Returns an array where all falsy values were removed
 function _.compact(array)
   return _.reject(array, function (_,value)
 		return not value
 	end)
 end
 
--- Flattens an array
 function _.flatten(array, shallow)
   local shallow = shallow or false
   local new_flattened
@@ -460,7 +657,6 @@ function _.flatten(array, shallow)
   return _flat
 end
 
--- Returns an array made of values not present in others arrays
 function _.difference(array,...)
   local values = _.toArray(...)
   return _.select(array,function(i,value)
@@ -469,7 +665,6 @@ function _.difference(array,...)
 end
 _.without = _.difference
 
--- Returns duplicate-free version of a given array
 function _.uniq(array,isSorted,iter,...)
   local init = iter and _.map(array,iter,...) or array
   local result = {}
@@ -492,12 +687,10 @@ function _.uniq(array,isSorted,iter,...)
 end
 _.unique = _.uniq
 
--- Returns the union of all given arrays
 function _.union(...)
   return _.flatten {...}
 end
 
--- Returns the intersection of all given arrays
 function _.intersection(array,...)
   local arg = {...}
   local _intersect = {}
@@ -511,7 +704,6 @@ function _.intersection(array,...)
   return _intersect
 end
 
--- Merges values of each of the given arrays with the values at the corresponding index.
 function _.zip(...)
   local arg = {...}
   local _len = _.max(_.map(arg,function(i,v)
@@ -524,7 +716,6 @@ function _.zip(...)
   return _ans
 end
 
--- Appends two arrays altogether
 function _.append(list,other)
   local t = {}
   for i,v in ipairs(list) do t[i] = v end
@@ -532,7 +723,6 @@ function _.append(list,other)
   return t
 end
 
--- Returns an array of integers between start/stop values, regards to a given step
 function _.range(...)
   local arg = {...}
   local _start,_stop,_step
@@ -550,7 +740,6 @@ function _.range(...)
 end
 _.count = _.range
 
--- Returns a table where keys and values were inverted
 function _.invert(array)
   local _ret = {}
   _.each(array,function(i,v) _ret[v] = i end)
@@ -558,7 +747,6 @@ function _.invert(array)
 end
 _.mirror = _.invert
 
--- Concats values inside an array
 function _.concat(array,sep,i,j)
   local _array = _.map(array,function(i,v)
 		return tostring(v)
@@ -567,17 +755,11 @@ function _.concat(array,sep,i,j)
 
 end
 _.join = _.concat
-
---------------------------------------------------------------------------
--- Functions
---------------------------------------------------------------------------
-
--- Returns the value passed as arg
+ 
 function _.identity(value)
   return value
 end
 
--- Returns a version of function f that can be run only once
 function _.once(f)
   local _internal = 0
   local _args = {}
@@ -588,7 +770,6 @@ function _.once(f)
     end
 end
 
--- Returns a memoized version of function f
 function _.memoize(f,hash)
   local _cache = setmetatable({},{__mode = 'kv'})
   local _hasher = hash or _.identity
@@ -601,8 +782,6 @@ function _.memoize(f,hash)
 end
 _.cache = _.memoize
 
--- Returns a version of function f that will be run
--- only after being called count times
 function _.after(f,count)
   local _limit,_internal = count, 0
   return function(...)
@@ -611,8 +790,6 @@ function _.after(f,count)
     end
 end
 
--- Returns the composition of functions, where each function is feeded
--- with the returned value of the following functions in the list or arguments
 function _.compose(...)
   local f = _.reverse {...}
   return function (...)
@@ -624,14 +801,12 @@ function _.compose(...)
     end
 end
 
--- Wraps a function inside a wrapper provided
 function _.wrap(func,wrapper)
 	return function (...)
       return  wrapper(func,...)
     end
 end
 
--- Calls an iterator n times
 function _.times(n,iter,...)
   local results = {}
   for i = 1,n do
@@ -640,14 +815,12 @@ function _.times(n,iter,...)
   return results
 end
 
--- Binds a value to the first argument of a given function
 function _.bind(func,v)
   return function (...)
       return func(v,...)
     end
 end
 
--- Binds n values to a given given function
 function _.bindn(func,...)
   local iArg = {...}
   return function (...)
@@ -655,7 +828,6 @@ function _.bindn(func,...)
     end
 end
 
--- Generates (incrementally) and unique ID
 function _.uniqueId(template,...)
 	unique_id_counter = unique_id_counter + 1
 	if template then
@@ -669,25 +841,19 @@ function _.uniqueId(template,...)
 end
 _.uId = _.uniqueId
 
---------------------------------------------------------------------------
--- Object functions
---------------------------------------------------------------------------
 
--- Returns a list of keys in the given object
 function _.keys(obj)
   local _oKeys = {}
   _.each(obj,function(key,_) _oKeys[#_oKeys+1]=key end)
   return _oKeys
 end
 
--- Returns a list of values in the given array
 function _.values(obj)
   local _oValues = {}
   _.each(obj,function(_,value) _oValues[#_oValues+1]=value end)
   return _oValues
 end
 
--- Returns an array of all keys-pairs within an object
 function _.pairs(obj)
   local paired= {}
   _.each(obj,function(k,v)
@@ -696,7 +862,6 @@ function _.pairs(obj)
 	return paired
 end
 
--- Extends destination object with all source objects properties
 function _.extend(destObj,...)
 	local sources = {...}
 	_.each(sources,function(__,source)
@@ -709,7 +874,6 @@ function _.extend(destObj,...)
 	return destObj
 end
 
--- Returns an array-list of method names in an object
 function _.functions(obj,output)
   if not obj then return _.sort(_.keys(_)) end
   local _methods = output or {}
@@ -726,7 +890,6 @@ function _.functions(obj,output)
 end
 _.methods = _.functions
 
--- Clones an object (recursively)
 function _.clone(obj,shallow)
 	if not _.isObject(obj) then return obj end
   local _obj = {}
@@ -743,12 +906,10 @@ function _.clone(obj,shallow)
   return _obj
 end
 
--- Checks if a given object has a property
 function _.has(obj, key)
   return obj[key]~=nil
 end
 
--- Picks specified properties and their matching values in a object
 function _.pick(obj, ...)
 	local whitelist = _.flatten {...}
 	local _picked = {}
@@ -761,7 +922,6 @@ function _.pick(obj, ...)
 end
 _.choose = _.pick
 
--- Clones an object while denying specified properties and their matching values
 function _.omit(obj,...)
 	local blacklist = _.flatten {...}
 	local _picked = {}
@@ -774,7 +934,6 @@ function _.omit(obj,...)
 end
 _.drop = _.omit
 
--- Applies a template over an object
 function _.template(obj,template)
   _.each(template,function(i,v)
 	if not obj[i] then
@@ -785,7 +944,6 @@ function _.template(obj,template)
 end
 _.defaults = _.template
 
--- Raw equality test
 function _.isEqual(objA,objB,useMt)
 	local typeObjA = type(objA)
 	local typeObjB = type(objB)
@@ -816,7 +974,6 @@ function _.isEqual(objA,objB,useMt)
   return true
 end
 
--- Invokes an object's method with custom arguments
 function _.result(obj,method,...)
   if obj[method] then
     if _.isCallable(obj[method]) then
@@ -827,19 +984,16 @@ function _.result(obj,method,...)
   if _.isCallable(method) then return method(obj,...) end
 end
 
--- Tests if arg is an object
 function _.isObject(obj)
   return type(obj) == 'table'
 end
 
--- Tests if an object is callable
 function _.isCallable(obj)
   return (_.isFunction(obj) or
 		 (_.isObject(obj) and getmetatable(obj)
 					         and getmetatable(obj).__call~=nil) or false)
 end
 
--- Is array an array ?
 function _.isArray(obj)
 	if not _.isObject(obj) then return false end
 	return _.all(_.keys(obj),function(i,v)
@@ -847,54 +1001,41 @@ function _.isArray(obj)
 		end)
 end
 
--- Is Obj empty ?
 function _.isEmpty(obj)
 	if _.isString(obj) then return #obj==0 end
 	if _.isObject(obj) then return next(obj)==nil end
 	return true
 end
 
--- Is obj a string
 function _.isString(value)
   return type(value) == 'string'
 end
 
--- Is obj a function
 function _.isFunction(obj)
    return type(obj) == 'function'
 end
 
--- Is value nil ?
 function _.isNil(obj)
 	return obj==nil
 end
 
--- Is value a finite number ?
 function _.isFinite(value)
 	if not _.isNumber(value) then return false end
 	return value > -huge and value < huge
 end
 
--- Is value a number
 function _.isNumber(value)
 	return type(value) == 'number'
 end
 
--- Tests is value is NaN
 function _.isNaN(value)
   return _.isNumber(value) and value~=value
 end
 
--- Is value a boolean
 function _.isBoolean(value)
   return type(value) == 'boolean'
 end
 
---------------------------------------------------------------------------
--- Exporting public interface
---------------------------------------------------------------------------
-
--- Import all functions in the current env
 local function import()
   local fn = _.functions()
   local env = getfenv()
@@ -906,25 +1047,3 @@ end
 local _mt = {import = import, mixin = import}
 _mt.__index = _mt
 return setmetatable (_, _mt)
-
--- Copyright (c) 2012 Roland Yonaba
---[[
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
---]]
