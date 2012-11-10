@@ -107,7 +107,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#mapReduceRight">mapReduceRight&nbsp;(list, f, state)</a></td>
-	<td class="summary">Reduces a collection (in reverse order) while saving intermediate states.</td>
+	<td class="summary">Reduces a collection while saving intermediate states.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#maprr">maprr&nbsp;(list, f, state)</a></td>
@@ -199,7 +199,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#countBy">countBy&nbsp;(list, iter, ...)</a></td>
-	<td class="summary">Sorts a list into groups and counts for the number of objects in each group.</td>
+	<td class="summary">Groups objects in a collection and counts them.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#size">size&nbsp;(...)</a></td>
@@ -212,6 +212,162 @@
 	<tr>
 	<td class="name" nowrap><a href="#sameKeys">sameKeys&nbsp;(listA, listB)</a></td>
 	<td class="summary">Checks if both given lists have the same keys.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reverse">reverse&nbsp;(array)</a></td>
+	<td class="summary">Reverses values in a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#selectWhile">selectWhile&nbsp;(array, f, ...)</a></td>
+	<td class="summary">Collects values from a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#takeWhile">takeWhile&nbsp;(array, f, ...)</a></td>
+	<td class="summary">Alias for <a href="index.html#selectWhile">selectWhile</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dropWhile">dropWhile&nbsp;(array, f, ...)</a></td>
+	<td class="summary">Collects values from a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rejectWhile">rejectWhile&nbsp;(array, f, ...)</a></td>
+	<td class="summary">Alias for <a href="index.html#dropWhile">dropWhile</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sortedIndex">sortedIndex&nbsp;(array, the, comp)</a></td>
+	<td class="summary">Returns the index at which a value should be inserted.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#indexOf">indexOf&nbsp;(array, the)</a></td>
+	<td class="summary">Returns the index of the given value in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#lastIndexOf">lastIndexOf&nbsp;(array, the)</a></td>
+	<td class="summary">Returns the last occurence index of a given value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#add">add&nbsp;(array, ...)</a></td>
+	<td class="summary">Adds all passed-in values at the top of an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#push">push&nbsp;(array, ...)</a></td>
+	<td class="summary">Pushes all passed-in values at the end of an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pop">pop&nbsp;(array)</a></td>
+	<td class="summary">Removes and returns the value at the top of a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shift">shift&nbsp;(array)</a></td>
+	<td class="summary">Alias for <a href="index.html#pop">pop</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unshift">unshift&nbsp;(array)</a></td>
+	<td class="summary">Removes and returns the value at the end of a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#removeRange">removeRange&nbsp;(array, start, finish)</a></td>
+	<td class="summary">Trims all values indexed within the range <code>[start,finish]</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rmRange">rmRange&nbsp;(array, start, finish)</a></td>
+	<td class="summary">Alias for <a href="index.html#removeRange">removeRange</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#slice">slice&nbsp;(array, start, finish)</a></td>
+	<td class="summary">Slices values indexed within <code>[start,finish]</code> range.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#first">first&nbsp;(array, n)</a></td>
+	<td class="summary">Returns the first N values in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#head">head&nbsp;(array, n)</a></td>
+	<td class="summary">Alias for <a href="index.html#first">first</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#take">take&nbsp;(array, n)</a></td>
+	<td class="summary">Alias for <a href="index.html#first">first</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#initial">initial&nbsp;(array, n)</a></td>
+	<td class="summary">Returns all values in an array excluding the last N values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#last">last&nbsp;(array, n)</a></td>
+	<td class="summary">Returns the last N values in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rest">rest&nbsp;(array, index)</a></td>
+	<td class="summary">Trims all values before index.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tail">tail&nbsp;(array, index)</a></td>
+	<td class="summary">Alias for <a href="index.html#rest">rest</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compact">compact&nbsp;(array)</a></td>
+	<td class="summary">Trims all falsy values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#flatten">flatten&nbsp;(array, shallow)</a></td>
+	<td class="summary">Flattens a nested array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#difference">difference&nbsp;(array, ...)</a></td>
+	<td class="summary">Returns values from an array not present in all passed-in args.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#without">without&nbsp;(array, ...)</a></td>
+	<td class="summary">Alias for <a href="index.html#difference">difference</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uniq">uniq&nbsp;(array, isSorted, iter, ...)</a></td>
+	<td class="summary">Produces a duplicate-free version of a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unique">unique&nbsp;(array, isSorted, iter, ...)</a></td>
+	<td class="summary">Alias for <a href="index.html#uniq">uniq</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#union">union&nbsp;(...)</a></td>
+	<td class="summary">Returns the duplicate-free union of all passed in arrays.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#intersection">intersection&nbsp;(array, ...)</a></td>
+	<td class="summary">Returns the  intersection of all passed-in arrays.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#zip">zip&nbsp;(...)</a></td>
+	<td class="summary">Merges together values of each of the passed-in arrays in subsets.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#append">append&nbsp;(array, other)</a></td>
+	<td class="summary">Clones <code>array</code> and appends <code>other</code> to the result.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#range">range&nbsp;(...)</a></td>
+	<td class="summary">Produce a flexible list of numbers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#count">count&nbsp;(...)</a></td>
+	<td class="summary">Alias for <a href="index.html#range">range</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#invert">invert&nbsp;(array)</a></td>
+	<td class="summary">Inverts <code>key-value</code> pairs.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mirror">mirror&nbsp;(array)</a></td>
+	<td class="summary">Alias for <a href="index.html#invert">invert</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#concat">concat&nbsp;(array, sep, i, j)</a></td>
+	<td class="summary">Concatenates values in a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#join">join&nbsp;(array, sep, i, j)</a></td>
+	<td class="summary">Alias for <a href="index.html#concat">concat</a>.</td>
 	</tr>
 </table>
 
@@ -594,8 +750,8 @@
     <strong>mapReduceRight&nbsp;(list, f, state)</strong>
     </dt>
     <dd>
-    Reduces a collection (in reverse order) while saving intermediate states.
- Folds the collection from right to left to a single value,
+    Reduces a collection while saving intermediate states.  It proceeds in reverse order,
+ folding the collection from right to left to a single value,
  with respect to a given iterator and an initial state.
  The given function takes a state and a value, and returns a new state.
  The function returns an array of intermediate states.
@@ -1248,7 +1404,7 @@
     <ol>
 
           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        an array subsets
+        a new collection with items grouped by subsets
     </ol>
 
 
@@ -1258,7 +1414,7 @@
     <strong>countBy&nbsp;(list, iter, ...)</strong>
     </dt>
     <dd>
-    Sorts a list into groups and counts for the number of objects in each group.
+    Groups objects in a collection and counts them.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1278,7 +1434,7 @@
     <ol>
 
           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        an table of subsets paired with their count
+        a new collection with subsets names and count
     </ol>
 
 
@@ -1361,6 +1517,1099 @@
           <span class="types"><span class="type">boolean</span></span>
         <strong>true</strong> or <strong>false</strong>
     </ol>
+
+
+</dd>
+    <dt>
+    <a name = "reverse"></a>
+    <strong>reverse&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Reverses values in a given array.  The passed-in array should not be sparse.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a copy of the given array, reversed
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "selectWhile"></a>
+    <strong>selectWhile&nbsp;(array, f, ...)</strong>
+    </dt>
+    <dd>
+    Collects values from a given array.  The passed-in array should not be sparse.
+ This function collects values as long as they satisfy a given predicate.
+ Therefore, it returns on the first false test.
+ <br/><em>Aliased as <a href="index.html#takeWhile">takeWhile</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new table containing the first truthy values collected
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#takeWhile">takeWhile</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "takeWhile"></a>
+    <strong>takeWhile&nbsp;(array, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#selectWhile">selectWhile</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dropWhile"></a>
+    <strong>dropWhile&nbsp;(array, f, ...)</strong>
+    </dt>
+    <dd>
+    Collects values from a given array.  The passed-in array should not be sparse.
+ This function collects values as soon as they do not satisfy a given predicate.
+ Therefore it returns on the first true test.
+ <br/><em>Aliased as <a href="index.html#rejectWhile">rejectWhile</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new table containing the first falsy values collected
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#rejectWhile">rejectWhile</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "rejectWhile"></a>
+    <strong>rejectWhile&nbsp;(array, f, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#dropWhile">dropWhile</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">f</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sortedIndex"></a>
+    <strong>sortedIndex&nbsp;(array, the, comp)</strong>
+    </dt>
+    <dd>
+    Returns the index at which a value should be inserted.  This returned index is determined so that it maintains the sort.
+ If a comparison function is passed, it will be used to determine the sort ranking of each
+ value, including the passed-in value.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">the</span>
+        <span class="types"><span class="type">value</span></span>
+       value to be inserted</li>
+      <li><span class="parameter">comp</span>
+        <span class="types"><span class="type">function</span></span>
+       an comparison function prototyped as <code>f(a,b)</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">index</span></span>
+        the index at which the passed-in value should be inserted
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "indexOf"></a>
+    <strong>indexOf&nbsp;(array, the)</strong>
+    </dt>
+    <dd>
+    Returns the index of the given value in an array.  If the passed-in value exists
+ more than once in the array, it will return the index of the first occurence.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">the</span>
+        <span class="types"><span class="type">value</span></span>
+       value to be searched</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">index</span></span>
+        the index of the passed-in value or <strong>nil</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "lastIndexOf"></a>
+    <strong>lastIndexOf&nbsp;(array, the)</strong>
+    </dt>
+    <dd>
+    Returns the last occurence index of a given value.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">the</span>
+        <span class="types"><span class="type">value</span></span>
+       value to be searched</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">index</span></span>
+        the index of the last occurence of the passed-in value or <strong>nil</strong>
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "add"></a>
+    <strong>add&nbsp;(array, ...)</strong>
+    </dt>
+    <dd>
+    Adds all passed-in values at the top of an array.  The latter args will come the
+ first in the given array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "push"></a>
+    <strong>push&nbsp;(array, ...)</strong>
+    </dt>
+    <dd>
+    Pushes all passed-in values at the end of an array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "pop"></a>
+    <strong>pop&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Removes and returns the value at the top of a given array. <br/>
+ <br/><em>Aliased as <a href="index.html#shift">shift</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">value</span></span>
+        the popped value
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#shift">shift</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "shift"></a>
+    <strong>shift&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#pop">pop</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "unshift"></a>
+    <strong>unshift&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Removes and returns the value at the end of a given array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">value</span></span>
+        the popped value
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "removeRange"></a>
+    <strong>removeRange&nbsp;(array, start, finish)</strong>
+    </dt>
+    <dd>
+    Trims all values indexed within the range <code>[start,finish]</code>. <br/>
+ <br/><em>Aliased as <a href="index.html#rmRange">rmRange</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">start</span>
+        <span class="types"><span class="type">index</span></span>
+       the lower bound index, defaults to the first index in the array.</li>
+      <li><span class="parameter">finish</span>
+        <span class="types"><span class="type">index</span></span>
+       the upper bound index, defaults to the array length.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#rmRange">rmRange</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "rmRange"></a>
+    <strong>rmRange&nbsp;(array, start, finish)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#removeRange">removeRange</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">start</span>
+
+
+</li>
+      <li><span class="parameter">finish</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "slice"></a>
+    <strong>slice&nbsp;(array, start, finish)</strong>
+    </dt>
+    <dd>
+    Slices values indexed within <code>[start,finish]</code> range.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">start</span>
+        <span class="types"><span class="type">index</span></span>
+       the lower bound index, defaults to the first index in the array.</li>
+      <li><span class="parameter">finish</span>
+        <span class="types"><span class="type">index</span></span>
+       the upper bound index, defaults to the array length.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "first"></a>
+    <strong>first&nbsp;(array, n)</strong>
+    </dt>
+    <dd>
+    Returns the first N values in an array.  <br/><em>Aliased as <a href="index.html#head">head</a>, <a href="index.html#take">take</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">n</span>
+        <span class="types"><span class="type">number</span></span>
+       the number of values to be collected, defaults to 1.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="index.html#head">head</a></li>
+         <li><a href="index.html#take">take</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "head"></a>
+    <strong>head&nbsp;(array, n)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#first">first</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">n</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "take"></a>
+    <strong>take&nbsp;(array, n)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#first">first</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">n</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "initial"></a>
+    <strong>initial&nbsp;(array, n)</strong>
+    </dt>
+    <dd>
+    Returns all values in an array excluding the last N values.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">n</span>
+        <span class="types"><span class="type">number</span></span>
+       the number of values to be left, defaults to the array length.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "last"></a>
+    <strong>last&nbsp;(array, n)</strong>
+    </dt>
+    <dd>
+    Returns the last N values in an array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">n</span>
+        <span class="types"><span class="type">number</span></span>
+       the number of values to be collected, defaults to the array length.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "rest"></a>
+    <strong>rest&nbsp;(array, index)</strong>
+    </dt>
+    <dd>
+    Trims all values before index.  <br/><em>Aliased as <a href="index.html#tail">tail</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">index</span>
+        <span class="types"><span class="type">index</span></span>
+       an index</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#tail">tail</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "tail"></a>
+    <strong>tail&nbsp;(array, index)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#rest">rest</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">index</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "compact"></a>
+    <strong>compact&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Trims all falsy values.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "flatten"></a>
+    <strong>flatten&nbsp;(array, shallow)</strong>
+    </dt>
+    <dd>
+    Flattens a nested array.  Passing <code>shallow</code> will only flatten at the first single level.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">shallow</span>
+        <span class="types"><span class="type">boolean</span></span>
+       specifies the flattening depth</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array, flattened
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "difference"></a>
+    <strong>difference&nbsp;(array, ...)</strong>
+    </dt>
+    <dd>
+    Returns values from an array not present in all passed-in args.  <br/><em>Aliased as <a href="index.html#without">without</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#without">without</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "without"></a>
+    <strong>without&nbsp;(array, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#difference">difference</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uniq"></a>
+    <strong>uniq&nbsp;(array, isSorted, iter, ...)</strong>
+    </dt>
+    <dd>
+    Produces a duplicate-free version of a given array.  Passing <code>isSorted</code> will
+ provide a much faster version, but will produce the desired result if the array
+ is properly sorted. If <code>iter</code> is passed, it will be used to compute new values based on
+ a transformation.
+ <br/><em>Aliased as <a href="index.html#unique">unique</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">isSorted</span>
+        <span class="types"><span class="type">boolean</span></span>
+       whether or not the passed-in array is already sorted, defaults to <code>false</code></li>
+      <li><span class="parameter">iter</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function prototyped as <code>iter(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       extra-args to be passed to <code>iter</code> function</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#unique">unique</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "unique"></a>
+    <strong>unique&nbsp;(array, isSorted, iter, ...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#uniq">uniq</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">isSorted</span>
+
+
+</li>
+      <li><span class="parameter">iter</span>
+
+
+</li>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "union"></a>
+    <strong>union&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Returns the duplicate-free union of all passed in arrays.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of arrays arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "intersection"></a>
+    <strong>intersection&nbsp;(array, ...)</strong>
+    </dt>
+    <dd>
+    Returns the  intersection of all passed-in arrays. <br/>
+ Each value in the result is present in each of the passed-in arrays.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of array arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "zip"></a>
+    <strong>zip&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Merges together values of each of the passed-in arrays in subsets. <br/>
+ Only values at the same position in the initial array are merged.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable number of array arguments</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "append"></a>
+    <strong>append&nbsp;(array, other)</strong>
+    </dt>
+    <dd>
+    Clones <code>array</code> and appends <code>other</code> to the result.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">other</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "range"></a>
+    <strong>range&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Produce a flexible list of numbers.  If one positive value is passed, will count from 0 to that value,
+ with a default step of 1. If two values were passed, will count from the first one to the second one, with the
+ same default step of 1. A third passed value will be considered a step value.
+ <br/><em>Aliased as <a href="index.html#count">count</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       a variable list of numbers</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array of numbers
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#count">count</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "count"></a>
+    <strong>count&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#range">range</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">...</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "invert"></a>
+    <strong>invert&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Inverts <code>key-value</code> pairs.  Keys becomes values, while values becomes keys.
+ <br/><em>Aliased as <a href="index.html#mirror">mirror</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a given array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#mirror">mirror</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "mirror"></a>
+    <strong>mirror&nbsp;(array)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#invert">invert</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "concat"></a>
+    <strong>concat&nbsp;(array, sep, i, j)</strong>
+    </dt>
+    <dd>
+    Concatenates values in a given array.  Handles booleans as well. If <code>sep</code> string is
+ passed, it will be used as a separator. Optional <code>i</code> and <code>j</code> will only concatenate
+ values within <code>[i,j]</code> range. <br/><em>Aliased as <a href="index.html#join">join</a></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a given array</li>
+      <li><span class="parameter">sep</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+       a separator string, defaults to <code>''</code>.</li>
+      <li><span class="parameter">i</span>
+        <span class="types"><span class="type">number</span></span>
+       the starting index, defaults to 1.</li>
+      <li><span class="parameter">j</span>
+        <span class="types"><span class="type">number</span></span>
+       the final index, defaults to the array length.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        a string
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="index.html#join">join</a>
+    </ul>
+</dd>
+    <dt>
+    <a name = "join"></a>
+    <strong>join&nbsp;(array, sep, i, j)</strong>
+    </dt>
+    <dd>
+    Alias for <a href="index.html#concat">concat</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+
+
+</li>
+      <li><span class="parameter">sep</span>
+
+
+</li>
+      <li><span class="parameter">i</span>
+
+
+</li>
+      <li><span class="parameter">j</span>
+
+
+</li>
+    </ul>
+
+
 
 
 </dd>

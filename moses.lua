@@ -29,7 +29,6 @@ local function count(t)
     for k,v in pairs(t) do i = (i or 0) + 1 end
 	return i
 end
-
 local function extract(list,comp,transform,...)
   local _ans
   local transform = transform or _.identity
@@ -181,8 +180,8 @@ end
 -- @param state
 _.mapr = _.mapReduce
 
---- Reduces a collection (in reverse order) while saving intermediate states.
--- Folds the collection from right to left to a single value, 
+--- Reduces a collection while saving intermediate states. It proceeds in reverse order,
+-- folding the collection from right to left to a single value, 
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state. 
 -- The function returns an array of intermediate states.
@@ -439,7 +438,7 @@ end
 -- @tparam table list a collection
 -- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
 -- @tparam var_arg ... extra-args to be passed to function `iter`
--- @treturn table an array subsets
+-- @treturn table a new collection with items grouped by subsets
 function _.groupBy(list,iter,...)
   local var_arg = {...}
   local _list = {}
@@ -457,12 +456,12 @@ function _.groupBy(list,iter,...)
   return _list
 end
 
---- Sorts a list into groups and counts for the number of objects in each group.
+--- Groups objects in a collection and counts them.
 -- @name countBy
 -- @tparam table list a collection
 -- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
 -- @tparam var_arg ... extra-args to be passed to function `iter`
--- @treturn table an table of subsets paired with their count
+-- @treturn table a new collection with subsets names and count
 function _.countBy(list,iter,...)
   local var_arg = {...}
 	local stats = {}
@@ -521,6 +520,10 @@ end
 
 -- ========= Array functions
 
+--- Reverses values in a given array. The passed-in array should not be sparse.
+-- @name reverse
+-- @tparam table array an array
+-- @treturn table a copy of the given array, reversed
 function _.reverse(array)
   local _array = {}
   for i = #array,1,-1 do
@@ -529,19 +532,45 @@ function _.reverse(array)
   return _array
 end
 
-function _.selectWhile(array,func,...)
+--- Collects values from a given array. The passed-in array should not be sparse. 
+-- This function collects values as long as they satisfy a given predicate. 
+-- Therefore, it returns on the first false test.
+-- <br/><em>Aliased as @{takeWhile}</em>
+-- @name selectWhile
+-- @tparam table array an array
+-- @tparam function f an iterator function prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn table a new table containing the first truthy values collected
+-- @see takeWhile
+function _.selectWhile(array,f,...)
   local t = {}
   for i,v in ipairs(array) do
-    if func(i,v,...) then t[i] = v else break end
+    if f(i,v,...) then t[i] = v else break end
   end
   return t
 end
+
+--- Alias for @{selectWhile}.
+-- @function takeWhile
+-- @param array
+-- @param f
+-- @param ...
 _.takeWhile = _.selectWhile
 
-function _.dropWhile(array, func,...)
+--- Collects values from a given array. The passed-in array should not be sparse. 
+-- This function collects values as soon as they do not satisfy a given predicate. 
+-- Therefore it returns on the first true test.
+-- <br/><em>Aliased as @{rejectWhile}</em>
+-- @name dropWhile
+-- @tparam table array an array
+-- @tparam function f an iterator function prototyped as `f(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to function `f`
+-- @treturn table a new table containing the first falsy values collected
+-- @see rejectWhile
+function _.dropWhile(array, f,...)
   local _i
   for i,v in ipairs(array) do
-    if not func(i,v,...) then
+    if not f(i,v,...) then
       _i = i
       break
     end
@@ -549,51 +578,109 @@ function _.dropWhile(array, func,...)
   if _.isNil(_i) then return {} end
   return _.rest(array,_i)
 end
+
+--- Alias for @{dropWhile}.
+-- @function rejectWhile
+-- @param array
+-- @param f
+-- @param ...
 _.rejectWhile = _.dropWhile
 
+--- Returns the index at which a value should be inserted. This returned index is determined so that it maintains the sort. 
+-- If a comparison function is passed, it will be used to determine the sort ranking of each 
+-- value, including the passed-in value.
+-- @name sortedIndex
+-- @tparam table array an array
+-- @tparam value the value to be inserted
+-- @tparam function comp an comparison function prototyped as `f(a,b)`
+-- @treturn index the index at which the passed-in value should be inserted
 function _.sortedIndex(array,value,comp,sort)
   local _comp = comp or f_min
-  if sort then array = _.sort(array,_comp) end
+  if sort then _.sort(array,_comp) end
   for i = 1,#array do
     if not _comp(array[i],value) then return i end
   end
   return #array+1
 end
 
+--- Returns the index of the given value in an array. If the passed-in value exists
+-- more than once in the array, it will return the index of the first occurence.
+-- @name indexOf
+-- @tparam table array an array
+-- @tparam value the value to be searched
+-- @treturn index the index of the passed-in value or __nil__
 function _.indexOf(array, value)
   for k = 1,#array do
     if array[k] == value then return k end
   end
 end
 
+--- Returns the last occurence index of a given value.
+-- @name lastIndexOf
+-- @tparam table array an array
+-- @tparam value the value to be searched
+-- @treturn index the index of the last occurence of the passed-in value or __nil__
 function _.lastIndexOf(array,value)
   local key = _.indexOf(_.reverse(array),value)
   if key then return #array-key+1 end
 end
 
+--- Adds all passed-in values at the top of an array. The latter args will come the 
+-- first in the given array.
+-- @name add
+-- @tparam table array an array
+-- @tparam var_arg ... a variable number of arguments
+-- @treturn table the passed-in array
 function _.add(array,...)
   _.each({...},function(i,v) t_insert(array,1,v) end)
   return array
 end
 
+--- Pushes all passed-in values at the end of an array. 
+-- @name push
+-- @tparam table array an array
+-- @tparam var_arg ... a variable number of arguments
+-- @treturn table the passed-in array
 function _.push(array,...)
   _.each({...}, function(i,v) array[#array+1] = v end)
   return array
 end
 
+--- Removes and returns the value at the top of a given array. 
+-- <br/><em>Aliased as @{shift}</em>
+-- @name pop
+-- @tparam table array an array
+-- @treturn value the popped value
+-- @see shift
 function _.pop(array)
   local retValue = array[1]
   t_remove(array,1)
   return retValue
 end
+
+--- Alias for @{pop}.
+-- @function shift
+-- @param array
 _.shift = _.pop
 
+--- Removes and returns the value at the end of a given array. 
+-- @name unshift
+-- @tparam table array an array
+-- @treturn value the popped value
 function _.unshift(array)
   local retValue = array[#array]
   t_remove(array)
   return retValue
 end
 
+--- Trims all values indexed within the range `[start,finish]`. 
+-- <br/><em>Aliased as @{rmRange}</em>
+-- @name removeRange
+-- @tparam table array an array
+-- @tparam index start the lower bound index, defaults to the first index in the array.
+-- @tparam index finish the upper bound index, defaults to the array length.
+-- @treturn table the passed-in array
+-- @see rmRange
 function _.removeRange(array,start,finish)
   local array = _.clone(array)
   local i,n = (next(array)),#array
@@ -612,43 +699,102 @@ function _.removeRange(array,start,finish)
   end
   return array
 end
+
+--- Alias for @{removeRange}.
+-- @function rmRange
+-- @param array
+-- @param start
+-- @param finish
 _.rmRange = _.removeRange
 
-function _.slice(array,left,right)
+--- Slices values indexed within `[start,finish]` range. 
+-- @name slice
+-- @tparam table array an array
+-- @tparam index start the lower bound index, defaults to the first index in the array.
+-- @tparam index finish the upper bound index, defaults to the array length.
+-- @treturn table a new array
+function _.slice(array,start,finish)
   return _.select(array, function(index)
-      return (index >= (left or next(array)) and index <= (right or #array))
+      return (index >= (start or next(array)) and index <= (finish or #array))
     end)
 end
 
+--- Returns the first N values in an array. <br/><em>Aliased as @{head}, @{take}</em>
+-- @name first
+-- @tparam table array an array
+-- @tparam number n the number of values to be collected, defaults to 1.
+-- @treturn table a new array
+-- @see head
+-- @see take
 function _.first(array,n)
   local n = n or 1
   return _.slice(array,1, min(n,#array))
 end
+
+--- Alias for @{first}.
+-- @function head
+-- @param array
+-- @param n
 _.head = _.first
+
+--- Alias for @{first}.
+-- @function take
+-- @param array
+-- @param n
 _.take = _.first
 
+--- Returns all values in an array excluding the last N values. 
+-- @name initial
+-- @tparam table array an array
+-- @tparam number n the number of values to be left, defaults to the array length.
+-- @treturn table a new array
 function _.initial(array,n)
   if n and n < 0 then return end
   return _.slice(array,1, n and #array-(min(n,#array)) or #array-1)
 end
 
+--- Returns the last N values in an array. 
+-- @name last
+-- @tparam table array an array
+-- @tparam number n the number of values to be collected, defaults to the array length.
+-- @treturn table a new array
 function _.last(array,n)
   if n and n <= 0 then return end
   return _.slice(array,n and #array-min(n-1,#array-1) or 2,#array)
 end
 
+--- Trims all values before index. <br/><em>Aliased as @{tail}</em>
+-- @name rest
+-- @tparam table array an array
+-- @tparam index index an index
+-- @treturn table a new array
+-- @see tail
 function _.rest(array,index)
   if index and index > #array then return {} end
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
+
+--- Alias for @{rest}.
+-- @function tail
+-- @param array
+-- @param index
 _.tail = _.rest
 
+--- Trims all falsy values. 
+-- @name compact
+-- @tparam table array an array
+-- @treturn table a new array
 function _.compact(array)
   return _.reject(array, function (_,value)
 		return not value
 	end)
 end
 
+--- Flattens a nested array. Passing `shallow` will only flatten at the first single level.
+-- @name flatten
+-- @tparam table array an array
+-- @tparam boolean shallow specifies the flattening depth
+-- @treturn table a new array, flattened
 function _.flatten(array, shallow)
   local shallow = shallow or false
   local new_flattened
@@ -663,14 +809,37 @@ function _.flatten(array, shallow)
   return _flat
 end
 
+--- Returns values from an array not present in all passed-in args. <br/><em>Aliased as @{without}</em>
+-- @name difference
+-- @tparam table array an array
+-- @tparam var_arg ... a variable number of arguments
+-- @treturn table a new array
+-- @see without
 function _.difference(array,...)
   local values = _.toArray(...)
   return _.select(array,function(i,value)
       return not _.include(values,value)
     end)
 end
+
+--- Alias for @{difference}.
+-- @function without
+-- @param array
+-- @param ...
 _.without = _.difference
 
+--- Produces a duplicate-free version of a given array. Passing `isSorted` will
+-- provide a much faster version, but will produce the desired result if the array
+-- is properly sorted. If `iter` is passed, it will be used to compute new values based on 
+-- a transformation. 
+-- <br/><em>Aliased as @{unique}</em>
+-- @name uniq
+-- @tparam table array an array
+-- @tparam boolean isSorted whether or not the passed-in array is already sorted, defaults to `false`
+-- @tparam function iter an iterator function prototyped as `iter(key,value,...)`
+-- @tparam var_arg ... extra-args to be passed to `iter` function
+-- @treturn table a new array
+-- @see unique
 function _.uniq(array,isSorted,iter,...)
   local init = iter and _.map(array,iter,...) or array
   local result = {}
@@ -691,12 +860,29 @@ function _.uniq(array,isSorted,iter,...)
   end
   return result
 end
+
+--- Alias for @{uniq}.
+-- @function unique
+-- @param array
+-- @param isSorted
+-- @param iter
+-- @param ...
 _.unique = _.uniq
 
+--- Returns the duplicate-free union of all passed in arrays.
+-- @name union
+-- @tparam var_arg ... a variable number of arrays arguments
+-- @treturn table a new array
 function _.union(...)
-  return _.flatten {...}
+  return _.uniq(_.flatten({...}))
 end
 
+--- Returns the  intersection of all passed-in arrays. 
+-- Each value in the result is present in each of the passed-in arrays.
+-- @name intersection
+-- @tparam table array an array
+-- @tparam var_arg ... a variable number of array arguments
+-- @treturn table a new array
 function _.intersection(array,...)
   local arg = {...}
   local _intersect = {}
@@ -710,6 +896,11 @@ function _.intersection(array,...)
   return _intersect
 end
 
+--- Merges together values of each of the passed-in arrays in subsets. 
+-- Only values at the same position in the initial array are merged.
+-- @name zip
+-- @tparam var_arg ... a variable number of array arguments
+-- @treturn table a new array
 function _.zip(...)
   local arg = {...}
   local _len = _.max(_.map(arg,function(i,v)
@@ -722,13 +913,26 @@ function _.zip(...)
   return _ans
 end
 
-function _.append(list,other)
+--- Clones `array` and appends `other` to the result.
+-- @name append
+-- @tparam table array an array
+-- @tparam table other an array
+-- @treturn table a new array
+function _.append(array,other)
   local t = {}
-  for i,v in ipairs(list) do t[i] = v end
+  for i,v in ipairs(array) do t[i] = v end
   for i,v in ipairs(other) do t[#t+1] = v end
   return t
 end
 
+--- Produce a flexible list of numbers. If one positive value is passed, will count from 0 to that value, 
+-- with a default step of 1. If two values were passed, will count from the first one to the second one, with the 
+-- same default step of 1. A third passed value will be considered a step value.
+-- <br/><em>Aliased as @{count}</em> 
+-- @name range
+-- @tparam var_arg ... a variable list of numbers
+-- @treturn table a new array of numbers
+-- @see count
 function _.range(...)
   local arg = {...}
   local _start,_stop,_step
@@ -744,15 +948,39 @@ function _.range(...)
   if #_ranged>0 then t_insert(_ranged,1,_start) end
   return _ranged
 end
+
+--- Alias for @{range}.
+-- @function count
+-- @param ...
 _.count = _.range
 
+--- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
+-- <br/><em>Aliased as @{mirror}</em> 
+-- @name invert
+-- @tparam table array a given array
+-- @treturn table a new array
+-- @see mirror
 function _.invert(array)
   local _ret = {}
   _.each(array,function(i,v) _ret[v] = i end)
   return _ret
 end
+
+--- Alias for @{invert}.
+-- @function mirror
+-- @param array
 _.mirror = _.invert
 
+--- Concatenates values in a given array. Handles booleans as well. If `sep` string is
+-- passed, it will be used as a separator. Optional `i` and `j` will only concatenate
+-- values within `[i,j]` range. <br/><em>Aliased as @{join}</em> 
+-- @name concat
+-- @tparam table array a given array
+-- @tparam string sep a separator string, defaults to `''`.
+-- @tparam number i the starting index, defaults to 1.
+-- @tparam number j the final index, defaults to the array length.
+-- @treturn string a string
+-- @see join
 function _.concat(array,sep,i,j)
   local _array = _.map(array,function(i,v)
 		return tostring(v)
@@ -760,7 +988,16 @@ function _.concat(array,sep,i,j)
 	return t_concat(_array,sep,i,j)
 
 end
+
+--- Alias for @{concat}.
+-- @function join
+-- @param array
+-- @param sep
+-- @param i
+-- @param j
 _.join = _.concat
+
+-- ========= Utility functions
  
 function _.identity(value)
   return value

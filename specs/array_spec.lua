@@ -385,14 +385,14 @@ context('Array functions specs', function()
   
   context('union',function()  
   
-    test('returns the union of all passed-in arrays', function()   
+    test('returns the duplicate-free union of all passed-in arrays', function()   
       local a = {"a"}; local b = {1,2,3}; local c = {2,10}
-      assert_true(_.isEqual(_.union(a,b,c),{'a',1,2,3,2,10}))
+      assert_true(_.isEqual(_.union(a,b,c),{'a',1,2,3,10}))
     end) 
     
     test('accepts nested arrays as well', function()   
       local a = {"a",{"b","c"}}; local b = {1,{2},3}; local c = {2,10}
-      assert_true(_.isEqual(_.union(a,b,c),{'a','b','c',1,2,3,2,10}))
+      assert_true(_.isEqual(_.union(a,b,c),{'a','b','c',1,2,3,10}))
     end)     
     
   end)  
