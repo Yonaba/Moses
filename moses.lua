@@ -48,7 +48,7 @@ local unique_id_counter = -1
 
 -- ========= Collection functions
 
---- Calls function `f` on each key-value of a given collection.
+--- Calls function `f` on each key-value of a given collection. <br/><em>Aliased as @{forEach}</em>.
 -- @name each
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
@@ -70,7 +70,7 @@ end
 _.forEach = _.each
 
 --- Maps function `f` on each key-value of a given collection. Collects
--- and returns the outputs.
+-- and returns the outputs.<br/><em>Aliased as @{collect}</em>.
 -- @name map
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
@@ -94,7 +94,8 @@ _.collect = _.map
 
 --- Reduces an entire collection. Folds from left to right to a single value, 
 -- with respect to a given iterator and an initial state.
--- The given function takes a state and a value, and returns a new state
+-- The given function takes a state and a value, and returns a new state.
+-- <br/><em>Aliased as @{inject}, @{foldl}</em>.
 -- @name reduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
@@ -125,7 +126,8 @@ _.foldl = _.reduce
 
 --- Reduces an entire collection. Folds from right to left to a single value, 
 -- with respect to a given iterator and an initial state.
--- The given function takes a state and a value, and returns a new state
+-- The given function takes a state and a value, and returns a new state.
+-- <br/><em>Aliased as @{injectr}, @{foldr}</em>.
 -- @name reduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
@@ -156,6 +158,7 @@ _.foldr = _.reduceRight
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state. 
 -- The function returns an array of intermediate states.
+-- <br/><em>Aliased as @{mapr}</em>
 -- @name mapReduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
@@ -183,6 +186,7 @@ _.mapr = _.mapReduce
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state. 
 -- The function returns an array of intermediate states.
+-- <br/><em>Aliased as @{maprr}</em>
 -- @name mapReduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
@@ -200,7 +204,7 @@ end
 -- @param state
 _.maprr = _.mapReduceRight
 
---- Looks for an object in a collection.
+--- Looks for an object in a collection. <br/><em>Aliased as @{any}, @{some}</em>
 -- @name include
 -- @tparam table list a collection
 -- @tparam object item a value to be searched
@@ -227,7 +231,7 @@ _.any = _.include
 -- @param item
 _.some = _.include
 
---- Looks for an object index in a collection.
+--- Looks for an object index in a collection. <br/><em>Aliased as @{where}, @{find}</em>
 -- @name detect
 -- @tparam table list a collection
 -- @tparam object item a value to be searched
@@ -253,7 +257,8 @@ _.find = _.detect
 -- @param item
 _.where = _.detect
 
---- Selects and extracts objects passing an iterator test.
+--- Selects and extracts objects passing an iterator test. 
+-- <br/><em>Aliased as @{filter}</em>
 -- @name select
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
@@ -276,7 +281,8 @@ end
 -- @param ...
 _.filter = _.select
 
---- Clones a collection, rejecting objects passing an iterator test.
+--- Clones a collection, rejecting objects passing an iterator test. 
+-- <br/><em>Aliased as @{discard}</em>
 -- @name reject
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
@@ -299,7 +305,7 @@ end
 -- @param ...
 _.discard = _.reject
 
---- Tests if all the objects in a collection passes an iterator test.
+--- Tests if all objects in a collection passes an iterator test. <br/><em>Aliased as @{every}</em>
 -- @name all
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`

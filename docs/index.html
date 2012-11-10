@@ -155,7 +155,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#all">all&nbsp;(list, f, ...)</a></td>
-	<td class="summary">Tests if all the objects in a collection passes an iterator test.</td>
+	<td class="summary">Tests if all objects in a collection passes an iterator test.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#every">every&nbsp;(list, f, ...)</a></td>
@@ -227,7 +227,7 @@
     <strong>each&nbsp;(list, f, ...)</strong>
     </dt>
     <dd>
-    Calls function <code>f</code> on each key-value of a given collection.
+    Calls function <code>f</code> on each key-value of a given collection.  <br/><em>Aliased as <a href="index.html#forEach">forEach</a></em>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -283,7 +283,7 @@
     </dt>
     <dd>
     Maps function <code>f</code> on each key-value of a given collection.  Collects
- and returns the outputs.
+ and returns the outputs.<br/><em>Aliased as <a href="index.html#collect">collect</a></em>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -346,7 +346,8 @@
     <dd>
     Reduces an entire collection.  Folds from left to right to a single value,
  with respect to a given iterator and an initial state.
- The given function takes a state and a value, and returns a new state
+ The given function takes a state and a value, and returns a new state.
+ <br/><em>Aliased as <a href="index.html#inject">inject</a>, <a href="index.html#foldl">foldl</a></em>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -437,7 +438,8 @@
     <dd>
     Reduces an entire collection.  Folds from right to left to a single value,
  with respect to a given iterator and an initial state.
- The given function takes a state and a value, and returns a new state
+ The given function takes a state and a value, and returns a new state.
+ <br/><em>Aliased as <a href="index.html#injectr">injectr</a>, <a href="index.html#foldr">foldr</a></em>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -531,6 +533,7 @@
  with respect to a given iterator and an initial state.
  The given function takes a state and a value, and returns a new state.
  The function returns an array of intermediate states.
+ <br/><em>Aliased as <a href="index.html#mapr">mapr</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -596,6 +599,7 @@
  with respect to a given iterator and an initial state.
  The given function takes a state and a value, and returns a new state.
  The function returns an array of intermediate states.
+ <br/><em>Aliased as <a href="index.html#maprr">maprr</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -656,7 +660,7 @@
     <strong>include&nbsp;(list, item)</strong>
     </dt>
     <dd>
-    Looks for an object in a collection.
+    Looks for an object in a collection.  <br/><em>Aliased as <a href="index.html#any">any</a>, <a href="index.html#some">some</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -734,7 +738,7 @@
     <strong>detect&nbsp;(list, item)</strong>
     </dt>
     <dd>
-    Looks for an object index in a collection.
+    Looks for an object index in a collection.  <br/><em>Aliased as <a href="index.html#where">where</a>, <a href="index.html#find">find</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -812,7 +816,8 @@
     <strong>select&nbsp;(list, f, ...)</strong>
     </dt>
     <dd>
-    Selects and extracts objects passing an iterator test.
+    Selects and extracts objects passing an iterator test. <br/>
+ <br/><em>Aliased as <a href="index.html#filter">filter</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -873,7 +878,8 @@
     <strong>reject&nbsp;(list, f, ...)</strong>
     </dt>
     <dd>
-    Clones a collection, rejecting objects passing an iterator test.
+    Clones a collection, rejecting objects passing an iterator test. <br/>
+ <br/><em>Aliased as <a href="index.html#discard">discard</a></em>
 
     <h3>Parameters:</h3>
     <ul>
@@ -934,7 +940,7 @@
     <strong>all&nbsp;(list, f, ...)</strong>
     </dt>
     <dd>
-    Tests if all the objects in a collection passes an iterator test.
+    Tests if all objects in a collection passes an iterator test.  <br/><em>Aliased as <a href="index.html#every">every</a></em>
 
     <h3>Parameters:</h3>
     <ul>
