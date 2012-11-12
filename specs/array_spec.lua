@@ -68,24 +68,6 @@ context('Array functions specs', function()
     
   end)
   
-  context('sortedIndex', function()
-  
-    test('returns the index at which a value should be inserted to preserve order', function()
-      local comp = function(a,b) return a<b end
-      assert_equal(_.sortedIndex({1,2,3},4,comp),4)
-    end)
-    
-    test('the given array will be sorted before if boolean arg "sort" is given', function()
-      local comp = function(a,b) return a<b end
-      assert_equal(_.sortedIndex({0,10,3,-5},4,comp,true),4)
-    end)   
-    
-    test('when no comparison function is given, uses "<" operator', function()
-      assert_equal(_.sortedIndex({'a','d','e','z'},'b'),2)
-    end)
-    
-  end)
-  
   context('indexOf', function()
   
     test('returns the index of a value in an array', function()

@@ -547,6 +547,420 @@ print(_.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}))
 
 ## Array functions
 
+### reverse
+
+Reverses an array:
+
+```lua
+local array = _.reverse({1,2,3,'d'})
+_.each(array,print)
+
+-- => 1 'd'
+-- => 2 3
+-- => 3 2
+-- => 4 1
+````
+
+### selectWhile
+
+Collects values as long as they pass a given test. Breaks on the first falsy test:
+
+```lua
+local selected = _.selectWhile({2,4,5,8}, function(i,v)
+  return v%2==0
+end)
+_.each(selected,print)
+
+-- => 1 2
+-- => 2 4
+````
+
+### dropWhile
+
+Trims out values as long as they pass a given test. Breaks on the first truthy test:
+
+```lua
+local selected = _.dropWhile({2,4,5,8}, function(i,v)
+  return v%2==0
+end)
+_.each(selected,print)
+
+-- => 1 5
+-- => 2 8
+````
+
+### sortedIndex
+
+Returns the index at which a value should be inserted to preserve order:
+
+```lua
+local index = _.sortedIndex({1,2,3},4)
+print(index)
+
+-- => 4
+````
+
+Handles custom comparison functions:
+
+```lua
+local comp = function(a,b) return a<b end
+local index = _.sortedIndex({-5,0,4,4},3,comp)
+print(index)
+	  
+-- => 3
+````
+
+### indexOf
+
+Returns the index of a value in an array:
+
+```lua
+local index = _.indexOf({1,2,3},2),
+print(index)
+
+-- => 2
+````
+
+### lastIndexOf
+
+Returns the index of the last occurence of a given value in an array:
+
+```lua
+local index = _.lastIndexOf({1,2,2,3},2),
+print(index)
+
+-- => 3
+````
+
+### add
+
+Adds given values at the top of an array:
+
+```lua
+local array = {1}
+_.add(array,1,2,3,4)
+_.each(array,print)
+
+-- => 1 4
+-- => 2 3
+-- => 3 2
+-- => 4 1
+-- => 5 1
+````
+
+### push
+
+Adds given values at the end of an array:
+
+```lua
+local array = {1}
+_.push(array,1,2,3,4)
+_.each(array,print)
+
+-- => 1 1
+-- => 2 1
+-- => 3 2
+-- => 4 3
+-- => 5 4
+````
+
+### pop
+
+Removes and returns the first value in an array:
+
+```lua
+local array = {1,2,3}
+print(_.pop(array))
+
+-- => 1
+
+_.each(array,print)
+
+-- => 1 2
+-- => 2 3
+````
+
+### unshift
+
+Removes and returns the last value in an array:
+
+```lua
+local array = {1,2,3}
+print(_.unshift(array))
+
+-- => 3
+
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+````
+
+### removeRange
+
+Trims out all values index within a range:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.removeRange(array, 3,8)
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 9
+````
+
+### slice
+
+Slices and returns a part of an array:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.slice(array, 3,6)
+_.each(array,print)
+
+-- => 1 3
+-- => 2 4
+-- => 3 5
+-- => 4 6
+````
+
+### first
+
+Returns the first N elements in an array:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.first(array,3)
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+````
+
+### initial
+
+Excludes the last N elements in an array:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.initial(array,5)
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+-- => 4 4
+````
+
+### last
+
+Returns the last N elements in an array:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.last(array,3)
+_.each(array,print)
+
+-- => 1 7
+-- => 2 8
+-- => 3 9
+````
+
+### rest
+
+Trims out all values indexed before <tt>index</tt>:
+
+```lua
+local array = {1,2,3,4,5,6,7,8,9}
+array = _.rest(array,6)
+_.each(array,print)
+
+-- => 1 6
+-- => 2 7
+-- => 3 8
+-- => 4 9
+````
+
+### compact
+
+Trims out all falsy values:
+
+```lua
+local array = _.compact {a,'aa',false,'bb',true}
+_.each(array,print)
+
+-- => 1 aa
+-- => 2 bb
+-- => 3 true
+````
+
+### flatten
+
+Flattens a nested array:
+
+```lua
+local array = _.flatten({1,{2,3},{4,5,{6,7}}})
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+-- => 4 4
+-- => 5 5
+-- => 6 6
+-- => 7 7
+````
+
+### difference
+
+Removes froma given array all passed-in values:
+
+```lua
+local array = {1,2,'a',4,5}
+array = _.difference(array,1,'a')
+_.each(array,print)
+
+-- => 1 2
+-- => 2 4
+-- => 3 5
+````
+
+### uniq
+
+Produces duplicate-free arrays:
+
+```lua
+local array = _.uniq({1,1,2,2,3,3,4,4,4,5}
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+-- => 4 4
+-- => 5 5
+````
+
+### union
+
+Produces a duplicate-free union of all passed-in arrays:
+
+```lua
+local A = {'a'}
+local B = {'a',1,2,3}
+local C = {2,10}
+local array = _.union(A,B,C)
+_.each(array,print)
+
+-- => 1 'a'
+-- => 2 1
+-- => 3 2
+-- => 4 3
+-- => 5 10
+````
+
+### intersection
+
+Returns the intersection (common-part) of all passed-in arrays:
+
+```lua
+local A = {'a'}
+local B = {'a',1,2,3}
+local C = {2,10,1,'a'}
+local array = _.intersection(A,B,C)
+_.each(array,print)
+
+-- => 1 a
+-- => 2 2
+-- => 3 1
+````
+
+### zip
+
+Zips values from different arrays, on the basis on their common keys:
+
+```lua
+local names = {'Bob','Alice','James'}
+local ages = {22, 23}
+local array = _.zip(names,ages)
+_.each(array,function(k,v)
+  print('subset',k)
+  _.each(v,print)
+end)
+
+-- => subset 1
+-- => 1	Bob
+-- => 2	22
+-- => subset 2
+-- => 1	Alice
+-- => 2	23
+-- => subset 3
+-- => 1	James
+````
+
+### append
+
+Appends two arrays:
+
+```lua
+local array = _.append({1,2,3},{'a','b'})
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 2	3
+-- => 4 a
+-- => 5 b
+````
+
+### range
+
+Generates arithmetic progressions:
+
+```lua
+_.each(_.range(1,4),print)
+
+-- => 1 1
+-- => 2 2
+-- => 2	3
+-- => 4 4
+
+_.each(_.range(3),print)
+
+-- => 1 0
+-- => 2 1
+-- => 2	2
+-- => 4 3
+
+_.each(_.range(0,2,0.7),print)
+
+-- => 1 0
+-- => 2 0.7
+-- => 3 1.4
+````
+
+### invert
+
+Switches <tt>key-value</tt> pairs:
+
+```lua
+_.each(_.invert {'a','b','c'},print)
+
+-- => a 1
+-- => b 2
+-- => c	3
+````
+
+### concat
+
+Concatenates a given array values:
+
+```lua
+print(_.concat({'a',1,0,1,'b'}))
+
+-- => a101b
+````
 ## Utility functions
 
 ## Object functions
