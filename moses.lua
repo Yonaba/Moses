@@ -51,9 +51,9 @@ local unique_id_counter = -1
 -- @name each
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @see forEach
-function _.each(list,f,...)
+function _.each(list, f, ...)
   if not _.isObject(list) then return end
   for index,value in pairs(list) do
     f(index,value,...)
@@ -65,18 +65,18 @@ end
 -- @function forEach
 -- @param list
 -- @param f 
--- @param ...
+-- @param[opt] ...
 _.forEach = _.each
 
 --- Maps function `f` on each key-value of a given collection. Collects
 -- and returns the outputs.<br/><em>Aliased as @{collect}</em>.
 -- @name map
 -- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam function f  an iterator function, prototyped as `f(key,value,...)`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a table of results
 -- @see collect
-function _.map(list,f,...)
+function _.map(list, f, ...)
   local _list = {}
   for index,value in pairs(list) do
     _list[index] = f(index,value,...)
@@ -88,7 +88,7 @@ end
 -- @function collect
 -- @param list
 -- @param f 
--- @param ...
+-- @param[opt] ...
 _.collect = _.map
 
 --- Reduces an entire collection. Folds from left to right to a single value, 
@@ -98,7 +98,7 @@ _.collect = _.map
 -- @name reduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam state state an initial state of reduction. Defaults to the first value in the list.
+-- @tparam[opt] state state an initial state of reduction. Defaults to the first value in the list.
 -- @treturn state state a final state of reduction
 -- @see inject
 -- @see foldl
@@ -113,14 +113,14 @@ end
 -- @function inject
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.inject = _.reduce
 
 --- Alias for @{reduce}.
 -- @function foldl
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.foldl = _.reduce
 
 --- Reduces an entire collection. Folds from right to left to a single value, 
@@ -130,7 +130,7 @@ _.foldl = _.reduce
 -- @name reduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn state state a final state of reduction
 -- @see injectr
 -- @see foldr
@@ -142,14 +142,14 @@ end
 -- @function injectr
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.injectr = _.reduceRight
 
 --- Alias for @{reduceRight}.
 -- @function foldr
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.foldr = _.reduceRight
 
 --- Reduces a collection while saving intermediate states.
@@ -161,7 +161,7 @@ _.foldr = _.reduceRight
 -- @name mapReduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn table an array of states
 -- @see mapr
 function _.mapReduce(list,f,state)
@@ -177,7 +177,7 @@ end
 -- @function mapr
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.mapr = _.mapReduce
 
 --- Reduces a collection while saving intermediate states. It proceeds in reverse order,
@@ -189,7 +189,7 @@ _.mapr = _.mapReduce
 -- @name mapReduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam state state an initial state of reduction. Defaults to the last value in the list.
+-- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn table an array of states
 -- @see maprr
 function _.mapReduceRight(list,f,state)
@@ -200,7 +200,7 @@ end
 -- @function maprr
 -- @param list
 -- @param f 
--- @param state
+-- @param[opt] state
 _.maprr = _.mapReduceRight
 
 --- Looks for an object in a collection. <br/><em>Aliased as @{any}, @{some}</em>
@@ -261,7 +261,7 @@ _.where = _.detect
 -- @name select
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table the selected objects
 -- @see filter
 function _.select(list,f,...)
@@ -277,7 +277,7 @@ end
 -- @function filter
 -- @param list
 -- @param f
--- @param ...
+-- @param[opt] ...
 _.filter = _.select
 
 --- Clones a collection, rejecting objects passing an iterator test. 
@@ -285,7 +285,7 @@ _.filter = _.select
 -- @name reject
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table the remaining objects
 -- @see discard
 function _.reject(list,f,...)
@@ -301,14 +301,14 @@ end
 -- @function discard
 -- @param list
 -- @param f
--- @param ...
+-- @param[opt] ...
 _.discard = _.reject
 
 --- Tests if all objects in a collection passes an iterator test. <br/><em>Aliased as @{every}</em>
 -- @name all
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn boolean __true__ or __false__
 -- @see every
 function _.all(list,f,...)
@@ -319,14 +319,14 @@ end
 -- @function every
 -- @param list
 -- @param f
--- @param ...
+-- @param[opt] ...
 _.every = _.all
 
 --- Invokes a method on each object in a collection.
 -- @name invoke
 -- @tparam table list a collection
 -- @tparam function method a function, prototyped as `f(object,...)`
--- @tparam var_arg ... extra-args to be passed to function `method`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `method`
 -- @treturn table an array of results
 function _.invoke(list,method,...)
   local args = {...}
@@ -364,8 +364,8 @@ end
 -- be used to extract the property value by which all objects will be ranked.
 -- @name max
 -- @tparam table list a collection
--- @tparam function iter an iterator function, prototyped as `iter(value,...)`
--- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @tparam[opt] function iter an iterator function, prototyped as `iter(value,...)`, defaults to @{identity}
+-- @tparam[optchain] var_arg ... Optional extra-args to be passed to function `iter`
 -- @treturn value the maximum property value found
 function _.max(list,iter,...)
   return extract(list,f_max,iter,...)
@@ -375,8 +375,8 @@ end
 -- be used to extract the property value by which all objects will be ranked.
 -- @name min
 -- @tparam table list a collection
--- @tparam function iter an iterator function, prototyped as `iter(value,...)`
--- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @tparam[opt] function iter an iterator function, prototyped as `iter(value,...)`, defaults to @{identity}
+-- @tparam[optchain] var_arg ... Optional extra-args to be passed to function `iter`
 -- @treturn value the minimum property value found
 function _.min(list, iter,...)
   return extract(list,f_min, iter,...)
@@ -386,7 +386,7 @@ end
 -- be used to init the random number generator.
 -- @name shuffle
 -- @tparam table list a collection
--- @tparam number seed a seed
+-- @tparam[opt] number seed a seed
 -- @treturn table a shuffled copy of the given collection
 function _.shuffle(list,seed)
   if seed then randomseed(seed) end
@@ -417,7 +417,7 @@ end
 --- Sorts a collection. If a comparison function is given, it will be used to sort objects
 -- @name sort
 -- @tparam table list a collection
--- @tparam function comp a comparison function prototyped as `comp(a,b)`
+-- @tparam[opt] function comp a comparison function prototyped as `comp(a,b)`, defaults to <tt><</tt> operator.
 -- @treturn table the given list, sorted.
 function _.sort(list,comp)
   t_sort(list,comp)
@@ -426,7 +426,7 @@ end
 
 --- Converts a list of __var_args__ to a collection.
 -- @name toArray
--- @tparam var_arg ... variable number of arguments
+-- @tparam[opt] var_arg ... Optional variable number of arguments
 -- @treturn table an array of all passed-in args
 function _.toArray(...) 
   return {...} 
@@ -437,7 +437,7 @@ end
 -- @name groupBy
 -- @tparam table list a collection
 -- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `iter`
 -- @treturn table a new collection with items grouped by subsets
 function _.groupBy(list,iter,...)
   local var_arg = {...}
@@ -460,7 +460,7 @@ end
 -- @name countBy
 -- @tparam table list a collection
 -- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `iter`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `iter`
 -- @treturn table a new collection with subsets names and count
 function _.countBy(list,iter,...)
   local var_arg = {...}
@@ -475,7 +475,7 @@ end
 --- Counts the number of values in a collection. If being passed more than one args
 -- it will return the number of passed-in args.
 -- @name size
--- @tparam var_arg ... a variable number of arguments
+-- @tparam[opt] var_arg ... Optional variable number of arguments
 -- @treturn number a size
 function _.size(...)
   local args = {...}
@@ -539,7 +539,7 @@ end
 -- @name selectWhile
 -- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a new table containing the first truthy values collected
 -- @see takeWhile
 function _.selectWhile(array,f,...)
@@ -554,7 +554,7 @@ end
 -- @function takeWhile
 -- @param array
 -- @param f
--- @param ...
+-- @param[opt] ...
 _.takeWhile = _.selectWhile
 
 --- Collects values from a given array. The passed-in array should not be sparse. 
@@ -564,7 +564,7 @@ _.takeWhile = _.selectWhile
 -- @name dropWhile
 -- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to function `f`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a new table containing the first falsy values collected
 -- @see rejectWhile
 function _.dropWhile(array, f,...)
@@ -583,7 +583,7 @@ end
 -- @function rejectWhile
 -- @param array
 -- @param f
--- @param ...
+-- @param[opt] ...
 _.rejectWhile = _.dropWhile
 
 --- Returns the index at which a value should be inserted. This returned index is determined so that it maintains the sort. 
@@ -592,7 +592,8 @@ _.rejectWhile = _.dropWhile
 -- @name sortedIndex
 -- @tparam table array an array
 -- @tparam value the value to be inserted
--- @tparam function comp an comparison function prototyped as `f(a,b)`
+-- @tparam[opt] function comp an comparison function prototyped as `f(a,b)`, defaults to <tt><</tt> operator
+-- @tparam[optchain] boolean sort whether or not to sort the passed-in array
 -- @treturn index the index at which the passed-in value should be inserted
 function _.sortedIndex(array,value,comp,sort)
   local _comp = comp or f_min
@@ -677,8 +678,8 @@ end
 -- <br/><em>Aliased as @{rmRange}</em>
 -- @name removeRange
 -- @tparam table array an array
--- @tparam index start the lower bound index, defaults to the first index in the array.
--- @tparam index finish the upper bound index, defaults to the array length.
+-- @tparam[opt] index start the lower bound index, defaults to the first index in the array.
+-- @tparam[optchain] index finish the upper bound index, defaults to the array length.
 -- @treturn table the passed-in array
 -- @see rmRange
 function _.removeRange(array,start,finish)
@@ -703,15 +704,15 @@ end
 --- Alias for @{removeRange}.
 -- @function rmRange
 -- @param array
--- @param start
--- @param finish
+-- @param[opt] start
+-- @param[optchain] finish
 _.rmRange = _.removeRange
 
 --- Slices values indexed within `[start,finish]` range. 
 -- @name slice
 -- @tparam table array an array
--- @tparam index start the lower bound index, defaults to the first index in the array.
--- @tparam index finish the upper bound index, defaults to the array length.
+-- @tparam[opt] index start the lower bound index, defaults to the first index in the array.
+-- @tparam[optchain] index finish the upper bound index, defaults to the array length.
 -- @treturn table a new array
 function _.slice(array,start,finish)
   return _.select(array, function(index)
@@ -722,7 +723,7 @@ end
 --- Returns the first N values in an array. <br/><em>Aliased as @{head}, @{take}</em>
 -- @name first
 -- @tparam table array an array
--- @tparam number n the number of values to be collected, defaults to 1.
+-- @tparam[opt] number n the number of values to be collected, defaults to 1.
 -- @treturn table a new array
 -- @see head
 -- @see take
@@ -734,19 +735,19 @@ end
 --- Alias for @{first}.
 -- @function head
 -- @param array
--- @param n
+-- @param[opt] n
 _.head = _.first
 
 --- Alias for @{first}.
 -- @function take
 -- @param array
--- @param n
+-- @param[opt] n
 _.take = _.first
 
 --- Returns all values in an array excluding the last N values. 
 -- @name initial
 -- @tparam table array an array
--- @tparam number n the number of values to be left, defaults to the array length.
+-- @tparam[opt] number n the number of values to be left, defaults to the array length.
 -- @treturn table a new array
 function _.initial(array,n)
   if n and n < 0 then return end
@@ -756,7 +757,7 @@ end
 --- Returns the last N values in an array. 
 -- @name last
 -- @tparam table array an array
--- @tparam number n the number of values to be collected, defaults to the array length.
+-- @tparam[opt] number n the number of values to be collected, defaults to the array length.
 -- @treturn table a new array
 function _.last(array,n)
   if n and n <= 0 then return end
@@ -766,7 +767,7 @@ end
 --- Trims all values before index. <br/><em>Aliased as @{tail}</em>
 -- @name rest
 -- @tparam table array an array
--- @tparam index index an index
+-- @tparam[opt] index index an index, defaults to 1
 -- @treturn table a new array
 -- @see tail
 function _.rest(array,index)
@@ -777,7 +778,7 @@ end
 --- Alias for @{rest}.
 -- @function tail
 -- @param array
--- @param index
+-- @param[opt] index
 _.tail = _.rest
 
 --- Trims all falsy values. 
@@ -793,7 +794,7 @@ end
 --- Flattens a nested array. Passing `shallow` will only flatten at the first single level.
 -- @name flatten
 -- @tparam table array an array
--- @tparam boolean shallow specifies the flattening depth
+-- @tparam[opt] boolean shallow specifies the flattening depth
 -- @treturn table a new array, flattened
 function _.flatten(array, shallow)
   local shallow = shallow or false
@@ -835,9 +836,9 @@ _.without = _.difference
 -- <br/><em>Aliased as @{unique}</em>
 -- @name uniq
 -- @tparam table array an array
--- @tparam boolean isSorted whether or not the passed-in array is already sorted, defaults to `false`
--- @tparam function iter an iterator function prototyped as `iter(key,value,...)`
--- @tparam var_arg ... extra-args to be passed to `iter` function
+-- @tparam[opt] boolean isSorted whether or not the passed-in array is already sorted, defaults to `false`
+-- @tparam[optchain] function iter an iterator function prototyped as `iter(key,value,...)`
+-- @tparam[optchain] var_arg ... Optional extra-args to be passed to `iter` function
 -- @treturn table a new array
 -- @see unique
 function _.uniq(array,isSorted,iter,...)
@@ -864,9 +865,9 @@ end
 --- Alias for @{uniq}.
 -- @function unique
 -- @param array
--- @param isSorted
--- @param iter
--- @param ...
+-- @param[opt] isSorted
+-- @param[optchain] iter
+-- @param[optchain] ...
 _.unique = _.uniq
 
 --- Returns the duplicate-free union of all passed in arrays.
@@ -896,7 +897,7 @@ function _.intersection(array,...)
   return _intersect
 end
 
---- Merges together values of each of the passed-in arrays in subsets. 
+--- Merges values of each of the passed-in arrays in subsets. 
 -- Only values at the same position in the initial array are merged.
 -- @name zip
 -- @tparam var_arg ... a variable number of array arguments
@@ -976,9 +977,9 @@ _.mirror = _.invert
 -- values within `[i,j]` range. <br/><em>Aliased as @{join}</em> 
 -- @name concat
 -- @tparam table array a given array
--- @tparam string sep a separator string, defaults to `''`.
--- @tparam number i the starting index, defaults to 1.
--- @tparam number j the final index, defaults to the array length.
+-- @tparam[opt] string sep a separator string, defaults to `''`.
+-- @tparam[optchain] number i the starting index, defaults to 1.
+-- @tparam[optchain] number j the final index, defaults to the array length.
 -- @treturn string a string
 -- @see join
 function _.concat(array,sep,i,j)
@@ -992,9 +993,9 @@ end
 --- Alias for @{concat}.
 -- @function join
 -- @param array
--- @param sep
--- @param i
--- @param j
+-- @param[opt] sep
+-- @param[optchain] i
+-- @param[optchain] j
 _.join = _.concat
 
 -- ========= Utility functions
@@ -1029,7 +1030,7 @@ end
 -- <br/><em>Aliased as @{cache}</em> 
 -- @name memoize
 -- @tparam function f a function
--- @tparam function hash a hash function
+-- @tparam[opt] function hash a hash function, defaults to @{identity}
 -- @treturn function a new function
 -- @see cache
 function _.memoize(f,hash)
@@ -1046,7 +1047,7 @@ end
 --- Alias for @{memoize}.
 -- @function cache
 -- @param f
--- @param hash
+-- @param[opt] hash
 _.cache = _.memoize
 
 --- Returns a version of `f` that runs on the `count-th` call. 
@@ -1079,7 +1080,7 @@ function _.compose(...)
     end
 end
 
---- Wraps `f` inside of the `wrapper` function, passing it as the first argument. 
+--- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`. 
 -- This allows the wrapper to execute code before and after `f` runs,
 -- adjust the arguments, and execute it conditionally.
 -- @name wrap
@@ -1137,8 +1138,8 @@ end
 -- will compute an output running `template(id,...)`.
 -- <br/><em>Aliased as @{uId}</em>.
 -- @name uniqueId
--- @tparam string|function template either a string or a function
--- @tparam var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
+-- @tparam[opt] string|function template either a string or a function
+-- @tparam[optchain] var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
 -- @treturn id a formatted Id
 -- @see uId
 function _.uniqueId(template,...)
@@ -1155,8 +1156,8 @@ end
 
 --- Alias for @{uniqueId}.
 -- @function uId
--- @param template
--- @param ...
+-- @param[opt] template
+-- @param[optchain] ...
 _.uId = _.uniqueId
 
 -- ========= Object functions
@@ -1218,7 +1219,7 @@ end
 -- <br/><em>Aliased as @{methods}</em>.
 -- @name functions
 -- @tparam table obj an object
--- @tparam table output a table to collect the results
+-- @tparam[opt] table output Optional table to collect the results
 -- @treturn table an array of methods names
 -- @see methods
 function _.functions(obj,output)
@@ -1239,14 +1240,14 @@ end
 --- Alias for @{functions}.
 -- @function methods
 -- @param obj
--- @param output
+-- @param[opt] output
 _.methods = _.functions
 
 --- Clones a given object properties. If `shallow` is passed 
 -- will also clone nested array properties.
 -- @name clone
 -- @tparam table obj an object
--- @tparam boolean shallow whether or not nested array-properties should be cloned, defaults to false.
+-- @tparam[opt] boolean shallow whether or not nested array-properties should be cloned, defaults to false.
 -- @treturn table a clone of the passed-in object
 function _.clone(obj,shallow)
 	if not _.isObject(obj) then return obj end
@@ -1350,7 +1351,7 @@ _.defaults = _.template
 -- @name isEqual
 -- @tparam table objA an object
 -- @tparam table objB another object
--- @tparam boolean useMt whether or not `mt.__eq` should be used
+-- @tparam[opt] boolean useMt whether or not `mt.__eq` should be used, defaults to false.
 -- @treturn boolean __true__ or __false__
 function _.isEqual(objA,objB,useMt)
 	local typeObjA = type(objA)
@@ -1382,12 +1383,12 @@ function _.isEqual(objA,objB,useMt)
   return true
 end
 
---- Invokes an object method, passing the object as the first argument. if `method` is not
+--- Invokes an object method. It passes the object itself as the first argument. if `method` is not
 -- callable, will return `obj[method]`.
 -- @name result
 -- @tparam table obj an object
 -- @tparam string method a string key to index in object `obj`.
--- @tparam var_arg ... extra-args to be passed to `method`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to `method`
 -- @treturn value the returned value of `method(obj,...)` call
 function _.result(obj,method,...)
   if obj[method] then

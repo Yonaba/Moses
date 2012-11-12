@@ -58,59 +58,59 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#each">each&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#each">each&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Calls function <code>f</code> on each key-value of a given collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#forEach">forEach&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#forEach">forEach&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#each">each</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#map">map&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#map">map&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Maps function <code>f</code> on each key-value of a given collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#collect">collect&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#collect">collect&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#map">map</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#reduce">reduce&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#reduce">reduce&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Reduces an entire collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#inject">inject&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#inject">inject&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#reduce">reduce</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#foldl">foldl&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#foldl">foldl&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#reduce">reduce</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#reduceRight">reduceRight&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#reduceRight">reduceRight&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Reduces an entire collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#injectr">injectr&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#injectr">injectr&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#reduceRight">reduceRight</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#foldr">foldr&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#foldr">foldr&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#reduceRight">reduceRight</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mapReduce">mapReduce&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#mapReduce">mapReduce&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Reduces a collection while saving intermediate states.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mapr">mapr&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#mapr">mapr&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#mapReduce">mapReduce</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mapReduceRight">mapReduceRight&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#mapReduceRight">mapReduceRight&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Reduces a collection while saving intermediate states.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#maprr">maprr&nbsp;(list, f, state)</a></td>
+	<td class="name" nowrap><a href="#maprr">maprr&nbsp;(list, f[, state])</a></td>
 	<td class="summary">Alias for <a href="index.html#mapReduceRight">mapReduceRight</a>.</td>
 	</tr>
 	<tr>
@@ -138,31 +138,31 @@
 	<td class="summary">Alias for <a href="index.html#detect">detect</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#select">select&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#select">select&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Selects and extracts objects passing an iterator test.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#filter">filter&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#filter">filter&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#select">select</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#reject">reject&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#reject">reject&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Clones a collection, rejecting objects passing an iterator test.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#discard">discard&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#discard">discard&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#reject">reject</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#all">all&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#all">all&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Tests if all objects in a collection passes an iterator test.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#every">every&nbsp;(list, f, ...)</a></td>
+	<td class="name" nowrap><a href="#every">every&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#all">all</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#invoke">invoke&nbsp;(list, method, ...)</a></td>
+	<td class="name" nowrap><a href="#invoke">invoke&nbsp;(list, method[, ...])</a></td>
 	<td class="summary">Invokes a method on each object in a collection.</td>
 	</tr>
 	<tr>
@@ -170,15 +170,15 @@
 	<td class="summary">Extracts property-values from a collection of objects.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#max">max&nbsp;(list, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#max">max&nbsp;(list[, iter[, ...]])</a></td>
 	<td class="summary">Returns the maximum value in a collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#min">min&nbsp;(list, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#min">min&nbsp;(list[, iter[, ...]])</a></td>
 	<td class="summary">Returns the minimum value in a collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#shuffle">shuffle&nbsp;(list, seed)</a></td>
+	<td class="name" nowrap><a href="#shuffle">shuffle&nbsp;(list[, seed])</a></td>
 	<td class="summary">Returns a shuffled copy of a given collection.</td>
 	</tr>
 	<tr>
@@ -186,23 +186,23 @@
 	<td class="summary">Tests if two collections are the same.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort">sort&nbsp;(list, comp)</a></td>
+	<td class="name" nowrap><a href="#sort">sort&nbsp;(list[, comp])</a></td>
 	<td class="summary">Sorts a collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#toArray">toArray&nbsp;(...)</a></td>
+	<td class="name" nowrap><a href="#toArray">toArray&nbsp;([...])</a></td>
 	<td class="summary">Converts a list of <strong>var_args</strong> to a collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#groupBy">groupBy&nbsp;(list, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#groupBy">groupBy&nbsp;(list, iter[, ...])</a></td>
 	<td class="summary">Splits a collection into subsets.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#countBy">countBy&nbsp;(list, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#countBy">countBy&nbsp;(list, iter[, ...])</a></td>
 	<td class="summary">Groups objects in a collection and counts them.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#size">size&nbsp;(...)</a></td>
+	<td class="name" nowrap><a href="#size">size&nbsp;([...])</a></td>
 	<td class="summary">Counts the number of values in a collection.</td>
 	</tr>
 	<tr>
@@ -218,23 +218,23 @@
 	<td class="summary">Reverses values in a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#selectWhile">selectWhile&nbsp;(array, f, ...)</a></td>
+	<td class="name" nowrap><a href="#selectWhile">selectWhile&nbsp;(array, f[, ...])</a></td>
 	<td class="summary">Collects values from a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#takeWhile">takeWhile&nbsp;(array, f, ...)</a></td>
+	<td class="name" nowrap><a href="#takeWhile">takeWhile&nbsp;(array, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#selectWhile">selectWhile</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#dropWhile">dropWhile&nbsp;(array, f, ...)</a></td>
+	<td class="name" nowrap><a href="#dropWhile">dropWhile&nbsp;(array, f[, ...])</a></td>
 	<td class="summary">Collects values from a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rejectWhile">rejectWhile&nbsp;(array, f, ...)</a></td>
+	<td class="name" nowrap><a href="#rejectWhile">rejectWhile&nbsp;(array, f[, ...])</a></td>
 	<td class="summary">Alias for <a href="index.html#dropWhile">dropWhile</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sortedIndex">sortedIndex&nbsp;(array, the, comp)</a></td>
+	<td class="name" nowrap><a href="#sortedIndex">sortedIndex&nbsp;(array, the[, comp[, sort]])</a></td>
 	<td class="summary">Returns the index at which a value should be inserted.</td>
 	</tr>
 	<tr>
@@ -266,43 +266,43 @@
 	<td class="summary">Removes and returns the value at the end of a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#removeRange">removeRange&nbsp;(array, start, finish)</a></td>
+	<td class="name" nowrap><a href="#removeRange">removeRange&nbsp;(array[, start[, finish]])</a></td>
 	<td class="summary">Trims all values indexed within the range <code>[start,finish]</code>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rmRange">rmRange&nbsp;(array, start, finish)</a></td>
+	<td class="name" nowrap><a href="#rmRange">rmRange&nbsp;(array[, start[, finish]])</a></td>
 	<td class="summary">Alias for <a href="index.html#removeRange">removeRange</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#slice">slice&nbsp;(array, start, finish)</a></td>
+	<td class="name" nowrap><a href="#slice">slice&nbsp;(array[, start[, finish]])</a></td>
 	<td class="summary">Slices values indexed within <code>[start,finish]</code> range.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#first">first&nbsp;(array, n)</a></td>
+	<td class="name" nowrap><a href="#first">first&nbsp;(array[, n])</a></td>
 	<td class="summary">Returns the first N values in an array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#head">head&nbsp;(array, n)</a></td>
+	<td class="name" nowrap><a href="#head">head&nbsp;(array[, n])</a></td>
 	<td class="summary">Alias for <a href="index.html#first">first</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#take">take&nbsp;(array, n)</a></td>
+	<td class="name" nowrap><a href="#take">take&nbsp;(array[, n])</a></td>
 	<td class="summary">Alias for <a href="index.html#first">first</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#initial">initial&nbsp;(array, n)</a></td>
+	<td class="name" nowrap><a href="#initial">initial&nbsp;(array[, n])</a></td>
 	<td class="summary">Returns all values in an array excluding the last N values.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#last">last&nbsp;(array, n)</a></td>
+	<td class="name" nowrap><a href="#last">last&nbsp;(array[, n])</a></td>
 	<td class="summary">Returns the last N values in an array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rest">rest&nbsp;(array, index)</a></td>
+	<td class="name" nowrap><a href="#rest">rest&nbsp;(array[, index])</a></td>
 	<td class="summary">Trims all values before index.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tail">tail&nbsp;(array, index)</a></td>
+	<td class="name" nowrap><a href="#tail">tail&nbsp;(array[, index])</a></td>
 	<td class="summary">Alias for <a href="index.html#rest">rest</a>.</td>
 	</tr>
 	<tr>
@@ -310,7 +310,7 @@
 	<td class="summary">Trims all falsy values.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#flatten">flatten&nbsp;(array, shallow)</a></td>
+	<td class="name" nowrap><a href="#flatten">flatten&nbsp;(array[, shallow])</a></td>
 	<td class="summary">Flattens a nested array.</td>
 	</tr>
 	<tr>
@@ -322,11 +322,11 @@
 	<td class="summary">Alias for <a href="index.html#difference">difference</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#uniq">uniq&nbsp;(array, isSorted, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#uniq">uniq&nbsp;(array[, isSorted[, iter[, ...]]])</a></td>
 	<td class="summary">Produces a duplicate-free version of a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#unique">unique&nbsp;(array, isSorted, iter, ...)</a></td>
+	<td class="name" nowrap><a href="#unique">unique&nbsp;(array[, isSorted[, iter[, ...]]])</a></td>
 	<td class="summary">Alias for <a href="index.html#uniq">uniq</a>.</td>
 	</tr>
 	<tr>
@@ -339,7 +339,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#zip">zip&nbsp;(...)</a></td>
-	<td class="summary">Merges together values of each of the passed-in arrays in subsets.</td>
+	<td class="summary">Merges values of each of the passed-in arrays in subsets.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#append">append&nbsp;(array, other)</a></td>
@@ -362,11 +362,11 @@
 	<td class="summary">Alias for <a href="index.html#invert">invert</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#concat">concat&nbsp;(array, sep, i, j)</a></td>
+	<td class="name" nowrap><a href="#concat">concat&nbsp;(array[, sep[, i[, j]]])</a></td>
 	<td class="summary">Concatenates values in a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#join">join&nbsp;(array, sep, i, j)</a></td>
+	<td class="name" nowrap><a href="#join">join&nbsp;(array[, sep[, i[, j]]])</a></td>
 	<td class="summary">Alias for <a href="index.html#concat">concat</a>.</td>
 	</tr>
 	<tr>
@@ -378,11 +378,11 @@
 	<td class="summary">Returns a version of <code>f</code> that runs only once.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#memoize">memoize&nbsp;(f, hash)</a></td>
+	<td class="name" nowrap><a href="#memoize">memoize&nbsp;(f[, hash])</a></td>
 	<td class="summary">Memoizes a given function by caching the computed result.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#cache">cache&nbsp;(f, hash)</a></td>
+	<td class="name" nowrap><a href="#cache">cache&nbsp;(f[, hash])</a></td>
 	<td class="summary">Alias for <a href="index.html#memoize">memoize</a>.</td>
 	</tr>
 	<tr>
@@ -395,7 +395,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wrap">wrap&nbsp;(f, wrapper)</a></td>
-	<td class="summary">Wraps <code>f</code> inside of the <code>wrapper</code> function, passing it as the first argument.</td>
+	<td class="summary">Wraps <code>f</code> inside of the <code>wrapper</code> function.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#times">times&nbsp;(n, iter, ...)</a></td>
@@ -410,11 +410,11 @@
 	<td class="summary">Binds <code>...</code> to be the N-first arguments to function <code>f</code>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#uniqueId">uniqueId&nbsp;(template, ...)</a></td>
+	<td class="name" nowrap><a href="#uniqueId">uniqueId&nbsp;([template[, ...]])</a></td>
 	<td class="summary">Generates a unique Id (unique for the current session).</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#uId">uId&nbsp;(template, ...)</a></td>
+	<td class="name" nowrap><a href="#uId">uId&nbsp;([template[, ...]])</a></td>
 	<td class="summary">Alias for <a href="index.html#uniqueId">uniqueId</a>.</td>
 	</tr>
 	<tr>
@@ -434,15 +434,15 @@
 	<td class="summary">Extends an object properties.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#functions">functions&nbsp;(obj, output)</a></td>
+	<td class="name" nowrap><a href="#functions">functions&nbsp;(obj[, output])</a></td>
 	<td class="summary">Returns a sorted list of all methods names found in an object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#methods">methods&nbsp;(obj, output)</a></td>
+	<td class="name" nowrap><a href="#methods">methods&nbsp;(obj[, output])</a></td>
 	<td class="summary">Alias for <a href="index.html#functions">functions</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#clone">clone&nbsp;(obj, shallow)</a></td>
+	<td class="name" nowrap><a href="#clone">clone&nbsp;(obj[, shallow])</a></td>
 	<td class="summary">Clones a given object properties.</td>
 	</tr>
 	<tr>
@@ -474,12 +474,12 @@
 	<td class="summary">Alias for <a href="index.html#template">template</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#isEqual">isEqual&nbsp;(objA, objB, useMt)</a></td>
+	<td class="name" nowrap><a href="#isEqual">isEqual&nbsp;(objA, objB[, useMt])</a></td>
 	<td class="summary">Performs an equality test between two objects.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#result">result&nbsp;(obj, method, ...)</a></td>
-	<td class="summary">Invokes an object method, passing the object as the first argument.</td>
+	<td class="name" nowrap><a href="#result">result&nbsp;(obj, method[, ...])</a></td>
+	<td class="summary">Invokes an object method.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isObject">isObject&nbsp;(obj)</a></td>
@@ -544,7 +544,7 @@
     <dl class="function">
     <dt>
     <a name = "each"></a>
-    <strong>each&nbsp;(list, f, ...)</strong>
+    <strong>each&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Calls function <code>f</code> on each key-value of a given collection.  <br/><em>Aliased as <a href="index.html#forEach">forEach</a></em>.
@@ -559,7 +559,7 @@
        an iterator function, prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -572,7 +572,7 @@
 </dd>
     <dt>
     <a name = "forEach"></a>
-    <strong>forEach&nbsp;(list, f, ...)</strong>
+    <strong>forEach&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#each">each</a>.
@@ -599,7 +599,7 @@
 </dd>
     <dt>
     <a name = "map"></a>
-    <strong>map&nbsp;(list, f, ...)</strong>
+    <strong>map&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Maps function <code>f</code> on each key-value of a given collection.  Collects
@@ -612,10 +612,10 @@
        a collection</li>
       <li><span class="parameter">f</span>
         <span class="types"><span class="type">function</span></span>
-       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+        an iterator function, prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -634,7 +634,7 @@
 </dd>
     <dt>
     <a name = "collect"></a>
-    <strong>collect&nbsp;(list, f, ...)</strong>
+    <strong>collect&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#map">map</a>.
@@ -661,7 +661,7 @@
 </dd>
     <dt>
     <a name = "reduce"></a>
-    <strong>reduce&nbsp;(list, f, state)</strong>
+    <strong>reduce&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Reduces an entire collection.  Folds from left to right to a single value,
@@ -699,7 +699,7 @@
 </dd>
     <dt>
     <a name = "inject"></a>
-    <strong>inject&nbsp;(list, f, state)</strong>
+    <strong>inject&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#reduce">reduce</a>.
@@ -726,7 +726,7 @@
 </dd>
     <dt>
     <a name = "foldl"></a>
-    <strong>foldl&nbsp;(list, f, state)</strong>
+    <strong>foldl&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#reduce">reduce</a>.
@@ -753,7 +753,7 @@
 </dd>
     <dt>
     <a name = "reduceRight"></a>
-    <strong>reduceRight&nbsp;(list, f, state)</strong>
+    <strong>reduceRight&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Reduces an entire collection.  Folds from right to left to a single value,
@@ -791,7 +791,7 @@
 </dd>
     <dt>
     <a name = "injectr"></a>
-    <strong>injectr&nbsp;(list, f, state)</strong>
+    <strong>injectr&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#reduceRight">reduceRight</a>.
@@ -818,7 +818,7 @@
 </dd>
     <dt>
     <a name = "foldr"></a>
-    <strong>foldr&nbsp;(list, f, state)</strong>
+    <strong>foldr&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#reduceRight">reduceRight</a>.
@@ -845,7 +845,7 @@
 </dd>
     <dt>
     <a name = "mapReduce"></a>
-    <strong>mapReduce&nbsp;(list, f, state)</strong>
+    <strong>mapReduce&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Reduces a collection while saving intermediate states.
@@ -884,7 +884,7 @@
 </dd>
     <dt>
     <a name = "mapr"></a>
-    <strong>mapr&nbsp;(list, f, state)</strong>
+    <strong>mapr&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#mapReduce">mapReduce</a>.
@@ -911,7 +911,7 @@
 </dd>
     <dt>
     <a name = "mapReduceRight"></a>
-    <strong>mapReduceRight&nbsp;(list, f, state)</strong>
+    <strong>mapReduceRight&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Reduces a collection while saving intermediate states.  It proceeds in reverse order,
@@ -950,7 +950,7 @@
 </dd>
     <dt>
     <a name = "maprr"></a>
-    <strong>maprr&nbsp;(list, f, state)</strong>
+    <strong>maprr&nbsp;(list, f[, state])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#mapReduceRight">mapReduceRight</a>.
@@ -1133,7 +1133,7 @@
 </dd>
     <dt>
     <a name = "select"></a>
-    <strong>select&nbsp;(list, f, ...)</strong>
+    <strong>select&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Selects and extracts objects passing an iterator test. <br/>
@@ -1149,7 +1149,7 @@
        an iterator function, prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -1168,7 +1168,7 @@
 </dd>
     <dt>
     <a name = "filter"></a>
-    <strong>filter&nbsp;(list, f, ...)</strong>
+    <strong>filter&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#select">select</a>.
@@ -1195,7 +1195,7 @@
 </dd>
     <dt>
     <a name = "reject"></a>
-    <strong>reject&nbsp;(list, f, ...)</strong>
+    <strong>reject&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Clones a collection, rejecting objects passing an iterator test. <br/>
@@ -1211,7 +1211,7 @@
        an iterator function, prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -1230,7 +1230,7 @@
 </dd>
     <dt>
     <a name = "discard"></a>
-    <strong>discard&nbsp;(list, f, ...)</strong>
+    <strong>discard&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#reject">reject</a>.
@@ -1257,7 +1257,7 @@
 </dd>
     <dt>
     <a name = "all"></a>
-    <strong>all&nbsp;(list, f, ...)</strong>
+    <strong>all&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Tests if all objects in a collection passes an iterator test.  <br/><em>Aliased as <a href="index.html#every">every</a></em>
@@ -1272,7 +1272,7 @@
        an iterator function, prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -1291,7 +1291,7 @@
 </dd>
     <dt>
     <a name = "every"></a>
-    <strong>every&nbsp;(list, f, ...)</strong>
+    <strong>every&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#all">all</a>.
@@ -1318,7 +1318,7 @@
 </dd>
     <dt>
     <a name = "invoke"></a>
-    <strong>invoke&nbsp;(list, method, ...)</strong>
+    <strong>invoke&nbsp;(list, method[, ...])</strong>
     </dt>
     <dd>
     Invokes a method on each object in a collection.
@@ -1333,7 +1333,7 @@
        a function, prototyped as <code>f(object,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>method</code></li>
+       Optional extra-args to be passed to function <code>method</code></li>
     </ul>
 
 
@@ -1375,7 +1375,7 @@
 </dd>
     <dt>
     <a name = "max"></a>
-    <strong>max&nbsp;(list, iter, ...)</strong>
+    <strong>max&nbsp;(list[, iter[, ...]])</strong>
     </dt>
     <dd>
     Returns the maximum value in a collection.  If an iterator is passed, it will
@@ -1388,10 +1388,10 @@
        a collection</li>
       <li><span class="parameter">iter</span>
         <span class="types"><span class="type">function</span></span>
-       an iterator function, prototyped as <code>iter(value,...)</code></li>
+       an iterator function, prototyped as <code>iter(value,...)</code>, defaults to <a href="index.html#identity">identity</a></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>iter</code></li>
+       Optional extra-args to be passed to function <code>iter</code></li>
     </ul>
 
 
@@ -1406,7 +1406,7 @@
 </dd>
     <dt>
     <a name = "min"></a>
-    <strong>min&nbsp;(list, iter, ...)</strong>
+    <strong>min&nbsp;(list[, iter[, ...]])</strong>
     </dt>
     <dd>
     Returns the minimum value in a collection.  If an iterator is passed, it will
@@ -1419,10 +1419,10 @@
        a collection</li>
       <li><span class="parameter">iter</span>
         <span class="types"><span class="type">function</span></span>
-       an iterator function, prototyped as <code>iter(value,...)</code></li>
+       an iterator function, prototyped as <code>iter(value,...)</code>, defaults to <a href="index.html#identity">identity</a></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>iter</code></li>
+       Optional extra-args to be passed to function <code>iter</code></li>
     </ul>
 
 
@@ -1437,7 +1437,7 @@
 </dd>
     <dt>
     <a name = "shuffle"></a>
-    <strong>shuffle&nbsp;(list, seed)</strong>
+    <strong>shuffle&nbsp;(list[, seed])</strong>
     </dt>
     <dd>
     Returns a shuffled copy of a given collection.  If a seed is provided, it will
@@ -1493,7 +1493,7 @@
 </dd>
     <dt>
     <a name = "sort"></a>
-    <strong>sort&nbsp;(list, comp)</strong>
+    <strong>sort&nbsp;(list[, comp])</strong>
     </dt>
     <dd>
     Sorts a collection.  If a comparison function is given, it will be used to sort objects
@@ -1505,7 +1505,7 @@
        a collection</li>
       <li><span class="parameter">comp</span>
         <span class="types"><span class="type">function</span></span>
-       a comparison function prototyped as <code>comp(a,b)</code></li>
+       a comparison function prototyped as <code>comp(a,b)</code>, defaults to <tt>&lt;</tt> operator.</li>
     </ul>
 
 
@@ -1520,7 +1520,7 @@
 </dd>
     <dt>
     <a name = "toArray"></a>
-    <strong>toArray&nbsp;(...)</strong>
+    <strong>toArray&nbsp;([...])</strong>
     </dt>
     <dd>
     Converts a list of <strong>var_args</strong> to a collection.
@@ -1529,7 +1529,7 @@
     <ul>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       variable number of arguments</li>
+       Optional variable number of arguments</li>
     </ul>
 
 
@@ -1544,7 +1544,7 @@
 </dd>
     <dt>
     <a name = "groupBy"></a>
-    <strong>groupBy&nbsp;(list, iter, ...)</strong>
+    <strong>groupBy&nbsp;(list, iter[, ...])</strong>
     </dt>
     <dd>
     Splits a collection into subsets.  Each subset feature objects grouped by the result of passing it through an iterator.
@@ -1560,7 +1560,7 @@
        an iterator function, prototyped as <code>iter(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>iter</code></li>
+       Optional extra-args to be passed to function <code>iter</code></li>
     </ul>
 
 
@@ -1575,7 +1575,7 @@
 </dd>
     <dt>
     <a name = "countBy"></a>
-    <strong>countBy&nbsp;(list, iter, ...)</strong>
+    <strong>countBy&nbsp;(list, iter[, ...])</strong>
     </dt>
     <dd>
     Groups objects in a collection and counts them.
@@ -1590,7 +1590,7 @@
        an iterator function, prototyped as <code>iter(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>iter</code></li>
+       Optional extra-args to be passed to function <code>iter</code></li>
     </ul>
 
 
@@ -1605,7 +1605,7 @@
 </dd>
     <dt>
     <a name = "size"></a>
-    <strong>size&nbsp;(...)</strong>
+    <strong>size&nbsp;([...])</strong>
     </dt>
     <dd>
     Counts the number of values in a collection.  If being passed more than one args
@@ -1615,7 +1615,7 @@
     <ul>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       a variable number of arguments</li>
+       Optional variable number of arguments</li>
     </ul>
 
 
@@ -1710,7 +1710,7 @@
 </dd>
     <dt>
     <a name = "selectWhile"></a>
-    <strong>selectWhile&nbsp;(array, f, ...)</strong>
+    <strong>selectWhile&nbsp;(array, f[, ...])</strong>
     </dt>
     <dd>
     Collects values from a given array.  The passed-in array should not be sparse.
@@ -1728,7 +1728,7 @@
        an iterator function prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -1747,7 +1747,7 @@
 </dd>
     <dt>
     <a name = "takeWhile"></a>
-    <strong>takeWhile&nbsp;(array, f, ...)</strong>
+    <strong>takeWhile&nbsp;(array, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#selectWhile">selectWhile</a>.
@@ -1774,7 +1774,7 @@
 </dd>
     <dt>
     <a name = "dropWhile"></a>
-    <strong>dropWhile&nbsp;(array, f, ...)</strong>
+    <strong>dropWhile&nbsp;(array, f[, ...])</strong>
     </dt>
     <dd>
     Collects values from a given array.  The passed-in array should not be sparse.
@@ -1792,7 +1792,7 @@
        an iterator function prototyped as <code>f(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to function <code>f</code></li>
+       Optional extra-args to be passed to function <code>f</code></li>
     </ul>
 
 
@@ -1811,7 +1811,7 @@
 </dd>
     <dt>
     <a name = "rejectWhile"></a>
-    <strong>rejectWhile&nbsp;(array, f, ...)</strong>
+    <strong>rejectWhile&nbsp;(array, f[, ...])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#dropWhile">dropWhile</a>.
@@ -1838,7 +1838,7 @@
 </dd>
     <dt>
     <a name = "sortedIndex"></a>
-    <strong>sortedIndex&nbsp;(array, the, comp)</strong>
+    <strong>sortedIndex&nbsp;(array, the[, comp[, sort]])</strong>
     </dt>
     <dd>
     Returns the index at which a value should be inserted.  This returned index is determined so that it maintains the sort.
@@ -1855,7 +1855,10 @@
        value to be inserted</li>
       <li><span class="parameter">comp</span>
         <span class="types"><span class="type">function</span></span>
-       an comparison function prototyped as <code>f(a,b)</code></li>
+       an comparison function prototyped as <code>f(a,b)</code>, defaults to <tt>&lt;</tt> operator</li>
+      <li><span class="parameter">sort</span>
+        <span class="types"><span class="type">boolean</span></span>
+       whether or not to sort the passed-in array</li>
     </ul>
 
 
@@ -2052,7 +2055,7 @@
 </dd>
     <dt>
     <a name = "removeRange"></a>
-    <strong>removeRange&nbsp;(array, start, finish)</strong>
+    <strong>removeRange&nbsp;(array[, start[, finish]])</strong>
     </dt>
     <dd>
     Trims all values indexed within the range <code>[start,finish]</code>. <br/>
@@ -2087,7 +2090,7 @@
 </dd>
     <dt>
     <a name = "rmRange"></a>
-    <strong>rmRange&nbsp;(array, start, finish)</strong>
+    <strong>rmRange&nbsp;(array[, start[, finish]])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#removeRange">removeRange</a>.
@@ -2114,7 +2117,7 @@
 </dd>
     <dt>
     <a name = "slice"></a>
-    <strong>slice&nbsp;(array, start, finish)</strong>
+    <strong>slice&nbsp;(array[, start[, finish]])</strong>
     </dt>
     <dd>
     Slices values indexed within <code>[start,finish]</code> range.
@@ -2144,7 +2147,7 @@
 </dd>
     <dt>
     <a name = "first"></a>
-    <strong>first&nbsp;(array, n)</strong>
+    <strong>first&nbsp;(array[, n])</strong>
     </dt>
     <dd>
     Returns the first N values in an array.  <br/><em>Aliased as <a href="index.html#head">head</a>, <a href="index.html#take">take</a></em>
@@ -2176,7 +2179,7 @@
 </dd>
     <dt>
     <a name = "head"></a>
-    <strong>head&nbsp;(array, n)</strong>
+    <strong>head&nbsp;(array[, n])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#first">first</a>.
@@ -2199,7 +2202,7 @@
 </dd>
     <dt>
     <a name = "take"></a>
-    <strong>take&nbsp;(array, n)</strong>
+    <strong>take&nbsp;(array[, n])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#first">first</a>.
@@ -2222,7 +2225,7 @@
 </dd>
     <dt>
     <a name = "initial"></a>
-    <strong>initial&nbsp;(array, n)</strong>
+    <strong>initial&nbsp;(array[, n])</strong>
     </dt>
     <dd>
     Returns all values in an array excluding the last N values.
@@ -2249,7 +2252,7 @@
 </dd>
     <dt>
     <a name = "last"></a>
-    <strong>last&nbsp;(array, n)</strong>
+    <strong>last&nbsp;(array[, n])</strong>
     </dt>
     <dd>
     Returns the last N values in an array.
@@ -2276,7 +2279,7 @@
 </dd>
     <dt>
     <a name = "rest"></a>
-    <strong>rest&nbsp;(array, index)</strong>
+    <strong>rest&nbsp;(array[, index])</strong>
     </dt>
     <dd>
     Trims all values before index.  <br/><em>Aliased as <a href="index.html#tail">tail</a></em>
@@ -2288,7 +2291,7 @@
        an array</li>
       <li><span class="parameter">index</span>
         <span class="types"><span class="type">index</span></span>
-       an index</li>
+       an index, defaults to 1</li>
     </ul>
 
 
@@ -2307,7 +2310,7 @@
 </dd>
     <dt>
     <a name = "tail"></a>
-    <strong>tail&nbsp;(array, index)</strong>
+    <strong>tail&nbsp;(array[, index])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#rest">rest</a>.
@@ -2354,7 +2357,7 @@
 </dd>
     <dt>
     <a name = "flatten"></a>
-    <strong>flatten&nbsp;(array, shallow)</strong>
+    <strong>flatten&nbsp;(array[, shallow])</strong>
     </dt>
     <dd>
     Flattens a nested array.  Passing <code>shallow</code> will only flatten at the first single level.
@@ -2435,7 +2438,7 @@
 </dd>
     <dt>
     <a name = "uniq"></a>
-    <strong>uniq&nbsp;(array, isSorted, iter, ...)</strong>
+    <strong>uniq&nbsp;(array[, isSorted[, iter[, ...]]])</strong>
     </dt>
     <dd>
     Produces a duplicate-free version of a given array.  Passing <code>isSorted</code> will
@@ -2457,7 +2460,7 @@
        an iterator function prototyped as <code>iter(key,value,...)</code></li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to <code>iter</code> function</li>
+       Optional extra-args to be passed to <code>iter</code> function</li>
     </ul>
 
 
@@ -2476,7 +2479,7 @@
 </dd>
     <dt>
     <a name = "unique"></a>
-    <strong>unique&nbsp;(array, isSorted, iter, ...)</strong>
+    <strong>unique&nbsp;(array[, isSorted[, iter[, ...]]])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#uniq">uniq</a>.
@@ -2562,7 +2565,7 @@
     <strong>zip&nbsp;(...)</strong>
     </dt>
     <dd>
-    Merges together values of each of the passed-in arrays in subsets. <br/>
+    Merges values of each of the passed-in arrays in subsets. <br/>
  Only values at the same position in the initial array are merged.
 
     <h3>Parameters:</h3>
@@ -2709,7 +2712,7 @@
 </dd>
     <dt>
     <a name = "concat"></a>
-    <strong>concat&nbsp;(array, sep, i, j)</strong>
+    <strong>concat&nbsp;(array[, sep[, i[, j]]])</strong>
     </dt>
     <dd>
     Concatenates values in a given array.  Handles booleans as well. If <code>sep</code> string is
@@ -2748,7 +2751,7 @@
 </dd>
     <dt>
     <a name = "join"></a>
-    <strong>join&nbsp;(array, sep, i, j)</strong>
+    <strong>join&nbsp;(array[, sep[, i[, j]]])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#concat">concat</a>.
@@ -2829,7 +2832,7 @@
 </dd>
     <dt>
     <a name = "memoize"></a>
-    <strong>memoize&nbsp;(f, hash)</strong>
+    <strong>memoize&nbsp;(f[, hash])</strong>
     </dt>
     <dd>
     Memoizes a given function by caching the computed result. <br/>
@@ -2844,7 +2847,7 @@
        a function</li>
       <li><span class="parameter">hash</span>
         <span class="types"><span class="type">function</span></span>
-       a hash function</li>
+       a hash function, defaults to <a href="index.html#identity">identity</a></li>
     </ul>
 
 
@@ -2863,7 +2866,7 @@
 </dd>
     <dt>
     <a name = "cache"></a>
-    <strong>cache&nbsp;(f, hash)</strong>
+    <strong>cache&nbsp;(f[, hash])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#memoize">memoize</a>.
@@ -2942,7 +2945,7 @@
     <strong>wrap&nbsp;(f, wrapper)</strong>
     </dt>
     <dd>
-    Wraps <code>f</code> inside of the <code>wrapper</code> function, passing it as the first argument. <br/>
+    Wraps <code>f</code> inside of the <code>wrapper</code> function.  It passes <code>f</code> as the first argument to <code>wrapper</code>.
  This allows the wrapper to execute code before and after <code>f</code> runs,
  adjust the arguments, and execute it conditionally.
 
@@ -3055,7 +3058,7 @@
 </dd>
     <dt>
     <a name = "uniqueId"></a>
-    <strong>uniqueId&nbsp;(template, ...)</strong>
+    <strong>uniqueId&nbsp;([template[, ...]])</strong>
     </dt>
     <dd>
     Generates a unique Id (unique for the current session).  If given a sring <a href="index.html#template">template</a>
@@ -3089,7 +3092,7 @@
 </dd>
     <dt>
     <a name = "uId"></a>
-    <strong>uId&nbsp;(template, ...)</strong>
+    <strong>uId&nbsp;([template[, ...]])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#uniqueId">uniqueId</a>.
@@ -3213,7 +3216,7 @@
 </dd>
     <dt>
     <a name = "functions"></a>
-    <strong>functions&nbsp;(obj, output)</strong>
+    <strong>functions&nbsp;(obj[, output])</strong>
     </dt>
     <dd>
     Returns a sorted list of all methods names found in an object.  If the given object
@@ -3228,7 +3231,7 @@
        an object</li>
       <li><span class="parameter">output</span>
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-       a table to collect the results</li>
+       Optional table to collect the results</li>
     </ul>
 
 
@@ -3247,7 +3250,7 @@
 </dd>
     <dt>
     <a name = "methods"></a>
-    <strong>methods&nbsp;(obj, output)</strong>
+    <strong>methods&nbsp;(obj[, output])</strong>
     </dt>
     <dd>
     Alias for <a href="index.html#functions">functions</a>.
@@ -3270,7 +3273,7 @@
 </dd>
     <dt>
     <a name = "clone"></a>
-    <strong>clone&nbsp;(obj, shallow)</strong>
+    <strong>clone&nbsp;(obj[, shallow])</strong>
     </dt>
     <dd>
     Clones a given object properties.  If <code>shallow</code> is passed
@@ -3490,7 +3493,7 @@
 </dd>
     <dt>
     <a name = "isEqual"></a>
-    <strong>isEqual&nbsp;(objA, objB, useMt)</strong>
+    <strong>isEqual&nbsp;(objA, objB[, useMt])</strong>
     </dt>
     <dd>
     Performs an equality test between two objects. <br/>
@@ -3508,7 +3511,7 @@
        another object</li>
       <li><span class="parameter">useMt</span>
         <span class="types"><span class="type">boolean</span></span>
-       whether or not <code>mt.__eq</code> should be used</li>
+       whether or not <code>mt.__eq</code> should be used, defaults to false.</li>
     </ul>
 
 
@@ -3523,10 +3526,10 @@
 </dd>
     <dt>
     <a name = "result"></a>
-    <strong>result&nbsp;(obj, method, ...)</strong>
+    <strong>result&nbsp;(obj, method[, ...])</strong>
     </dt>
     <dd>
-    Invokes an object method, passing the object as the first argument.  if <code>method</code> is not
+    Invokes an object method.  It passes the object itself as the first argument. if <code>method</code> is not
  callable, will return <code>obj[method]</code>.
 
     <h3>Parameters:</h3>
@@ -3539,7 +3542,7 @@
        a string key to index in object <code>obj</code>.</li>
       <li><span class="parameter">...</span>
         <span class="types"><span class="type">var_arg</span></span>
-       extra-args to be passed to <code>method</code></li>
+       Optional extra-args to be passed to <code>method</code></li>
     </ul>
 
 
