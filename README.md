@@ -17,6 +17,13 @@ A fully complete documentation, in HTML-format, can be found in [Docs](https://g
 * [Marcus Irven](http://mirven.github.com/underscore.lua/) and [JTArchie](https://github.com/jtarchie/underscore-lua), which also insipred this.
 * The amazing documentation generator [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*), used to produce the current HTML documentation.
 
+##Specification
+Specs tests have been included. Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
+
+```
+tsc -f specs/*
+```
+
 ##License##
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
 Copyright (c) 2012 Roland Yonaba

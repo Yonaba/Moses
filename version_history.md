@@ -1,5 +1,18 @@
 #Version history#
 
+##1.3.0 (11/12/12)
+* Removed _.iterate (slower than pairs, ipairs)
+* Added _.identity
+* Removed _.curry (was more like a closure, will provide a proper implementation later)
+* Removed _.iter_to_array
+* Most of all functions rewritten
+* _.import/_.mixin now imports library functions to the global env.
+* Added type checking functions as object functions
+* Added new functions and aliases : Moses has 85 unique functions, 117 counting aliases.
+* Added HTML docs
+* Added Specs
+* Added samples
+
 ##1.2.1 (08/20/12)
 * Added <tt>_.takeWhile</tt> (as alias to <tt>_.selectWhile</tt>)
 * Added <tt>_.dropWhile</tt> and <tt>_.rejectWhile</tt> (as alias)
