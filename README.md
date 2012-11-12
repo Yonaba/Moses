@@ -4,7 +4,7 @@ collections, objects, through 85 weird, strange, bizarre, odd functions.<br/>
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
 
 ##Installation##
-Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/Moses.lua) inside your project folder and call it using *require* command.
+Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
 ##Usage examples##
 Find a complete set of samples in [moses.md](https://github.com/Yonaba/Moses/blob/master/docs/moses.md)
