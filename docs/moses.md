@@ -961,6 +961,150 @@ print(_.concat({'a',1,0,1,'b'}))
 
 -- => a101b
 ````
+
 ## Utility functions
+
+### identity
+
+Returns the value passed. <br/>
+This function is used internally as a default iterator.
+
+```lua
+print(_.identity(1))
+print(_.identity(false))
+print(_.identity('hello!'))
+
+-- => 1
+-- => false
+-- => hello!
+````
+
+### once
+
+Produces a function that runs only once. Successive calls will not affect the output.
+
+```lua
+local sq = _.once(function(a) return a*a end)
+for i = 1,5 do print(i,sq(i)) end
+
+-- => 1 1
+-- => 2 1
+-- => 3 1
+-- => 4 1
+-- => 5 1
+````
+
+### memoize
+
+Memoizes a slow-running function by caching the result.
+
+```lua
+local function fibonacci(n)
+  return n < 2 and n or fibonacci(n-1)+fibonacci(n-2)
+end  
+fibonacci = _.memoize(fibonacci)
+print(fibonacci(20))
+
+-- => 1 1
+````
+
+### after
+
+Produces a function that will respond only after a given number of calls:
+
+```lua
+local a = _.after(_.identity,3)
+for i = 1,5 do print(i,a(i)) end
+
+-- => 1 nil
+-- => 2 nil
+-- => 3 3
+-- => 4 4
+-- => 5 5
+````
+
+### compose
+
+Composes functions. Each function consumes the return value of the one that follows:
+
+```lua
+local function f(x) return x^2 end
+local function g(x) return x+1 end
+local function h(x) return x/2 end
+local compositae = _.compose(f,g,h)
+print(compositae(10))
+print(compositae(20))
+
+-- => 36
+-- => 121
+````
+
+### wrap
+
+Wraps a function inside a wrapper. Allows the wrapper to execute code before and after function runs:
+
+```lua
+local greet = function(name) return "hi: " .. name end
+local greet_backwards = _.wrap(greet, function(f,arg)
+  return f(arg) ..'\nhi: ' .. arg:reverse()
+end) 
+print(greet_backwards('John'))
+
+-- => hi: John
+-- => hi: nhoJ
+````
+
+### times
+
+Spawns a given number of calls to a function:
+
+```lua
+local f = ('Lua programming'):gmatch('.')
+local char3 = _.times(3,f)
+_.each(char3,print)
+
+-- => 1 L
+-- => 2 u
+-- => 3 a
+````
+
+### bind
+
+Binds a value to be the first argument to a function:
+
+```lua
+local sqrt2 = _.bind(math.sqrt,2)
+print(sqrt2())
+
+-- => 1.4142135623731
+````
+
+### bindn
+
+Binds a variable number of values to be the first arguments to a function:
+
+```lua
+local function out(...) return table.concat {...} end
+out = _.bindn(out,'OutPut',':',' ')
+print(out(1,2,3))
+print(out('a','b','c','d'))
+
+-- => OutPut: 123
+-- => OutPut: abcd
+````
+
+### uniqueId
+
+Returns an unique integer Id:
+
+```lua
+print(_.uniqueid())
+
+-- => 1
+
+print(_.uniqueId('ID%s'))
+
+-- => ID2
+````
 
 ## Object functions
