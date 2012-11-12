@@ -4,96 +4,63 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Moses by Yonaba</title>
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-
+    <div class="wrapper">
       <header>
         <h1>Moses</h1>
-        <p>An utility library to manipulate tables in Lua</p>
+        <p>Utility library for functional programming in Lua</p>
+
+        <p class="view"><a href="https://github.com/Yonaba/Moses">View the Project on GitHub <small>Yonaba/Moses</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Yonaba/Moses/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Yonaba/Moses/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Yonaba/Moses">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/Yonaba/Moses" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/Yonaba/Moses/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/Yonaba/Moses/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
-
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
       <section>
-        <p><strong>Moses</strong> is a Lua library which provides a set of utilities and helpers acting as shortcuts for common programming tasks. 
-It extends the built-in <strong>Lua table library</strong>, making easier operations on arrays, lists, collections, objects, etc.<br><strong>Moses</strong> was deeply inspired by <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>. It brings to Lua most of <a href="http://documentcloud.github.com/underscore/">Underscore.js</a> functions and  A lot more!</p>
+        <p>A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
+and support for <a href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a>. It extends the built-in <strong>Lua table library</strong>, making easier operations on arrays, lists, 
+collections, objects, through 85 weird, strange, bizarre, odd functions.<br><strong>Moses</strong> was deeply inspired by <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>.</p>
 
 <h2>Installation</h2>
 
-<p>Put the file <a href="https://github.com/Yonaba/Moses/blob/master/Lib/Moses.lua">Moses.lua</a> inside your project folder and call it using <em>require</em> command.
-It will return a table containing a set of functions.</p>
+<p>Put the file <a href="https://github.com/Yonaba/Moses/blob/master/moses.lua">Moses.lua</a> inside your project folder and call it using <em>require</em> command.</p>
 
-<h2>Usage example</h2>
+<h2>Usage examples</h2>
 
-<div class="highlight"><pre><span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="c1">-- =&gt; {0,1,2,3,4,5,6,7,8,9,10}</span>
-<span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">return</span> <span class="n">value</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">value</span> <span class="k">end</span><span class="p">)</span>
-<span class="c1">-- =&gt; {0,11,22,33,44,55,66,77,88,99,110}    </span>
-<span class="n">list</span> <span class="o">=</span> <span class="n">_</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="k">function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">return</span> <span class="n">value</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span> <span class="k">end</span><span class="p">)</span>
-<span class="c1">-- =&gt; {0,22,44,66,88,110}   </span>
-<span class="n">_</span><span class="p">.</span><span class="n">each</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="nb">print</span><span class="p">)</span>
-<span class="c1">-- =&gt;  1    0</span>
-<span class="c1">-- =&gt;  2    22</span>
-<span class="c1">-- =&gt;  3    44</span>
-<span class="c1">-- =&gt;  4    66</span>
-<span class="c1">-- =&gt;  5    88</span>
-<span class="c1">-- =&gt;  6    110</span>
-</pre></div>
+<p>Find a complete set of samples in <a href="https://github.com/Yonaba/Moses/blob/master/docs/moses.md">moses.md</a></p>
 
-<h2>API Overview</h2>
+<h2>Documentation</h2>
 
-<p><strong>Moses</strong> offers functions, iterators to operate on arrays, collections, lists, nested tables.
-A fully complete documentation, with usage examples can be found here : <a href="https://github.com/Yonaba/Moses/blob/master/Documentation">Documentation</a><br>
-A set of tests for all functions provided can be found here : <a href="https://github.com/Yonaba/Moses/blob/master/Moses_Lib_Snippets.lua">Moses_Lib_Snippets.lua</a></p>
+<p>A fully complete documentation, in HTML-format, can be found in <a href="https://github.com/Yonaba/Moses/blob/master/docs">Docs</a>, and is also available for <a href="http://github.com/Yonaba/Moses/downloads">download</a>. <br></p>
 
-<h2>Moses and the built-in table library</h2>
-
-<p><strong>Moses</strong> provides a very handy function named <em>_.import</em>, which links Lua's native table library with <strong>Moses</strong> functions.</p>
-
-<div class="highlight"><pre><span class="n">_</span><span class="p">.</span><span class="n">import</span><span class="p">()</span>
-<span class="kd">local</span> <span class="n">t</span> <span class="o">=</span> <span class="n">table</span><span class="p">.</span><span class="n">shuffle</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">})</span>
-<span class="n">_</span><span class="p">.</span><span class="n">each</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">print</span><span class="p">)</span>
-<span class="c1">-- =&gt; 1 5</span>
-<span class="c1">-- =&gt; 2 3</span>
-<span class="c1">-- =&gt; 3 1</span>
-<span class="c1">-- =&gt; 4 4</span>
-<span class="c1">-- =&gt; 5 2</span>
-</pre></div>
-
-<h2>Credits and Thanks</h2>
+<h2>Credits and Acknowledgement</h2>
 
 <ul>
 <li>
 <a href="https://github.com/jashkenas">Jeremy Ashkenas</a>, for the amazing <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>
 </li>
 <li>
-<a href="http://www.marcusirven.com">Marcus Irven</a>, for his Lua port, <a href="http://mirven.github.com/underscore.lua/">Underscore.lua</a>
-</li>
-</ul><h2>License</h2>
+<a href="http://mirven.github.com/underscore.lua/">Marcus Irven</a> and <a href="https://github.com/jtarchie/underscore-lua">JTArchie</a>, which also insipred this.</li>
+<li>The amazing documentation generator <a href="https://github.com/stevedonovan/ldoc/">LDoc</a> (from <em>Steve Donovan</em>), used to produce the current HTML documentation.</li>
+</ul><h2>Specification</h2>
+
+<p>Specs tests have been included. Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
+
+<pre><code>tsc -f specs/*
+</code></pre>
+
+<h2>License</h2>
 
 <p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
 Copyright (c) 2012 Roland Yonaba</p>
@@ -119,11 +86,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </code></pre>
       </section>
       <footer>
-        <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+        <p>This project is maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    <script src="javascripts/scale.fix.js"></script>
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
