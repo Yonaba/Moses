@@ -1108,3 +1108,344 @@ print(_.uniqueId('ID%s'))
 ````
 
 ## Object functions
+
+### keys
+
+Collects the names of an object properties:
+
+```lua
+_.each(_.keys({1,2,3}),print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+
+_.each(_.keys({x = 0, y = 1}),print)
+
+-- => 1 y
+-- => 2 x
+````
+
+### values
+
+Collects the values of an object properties:
+
+```lua
+_.each(_.values({1,2,3}),print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+
+_.each(_.values({x = 0, y = 1}),print)
+
+-- => 1 1
+-- => 2 0
+````
+
+### pairs
+
+Collects and returns each value-pairs in an array:
+
+```lua
+local Pairs = _.pairs({'a','b','c'})
+_.each(Pairs, function(k,v)
+  print('Pair',k,v[1],v[2])
+end)
+
+-- => Pair 1 1 a
+-- => Pair 2 2 b
+-- => Pair 3 3 c
+````
+
+### extend
+
+Extends an object with properties of source objects:
+
+```lua
+local obj = {}
+_.extend(obj,{a = 'b', c = 'd'})
+_.each(obj,print)
+
+-- => a b
+-- => c d
+````
+
+### functions
+
+Returns all functions names within an object:
+
+```lua
+_.each(_.functions(package),print)
+
+-- => 1 loadlib
+-- => 2 seeall
+
+_.each(_.functions(coroutine),print)
+
+-- => 1	create
+-- => 2	resume
+-- => 3	running
+-- => 4	status
+-- => 5	wrap
+-- => 6	yield
+````
+
+### clone
+
+Clones a given object:
+
+```lua
+local obj = {1,2,3}
+local obj2 = _.clone(obj)
+print(obj2 == obj)
+_.each(obj2,print)
+
+-- => false
+-- => 1 1
+-- => 2 2
+-- => 3 3
+````
+
+### has
+
+Checks if an object has an attribute:
+
+```lua
+print(_,'has')
+print(coroutine,'resume')
+print(math,'random')
+
+-- => true
+-- => true
+-- => true
+````
+
+### pick
+
+Collects whilelisted properties of a given object:
+
+```lua
+local object = {a = 1, b = 2, c = 3}
+local picked = _.pick(object,'a','c')
+_.each(picked,print)
+
+-- => a 1
+-- => c 3
+````
+
+### omit
+
+Omits blacklisted properties of a given object:
+
+```lua
+local object = {a = 1, b = 2, c = 3}
+local picked = _.omit(object,'a','c')
+_.each(picked,print)
+
+-- => b 2
+````
+
+### template
+
+Applies a template on an object, preserving existing properties:
+
+```lua
+local obj = {a = 0}
+_.template(obj,{a = 1, b = 2, c = 3})
+_.each(obj,print)
+
+-- => a 0
+-- => c 3
+-- => b 2
+````
+
+### isEqual
+
+Compares objects:
+
+```lua
+print(_.isEqual(1,1))
+print(_.isEqual(true,false))
+print(_.isEqual(3.14,math.pi))
+print(_.isEqual({3,4,5},{3,4,{5}}))
+
+-- => true
+-- => false
+-- => false
+-- => false
+````
+
+### result
+
+Calls an object method, passing it as a first arg the object itself:
+
+```lua
+print(_.result('abc','len'))
+print(_.result({'a','b','c'},table.concat))
+
+-- => 3
+-- => abc
+````
+
+### isObject
+
+Is the given arg an object (i.e a Lua table) ?
+
+```lua
+print(_.isObject({}))
+print(_.isObject(math))
+print(_.isObject(string))
+
+-- => true
+-- => true
+-- => true
+````
+
+### isCallable
+
+Is the given arg callable ?
+
+```lua
+print(_.isCallable(print))
+print(_.isCallable(function() end))
+print(_.isCallable(setmetatable({},{__index = string}).upper))
+print(_.isCallable(setmetatable({},{__call = function() return end})))
+
+-- => true
+-- => true
+-- => true
+-- => true
+````
+
+### isArray
+
+Is the given arg an array (table  with numeric keys) ?
+
+```lua
+print(_.isArray({}))
+print(_.isArray({1,2,3}))
+print(_.isArray({'a','b','c'}))
+
+-- => true
+-- => true
+-- => true
+````
+
+### isEmpty
+
+Is the given arg empty ?
+
+```lua
+print(_.isEmpty(''))
+print(_.isEmpty({}))
+print(_.isEmpty({'a','b','c'}))
+
+-- => true
+-- => true
+-- => false
+````
+
+### isString
+
+Is the given arg a string ?
+
+```lua
+print(_.isString(''))
+print(_.isString('Hello'))
+print(_.isString({})
+
+-- => true
+-- => true
+-- => false
+````
+
+### isFunction
+
+Is the given arg a function ?
+
+```lua
+print(_.isFunction(print))
+print(_.isFunction(function() end))
+print(_.isFunction({})
+
+-- => true
+-- => true
+-- => false
+````
+
+### isNil
+
+Is the given arg nil ?
+
+```lua
+print(_.isNil(nil))
+print(_.isNil())
+print(_.isNil({})
+
+-- => true
+-- => true
+-- => false
+````
+
+### isNumber
+
+Is the given arg a number ?
+
+```lua
+print(_.isNumber(math.pi))
+print(_.isNumber(math.huge))
+print(_.isNumber(0/0))
+print(_.isNumber())
+
+-- => true
+-- => true
+-- => true
+-- => false
+````
+
+### isFinite
+
+Is the given arg a finite number ?
+
+```lua
+print(_.isFinite(99e99))
+print(_.isFinite(math.pi))
+print(_.isFinite(math.huge))
+print(_.isFinite(1/0))
+print(_.isFinite(0/0))
+
+-- => true
+-- => true
+-- => false
+-- => false
+-- => false
+````
+
+### isNaN
+
+Is the given arg NaN ?
+
+```lua
+print(_.isNaN(1))
+print(_.isNaN(0/0))
+
+-- => false
+-- => true
+````
+
+### isBoolean
+
+Is the given arg a boolean ?
+
+```lua
+print(_.isBoolean(true))
+print(_.isBoolean(false))
+print(_.isBoolean(1==1))
+print(_.isBoolean(print))
+
+-- => true
+-- => true
+-- => true
+-- => false
+````

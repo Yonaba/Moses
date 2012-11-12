@@ -4,7 +4,7 @@ context('Object functions specs', function()
 
   context('keys', function()
   
-    test('collects an given object attributes',function()
+    test('collects a given object attributes',function()
       assert_true(_.isEqual(_.keys({1,2,3}),{1,2,3}))
       assert_true(_.isEqual(_.keys({4,5,6}),{1,2,3}))
       assert_true(_.same(_.keys({x = 1, y = 2, 3}),{'x','y',1}))
@@ -261,7 +261,7 @@ context('Object functions specs', function()
 
   context('result', function()
   
-    test('calls an object method, passing as a first arg the object itself',function()
+    test('calls an object method, passing it as a first arg the object itself',function()
      assert_equal(_.result('a','len'),1)
      assert_equal(_.result('hello','reverse'),'olleh')
      assert_equal(_.result({'a','b','c'},table.concat),'abc')
