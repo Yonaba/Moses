@@ -446,23 +446,23 @@ context('Collection functions specs', function()
   
   end)   
 
-  context('contains', function()
+  context('containsKeys', function()
   
     test('returns whether a table has all the keys from a given list', function()      
-      assert_true(_.contains({1,2,3},{1,2,3}))
-      assert_true(_.contains({x = 1, y = 2},{x = 1,y =2}))
+      assert_true(_.containsKeys({1,2,3},{1,2,3}))
+      assert_true(_.containsKeys({x = 1, y = 2},{x = 1,y =2}))
     end)
     
     test('does not compare values', function()      
-      assert_true(_.contains({1,2,3},{4,5,6}))
-      assert_true(_.contains({x = 1, y = 2},{x = 4,y = -1}))
+      assert_true(_.containsKeys({1,2,3},{4,5,6}))
+      assert_true(_.containsKeys({x = 1, y = 2},{x = 4,y = -1}))
     end)
 
     test('is not commutative', function()      
-      assert_true(_.contains({1,2,3,4},{4,5,6}))      
-      assert_true(_.contains({x = 1, y = 2,z = 5},{x = 4,y = -1}))
-      assert_false(_.contains({1,2,3},{4,5,6,7}))
-      assert_false(_.contains({x = 1, y = 2},{x = 4,y = -1,z = 0}))
+      assert_true(_.containsKeys({1,2,3,4},{4,5,6}))      
+      assert_true(_.containsKeys({x = 1, y = 2,z = 5},{x = 4,y = -1}))
+      assert_false(_.containsKeys({1,2,3},{4,5,6,7}))
+      assert_false(_.containsKeys({x = 1, y = 2},{x = 4,y = -1,z = 0}))
     end)
     
   end) 

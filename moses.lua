@@ -492,11 +492,11 @@ end
 --- Checks if all the keys of `other` object exists in a `list`. It does not
 -- compares values. The test is not commutative, i.e `list` may contains keys
 -- not existing in `other`.
--- @name contains
+-- @name containsKeys
 -- @tparam table list a collection
 -- @tparam table other a collection
 -- @treturn boolean __true__ or __false__
-function _.contains(list,other)
+function _.containsKeys(list,other)
   for key in pairs(other) do
     if not list[key] then return false end
   end

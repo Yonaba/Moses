@@ -364,6 +364,187 @@ print(_.min(peoples,function(people) return people.age end))
 -- => 15
 ````
 
+### shuffle
+
+Shuffles a collection:
+
+```lua
+local list = _.shuffle {1,2,3,4,5,6}
+_.each(list,print)
+
+-- => 1 3
+-- => 2 2
+-- => 3 6
+-- => 4 4
+-- => 5 1
+-- => 6 5
+````
+
+### same
+
+Tests whether all objects in each of the passed-in tables exists in both:
+
+```lua
+local a = {'a','b','c','d'}      
+local b = {'b','a','d','c'}
+print(_.same(a,b))
+
+-- => true
+
+b[#b+1] = 'e'
+print(_.same(a,b))
+
+-- => false
+````
+
+### sort
+
+Sorts a collection:
+
+```lua
+local chars = _.sort({'b','a','d','c'})
+_.each(chars,print)
+
+-- => 1 'a'
+-- => 2 'b'
+-- => 3 'c'
+-- => 4 'd'
+````
+
+Handles custom comparison functions:
+
+```lua
+local chars = _.sort({'b','a','d','c'}, function(a,b) 
+  return a:byte() > b:byte() 
+end)
+
+-- => 1 'd'
+-- => 2 'c'
+-- => 3 'b'
+-- => 4 'a'
+````
+
+#### toArray
+
+Folds all passed-in args in an array:
+
+```lua
+local array = _.toArray(1,2,8,'d','a',0)
+_.each(array,print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 8
+-- => 4 'd'
+-- => 5 'a'
+-- => 6 0
+````
+
+### groupBy
+
+Groups values in a collection according to how they behave with respect to a given predicate:
+
+```lua
+local set = _.groupBy({0,1,2,3,4,5,6},function(i,value) 
+  return value%2==0 and 'even' or 'odd'
+end)
+_.each(set, function(k,v)
+  print('Subset',k)
+  _.each(v,print)
+end)
+
+-- => Subset odd
+-- => 1	1
+-- => 2	3
+-- => 3	5
+-- => Subset even
+-- => 1	0
+-- => 2	2
+-- => 3	4
+-- => 4	6
+
+local set = _.groupBy({0,'a',true, false,nil,b,0.5},function(i,value) 
+  return type(value) 
+end)
+_.each(set, function(k,v)
+  print('Subset',k)
+  _.each(v,print)
+end)
+
+-- => Subset number
+-- => 1	0
+-- => 2	0.5
+-- => Subset string
+-- => 1	a
+-- => Subset boolean
+-- => 1	true
+-- => 2	false		
+````
+
+### countBy
+
+Splits a collection in subsets and provide the count for each subset:
+
+```lua
+local set = _.countBy({0,1,2,3,4,5,6},function(i,value) 
+  return value%2==0 and 'even' or 'odd'
+end)
+_.each(set,print)
+
+-- => odd 3
+-- => even 4
+````
+
+### size
+
+Provide the count for the very number of items in a collection:
+
+```lua
+print(_.size {1,2,3})
+print(_.size {one = 1, two = 2})
+
+-- => 3
+-- => 2
+````
+
+Counts the number of its arguments:
+
+```lua
+print(_.size(1,2,3))
+print(_.size('a','b',{}, function() end))
+
+-- => 3
+-- => 4
+````
+
+### containsKeys
+
+Checks whether a table has all the keys existing in another table:
+
+```lua
+print(_.contains({1,2,3,4},{1,2,3}))
+print(_.contains({1,2,'d','b'},{1,2,3,5}))
+print(_.contains({x = 1, y = 2, z = 3},{x = 1, y = 2}))
+
+-- => true
+-- => true
+-- => true
+````
+
+### sameKeys
+
+Checks whether both tables features the same keys:
+
+```lua
+print(_.sameKeys({1,2,3,4},{1,2,3}))
+print(_.sameKeys({1,2,'d','b'},{1,2,3,5}))
+print(_.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}))
+
+-- => false
+-- => true
+-- => false
+````
+
 ## Array functions
 
 ## Utility functions
