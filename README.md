@@ -31,8 +31,8 @@ A fully complete documentation, in HTML-format, can be found in [Docs](https://g
 
 ##Credits and Acknowledgement##
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
-* [Marcus Irven](http://mirven.github.com/underscore.lua/) and [JTArchie](https://github.com/jtarchie/underscore-lua), which also insipred this.
-* The amazing documentation generator [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*), used to produce the current HTML documentation.
+* [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this.
+* The amazing Lua  source code documentation tool [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate he current HTML documentation.
 
 ##Specification
 Specs tests have been included. Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
