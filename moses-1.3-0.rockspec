@@ -8,10 +8,10 @@ description = {
    summary = "Utility library for functional programming in Lua",
    detailed = [[
       A utility library provinding handy resources for common programming tasks and support for functional 
-	  programming. It extends the built-in Lua table library, making easier operations on arrays, lists, 
+	  programming. It complements the built-in Lua table library, making easier operations on arrays, lists, 
 	  collections and objects, through 85 weird, bizarre and odd functions.
    ]],
-   homepage = "http://yonaba.github.com/Moses/", -- We don't have one yet
+   homepage = "http://yonaba.github.com/Moses/",
    license = "MIT <http://www.opensource.org/licenses/mit-license.php>"
 }
 dependencies = {
