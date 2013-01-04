@@ -38,28 +38,28 @@ context('Utility functions specs', function()
       local function fib(n)
         return n < 2 and n or fib(n-1)+fib(n-2)
       end      
+      local times = 10
       local mfib = _.memoize(fib)
       fib_time = os.time()*1000
-        for i = 1, 1e3 do fib_value = (fib_value or 0)+fib(20) end
+        for i = 1, times do fib_value = (fib_value or 0)+fib(30) end
       fib_time = os.time()*1000-fib_time
       
       mfib_time = os.time()*1000
-        for i = 1, 1e3 do mfib_value = (mfib_value or 0)+mfib(20) end
+        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(30) end
       mfib_time = os.time()*1000-mfib_time      
     end)
     
     test('memoizes an expensive function by caching its results',function()
-      assert_equal(mfib_value,fib_value)
       assert_true(mfib_time<fib_time)
     end)
     
     test('can take a hash function to compute an unique output for multiple args',function()
     
-      local function hash(a,b) return (a+b)+((a*1640531513 ^ b*2654435789) % 1e6) end
+      local function hash(a,b) return (a^13+b^19) end
       local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
       local diffFact = function(a,b) return fact(a)-fact(b) end
       local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-      local times, rep = 1e3, 30
+      local times, rep = 10, 250
       
       local time = os.time()*1000
       for j = 1,times do 
