@@ -3,7 +3,7 @@ and support for [functional programming](http://en.wikipedia.org/wiki/Functional
 collections, objects, through 85 weird, strange, bizarre, odd functions.<br/>
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
 
-##Download
+##Download & Installation
 ###Bash
 
 ```bash
@@ -15,12 +15,16 @@ git clone git://github.com/Yonaba/Moses.git
 * __Tar.gz__: [current](https://github.com/Yonaba/Moses/archive/master.tar.gz) | [old packages](https://github.com/Yonaba/Moses/tags)
 
 ###LuaRocks
-
 ```
 luarocks install moses
 ````
 
-##Installation##
+###MoonRocks
+```bash
+luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
+````
+
+##Usage##
 Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
 ##Usage examples##
