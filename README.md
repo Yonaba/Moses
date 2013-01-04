@@ -27,6 +27,10 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 ##Usage##
 Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
+__Note__: 
+The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (47 kiB).<br/>
+You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) which is lighter (14 kiB).
+
 ##Usage examples##
 Find a complete set of samples in [moses.md](https://github.com/Yonaba/Moses/blob/master/docs/moses.md)
   
