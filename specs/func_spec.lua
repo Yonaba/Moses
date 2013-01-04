@@ -59,7 +59,7 @@ context('Utility functions specs', function()
       local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
       local diffFact = function(a,b) return fact(a)-fact(b) end
       local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-      local times, rep = 10, 250
+      local times, rep = 10, 150
       
       local time = os.time()*1000
       for j = 1,times do 
