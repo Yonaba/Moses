@@ -1,4 +1,6 @@
-﻿A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
+﻿[![Build Status](https://travis-ci.org/Yonaba/moses.png)](https://travis-ci.org/Yonaba/moses)
+
+A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
 and support for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier operations on arrays, lists, 
 collections, objects, through 85 weird, strange, bizarre, odd functions.<br/>
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
