@@ -77,7 +77,7 @@ context('Utility functions specs', function()
       end
       mtime = os.time()*1000-mtime  
 
-      assert_true(mtime<time)
+      assert_true(mtime<=time)
 
     end)
     
