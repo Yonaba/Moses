@@ -21,5 +21,6 @@ build = {
   type = "builtin",
   modules = {
     ["moses"] = "moses.lua"
+    ["moses_min"] = "moses_min.lua"
   }
 }
