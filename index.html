@@ -28,13 +28,45 @@
         </ul>
       </header>
       <section>
-        <p>A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
-and support for <a href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a>. It extends the built-in <strong>Lua table library</strong>, making easier operations on arrays, lists, 
+        <p><a href="https://travis-ci.org/Yonaba/Moses"><img src="https://travis-ci.org/Yonaba/Moses.png" alt="Build Status"></a></p>
+
+<p>A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
+and support for <a href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a>. It complements the built-in <strong>Lua table library</strong>, making easier operations on arrays, lists, 
 collections, objects, through 85 weird, strange, bizarre, odd functions.<br><strong>Moses</strong> was deeply inspired by <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>.</p>
 
-<h2>Installation</h2>
+<h2>Download &amp; Installation</h2>
+
+<h3>Bash</h3>
+
+<div class="highlight"><pre>git clone git://github.com/Yonaba/Moses.git
+</pre></div>
+
+<h3>Archive</h3>
+
+<ul>
+<li>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/Moses/archive/master.zip">current</a> | <a href="https://github.com/Yonaba/Moses/tags">old packages</a>
+</li>
+<li>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/Moses/archive/master.tar.gz">current</a> | <a href="https://github.com/Yonaba/Moses/tags">old packages</a>
+</li>
+</ul><h3>LuaRocks</h3>
+
+<pre><code>luarocks install moses
+</code></pre>
+
+<h3>MoonRocks</h3>
+
+<div class="highlight"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba moses
+</pre></div>
+
+<h2>Usage</h2>
 
 <p>Put the file <a href="https://github.com/Yonaba/Moses/blob/master/moses.lua">Moses.lua</a> inside your project folder and call it using <em>require</em> command.</p>
+
+<p><strong>Note</strong>: 
+The full source <a href="https://github.com/Yonaba/Moses/blob/master/moses.lua">moses.lua</a> is quite heavy (47 kiB).<br>
+You can alternatively use the <a href="https://github.com/Yonaba/Moses/blob/master/moses_min.lua">minified version</a> which is lighter (14 kiB).</p>
 
 <h2>Usage examples</h2>
 
@@ -51,8 +83,8 @@ collections, objects, through 85 weird, strange, bizarre, odd functions.<br><str
 <a href="https://github.com/jashkenas">Jeremy Ashkenas</a>, for the amazing <a href="http://documentcloud.github.com/underscore/">Underscore.js</a>
 </li>
 <li>
-<a href="http://mirven.github.com/underscore.lua/">Marcus Irven</a> and <a href="https://github.com/jtarchie/underscore-lua">JTArchie</a>, which also insipred this.</li>
-<li>The amazing documentation generator <a href="https://github.com/stevedonovan/ldoc/">LDoc</a> (from <em>Steve Donovan</em>), used to produce the current HTML documentation.</li>
+<a href="http://mirven.github.com/underscore.lua/">Marcus Irven</a>'s and <a href="https://github.com/jtarchie/underscore-lua">JTArchie</a>'s 1-to-1 ports that also inspired this.</li>
+<li>The amazing Lua  source code documentation tool <a href="https://github.com/stevedonovan/ldoc/">LDoc</a> (from <em>Steve Donovan</em>) used to generate he current HTML documentation.</li>
 </ul><h2>Specification</h2>
 
 <p>Specs tests have been included. Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
