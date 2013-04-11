@@ -30,8 +30,8 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
 __Note__: 
-The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (47 kiB).<br/>
-You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) which is lighter (14 kiB).
+The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (50 kiB).<br/>
+You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) which is lighter (15 kiB).
 
 ##Usage examples##
 Find a complete set of samples in [moses.md](https://github.com/Yonaba/Moses/blob/master/docs/moses.md)
@@ -42,10 +42,11 @@ A fully complete documentation, in HTML-format, can be found in [Docs](https://g
 ##Credits and Acknowledgement##
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
 * [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this.
-* The amazing Lua  source code documentation tool [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate he current HTML documentation.
+* The amazing documentation tool [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate the current HTML documentation.
 
 ##Specification
-Specs tests have been included. Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
+Specs tests have been included for moses and its minified version.<br/>
+Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
 
 ```
 tsc -f specs/*
