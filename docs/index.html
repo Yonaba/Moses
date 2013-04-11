@@ -130,8 +130,16 @@
 	<td class="summary">Alias for <a href="index.html#detect">detect</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#where">where&nbsp;(list, item)</a></td>
-	<td class="summary">Alias for <a href="index.html#detect">detect</a>.</td>
+	<td class="name" nowrap><a href="#contains">contains&nbsp;(list, item)</a></td>
+	<td class="summary">Returns true if item is present in the list, false otherwise.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#where">where&nbsp;(list, a)</a></td>
+	<td class="summary">Returns an array of values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#findWhere">findWhere&nbsp;(list, a)</a></td>
+	<td class="summary">Returns a value.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#select">select&nbsp;(list, f[, ...])</a></td>
@@ -442,6 +450,10 @@
 	<td class="summary">Clones a given object properties.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#tap">tap&nbsp;(obj, f[, ...])</a></td>
+	<td class="summary">Invokes interceptor with the object, and then returns object.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#has">has&nbsp;(obj, key)</a></td>
 	<td class="summary">Checks if a given object implements a property.</td>
 	</tr>
@@ -478,7 +490,7 @@
 	<td class="summary">Invokes an object method.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#isObject">isObject&nbsp;(obj)</a></td>
+	<td class="name" nowrap><a href="#isTable">isTable&nbsp;(t)</a></td>
 	<td class="summary">Checks if the given arg is an object (i.e a Lua table).</td>
 	</tr>
 	<tr>
@@ -522,12 +534,12 @@
 	<td class="summary">Checks if the given arg is a boolean.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#import">import&nbsp;()</a></td>
-	<td class="summary">Imports all library functions in the global environment.</td>
+	<td class="name" nowrap><a href="#chain">chain&nbsp;(value)</a></td>
+	<td class="summary">Returns a wrapped object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mixin">mixin&nbsp;()</a></td>
-	<td class="summary">Alias for <a href="index.html#import">import</a>.</td>
+	<td class="name" nowrap><a href="#value">value&nbsp;()</a></td>
+	<td class="summary">Extracts the value of a wrapped object.</td>
 	</tr>
 </table>
 
@@ -1054,7 +1066,7 @@
     <strong>detect&nbsp;(list, item)</strong>
     </dt>
     <dd>
-    Looks for an object index in a collection.  <br/><em>Aliased as <a href="index.html#where">where</a>, <a href="index.html#find">find</a></em>
+    Looks for an object index in a collection.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1077,8 +1089,7 @@
 
     <h3>see also:</h3>
     <ul>
-         <li><a href="index.html#find">find</a></li>
-         <li><a href="index.html#where">where</a></li>
+         <a href="index.html#find">find</a>
     </ul>
 </dd>
     <dt>
@@ -1105,25 +1116,83 @@
 
 </dd>
     <dt>
-    <a name = "where"></a>
-    <strong>where&nbsp;(list, item)</strong>
+    <a name = "contains"></a>
+    <strong>contains&nbsp;(list, item)</strong>
     </dt>
     <dd>
-    Alias for <a href="index.html#detect">detect</a>.
+    Returns true if item is present in the list, false otherwise.
 
     <h3>Parameters:</h3>
     <ul>
       <li><span class="parameter">list</span>
-
-
-</li>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
       <li><span class="parameter">item</span>
-
-
-</li>
+        <span class="types"><span class="type">object</span></span>
+       a value to be searched</li>
     </ul>
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        true if present, otherwise false
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "where"></a>
+    <strong>where&nbsp;(list, a)</strong>
+    </dt>
+    <dd>
+    Returns an array of values.  Thoe are values from list containing all key-value pairs listed in <code>props</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">a</span>
+        <span class="types"><span class="type">props</span></span>
+       set of properties</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        an array of values containing all of the properties found in <code>props</code>.
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "findWhere"></a>
+    <strong>findWhere&nbsp;(list, a)</strong>
+    </dt>
+    <dd>
+    Returns a value.  This value should be the first value found in an array containing all key-value pairs listed in <code>props</code>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">a</span>
+        <span class="types"><span class="type">props</span></span>
+       set of properties</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">item</span></span>
+        a value from the passed-in list
+    </ol>
 
 
 </dd>
@@ -1394,7 +1463,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><span class="type">value</span></span>
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
         the maximum property value found
     </ol>
 
@@ -1425,7 +1494,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><span class="type">value</span></span>
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
         the minimum property value found
     </ol>
 
@@ -1847,7 +1916,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><span class="type">value</span></span>
+        <span class="types"><a class="type" href="index.html#value">value</a></span>
        value to be inserted</li>
       <li><span class="parameter">comp</span>
         <span class="types"><span class="type">function</span></span>
@@ -1881,7 +1950,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><span class="type">value</span></span>
+        <span class="types"><a class="type" href="index.html#value">value</a></span>
        value to be searched</li>
     </ul>
 
@@ -1908,7 +1977,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><span class="type">value</span></span>
+        <span class="types"><a class="type" href="index.html#value">value</a></span>
        value to be searched</li>
     </ul>
 
@@ -1996,7 +2065,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><span class="type">value</span></span>
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
         the popped value
     </ol>
 
@@ -2043,7 +2112,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><span class="type">value</span></span>
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
         the popped value
     </ol>
 
@@ -3296,6 +3365,37 @@
 
 </dd>
     <dt>
+    <a name = "tap"></a>
+    <strong>tap&nbsp;(obj, f[, ...])</strong>
+    </dt>
+    <dd>
+    Invokes interceptor with the object, and then returns object.
+ The primary purpose of this method is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an object</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an interceptor function, should be prototyped as <code>f(obj,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">vararg</span></span>
+       Extra-args to be passed to interceptor function</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in object
+    </ol>
+
+
+</dd>
+    <dt>
     <a name = "has"></a>
     <strong>has&nbsp;(obj, key)</strong>
     </dt>
@@ -3545,24 +3645,24 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><span class="type">value</span></span>
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
         the returned value of <code>method(obj,...)</code> call
     </ol>
 
 
 </dd>
     <dt>
-    <a name = "isObject"></a>
-    <strong>isObject&nbsp;(obj)</strong>
+    <a name = "isTable"></a>
+    <strong>isTable&nbsp;(t)</strong>
     </dt>
     <dd>
     Checks if the given arg is an object (i.e a Lua table).
 
     <h3>Parameters:</h3>
     <ul>
-      <li><span class="parameter">obj</span>
+      <li><span class="parameter">t</span>
         <span class="types"><span class="type">object</span></span>
-       an object</li>
+       a value to be tested</li>
     </ul>
 
 
@@ -3820,30 +3920,45 @@
 
 </dd>
     <dt>
-    <a name = "import"></a>
-    <strong>import&nbsp;()</strong>
+    <a name = "chain"></a>
+    <strong>chain&nbsp;(value)</strong>
     </dt>
     <dd>
-    Imports all library functions in the global environment.  <br/><em>Aliased as <a href="index.html#mixin">mixin</a></em>
+    Returns a wrapped object.  Calling library functions as methods on this object
+ will continue to return wrapped objects until <a href="index.html#value">value</a> is used. Can be aliased as <code>_(value)</code>.
 
-
-
-
-
-    <h3>see also:</h3>
+    <h3>Parameters:</h3>
     <ul>
-         <a href="index.html#mixin">mixin</a>
+      <li><span class="parameter">value</span>
+        <span class="types"><a class="type" href="index.html#value">value</a></span>
+       a value to be wrapped</li>
     </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">object</span></span>
+        a wrapped object
+    </ol>
+
+
 </dd>
     <dt>
-    <a name = "mixin"></a>
-    <strong>mixin&nbsp;()</strong>
+    <a name = "value"></a>
+    <strong>value&nbsp;()</strong>
     </dt>
     <dd>
-    Alias for <a href="index.html#import">import</a>.
+    Extracts the value of a wrapped object.
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="index.html#value">value</a></span>
+        the value previously wrapped
+    </ol>
 
 
 </dd>

@@ -1287,14 +1287,14 @@ print(_.result({'a','b','c'},table.concat))
 -- => abc
 ````
 
-### isObject
+### isTable
 
 Is the given arg an object (i.e a Lua table) ?
 
 ```lua
-print(_.isObject({}))
-print(_.isObject(math))
-print(_.isObject(string))
+print(_.isTable({}))
+print(_.isTable(math))
+print(_.isTable(string))
 
 -- => true
 -- => true
@@ -1447,18 +1447,6 @@ print(_.isBoolean(print))
 -- => true
 -- => true
 -- => false
-````
-
-## import
-
-All library functions can be imported in the global env with <tt>import</tt> (aliased as <tt>mixin</tt>):
-
-```lua
-_.import() -- or _.mixin()
-
-each({1,2,3},print)
-toArray('a','b','c')
--- ...
 ````
 
 ## License
