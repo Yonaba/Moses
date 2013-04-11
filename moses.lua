@@ -54,7 +54,7 @@ local unique_id_counter = -1
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @see forEach
 function _.each(list, f, ...)
-  if not _.isObject(list) then return end
+  if not _.isTable(list) then print('not a table') return end
   for index,value in pairs(list) do
     f(index,value,...)
   end
@@ -230,13 +230,12 @@ _.any = _.include
 -- @param item
 _.some = _.include
 
---- Looks for an object index in a collection. <br/><em>Aliased as @{where}, @{find}</em>
+--- Looks for an object index in a collection.
 -- @name detect
 -- @tparam table list a collection
 -- @tparam object item a value to be searched
 -- @treturn key the object key or __nil__
 -- @see find
--- @see where
 function _.detect(list,item)
   local _iter = _.isFunction(item) and item or _.isEqual
   for key,arg in pairs(list) do
@@ -250,11 +249,46 @@ end
 -- @param item
 _.find = _.detect
 
---- Alias for @{detect}.
+--- Returns true if item is present in the list, false otherwise.
+-- @name contains
+-- @tparam table list a collection
+-- @tparam object item a value to be searched
+-- @treturn boolean true if present, otherwise false
+function _.contains(list, item)
+	return _.detect(list, item) and true or false
+end
+
+--- Returns an array of values. Thoe are values from list containing all key-value pairs listed in `props`.
 -- @function where
--- @param list
--- @param item
-_.where = _.detect
+-- @tparam table list a collection 
+-- @tparam props a set of properties
+-- @treturn table an array of values containing all of the properties found in `props`.
+function _.where(list, props)
+	local found = {}
+	if _.isEmpty(props) then return {} end
+	return _.filter(list, function(k,v)
+		for key in pairs(props) do
+			if props[key] ~= v[key] then return false end
+		end
+		return true
+	end)
+end
+
+--- Returns a value. This value should be the first value found in an array containing all key-value pairs listed in `props`.
+-- @function findWhere
+-- @tparam table list a collection 
+-- @tparam props a set of properties
+-- @treturn item a value from the passed-in list
+function _.findWhere(list, props)
+	local index = _.find(list, function(v)
+		for key in pairs(props) do
+			if props[key] ~= v[key] then return false end
+		end
+		return true
+	end)
+	return index and list[index]
+end
+
 
 --- Selects and extracts objects passing an iterator test.
 -- <br/><em>Aliased as @{filter}</em>
@@ -331,7 +365,7 @@ _.every = _.all
 function _.invoke(list,method,...)
   local args = {...}
   return _.map(list, function(__,v)
-        if _.isObject(v) then
+        if _.isTable(v) then
 			if _.has(v,method) then
 				if _.isCallable(v[method]) then
 					return v[method](v,unpack(args))
@@ -482,7 +516,7 @@ function _.size(...)
   local arg1 = args[1]
   if _.isNil(arg1) then
     return 0
-  elseif _.isObject(arg1) then
+  elseif _.isTable(arg1) then
     return count(args[1])
   else
     return count(args)
@@ -801,7 +835,7 @@ function _.flatten(array, shallow)
   local new_flattened
   local _flat = {}
   for key,value in pairs(array) do
-    if _.isObject(value) and not shallow then
+    if _.isTable(value) and not shallow then
       new_flattened = _.flatten (value)
       _.each(new_flattened, function(_,item) _flat[#_flat+1] = item end)
     else _flat[#_flat+1] = value
@@ -1133,6 +1167,8 @@ function _.bindn(f,...)
     end
 end
 
+--function _.partial(f,...
+
 --- Generates a unique Id (unique for the current session). If given a sring `template`
 -- will use this template for output formatting. Otherwise, if `template` is a function,
 -- will compute an output running `template(id,...)`.
@@ -1204,7 +1240,7 @@ end
 function _.extend(destObj,...)
 	local sources = {...}
 	_.each(sources,function(__,source)
-		if _.isObject(source) then
+		if _.isTable(source) then
 			_.each(source,function(key,value)
 				destObj[key] = value
 			end)
@@ -1250,10 +1286,10 @@ _.methods = _.functions
 -- @tparam[opt] boolean shallow whether or not nested array-properties should be cloned, defaults to false.
 -- @treturn table a clone of the passed-in object
 function _.clone(obj,shallow)
-	if not _.isObject(obj) then return obj end
+	if not _.isTable(obj) then return obj end
   local _obj = {}
   _.each(obj,function(i,v)
-    if _.isObject(v) then
+    if _.isTable(v) then
       if not shallow then
 		_obj[i] = _.clone(v,shallow)
 	  else _obj[i] = v
@@ -1263,6 +1299,18 @@ function _.clone(obj,shallow)
 	end
   end)
   return _obj
+end
+
+--- Invokes interceptor with the object, and then returns object.
+-- The primary purpose of this method is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
+-- @name tap
+-- @tparam table obj an object
+-- @tparam function f an interceptor function, should be prototyped as `f(obj,...)`
+-- @tparam[opt] vararg ... Extra-args to be passed to interceptor function
+-- @treturn table the passed-in object
+function _.tap(obj, f,...)
+	f(obj,...)
+	return obj
 end
 
 --- Checks if a given object implements a property.
@@ -1403,11 +1451,11 @@ function _.result(obj,method,...)
 end
 
 --- Checks if the given arg is an object (i.e a Lua table).
--- @name isObject
--- @tparam object obj an object
+-- @name isTable
+-- @tparam object t a value to be tested
 -- @treturn boolean __true__ or __false__
-function _.isObject(obj)
-  return type(obj) == 'table'
+function _.isTable(t)
+  return type(t) == 'table'
 end
 
 --- Checks if the given arg is an callable. Assumes `obj` is callable if
@@ -1417,7 +1465,7 @@ end
 -- @treturn boolean __true__ or __false__
 function _.isCallable(obj)
   return (_.isFunction(obj) or
-		 (_.isObject(obj) and getmetatable(obj)
+		 (_.isTable(obj) and getmetatable(obj)
 					         and getmetatable(obj).__call~=nil) or false)
 end
 
@@ -1427,7 +1475,7 @@ end
 -- @tparam object obj an object
 -- @treturn boolean __true__ or __false__
 function _.isArray(obj)
-	if not _.isObject(obj) then return false end
+	if not _.isTable(obj) then return false end
 	return _.all(_.keys(obj),function(i,v)
 			return _.isNumber(v) and (floor(v)==v)
 		end)
@@ -1441,7 +1489,7 @@ end
 -- @treturn boolean __true__ or __false__
 function _.isEmpty(obj)
 	if _.isString(obj) then return #obj==0 end
-	if _.isObject(obj) then return next(obj)==nil end
+	if _.isTable(obj) then return next(obj)==nil end
 	return true
 end
 
@@ -1502,21 +1550,61 @@ function _.isBoolean(obj)
   return type(obj) == 'boolean'
 end
 
---- Imports all library functions in the global environment. <br/><em>Aliased as @{mixin}</em>
--- @name import
--- @see mixin
-local function import()
-  local fn = _.functions()
-  local env = getfenv()
-  _.each(fn,function(i,fName)
-    env[fName] = _[fName]
-  end)
+-- ========= Chaining
+
+do
+	-- Wrapper to Moses
+	local f = {}
+	
+	-- Will be returned upon requiring, indexes into the wrapper
+	local __ = {}
+	__.__index = f
+	
+	-- Wraps a value into an instance, and returns the wrapped object	
+	local function new(value)
+		local i = {_value = value, _wrapped = true}
+		return setmetatable(i, __)
+	end
+	
+	setmetatable(__,{
+		__call  = function(self,v) return new(v) end, -- Calls returns to instantiation
+		__index = function(t,key,...) return f[key] end  -- Redirects to the wrapper
+	})
+	 
+	--- Returns a wrapped object. Calling library functions as methods on this object 
+	-- will continue to return wrapped objects until @{value} is used. Can be aliased as `_(value)`.
+	-- @class function
+	-- @name chain
+	-- @tparam value value a value to be wrapped
+	-- @treturn object a wrapped object
+	function __.chain(value)
+		return new(value)
+	end
+
+	--- Extracts the value of a wrapped object.
+	-- @class function	
+	-- @name value
+	-- @treturn value the value previously wrapped	
+	function __:value()
+		return self._value
+	end
+	
+	-- Register chaining methods into the wrapper
+	f.chain, f.value = __.chain, __.value
+	
+	-- Register all functions into the wrapper
+	for fname,fct in pairs(_) do
+		f[fname] = function(v, ...)
+			local wrapped = _.isTable(v) and v._wrapped or false
+			if wrapped then
+				local _arg = v._value
+				local _rslt = fct(_arg,...)
+				return new(_rslt)
+			else
+				return fct(v,...)
+			end
+		end
+	end
+	
+	return __
 end
-
---- Alias for @{import}.
--- @function mixin
-local mixin = import
-
-local _mt = {import = import, mixin = mixin}
-_mt.__index = _mt
-return setmetatable (_, _mt)
