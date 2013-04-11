@@ -81,10 +81,6 @@ context('Utility functions specs', function()
 
     end)
     
-    test('is aliased as "cached"',function()
-      assert_equal(_.memoize,_.cache)
-    end)   
-    
   end)  
   
   context('after', function()
@@ -202,10 +198,6 @@ context('Utility functions specs', function()
         assert_false(_.include(ids,newId))
         _.push(ids,newId)
       end        
-    end)     
-    
-    test('is aliased as "uId"',function()
-      assert_equal(_.uniqueId,_.uId)
     end)
     
   end)  

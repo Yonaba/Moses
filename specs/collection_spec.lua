@@ -27,11 +27,7 @@ context('Collection functions specs', function()
       local copy = {}
       _.each(t,function(i,v) copy[i] = v end)
       assert_true(_.isEqual(t,copy))
-    end)    
- 
-    test('is aliased as "forEach"', function()
-      assert_equal(_.each,_.forEach)
-    end) 
+    end)
     
   end)  
   
@@ -47,11 +43,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.map({a = 1, b = 2},function(k,v) 
           return k..v 
         end),{a = 'a1',b = 'b2'}))
-    end)
-    
-    test('is aliased as "collect"', function()
-      assert_equal(_.map,_.collect)
-    end)    
+    end)  
   
   end)
   
@@ -64,14 +56,6 @@ context('Collection functions specs', function()
     test('initial state defaults to the first value when not given', function()
       assert_equal(_.reduce({'a','b','c'},function(memo,v) return memo..v end),'abc')
     end)    
-
-    test('is aliased as "inject"', function()
-      assert_equal(_.reduce,_.inject)
-    end) 
-
-    test('is aliased as "foldl"', function()
-      assert_equal(_.reduce,_.foldl)
-    end)      
   
   end)
   
@@ -84,14 +68,6 @@ context('Collection functions specs', function()
     test('initial state defaults to the first value when not given', function()
       assert_equal(_.reduceRight({'a','b','c'},function(memo,v) return memo..v end),'cba')
     end)    
-
-    test('is aliased as "injectr"', function()
-      assert_equal(_.reduceRight,_.injectr)
-    end) 
-
-    test('is aliased as "foldr"', function()
-      assert_equal(_.reduceRight,_.foldr)
-    end)      
   
   end)
 
@@ -107,11 +83,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduce({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'a','ab','abc'}))
-    end)    
-
-    test('is aliased as "mapr"', function()
-      assert_equal(_.mapReduce,_.mapr)
-    end)      
+    end) 
   
   end)
 
@@ -127,11 +99,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduceRight({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'c','cb','cba'}))
-    end)    
-
-    test('is aliased as "maprr"', function()
-      assert_equal(_.mapReduceRight,_.maprr)
-    end)      
+    end) 
   
   end)  
 
@@ -153,15 +121,7 @@ context('Collection functions specs', function()
       assert_true(_.include({'a','B','c'}, function(array_value)
         return (array_value:upper() == array_value)
       end))
-    end)    
-
-    test('is aliased as "any"', function()
-      assert_equal(_.include,_.any)
-    end)      
-
-    test('is aliased as "some"', function()
-      assert_equal(_.include,_.some)
-    end)     
+    end)  
   
   end)  
     
@@ -183,15 +143,47 @@ context('Collection functions specs', function()
       assert_equal(_.detect({'a','B','c'}, function(array_value)
         return (array_value:upper() == array_value)
       end),2)
+    end)   
+  
+  end) 
+ 
+  context('contains', function()
+  
+    test('returns true if value is present in a list', function()
+      assert_true(_.contains({6,8,10,16},8))
+    end)
+    
+    test('returns false when value was not found', function()
+      assert_false(_.contains({nil,true,0,true,true},false))
+    end)
+    
+    test('can lookup for a object', function()
+      assert_true(_.contains({6,{18,{2,6}},10,{18,{2,{3}}},29},{18,{2,6}}))
     end)    
-
-    test('is aliased as "where"', function()
-      assert_equal(_.detect,_.where)
-    end)      
-
-    test('is aliased as "find"', function()
-      assert_equal(_.detect,_.find)
-    end)     
+    
+    test('accepts iterator functions', function()
+      assert_true(_.contains({'a','B','c'}, function(array_value)
+        return (array_value:upper() == array_value)
+      end))
+    end) 
+  
+  end) 
+	
+  context('findWhere', function()
+  
+    test('Returns the first value in a list having all of some given set of properties', function()
+			local a = {a = 1, b = 2}
+			local b = {a = 2, b = 3}
+			local c = {a = 3, b = 4}
+      assert_equal(_.findWhere({a, b, c}, {a = 3, b = 4}), c)
+    end)
+    
+    test('returns nil when value was not found', function()
+			local a = {a = 1, b = 2}
+			local b = {a = 2, b = 3}
+			local c = {a = 3, b = 4}
+      assert_nil(_.findWhere({a, b, c}, {a = 3, b = 0}))
+    end) 
   
   end) 
   
@@ -207,10 +199,6 @@ context('Collection functions specs', function()
         end),{1,3,5,7}))        
     end)
 
-    test('is aliased as "filter"', function()
-      assert_equal(_.select,_.filter)
-    end)      
-    
   end) 
    
   context('reject', function()
@@ -223,10 +211,6 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.reject({1,2,3,4,5,6,7}, function(key,value) 
           return (value%2~=0)
         end),{2,4,6}))        
-    end)
-
-    test('is aliased as "discard"', function()
-      assert_equal(_.reject,_.discard)
     end)      
     
   end) 
@@ -241,10 +225,6 @@ context('Collection functions specs', function()
       assert_false(_.all({false,true,false}, function(key,value) 
           return value == false
         end))        
-    end)
-   
-    test('is aliased as "every"', function()
-      assert_equal(_.all,_.every)
     end)      
     
   end) 

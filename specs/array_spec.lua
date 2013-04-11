@@ -24,10 +24,6 @@ context('Array functions specs', function()
         end),{2,4,6,8}))
     end)
     
-     test('is aliased as "takeWhile"', function()
-      assert_equal(_.selectWhile,_.takeWhile)
-    end)   
-    
   end)  
    
   context('dropWhile', function()
@@ -43,11 +39,7 @@ context('Array functions specs', function()
           return v%2==0
         end),{9,10,12}))
     end)
-    
-    test('is aliased as "rejectWhile"', function()
-      assert_equal(_.dropWhile,_.rejectWhile)
-    end)    
-    
+		
   end)  
 
   context('sortedIndex', function()
@@ -135,11 +127,7 @@ context('Array functions specs', function()
       local array = {1,7,9}
       assert_equal(_.pop(array),1)
       assert_true(_.isEqual(array,{7,9}))
-    end)
-    
-    test('is aliased as "shift"', function()
-      assert_equal(_.pop,_.shift)
-    end)     
+    end)  
     
   end)  
   
@@ -177,11 +165,7 @@ context('Array functions specs', function()
 
     test('leaves the array untouched when "finish" < "start"', function()
         assert_true(_.isEqual(_.removeRange({1,2,3,4,5,6},4,2),{1,2,3,4,5,6}))
-    end) 
-
-    test('is aliased as "rmRange"', function()
-        assert_equal(_.removeRange,_.rmRange)
-    end)      
+    end)     
     
   end)
 
@@ -209,15 +193,7 @@ context('Array functions specs', function()
   
     test('arg "n" defaults 1 when not given', function()
       assert_true(_.isEqual(_.first({5,8,12,20}),{5}))
-    end)
-    
-    test('is aliased as "head"', function()
-      assert_equal(_.first,_.head)
-    end) 
-
-    test('is aliased as "take"', function()
-      assert_equal(_.first,_.take)
-    end)     
+    end)    
     
   end)  
   
@@ -285,10 +261,6 @@ context('Array functions specs', function()
     test('returns all values if arg "index" <= 0', function()
       assert_true(_.isEqual(_.rest({5,8,12,20},0),{5,8,12,20}))
       assert_true(_.isEqual(_.rest({5,8,12,20},-1),{5,8,12,20}))
-    end) 
-
-    test('is aliased as "tail"', function()
-      assert_equal(_.rest,_.tail)
     end)     
   
   end)  
@@ -328,11 +300,7 @@ context('Array functions specs', function()
     
     test('leaves array untouched when given no extra-args', function()
       assert_true(_.isEqual(_.difference({1,2,'a',4,5}),{1,2,'a',4,5}))
-    end) 
-
-    test('is aliased as "without"', function()
-      assert_equal(_.difference,_.without)
-    end)    
+    end)
     
   end)
 
@@ -358,10 +326,6 @@ context('Array functions specs', function()
         return people.name
       end),{'Gray','Jade','Dave','Katy','Gere','Paul'}))
     end)    
-    
-    test('is aliased as "unique"', function()
-      assert_equal(_.uniq,_.unique)
-    end) 
     
   end)
   
@@ -429,10 +393,6 @@ context('Array functions specs', function()
 
     test('when only one arg is passed, counts from 0', function()
       assert_true(_.isEqual(_.range(3),{0,1,2,3}))
-    end)   
-
-    test('is aliased as "count"', function()
-      assert_equal(_.range,_.count)
     end)     
     
   end)  
@@ -442,10 +402,6 @@ context('Array functions specs', function()
     test('switches key-values pairs', function()
       assert_true(_.isEqual(_.invert({1,2,3}),{1,2,3}))
       assert_true(_.isEqual(_.invert({'a','b','c'}),{a = 1,b = 2,c = 3}))
-    end)    
-    
-    test('is aliased as "mirror"', function()
-      assert_equal(_.invert,_.mirror)
     end)     
     
   end) 
@@ -470,11 +426,7 @@ context('Array functions specs', function()
       assert_equal(_.concat({1,3,false,'A'},' ',2,3),'3 false')
       assert_equal(_.concat({1,3,false,'A'},', ',2,3),'3, false')
       assert_equal(_.concat({1,3,false,'A','K'},' ',2),'3 false A K')
-    end)
-
-    test('is aliased as "join"', function()
-      assert_equal(_.concat,_.join)
-    end)      
+    end)  
   
   end)  
   

@@ -89,16 +89,10 @@ context('Object functions specs', function()
     end)
     
     test('when given no obj as argument, returns all library functions',function()
-      local functions = {}
-      _.each(_, function(k,v)
-          if _.isFunction(v) then _.push(functions,k) end
-        end)
-      _.sort(functions)
-      assert_true(_.isEqual(_.functions(),functions))
-    end)    
-
-    test('is aliased as "methods"',function()
-      assert_equal(_.functions,_.methods)
+      local functions = _.functions()
+			_.each(functions, function(k,v)
+				assert_true(_.isFunction(_[v]))
+			end)
     end)
     
   end)  
@@ -135,7 +129,27 @@ context('Object functions specs', function()
       assert_equal(_.clone(print),print)
     end)     
     
-  end) 
+  end)
+	
+	context('tap', function()
+		
+		test('tap-into a method chain', function()
+			local t = {}
+			local catchMax = function(k) t[#t+1] = _.max(k) end
+			local catchMin = function(k) t[#t+1] = _.min(k) end
+			
+			_.chain({1,2,3})
+				:map(function(i,j) return j*2 end)
+				:tap(catchMax)
+				:map(function(i,k) return k^2 end)
+				:tap(catchMin)
+				:value()
+				
+			assert_equal(t[1],6)
+			assert_equal(t[2],4)
+		end)
+	
+	end)
 
   context('has', function()
   
@@ -169,11 +183,7 @@ context('Object functions specs', function()
     test('returns an empty table when given no properties to pick',function()
       local object = {a = 1, b = 2, c = 3}
       assert_true(_.isEqual(_.pick(object),{}))
-    end)
-
-    test('is aliased as "choose"',function()
-      assert_equal(_.pick,_.choose)
-    end)    
+    end)  
     
   end)  
   
@@ -198,10 +208,6 @@ context('Object functions specs', function()
       local object = {a = 1, b = 2, c = 3}
       assert_true(_.isEqual(_.omit(object),{a = 1, b = 2, c = 3}))
     end)
-
-    test('is aliased as "drop"',function()
-      assert_equal(_.omit,_.drop)
-    end) 
     
   end)
   
@@ -217,10 +223,6 @@ context('Object functions specs', function()
 
     test('returns the object when given no template arg',function()
       assert_true(_.isEqual(_.template({a = 10, b = 10}),{a = 10, b = 10}))
-    end)      
-
-     test('is aliased as "defaults"',function()
-      assert_equal(_.template,_.defaults)
     end)
     
   end) 
@@ -278,26 +280,26 @@ context('Object functions specs', function()
      
   end)
 
-  context('isObject', function()
+  context('isTable', function()
   
     test('returns "true" if arg is table or array',function()
-      assert_true(_.isObject({}))
-      assert_true(_.isObject({1,2}))
-      assert_true(_.isObject({x = 1, 2}))
-      assert_true(_.isObject(string))
-      assert_true(_.isObject(table))
-      assert_true(_.isObject(math))
+      assert_true(_.isTable({}))
+      assert_true(_.isTable({1,2}))
+      assert_true(_.isTable({x = 1, 2}))
+      assert_true(_.isTable(string))
+      assert_true(_.isTable(table))
+      assert_true(_.isTable(math))
       
     end)
     
     test('returns "false" otherwise',function()
-      assert_false(_.isObject(1))
-      assert_false(_.isObject(''))
-      assert_false(_.isObject(function() end))
-      assert_false(_.isObject(print))
-      assert_false(_.isObject(false))
-      assert_false(_.isObject(nil))
-      assert_false(_.isObject(true))      
+      assert_false(_.isTable(1))
+      assert_false(_.isTable(''))
+      assert_false(_.isTable(function() end))
+      assert_false(_.isTable(print))
+      assert_false(_.isTable(false))
+      assert_false(_.isTable(nil))
+      assert_false(_.isTable(true))      
     end)
     
   end) 
