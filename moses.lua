@@ -54,7 +54,7 @@ local unique_id_counter = -1
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @see forEach
 function _.each(list, f, ...)
-  if not _.isTable(list) then print('not a table') return end
+  if not _.isTable(list) then return end
   for index,value in pairs(list) do
     f(index,value,...)
   end

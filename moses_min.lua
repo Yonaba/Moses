@@ -10,8 +10,8 @@ local function bab(dab,_bb,abb,...)local bbb
 local cbb=abb or __b.identity;for dbb,_cb in cda(dab)do
 if not bbb then bbb=cbb(_cb,...)else local acb=cbb(_cb,...)bbb=
 _bb(bbb,acb)and bbb or acb end end;return bbb end;local cab=-1
-function __b.each(dab,_bb,...)
-if not __b.isTable(dab)then print('not a table')return end;for abb,bbb in cda(dab)do _bb(abb,bbb,...)end;return dab end;__b.forEach=__b.each;function __b.map(dab,_bb,...)local abb={}
+function __b.each(dab,_bb,...)if not __b.isTable(dab)then return end;for abb,bbb in cda(dab)do
+_bb(abb,bbb,...)end;return dab end;__b.forEach=__b.each;function __b.map(dab,_bb,...)local abb={}
 for bbb,cbb in cda(dab)do abb[bbb]=_bb(bbb,cbb,...)end;return abb end
 __b.collect=__b.map;function __b.reduce(dab,_bb,abb)
 for bbb,cbb in cda(dab)do abb=not abb and cbb or _bb(abb,cbb)end;return abb end
