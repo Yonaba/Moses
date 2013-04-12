@@ -1259,7 +1259,7 @@ end
 -- @see methods
 function _.functions(obj)
   if not obj then
-		return _.sort(_.keys(_)) 
+		return _.sort(_.keys(_))
 	end
   local _methods = {}
   _.each(obj,function(key,value)
@@ -1474,15 +1474,13 @@ function _.isCallable(obj)
 end
 
 --- Checks if the given arg is an array. Assumes `obj` is an array
--- if is a table with integer numbers as indexes.
+-- if is a table with integer numbers starting at 1.
 -- @name isArray
 -- @tparam object obj an object
 -- @treturn boolean __true__ or __false__
 function _.isArray(obj)
 	if not _.isTable(obj) then return false end
-	return _.all(_.keys(obj),function(i,v)
-			return _.isNumber(v) and (floor(v)==v)
-		end)
+	return count(obj) == #obj
 end
 
 --- Checks if the given is empty. If `obj` is a @{string}, will return __true__
@@ -1557,6 +1555,7 @@ end
 -- ========= Chaining
 
 do
+
 	-- Wrapper to Moses
 	local f = {}
 
