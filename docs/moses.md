@@ -1382,7 +1382,7 @@ print(_.isArray({}))
 print(_.isArray({1,2,3}))
 print(_.isArray({'a','b','c'}))
 
--- => true
+-- => false
 -- => true
 -- => true
 ````
