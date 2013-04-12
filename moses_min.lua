@@ -215,12 +215,11 @@ dab[_bb]end end;if __b.isCallable(_bb)then return _bb(dab,...)end end;function _
 function __b.isCallable(dab)return
 (
 __b.isFunction(dab)or
-(__b.isTable(dab)and _ba(dab)and _ba(dab).__call~=nil)or false)end
-function __b.isArray(dab)if not __b.isTable(dab)then return false end;return
-__b.all(__b.keys(dab),function(_bb,abb)return
-__b.isNumber(abb)and(cca(abb)==abb)end)end
-function __b.isEmpty(dab)if __b.isString(dab)then return#dab==0 end;if
-__b.isTable(dab)then return _aa(dab)==nil end;return true end;function __b.isString(dab)return aaa(dab)=='string'end;function __b.isFunction(dab)return
+(__b.isTable(dab)and _ba(dab)and _ba(dab).__call~=nil)or false)end;function __b.isArray(dab)if not __b.isTable(dab)then return false end;return
+aab(dab)==#dab end
+function __b.isEmpty(dab)if
+__b.isString(dab)then return#dab==0 end;if __b.isTable(dab)then
+return _aa(dab)==nil end;return true end;function __b.isString(dab)return aaa(dab)=='string'end;function __b.isFunction(dab)return
 aaa(dab)=='function'end;function __b.isNil(dab)
 return dab==nil end
 function __b.isFinite(dab)
