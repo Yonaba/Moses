@@ -438,7 +438,7 @@
 	<td class="summary">Extends an object properties.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#functions">functions&nbsp;(obj[, output])</a></td>
+	<td class="name" nowrap><a href="#functions">functions&nbsp;(obj)</a></td>
 	<td class="summary">Returns a sorted list of all methods names found in an object.</td>
 	</tr>
 	<tr>
@@ -3281,12 +3281,12 @@
 </dd>
     <dt>
     <a name = "functions"></a>
-    <strong>functions&nbsp;(obj[, output])</strong>
+    <strong>functions&nbsp;(obj)</strong>
     </dt>
     <dd>
     Returns a sorted list of all methods names found in an object.  If the given object
  has a metatable implementing an <code>__index</code> field pointing to another table, will also recurse on this
- table. If <code>output</code> is provided, will export results in this table.
+ table.
  <br/><em>Aliased as <a href="index.html#methods">methods</a></em>.
 
     <h3>Parameters:</h3>
@@ -3294,9 +3294,6 @@
       <li><span class="parameter">obj</span>
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an object</li>
-      <li><span class="parameter">output</span>
-        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-       Optional table to collect the results</li>
     </ul>
 
 

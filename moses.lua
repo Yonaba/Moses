@@ -1251,24 +1251,28 @@ end
 
 --- Returns a sorted list of all methods names found in an object. If the given object
 -- has a metatable implementing an `__index` field pointing to another table, will also recurse on this
--- table. If `output` is provided, will export results in this table.
+-- table.
 -- <br/><em>Aliased as @{methods}</em>.
 -- @name functions
 -- @tparam table obj an object
--- @tparam[opt] table output Optional table to collect the results
 -- @treturn table an array of methods names
 -- @see methods
-function _.functions(obj,output)
-  if not obj then return _.sort(_.keys(_)) end
-  local _methods = output or {}
+function _.functions(obj)
+  if not obj then
+		return _.sort(_.keys(_)) 
+	end
+  local _methods = {}
   _.each(obj,function(key,value)
-      if _.isFunction(value) then
-		_methods[#_methods+1]=key
-	  end
-    end)
+    if _.isFunction(value) then
+			_methods[#_methods+1]=key
+		end
+  end)
 	local mt = getmetatable(obj)
 	if mt and mt.__index then
-		_.functions(mt.__index,_methods)
+		local mt_methods = _.functions(mt.__index)
+		_.each(mt_methods, function(k,fn)
+			_methods[#_methods+1] = fn
+		end)
 	end
    return _.sort(_methods)
 end

@@ -79,15 +79,7 @@ context('Object functions specs', function()
       function xx.c() return end
       assert_true(_.isEqual(_.functions(xx),{'a','b','c'}))
     end)
-    
-    test('can take an output table as arg to export results',function()
-      local x = {} ; x.__index = x
-      function x.a() return end; function x.b() return end
-      local output = {}
-      _.functions(x,output)
-      assert_true(_.isEqual(output,{'a','b'}))
-    end)
-    
+
     test('when given no obj as argument, returns all library functions',function()
       local functions = _.functions()
 			_.each(functions, function(k,v)
