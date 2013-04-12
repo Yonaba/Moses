@@ -7,6 +7,7 @@
 * Added `_.findWhere`
 * Added `_.contains`
 * _.functions no longer takes an output table
+* Changed _.isArray behaviour, returns true only for real Lua arrays
 * Updated specs
 * Updated docs and samples
 
