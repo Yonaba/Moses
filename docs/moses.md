@@ -201,6 +201,47 @@ print(_.detect({'a','B','c'},isUpper))
 -- => 2
 ````
 
+### contains
+
+Returns true if the passed-in value was found in a given list
+
+```lua
+print(_.contains({6,8,10,16},8))
+
+-- => true
+
+print(_.contains({nil,true,0,true,true},false))
+
+-- => false
+````
+
+It can lookup for objects, and accepts iterator functions aswell:
+
+```lua
+print(_.contains({6,{18,{2,6}},10,{18,{2,{3}}},29},{18,{2,6}}))
+
+-- => true
+
+print(_.contains({'a','B','c'}, function(array_value)
+	return (array_value:upper() == array_value)
+end))
+
+-- => true
+````	
+
+### findWhere
+
+Looks through a list and returns the first value that matches all of the key-value pairs listed in properties. 
+
+```lua
+local a = {a = 1, b = 2, c = 3}
+local b = {a = 2, b = 3, d = 4}
+local c = {a = 3, b = 4, e = 5}
+print(_.findWhere({a, b, c}, {a = 3, b = 4}) == c)
+
+-- => true
+````
+
 ### select
 
 Collect values passing a truth test:
@@ -1206,6 +1247,21 @@ _.each(obj2,print)
 -- => 3 3
 ````
 
+### tap
+
+Invokes agiven interceptor function on some object, and then returns the object itself. Useful to tap-into method chain to hook intermediate results.
+The pased-interceptor is prototyped as `f(obj,...)`.
+
+```lua
+local v = _.chain({1,2,3,4,5,6,7,8,9,10)
+	:filter(function(k,v) return v%2~=0 end) -- filters even values
+	tap(function(v) print('Max is', _.max(v) end) -- Catches the max values and prints it
+	:map(function(k,v) return k^2)
+	:value()
+
+-- =>	 Max is	9							
+````
+
 ### has
 
 Checks if an object has an attribute:
@@ -1447,6 +1503,64 @@ print(_.isBoolean(print))
 -- => true
 -- => true
 -- => false
+````
+
+## Chaining
+
+*Method chaining* (also known as *name parameter idiom*), is a technique for invoking consecutively method calls in object-oriented style.
+Each method returns an object, and methods calls are chained together.
+Moses offers chaining (for your perusal) through a simple and easy-to-use interface.
+
+Let's use chaining to get the count of evey single word in some lyrics (without making any difference between lowercase and uppercase words).
+
+
+```lua
+local lyrics = {
+  "I am a lumberjack and I am okay",
+  "I sleep all night and I work all day",
+  "He is a lumberjack and he is okay",
+  "He sleeps all night and he works all day"
+}
+
+local stats = _.chain(lyrics)
+  :map(function(k,line)
+	local t = {}
+	for w in line:gmatch('(%w+)') do
+		t[#t+1] = w
+	end
+	return t
+  end)
+  :flatten()
+  :countBy(function(i,v) return v:lower() end)
+  :value()
+
+_.each(stats, print)
+
+-- => sleep	1
+-- => night	2
+-- => works	1
+-- => am	2
+-- => is	2
+-- => sleeps	1
+-- => He	2
+-- => and	4
+-- => I	4
+-- => he	2
+-- => day	2
+-- => a	2
+-- => work	1
+-- => all	4
+-- => okay	2
+````
+
+For convenience, you can also use `_(value)` to chain methods, instead of `_.chain(value)`.
+
+When chaining, each method returns to its successor a wrapped object. To get the expected result, you will have to unwrap the result
+by calling method `value()`
+
+```lua
+local t = {1,2,3}
+print(_(a):value() == _.chain(value):value())
 ````
 
 ## License
