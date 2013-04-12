@@ -260,7 +260,7 @@ end
 
 --- Returns an array of values. Thoe are values from list containing all key-value pairs listed in `props`.
 -- @function where
--- @tparam table list a collection 
+-- @tparam table list a collection
 -- @tparam props a set of properties
 -- @treturn table an array of values containing all of the properties found in `props`.
 function _.where(list, props)
@@ -276,7 +276,7 @@ end
 
 --- Returns a value. This value should be the first value found in an array containing all key-value pairs listed in `props`.
 -- @function findWhere
--- @tparam table list a collection 
+-- @tparam table list a collection
 -- @tparam props a set of properties
 -- @treturn item a value from the passed-in list
 function _.findWhere(list, props)
@@ -1555,23 +1555,23 @@ end
 do
 	-- Wrapper to Moses
 	local f = {}
-	
+
 	-- Will be returned upon requiring, indexes into the wrapper
 	local __ = {}
 	__.__index = f
-	
-	-- Wraps a value into an instance, and returns the wrapped object	
+
+	-- Wraps a value into an instance, and returns the wrapped object
 	local function new(value)
 		local i = {_value = value, _wrapped = true}
 		return setmetatable(i, __)
 	end
-	
+
 	setmetatable(__,{
 		__call  = function(self,v) return new(v) end, -- Calls returns to instantiation
 		__index = function(t,key,...) return f[key] end  -- Redirects to the wrapper
 	})
-	 
-	--- Returns a wrapped object. Calling library functions as methods on this object 
+
+	--- Returns a wrapped object. Calling library functions as methods on this object
 	-- will continue to return wrapped objects until @{value} is used. Can be aliased as `_(value)`.
 	-- @class function
 	-- @name chain
@@ -1582,16 +1582,16 @@ do
 	end
 
 	--- Extracts the value of a wrapped object.
-	-- @class function	
+	-- @class function
 	-- @name value
-	-- @treturn value the value previously wrapped	
+	-- @treturn value the value previously wrapped
 	function __:value()
 		return self._value
 	end
-	
+
 	-- Register chaining methods into the wrapper
 	f.chain, f.value = __.chain, __.value
-	
+
 	-- Register all functions into the wrapper
 	for fname,fct in pairs(_) do
 		f[fname] = function(v, ...)
@@ -1605,6 +1605,6 @@ do
 			end
 		end
 	end
-	
+
 	return __
 end
