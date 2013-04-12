@@ -178,11 +178,13 @@ function __b.extend(dab,...)
 local _bb={...}
 __b.each(_bb,function(abb,bbb)if __b.isTable(bbb)then
 __b.each(bbb,function(cbb,dbb)dab[cbb]=dbb end)end end)return dab end
-function __b.functions(dab,_bb)
-if not dab then return __b.sort(__b.keys(__b))end;local abb=_bb or{}
-__b.each(dab,function(cbb,dbb)
-if __b.isFunction(dbb)then abb[#abb+1]=cbb end end)local bbb=_ba(dab)if bbb and bbb.__index then
-__b.functions(bbb.__index,abb)end;return __b.sort(abb)end;__b.methods=__b.functions
+function __b.functions(dab)
+if not dab then return __b.sort(__b.keys(__b))end;local _bb={}
+__b.each(dab,function(bbb,cbb)
+if __b.isFunction(cbb)then _bb[#_bb+1]=bbb end end)local abb=_ba(dab)if abb and abb.__index then
+local bbb=__b.functions(abb.__index)
+__b.each(bbb,function(cbb,dbb)_bb[#_bb+1]=dbb end)end
+return __b.sort(_bb)end;__b.methods=__b.functions
 function __b.clone(dab,_bb)
 if not __b.isTable(dab)then return dab end;local abb={}
 __b.each(dab,function(bbb,cbb)
