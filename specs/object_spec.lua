@@ -320,10 +320,10 @@ context('Object functions specs', function()
   context('isArray', function()
   
     test('returns "true" if arg is an array',function()
-      assert_true(_.isArray({}))
+      assert_false(_.isArray({}))
       assert_true(_.isArray({1,2,3}))
       assert_true(_.isArray({'a','b','c',{}}))
-      assert_true(_.isArray({nil,false,true}))
+      assert_true(_.isArray({false,true}))
     end)
    
     test('returns "false" otherwise',function()
@@ -337,8 +337,8 @@ context('Object functions specs', function()
       assert_false(_.isArray({a = 1, 1, 2,3}))
     end)   
    
-    test('handles sparse arrays',function()
-      assert_true(_.isArray({[0] = true, [10] = false}))
+    test('returns false on "sparse arrays"',function()
+      assert_false(_.isArray({[1] = true, [10] = false}))
    end)   
   
   end)
