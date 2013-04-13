@@ -235,4 +235,5 @@ for bbb,cbb in cda(__b)do
 dab[bbb]=function(dbb,...)local _cb=__b.isTable(dbb)and
 dbb._wrapped or false
 if _cb then
-local acb=dbb._value;local bcb=cbb(acb,...)return abb(bcb)else return cbb(dbb,...)end end end;return _bb end
+local acb=dbb._value;local bcb=cbb(acb,...)return abb(bcb)else return cbb(dbb,...)end end end
+dab.import=function(bbb)return __b.extend(bbb or _G,dab)end;return _bb end

@@ -1575,7 +1575,7 @@ do
 	})
 
 	--- Returns a wrapped object. Calling library functions as methods on this object
-	-- will continue to return wrapped objects until @{value} is used. Can be aliased as `_(value)`.
+	-- will continue to return wrapped objects until @{obj:value} is used. Can be aliased as `_(value)`.
 	-- @class function
 	-- @name chain
 	-- @tparam value value a value to be wrapped
@@ -1584,9 +1584,9 @@ do
 		return new(value)
 	end
 
-	--- Extracts the value of a wrapped object.
+	--- Extracts the value of a wrapped object. Must be called on an chained object (see @{chain}).
 	-- @class function
-	-- @name value
+	-- @name obj:value
 	-- @treturn value the value previously wrapped
 	function __:value()
 		return self._value
@@ -1609,5 +1609,13 @@ do
 		end
 	end
 
+	--- Imports all library functions into a context.
+	-- @name import
+	-- @tparam[opt] table context a context. Defaults to `_G` (global environment) when not given.
+	-- @treturn table the passed-in context	
+	f.import = function(context)
+		return _.extend(context or _G, f)
+	end
+	
 	return __
 end
