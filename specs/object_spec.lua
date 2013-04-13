@@ -1,3 +1,4 @@
+package.loaded['moses'] = nil
 _G._ = require 'moses'
 
 context('Object functions specs', function()

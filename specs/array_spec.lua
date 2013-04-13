@@ -1,4 +1,4 @@
-_G._ = require 'moses'
+local _ = require 'moses'
 
 context('Array functions specs', function()
 

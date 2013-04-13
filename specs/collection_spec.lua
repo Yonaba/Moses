@@ -1,4 +1,6 @@
-_G._ = require 'moses'
+package.loaded.moses = nil
+_G.MOSES_NO_ALIASES = false
+local _ = require 'moses'
 
 context('Collection functions specs', function()
 
