@@ -20,8 +20,8 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    ["moses"] = "moses.lua"
-    ["moses_min"] = "moses_min.lua"
+    ["moses"] = "moses.lua",
+    ["moses_min"] = "moses_min.lua",
   },
   copy_directories = {"docs","specs"}	
 }
