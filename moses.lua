@@ -11,7 +11,7 @@ local t_insert, t_sort = table.insert, table.sort
 local t_remove,t_concat = table.remove, table.concat
 local randomseed, random, huge = math.randomseed, math.random, math.huge
 local floor, max, min = math.floor, math.max, math.min
-local getfenv = getfenv
+local rawget = rawget
 local unpack = unpack
 local pairs,ipairs = pairs,ipairs
 local _ = {}
@@ -47,12 +47,11 @@ local unique_id_counter = -1
 
 -- ========= Collection functions
 
---- Calls function `f` on each key-value of a given collection. <br/><em>Aliased as @{forEach}</em>.
+--- Calls function `f` on each key-value of a given collection. <br/><em>Aliased as `forEach`</em>.
 -- @name each
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @see forEach
 function _.each(list, f, ...)
   if not _.isTable(list) then return end
   for index,value in pairs(list) do
@@ -61,21 +60,13 @@ function _.each(list, f, ...)
   return list
 end
 
---- Alias for @{each}.
--- @function forEach
--- @param list
--- @param f
--- @param[opt] ...
-_.forEach = _.each
-
 --- Maps function `f` on each key-value of a given collection. Collects
--- and returns the outputs.<br/><em>Aliased as @{collect}</em>.
+-- and returns the outputs.<br/><em>Aliased as `collect`</em>.
 -- @name map
 -- @tparam table list a collection
 -- @tparam function f  an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a table of results
--- @see collect
 function _.map(list, f, ...)
   local _list = {}
   for index,value in pairs(list) do
@@ -84,24 +75,15 @@ function _.map(list, f, ...)
   return _list
 end
 
---- Alias for @{map}.
--- @function collect
--- @param list
--- @param f
--- @param[opt] ...
-_.collect = _.map
-
 --- Reduces an entire collection. Folds from left to right to a single value,
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state.
--- <br/><em>Aliased as @{inject}, @{foldl}</em>.
+-- <br/><em>Aliased as `inject`, `foldl`</em>.
 -- @name reduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
 -- @tparam[opt] state state an initial state of reduction. Defaults to the first value in the list.
 -- @treturn state state a final state of reduction
--- @see inject
--- @see foldl
 function _.reduce(list,f,state)
   for _,value in pairs(list) do
     state = not state and value or f(state,value)
@@ -109,61 +91,30 @@ function _.reduce(list,f,state)
   return state
 end
 
---- Alias for @{reduce}.
--- @function inject
--- @param list
--- @param f
--- @param[opt] state
-_.inject = _.reduce
-
---- Alias for @{reduce}.
--- @function foldl
--- @param list
--- @param f
--- @param[opt] state
-_.foldl = _.reduce
-
 --- Reduces an entire collection. Folds from right to left to a single value,
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state.
--- <br/><em>Aliased as @{injectr}, @{foldr}</em>.
+-- <br/><em>Aliased as `injectr`, `foldr`</em>.
 -- @name reduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
 -- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn state state a final state of reduction
--- @see injectr
--- @see foldr
 function _.reduceRight(list,f,state)
   return _.reduce(_.reverse(list),f,state)
 end
-
---- Alias for @{reduceRight}.
--- @function injectr
--- @param list
--- @param f
--- @param[opt] state
-_.injectr = _.reduceRight
-
---- Alias for @{reduceRight}.
--- @function foldr
--- @param list
--- @param f
--- @param[opt] state
-_.foldr = _.reduceRight
 
 --- Reduces a collection while saving intermediate states.
 -- Folds the collection from left to right to a single value,
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state.
 -- The function returns an array of intermediate states.
--- <br/><em>Aliased as @{mapr}</em>
+-- <br/><em>Aliased as `mapr`</em>
 -- @name mapReduce
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
 -- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn table an array of states
--- @see mapr
 function _.mapReduce(list,f,state)
   local t = {}
   for i,value in pairs(list) do
@@ -173,43 +124,26 @@ function _.mapReduce(list,f,state)
   return t
 end
 
---- Alias for @{mapReduce}.
--- @function mapr
--- @param list
--- @param f
--- @param[opt] state
-_.mapr = _.mapReduce
-
 --- Reduces a collection while saving intermediate states. It proceeds in reverse order,
 -- folding the collection from right to left to a single value,
 -- with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state.
 -- The function returns an array of intermediate states.
--- <br/><em>Aliased as @{maprr}</em>
+-- <br/><em>Aliased as `maprr`</em>
 -- @name mapReduceRight
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
 -- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
 -- @treturn table an array of states
--- @see maprr
 function _.mapReduceRight(list,f,state)
   return _.mapReduce(_.reverse(list),f,state)
 end
 
---- Alias for @{mapReduceRight}.
--- @function maprr
--- @param list
--- @param f
--- @param[opt] state
-_.maprr = _.mapReduceRight
-
---- Looks for an object in a collection. <br/><em>Aliased as @{any}, @{some}</em>
+--- Looks for an object in a collection. <br/><em>Aliased as `any`, `some`</em>
 -- @name include
 -- @tparam table list a collection
 -- @tparam object item a value to be searched
 -- @treturn boolean a boolean : __true__ when found, __false__ otherwise
--- @see any
--- @see some
 function _.include(list,item)
   local _iter = _.isFunction(item) and item or _.isEqual
   for _,value in pairs(list) do
@@ -218,36 +152,17 @@ function _.include(list,item)
   return false
 end
 
---- Alias for @{include}.
--- @function any
--- @param list
--- @param item
-_.any = _.include
-
---- Alias for @{include}.
--- @function some
--- @param list
--- @param item
-_.some = _.include
-
---- Looks for an object index in a collection.
+--- Looks for an object index in a collection. <br/><em>Aliased as `find`, `some`</em>
 -- @name detect
 -- @tparam table list a collection
 -- @tparam object item a value to be searched
 -- @treturn key the object key or __nil__
--- @see find
 function _.detect(list,item)
   local _iter = _.isFunction(item) and item or _.isEqual
   for key,arg in pairs(list) do
     if _iter(arg,item) then return key end
   end
 end
-
---- Alias for @{detect}.
--- @function find
--- @param list
--- @param item
-_.find = _.detect
 
 --- Returns true if item is present in the list, false otherwise.
 -- @name contains
@@ -258,7 +173,7 @@ function _.contains(list, item)
 	return _.detect(list, item) and true or false
 end
 
---- Returns an array of values. Thoe are values from list containing all key-value pairs listed in `props`.
+--- Returns an array of values. Those are values from list containing all key-value pairs listed in `props`.
 -- @function where
 -- @tparam table list a collection
 -- @tparam props a set of properties
@@ -291,13 +206,12 @@ end
 
 
 --- Selects and extracts objects passing an iterator test.
--- <br/><em>Aliased as @{filter}</em>
+-- <br/><em>Aliased as `filter`</em>
 -- @name select
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table the selected objects
--- @see filter
 function _.select(list,f,...)
   local _mapped = _.map(list,f,...)
   local _list = {}
@@ -307,21 +221,13 @@ function _.select(list,f,...)
   return _list
 end
 
---- Alias for @{select}.
--- @function filter
--- @param list
--- @param f
--- @param[opt] ...
-_.filter = _.select
-
 --- Clones a collection, rejecting objects passing an iterator test.
--- <br/><em>Aliased as @{discard}</em>
+-- <br/><em>Aliased as `discard`</em>
 -- @name reject
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table the remaining objects
--- @see discard
 function _.reject(list,f,...)
   local _mapped = _.map(list,f,...)
   local _list = {}
@@ -331,30 +237,15 @@ function _.reject(list,f,...)
   return _list
 end
 
---- Alias for @{reject}.
--- @function discard
--- @param list
--- @param f
--- @param[opt] ...
-_.discard = _.reject
-
---- Tests if all objects in a collection passes an iterator test. <br/><em>Aliased as @{every}</em>
+--- Tests if all objects in a collection passes an iterator test. <br/><em>Aliased as `every`</em>
 -- @name all
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn boolean __true__ or __false__
--- @see every
 function _.all(list,f,...)
   return ((#_.select(_.map(list,f,...), isTrue)) == (#list))
 end
-
---- Alias for @{all}.
--- @function every
--- @param list
--- @param f
--- @param[opt] ...
-_.every = _.all
 
 --- Invokes a method on each object in a collection.
 -- @name invoke
@@ -569,13 +460,12 @@ end
 --- Collects values from a given array. The passed-in array should not be sparse.
 -- This function collects values as long as they satisfy a given predicate.
 -- Therefore, it returns on the first false test.
--- <br/><em>Aliased as @{takeWhile}</em>
+-- <br/><em>Aliased as `takeWhile`</em>
 -- @name selectWhile
 -- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a new table containing the first truthy values collected
--- @see takeWhile
 function _.selectWhile(array,f,...)
   local t = {}
   for i,v in ipairs(array) do
@@ -584,23 +474,15 @@ function _.selectWhile(array,f,...)
   return t
 end
 
---- Alias for @{selectWhile}.
--- @function takeWhile
--- @param array
--- @param f
--- @param[opt] ...
-_.takeWhile = _.selectWhile
-
 --- Collects values from a given array. The passed-in array should not be sparse.
 -- This function collects values as soon as they do not satisfy a given predicate.
 -- Therefore it returns on the first true test.
--- <br/><em>Aliased as @{rejectWhile}</em>
+-- <br/><em>Aliased as `rejectWhile`</em>
 -- @name dropWhile
 -- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a new table containing the first falsy values collected
--- @see rejectWhile
 function _.dropWhile(array, f,...)
   local _i
   for i,v in ipairs(array) do
@@ -613,12 +495,6 @@ function _.dropWhile(array, f,...)
   return _.rest(array,_i)
 end
 
---- Alias for @{dropWhile}.
--- @function rejectWhile
--- @param array
--- @param f
--- @param[opt] ...
-_.rejectWhile = _.dropWhile
 
 --- Returns the index at which a value should be inserted. This returned index is determined so that it maintains the sort.
 -- If a comparison function is passed, it will be used to determine the sort ranking of each
@@ -682,21 +558,15 @@ function _.push(array,...)
 end
 
 --- Removes and returns the value at the top of a given array.
--- <br/><em>Aliased as @{shift}</em>
+-- <br/><em>Aliased as `shift`</em>
 -- @name pop
 -- @tparam table array an array
 -- @treturn value the popped value
--- @see shift
 function _.pop(array)
   local retValue = array[1]
   t_remove(array,1)
   return retValue
 end
-
---- Alias for @{pop}.
--- @function shift
--- @param array
-_.shift = _.pop
 
 --- Removes and returns the value at the end of a given array.
 -- @name unshift
@@ -709,13 +579,12 @@ function _.unshift(array)
 end
 
 --- Trims all values indexed within the range `[start,finish]`.
--- <br/><em>Aliased as @{rmRange}</em>
+-- <br/><em>Aliased as `rmRange`</em>
 -- @name removeRange
 -- @tparam table array an array
 -- @tparam[opt] index start the lower bound index, defaults to the first index in the array.
 -- @tparam[optchain] index finish the upper bound index, defaults to the array length.
 -- @treturn table the passed-in array
--- @see rmRange
 function _.removeRange(array,start,finish)
   local array = _.clone(array)
   local i,n = (next(array)),#array
@@ -735,13 +604,6 @@ function _.removeRange(array,start,finish)
   return array
 end
 
---- Alias for @{removeRange}.
--- @function rmRange
--- @param array
--- @param[opt] start
--- @param[optchain] finish
-_.rmRange = _.removeRange
-
 --- Slices values indexed within `[start,finish]` range.
 -- @name slice
 -- @tparam table array an array
@@ -754,29 +616,15 @@ function _.slice(array,start,finish)
     end)
 end
 
---- Returns the first N values in an array. <br/><em>Aliased as @{head}, @{take}</em>
+--- Returns the first N values in an array. <br/><em>Aliased as `head`, `take`</em>
 -- @name first
 -- @tparam table array an array
 -- @tparam[opt] number n the number of values to be collected, defaults to 1.
 -- @treturn table a new array
--- @see head
--- @see take
 function _.first(array,n)
   local n = n or 1
   return _.slice(array,1, min(n,#array))
 end
-
---- Alias for @{first}.
--- @function head
--- @param array
--- @param[opt] n
-_.head = _.first
-
---- Alias for @{first}.
--- @function take
--- @param array
--- @param[opt] n
-_.take = _.first
 
 --- Returns all values in an array excluding the last N values.
 -- @name initial
@@ -798,22 +646,15 @@ function _.last(array,n)
   return _.slice(array,n and #array-min(n-1,#array-1) or 2,#array)
 end
 
---- Trims all values before index. <br/><em>Aliased as @{tail}</em>
+--- Trims all values before index. <br/><em>Aliased as `tail`</em>
 -- @name rest
 -- @tparam table array an array
 -- @tparam[opt] index index an index, defaults to 1
 -- @treturn table a new array
--- @see tail
 function _.rest(array,index)
   if index and index > #array then return {} end
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
-
---- Alias for @{rest}.
--- @function tail
--- @param array
--- @param[opt] index
-_.tail = _.rest
 
 --- Trims all falsy values.
 -- @name compact
@@ -844,12 +685,11 @@ function _.flatten(array, shallow)
   return _flat
 end
 
---- Returns values from an array not present in all passed-in args. <br/><em>Aliased as @{without}</em>
+--- Returns values from an array not present in all passed-in args. <br/><em>Aliased as `without`</em>
 -- @name difference
 -- @tparam table array an array
 -- @tparam var_arg ... a variable number of arguments
 -- @treturn table a new array
--- @see without
 function _.difference(array,...)
   local values = _.toArray(...)
   return _.select(array,function(i,value)
@@ -857,24 +697,17 @@ function _.difference(array,...)
     end)
 end
 
---- Alias for @{difference}.
--- @function without
--- @param array
--- @param ...
-_.without = _.difference
-
 --- Produces a duplicate-free version of a given array. Passing `isSorted` will
 -- provide a much faster version, but will produce the desired result if the array
 -- is properly sorted. If `iter` is passed, it will be used to compute new values based on
 -- a transformation.
--- <br/><em>Aliased as @{unique}</em>
+-- <br/><em>Aliased as `unique`</em>
 -- @name uniq
 -- @tparam table array an array
 -- @tparam[opt] boolean isSorted whether or not the passed-in array is already sorted, defaults to `false`
 -- @tparam[optchain] function iter an iterator function prototyped as `iter(key,value,...)`
 -- @tparam[optchain] var_arg ... Optional extra-args to be passed to `iter` function
 -- @treturn table a new array
--- @see unique
 function _.uniq(array,isSorted,iter,...)
   local init = iter and _.map(array,iter,...) or array
   local result = {}
@@ -895,14 +728,6 @@ function _.uniq(array,isSorted,iter,...)
   end
   return result
 end
-
---- Alias for @{uniq}.
--- @function unique
--- @param array
--- @param[opt] isSorted
--- @param[optchain] iter
--- @param[optchain] ...
-_.unique = _.uniq
 
 --- Returns the duplicate-free union of all passed in arrays.
 -- @name union
@@ -963,11 +788,10 @@ end
 --- Produce a flexible list of numbers. If one positive value is passed, will count from 0 to that value,
 -- with a default step of 1. If two values were passed, will count from the first one to the second one, with the
 -- same default step of 1. A third passed value will be considered a step value.
--- <br/><em>Aliased as @{count}</em>
+-- <br/><em>Aliased as `count`</em>
 -- @name range
 -- @tparam var_arg ... a variable list of numbers
 -- @treturn table a new array of numbers
--- @see count
 function _.range(...)
   local arg = {...}
   local _start,_stop,_step
@@ -984,38 +808,26 @@ function _.range(...)
   return _ranged
 end
 
---- Alias for @{range}.
--- @function count
--- @param ...
-_.count = _.range
-
 --- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
--- <br/><em>Aliased as @{mirror}</em>
+-- <br/><em>Aliased as `mirror`</em>
 -- @name invert
 -- @tparam table array a given array
 -- @treturn table a new array
--- @see mirror
 function _.invert(array)
   local _ret = {}
   _.each(array,function(i,v) _ret[v] = i end)
   return _ret
 end
 
---- Alias for @{invert}.
--- @function mirror
--- @param array
-_.mirror = _.invert
-
 --- Concatenates values in a given array. Handles booleans as well. If `sep` string is
 -- passed, it will be used as a separator. Optional `i` and `j` will only concatenate
--- values within `[i,j]` range. <br/><em>Aliased as @{join}</em>
+-- values within `[i,j]` range. <br/><em>Aliased as `join`</em>
 -- @name concat
 -- @tparam table array a given array
 -- @tparam[opt] string sep a separator string, defaults to `''`.
 -- @tparam[optchain] number i the starting index, defaults to 1.
 -- @tparam[optchain] number j the final index, defaults to the array length.
 -- @treturn string a string
--- @see join
 function _.concat(array,sep,i,j)
   local _array = _.map(array,function(i,v)
 		return tostring(v)
@@ -1023,14 +835,6 @@ function _.concat(array,sep,i,j)
 	return t_concat(_array,sep,i,j)
 
 end
-
---- Alias for @{concat}.
--- @function join
--- @param array
--- @param[opt] sep
--- @param[optchain] i
--- @param[optchain] j
-_.join = _.concat
 
 -- ========= Utility functions
 
@@ -1061,12 +865,11 @@ end
 --- Memoizes a given function by caching the computed result.
 -- Useful for speeding up slow-running functions. If function `hash` is passed,
 -- it will be used to compute unique keys from args passed to `hash` for results caching.
--- <br/><em>Aliased as @{cache}</em>
+-- <br/><em>Aliased as `cache`</em>
 -- @name memoize
 -- @tparam function f a function
 -- @tparam[opt] function hash a hash function, defaults to @{identity}
 -- @treturn function a new function
--- @see cache
 function _.memoize(f,hash)
   local _cache = setmetatable({},{__mode = 'kv'})
   local _hasher = hash or _.identity
@@ -1077,12 +880,6 @@ function _.memoize(f,hash)
       return _cache[_hashKey]
     end
 end
-
---- Alias for @{memoize}.
--- @function cache
--- @param f
--- @param[opt] hash
-_.cache = _.memoize
 
 --- Returns a version of `f` that runs on the `count-th` call.
 -- Useful when dealing with asynchronous tasks.
@@ -1167,17 +964,14 @@ function _.bindn(f,...)
     end
 end
 
---function _.partial(f,...
-
 --- Generates a unique Id (unique for the current session). If given a sring `template`
 -- will use this template for output formatting. Otherwise, if `template` is a function,
 -- will compute an output running `template(id,...)`.
--- <br/><em>Aliased as @{uId}</em>.
+-- <br/><em>Aliased as `uId`</em>.
 -- @name uniqueId
 -- @tparam[opt] string|function template either a string or a function
 -- @tparam[optchain] var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
 -- @treturn id a formatted Id
--- @see uId
 function _.uniqueId(template,...)
 	unique_id_counter = unique_id_counter + 1
 	if template then
@@ -1189,12 +983,6 @@ function _.uniqueId(template,...)
 	end
 	return unique_id_counter
 end
-
---- Alias for @{uniqueId}.
--- @function uId
--- @param[opt] template
--- @param[optchain] ...
-_.uId = _.uniqueId
 
 -- ========= Object functions
 
@@ -1252,14 +1040,13 @@ end
 --- Returns a sorted list of all methods names found in an object. If the given object
 -- has a metatable implementing an `__index` field pointing to another table, will also recurse on this
 -- table.
--- <br/><em>Aliased as @{methods}</em>.
+-- <br/><em>Aliased as `methods`</em>.
 -- @name functions
 -- @tparam table obj an object
 -- @treturn table an array of methods names
--- @see methods
 function _.functions(obj)
-  if not obj then
-		return _.sort(_.keys(_))
+  if not obj then		
+		return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
 	end
   local _methods = {}
   _.each(obj,function(key,value)
@@ -1276,12 +1063,6 @@ function _.functions(obj)
 	end
    return _.sort(_methods)
 end
-
---- Alias for @{functions}.
--- @function methods
--- @param obj
--- @param[opt] output
-_.methods = _.functions
 
 --- Clones a given object properties. If `shallow` is passed
 -- will also clone nested array properties.
@@ -1327,12 +1108,11 @@ function _.has(obj, key)
 end
 
 --- Return a filtered copy of the object. The returned object will only have
--- the whitelisted properties. <br/><em>Aliased as @{choose}</em>.
+-- the whitelisted properties. <br/><em>Aliased as `choose`</em>.
 -- @name pick
 -- @tparam table obj an object
 -- @tparam var_arg ... a variable number of string keys
 -- @treturn table the filtered object
--- @see choose
 function _.pick(obj, ...)
 	local whitelist = _.flatten {...}
 	local _picked = {}
@@ -1344,19 +1124,12 @@ function _.pick(obj, ...)
 	return _picked
 end
 
---- Alias for @{pick}.
--- @function choose
--- @param obj
--- @param ...
-_.choose = _.pick
-
 --- Return a filtered copy of the object. The returned object will not have
--- the blacklisted properties. <br/><em>Aliased as @{drop}</em>.
+-- the blacklisted properties. <br/><em>Aliased as `drop`</em>.
 -- @name omit
 -- @tparam table obj an object
 -- @tparam var_arg ... a variable number of string keys
 -- @treturn table the filtered object
--- @see drop
 function _.omit(obj,...)
 	local blacklist = _.flatten {...}
 	local _picked = {}
@@ -1368,19 +1141,12 @@ function _.omit(obj,...)
 	return _picked
 end
 
---- Alias for @{omit}.
--- @function drop
--- @param obj
--- @param ...
-_.drop = _.omit
-
 --- Fills nil properties in an object with the given `template` object. Pre-existing
--- properties will be preserved. <br/><em>Aliased as @{defaults}</em>.
+-- properties will be preserved. <br/><em>Aliased as `defaults`</em>.
 -- @name template
 -- @tparam table obj an object
 -- @tparam table template a template object
 -- @treturn table the passed-in object filled
--- @see defaults
 function _.template(obj,template)
   _.each(template,function(i,v)
 	if not obj[i] then
@@ -1389,12 +1155,6 @@ function _.template(obj,template)
   end)
   return obj
 end
-
---- Alias for @{template}.
--- @function defaults
--- @param obj
--- @param template
-_.defaults = _.template
 
 --- Performs an equality test between two objects.
 -- Can compare strings, functions (by reference), nil, booleans. Compares tables by reference or by component-values.
@@ -1594,7 +1354,43 @@ do
 
 	-- Register chaining methods into the wrapper
 	f.chain, f.value = __.chain, __.value
-
+	
+	-- Enables aliases in case MOSES_NO_ALIASES was not set in the global env
+	if not rawget(_G, 'MOSES_NO_ALIASES') then
+		_.forEach = _.each
+		_.collect = _.map
+		_.inject = _.reduce
+		_.foldl = _.reduce
+		_.injectr = _.reduceRight
+		_.foldr = _.reduceRight
+		_.mapr = _.mapReduce
+		_.maprr = _.mapReduceRight
+		_.any = _.include
+		_.some = _.include
+		_.find = _.detect
+		_.filter = _.select
+		_.discard = _.reject
+		_.every = _.all
+		_.takeWhile = _.selectWhile
+		_.rejectWhile = _.dropWhile
+		_.shift = _.pop
+		_.rmRange = _.removeRange
+		_.head = _.first
+		_.take = _.first
+		_.tail = _.rest
+		_.without = _.difference
+		_.unique = _.uniq
+		_.count = _.range
+		_.mirror = _.invert
+		_.join = _.concat
+		_.cache = _.memoize
+		_.uId = _.uniqueId
+		_.methods = _.functions
+		_.choose = _.pick
+		_.drop = _.omit
+		_.defaults = _.template
+	end
+	
 	-- Register all functions into the wrapper
 	for fname,fct in pairs(_) do
 		f[fname] = function(v, ...)
