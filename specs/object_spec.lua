@@ -511,6 +511,19 @@ context('Object functions specs', function()
       assert_false(_.isBoolean('1'))
     end)    
     
-  end)  
+  end)
   
+	context('import', function()
+		
+		test('import library functions to a context', function()
+			local context = {}
+			_.import(context)
+			assert_not_nil(next(context))
+			_.each(context, function(k,f)
+				assert_equal(f,_[k])
+			end)			
+		end)	
+	
+	end)
+	
 end)
