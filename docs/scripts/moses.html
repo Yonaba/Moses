@@ -538,8 +538,12 @@
 	<td class="summary">Returns a wrapped object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#value">value&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#obj:value">obj:value&nbsp;()</a></td>
 	<td class="summary">Extracts the value of a wrapped object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#import">import&nbsp;([context])</a></td>
+	<td class="summary">Imports all library functions into a context.</td>
 	</tr>
 </table>
 
@@ -1463,7 +1467,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the maximum property value found
     </ol>
 
@@ -1494,7 +1498,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the minimum property value found
     </ol>
 
@@ -1916,7 +1920,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><a class="type" href="../index.html#value">value</a></span>
+        <span class="types"><span class="type">value</span></span>
        value to be inserted</li>
       <li><span class="parameter">comp</span>
         <span class="types"><span class="type">function</span></span>
@@ -1950,7 +1954,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><a class="type" href="../index.html#value">value</a></span>
+        <span class="types"><span class="type">value</span></span>
        value to be searched</li>
     </ul>
 
@@ -1977,7 +1981,7 @@
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
       <li><span class="parameter">the</span>
-        <span class="types"><a class="type" href="../index.html#value">value</a></span>
+        <span class="types"><span class="type">value</span></span>
        value to be searched</li>
     </ul>
 
@@ -2065,7 +2069,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the popped value
     </ol>
 
@@ -2112,7 +2116,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the popped value
     </ol>
 
@@ -3642,7 +3646,7 @@
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the returned value of <code>method(obj,...)</code> call
     </ol>
 
@@ -3922,12 +3926,12 @@
     </dt>
     <dd>
     Returns a wrapped object.  Calling library functions as methods on this object
- will continue to return wrapped objects until <a href="../index.html#value">value</a> is used. Can be aliased as <code>_(value)</code>.
+ will continue to return wrapped objects until <a href="../index.html#obj:value">obj:value</a> is used. Can be aliased as <code>_(value)</code>.
 
     <h3>Parameters:</h3>
     <ul>
       <li><span class="parameter">value</span>
-        <span class="types"><a class="type" href="../index.html#value">value</a></span>
+        <span class="types"><span class="type">value</span></span>
        a value to be wrapped</li>
     </ul>
 
@@ -3942,19 +3946,43 @@
 
 </dd>
     <dt>
-    <a name = "value"></a>
-    <strong>value&nbsp;()</strong>
+    <a name = "obj:value"></a>
+    <strong>obj:value&nbsp;()</strong>
     </dt>
     <dd>
-    Extracts the value of a wrapped object.
+    Extracts the value of a wrapped object.  Must be called on an chained object (see <a href="../index.html#chain">chain</a>).
 
 
 
     <h3>Returns:</h3>
     <ol>
 
-          <span class="types"><a class="type" href="../index.html#value">value</a></span>
+          <span class="types"><span class="type">value</span></span>
         the value previously wrapped
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "import"></a>
+    <strong>import&nbsp;([context])</strong>
+    </dt>
+    <dd>
+    Imports all library functions into a context.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">context</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a context. Defaults to <code>_G</code> (global environment) when not given.</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        the passed-in context
     </ol>
 
 

@@ -1505,6 +1505,35 @@ print(_.isBoolean(print))
 -- => false
 ````
 
+### import
+
+All library functions can be imported in a context using `import`
+
+```lua
+local context = {}
+_.import(context)
+
+context.each({1,2,3},print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+-- ...
+````
+
+When no `context` was provided, it defaults to the global environment `_G`
+
+```lua
+_.import()
+
+each({1,2,3},print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+-- ...
+````
+
 ## Chaining
 
 *Method chaining* (also known as *name parameter idiom*), is a technique for invoking consecutively method calls in object-oriented style.
