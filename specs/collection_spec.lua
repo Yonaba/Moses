@@ -32,7 +32,34 @@ context('Collection functions specs', function()
     end)
     
   end)  
+
+  context('eachi', function()
   
+    test('provides values and iteration count for integer keys only, in a sorted way', function()
+      local t = {1,2,3}
+      local inc = 0
+      _.eachi(t,function(i,v)
+        inc = inc+1
+        assert_equal(i,inc)
+        assert_equal(t[i],v)
+      end)
+    end)  
+
+    test('ignores non-integer keys', function()
+      local t = {a = 1, b = 2, [0] = 1, [-1] = 6, 3, x = 4, 5}
+			local rk = {-1, 0, 1, 2}
+			local rv = {6, 1, 3, 5}
+      local inc = 0
+      _.eachi(t,function(i,v)
+        inc = inc+1
+        assert_equal(i,rk[inc])
+        assert_equal(v,rv[inc])
+      end)
+    end)		
+    
+  end)  
+ 
+ 
   context('map', function()
   
     test('applies an iterator function over each key-value pair ', function()

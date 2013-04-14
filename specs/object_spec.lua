@@ -23,12 +23,12 @@ context('Object functions specs', function()
    
   end)  
   
-  context('pairs', function()
+  context('paired', function()
   
     test('collects and exports each key-pairs in an array',function()
-      assert_true(_.isEqual(_.pairs({1,2,3}),{{1,1},{2,2},{3,3}}))
-      assert_true(_.isEqual(_.pairs({4,5,6}),{{1,4},{2,5},{3,6}}))
-      assert_true(_.same(_.pairs({x = 1, y = 2, 3}),{{'x',1},{'y',2},{1,3}}))
+      assert_true(_.isEqual(_.paired({1,2,3}),{{1,1},{2,2},{3,3}}))
+      assert_true(_.isEqual(_.paired({4,5,6}),{{1,4},{2,5},{3,6}}))
+      assert_true(_.same(_.paired({x = 1, y = 2, 3}),{{'x',1},{'y',2},{1,3}}))
     end)
     
   end)  
@@ -513,6 +513,19 @@ context('Object functions specs', function()
     end)    
     
   end)
+	
+  context('isInteger', function()
+  
+    test('returns "true" if arg is a integer, "false" otherwise',function()
+      assert_true(_.isInteger(1))
+      assert_true(_.isInteger(0))
+      assert_false(_.isInteger(math.pi))
+      assert_true(_.isInteger(1/0))
+      assert_true(_.isInteger(math.huge))
+      assert_false(_.isInteger(0/0))
+    end)  
+    
+  end)	
   
 	context('import', function()
 		
@@ -523,7 +536,15 @@ context('Object functions specs', function()
 			_.each(context, function(k,f)
 				assert_equal(f,_[k])
 			end)			
+		end)
+
+		test('passing arg `noConflict` preserves existing values in the given context', function()
+			local context = {each = 1, map = 2}
+			_.import(context, true)
+			assert_equal(context.each, 1)			
+			assert_equal(context.map, 2)			
 		end)	
+		
 	
 	end)
 	

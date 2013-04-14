@@ -287,15 +287,15 @@ context('Array functions specs', function()
 
   context('difference',function() 
   
-    test('returns values in array not present in passed args', function()
+    test('returns values in the first array not present in the second array', function()
       local array = {1,2,'a',4,5}
-      assert_true(_.isEqual(_.difference(array,1,'a'),{2,4,5}))
-      assert_true(_.isEqual(_.difference(array,5),{1,2,'a',4}))
+      assert_true(_.isEqual(_.difference(array,{1,'a'}),{2,4,5}))
+      assert_true(_.isEqual(_.difference(array,{5}),{1,2,'a',4}))
     end)   
     
-    test('ignores passed args not found in array', function()
+    test('ignores values in the second array not found in the first array', function()
       local array = {1,2,'a',4,5}
-      assert_true(_.isEqual(_.difference(array,1,'a','b','c'),{2,4,5}))
+      assert_true(_.isEqual(_.difference(array,{1,'a','b','c'}),{2,4,5}))
     end)
     
     test('leaves array untouched when given no extra-args', function()
