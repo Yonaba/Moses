@@ -2,7 +2,7 @@
 
 A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
 and support for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier operations on arrays, lists, 
-collections, objects, through 91 weird, strange, bizarre, odd functions.<br/>
+collections, objects, through 94 odd functions.<br/>
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
 
 ##Download & Installation
@@ -31,7 +31,7 @@ Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) 
 
 __Note__: 
 The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (approximately 50 kiB).<br/>
-You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) which is lighter (15 kiB).
+You can alternatively use the lighter [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (16 kiB).
 
 ##Usage examples##
 Find a complete set of samples in [moses.md](https://github.com/Yonaba/Moses/blob/master/docs/moses.md)
