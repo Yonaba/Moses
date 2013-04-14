@@ -47,7 +47,7 @@ local unique_id_counter = -1
 
 -- ========= Collection functions
 
---- Calls function `f` on each key-value of a given collection. <br/><em>Aliased as `forEach`</em>.
+--- Similar to `pairs` iterator. Calls function `f` on each key-value of a given collection. <br/><em>Aliased as `forEach`</em>.
 -- @name each
 -- @tparam table list a collection
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
@@ -57,7 +57,23 @@ function _.each(list, f, ...)
   for index,value in pairs(list) do
     f(index,value,...)
   end
-  return list
+end
+
+--- Similar to `ipairs` iterator. Calls function `f` only on values indexed with an integer key in a given collection.
+-- The array can be sparse, or map-like. Iteration will be performed from the lower integer key to the highest one.
+-- <br/><em>Aliased as `forEachi`</em>.
+-- @name eachi
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
+function _.eachi(list, f, ...)
+  if not _.isTable(list) then return end
+	local lkeys = _.sort(_.select(_.keys(list), function(k,v)
+		return _.isInteger(v)
+	end))
+	for k, key in ipairs(lkeys) do
+		f(key, list[key],...)
+	end	
 end
 
 --- Maps function `f` on each key-value of a given collection. Collects
@@ -181,7 +197,7 @@ end
 function _.where(list, props)
 	local found = {}
 	if _.isEmpty(props) then return {} end
-	return _.filter(list, function(k,v)
+	return _.select(list, function(k,v)
 		for key in pairs(props) do
 			if props[key] ~= v[key] then return false end
 		end
@@ -195,7 +211,7 @@ end
 -- @tparam props a set of properties
 -- @treturn item a value from the passed-in list
 function _.findWhere(list, props)
-	local index = _.find(list, function(v)
+	local index = _.detect(list, function(v)
 		for key in pairs(props) do
 			if props[key] ~= v[key] then return false end
 		end
@@ -685,16 +701,29 @@ function _.flatten(array, shallow)
   return _flat
 end
 
---- Returns values from an array not present in all passed-in args. <br/><em>Aliased as `without`</em>
+--- Returns values from an array not present in all passed-in args. <br/><em>Aliased as `without` and `diff`</em>
 -- @name difference
 -- @tparam table array an array
--- @tparam var_arg ... a variable number of arguments
+-- @tparam table another array
 -- @treturn table a new array
-function _.difference(array,...)
-  local values = _.toArray(...)
+function _.difference(array,array2)
+	if not array2 then return _.clone(array) end
   return _.select(array,function(i,value)
-      return not _.include(values,value)
+      return not _.include(array2,value)
     end)
+end
+
+--- Performs a symmetric difference. Returns values from `array` not present in `array2` __and also__ values 
+-- from `array2` not present in `array`.<br/><em>Aliased as `symdiff`</em>
+-- @name symmetric_difference
+-- @tparam table array an array
+-- @tparam table array2 another array
+-- @treturn table a new array
+function _.symmetric_difference(array, array2)
+	return _.difference(
+		_.union(array, array2), 
+		_.intersection(array,array2)
+	)
 end
 
 --- Produces a duplicate-free version of a given array. Passing `isSorted` will
@@ -992,7 +1021,7 @@ end
 -- @treturn table an array
 function _.keys(obj)
   local _oKeys = {}
-  _.each(obj,function(key,_) _oKeys[#_oKeys+1]=key end)
+  _.each(obj,function(key) _oKeys[#_oKeys+1]=key end)
   return _oKeys
 end
 
@@ -1006,12 +1035,12 @@ function _.values(obj)
   return _oValues
 end
 
---- Returns an array of `obj` key-values pairs
--- @name pairs
+--- Returns an array of key-values pairs
+-- @name paired
 -- @tparam table obj an object
 -- @treturn table an array
-function _.pairs(obj)
-  local paired= {}
+function _.paired(obj)
+  local paired = {}
   _.each(obj,function(k,v)
 		paired[#paired+1] = {k,v}
 	end)
@@ -1045,7 +1074,7 @@ end
 -- @tparam table obj an object
 -- @treturn table an array of methods names
 function _.functions(obj)
-  if not obj then		
+  if not obj then
 		return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
 	end
   local _methods = {}
@@ -1312,6 +1341,14 @@ function _.isBoolean(obj)
   return type(obj) == 'boolean'
 end
 
+--- Checks if the given arg is an integer.
+-- @name isInteger
+-- @tparam object obj a number
+-- @treturn boolean __true__ or __false__
+function _.isInteger(obj)
+	return _.isNumber(obj) and floor(obj)==obj
+end
+
 -- ========= Chaining
 
 do
@@ -1354,10 +1391,11 @@ do
 
 	-- Register chaining methods into the wrapper
 	f.chain, f.value = __.chain, __.value
-	
+
 	-- Enables aliases in case MOSES_NO_ALIASES was not set in the global env
 	if not rawget(_G, 'MOSES_NO_ALIASES') then
 		_.forEach = _.each
+		_.forEachi = _.eachi
 		_.collect = _.map
 		_.inject = _.reduce
 		_.foldl = _.reduce
@@ -1375,10 +1413,14 @@ do
 		_.rejectWhile = _.dropWhile
 		_.shift = _.pop
 		_.rmRange = _.removeRange
+		_.chop = _.removeRange
 		_.head = _.first
 		_.take = _.first
 		_.tail = _.rest
+		_.skip = _.last
 		_.without = _.difference
+		_.diff = _.difference
+		_.symdiff = _.symmetric_difference
 		_.unique = _.uniq
 		_.count = _.range
 		_.mirror = _.invert
@@ -1390,7 +1432,7 @@ do
 		_.drop = _.omit
 		_.defaults = _.template
 	end
-	
+
 	-- Register all functions into the wrapper
 	for fname,fct in pairs(_) do
 		f[fname] = function(v, ...)
@@ -1408,10 +1450,20 @@ do
 	--- Imports all library functions into a context.
 	-- @name import
 	-- @tparam[opt] table context a context. Defaults to `_G` (global environment) when not given.
-	-- @treturn table the passed-in context	
-	f.import = function(context)
-		return _.extend(context or _G, f)
+	-- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
+	-- @treturn table the passed-in context
+	f.import = function(context, noConflict)
+		local fs = {}
+		context = context or _G
+		_.each(f, function(k,v)
+			if noConflict then
+				if not rawget(context, k) then fs[k] = v end
+			else
+				fs[k] = v
+			end
+		end)
+		return _.extend(context or _G, fs)
 	end
-	
+
 	return __
 end

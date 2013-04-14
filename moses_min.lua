@@ -11,7 +11,10 @@ local cbb=abb or __b.identity;for dbb,_cb in cda(dab)do
 if not bbb then bbb=cbb(_cb,...)else local acb=cbb(_cb,...)bbb=
 _bb(bbb,acb)and bbb or acb end end;return bbb end;local cab=-1
 function __b.each(dab,_bb,...)if not __b.isTable(dab)then return end;for abb,bbb in cda(dab)do
-_bb(abb,bbb,...)end;return dab end;function __b.map(dab,_bb,...)local abb={}
+_bb(abb,bbb,...)end end
+function __b.eachi(dab,_bb,...)if not __b.isTable(dab)then return end
+local abb=__b.sort(__b.select(__b.keys(dab),function(bbb,cbb)return
+__b.isInteger(cbb)end))for bbb,cbb in dda(abb)do _bb(cbb,dab[cbb],...)end end;function __b.map(dab,_bb,...)local abb={}
 for bbb,cbb in cda(dab)do abb[bbb]=_bb(bbb,cbb,...)end;return abb end;function __b.reduce(dab,_bb,abb)
 for bbb,cbb in
 cda(dab)do abb=not abb and cbb or _bb(abb,cbb)end;return abb end;function __b.reduceRight(dab,_bb,abb)return
@@ -28,11 +31,11 @@ local abb=__b.isFunction(_bb)and _bb or __b.isEqual;for bbb,cbb in cda(dab)do if
 return __b.detect(dab,_bb)and true or false end
 function __b.where(dab,_bb)local abb={}
 if __b.isEmpty(_bb)then return{}end;return
-__b.filter(dab,function(bbb,cbb)
+__b.select(dab,function(bbb,cbb)
 for dbb in cda(_bb)do if _bb[dbb]~=cbb[dbb]then return false end end;return true end)end
 function __b.findWhere(dab,_bb)
-local abb=__b.find(dab,function(bbb)
-for cbb in cda(_bb)do if _bb[cbb]~=bbb[cbb]then return false end end;return true end)return abb and dab[abb]end
+local abb=__b.detect(dab,function(bbb)for cbb in cda(_bb)do
+if _bb[cbb]~=bbb[cbb]then return false end end;return true end)return abb and dab[abb]end
 function __b.select(dab,_bb,...)local abb=__b.map(dab,_bb,...)local bbb={}for cbb,dbb in cda(abb)do if dbb then
 bbb[#bbb+1]=dab[cbb]end end;return bbb end
 function __b.reject(dab,_bb,...)local abb=__b.map(dab,_bb,...)local bbb={}for cbb,dbb in cda(abb)do if not dbb then
@@ -114,15 +117,17 @@ local bbb;local cbb={}
 for dbb,_cb in cda(dab)do
 if __b.isTable(_cb)and not abb then
 bbb=__b.flatten(_cb)
-__b.each(bbb,function(acb,bcb)cbb[#cbb+1]=bcb end)else cbb[#cbb+1]=_cb end end;return cbb end;function __b.difference(dab,...)local _bb=__b.toArray(...)
-return __b.select(dab,function(abb,bbb)return
-not __b.include(_bb,bbb)end)end
-function __b.uniq(dab,_bb,abb,...)local bbb=abb and
-__b.map(dab,abb,...)or dab;local cbb={}if not _bb then
-for dbb,_cb in dda(bbb)do if not
-__b.include(cbb,_cb)then cbb[#cbb+1]=_cb end end;return cbb end
-cbb[#cbb+1]=bbb[1]for i=2,#bbb do
-if bbb[i]~=cbb[#cbb]then cbb[#cbb+1]=bbb[i]end end;return cbb end
+__b.each(bbb,function(acb,bcb)cbb[#cbb+1]=bcb end)else cbb[#cbb+1]=_cb end end;return cbb end
+function __b.difference(dab,_bb)if not _bb then return __b.clone(dab)end;return
+__b.select(dab,function(abb,bbb)return not
+__b.include(_bb,bbb)end)end
+function __b.symmetric_difference(dab,_bb)return
+__b.difference(__b.union(dab,_bb),__b.intersection(dab,_bb))end
+function __b.uniq(dab,_bb,abb,...)
+local bbb=abb and __b.map(dab,abb,...)or dab;local cbb={}
+if not _bb then for dbb,_cb in dda(bbb)do
+if not __b.include(cbb,_cb)then cbb[#cbb+1]=_cb end end;return cbb end;cbb[#cbb+1]=bbb[1]for i=2,#bbb do if bbb[i]~=cbb[#cbb]then
+cbb[#cbb+1]=bbb[i]end end;return cbb end
 function __b.union(...)return __b.uniq(__b.flatten({...}))end
 function __b.intersection(dab,...)local _bb={...}local abb={}
 for bbb,cbb in dda(dab)do if
@@ -160,9 +165,9 @@ return dab(bda(__b.append(_bb,{...})))end end
 function __b.uniqueId(dab,...)cab=cab+1
 if dab then if __b.isString(dab)then return dab:format(cab)elseif
 __b.isFunction(dab)then return dab(cab,...)end end;return cab end;function __b.keys(dab)local _bb={}
-__b.each(dab,function(abb,bbb)_bb[#_bb+1]=abb end)return _bb end;function __b.values(dab)local _bb={}
+__b.each(dab,function(abb)_bb[#_bb+1]=abb end)return _bb end;function __b.values(dab)local _bb={}
 __b.each(dab,function(abb,bbb)_bb[
-#_bb+1]=bbb end)return _bb end;function __b.pairs(dab)local _bb={}
+#_bb+1]=bbb end)return _bb end;function __b.paired(dab)local _bb={}
 __b.each(dab,function(abb,bbb)_bb[
 #_bb+1]={abb,bbb}end)return _bb end
 function __b.extend(dab,...)
@@ -214,23 +219,29 @@ function __b.isFinite(dab)
 if not __b.isNumber(dab)then return false end;return dab>-bca and dab<bca end;function __b.isNumber(dab)return aaa(dab)=='number'end;function __b.isNaN(dab)return
 __b.isNumber(dab)and dab~=dab end;function __b.isBoolean(dab)return
 aaa(dab)=='boolean'end
-do local dab={}local _bb={}
-_bb.__index=dab
-local function abb(bbb)local cbb={_value=bbb,_wrapped=true}return daa(cbb,_bb)end
-daa(_bb,{__call=function(bbb,cbb)return abb(cbb)end,__index=function(bbb,cbb,...)return dab[cbb]end})function _bb.chain(bbb)return abb(bbb)end
+function __b.isInteger(dab)return
+__b.isNumber(dab)and cca(dab)==dab end
+do local dab={}local _bb={}_bb.__index=dab;local function abb(bbb)local cbb={_value=bbb,_wrapped=true}
+return daa(cbb,_bb)end
+daa(_bb,{__call=function(bbb,cbb)return abb(cbb)end,__index=function(bbb,cbb,...)return
+dab[cbb]end})function _bb.chain(bbb)return abb(bbb)end
 function _bb:value()return self._value end;dab.chain,dab.value=_bb.chain,_bb.value
 if
-not ada(_G,'MOSES_NO_ALIASES')then __b.forEach=__b.each;__b.collect=__b.map;__b.inject=__b.reduce
-__b.foldl=__b.reduce;__b.injectr=__b.reduceRight;__b.foldr=__b.reduceRight
-__b.mapr=__b.mapReduce;__b.maprr=__b.mapReduceRight;__b.any=__b.include;__b.some=__b.include
-__b.find=__b.detect;__b.filter=__b.select;__b.discard=__b.reject;__b.every=__b.all
-__b.takeWhile=__b.selectWhile;__b.rejectWhile=__b.dropWhile;__b.shift=__b.pop
-__b.rmRange=__b.removeRange;__b.head=__b.first;__b.take=__b.first;__b.tail=__b.rest
-__b.without=__b.difference;__b.unique=__b.uniq;__b.count=__b.range;__b.mirror=__b.invert
+not ada(_G,'MOSES_NO_ALIASES')then __b.forEach=__b.each;__b.forEachi=__b.eachi;__b.collect=__b.map
+__b.inject=__b.reduce;__b.foldl=__b.reduce;__b.injectr=__b.reduceRight
+__b.foldr=__b.reduceRight;__b.mapr=__b.mapReduce;__b.maprr=__b.mapReduceRight
+__b.any=__b.include;__b.some=__b.include;__b.find=__b.detect;__b.filter=__b.select
+__b.discard=__b.reject;__b.every=__b.all;__b.takeWhile=__b.selectWhile
+__b.rejectWhile=__b.dropWhile;__b.shift=__b.pop;__b.rmRange=__b.removeRange
+__b.chop=__b.removeRange;__b.head=__b.first;__b.take=__b.first;__b.tail=__b.rest
+__b.skip=__b.last;__b.without=__b.difference;__b.diff=__b.difference
+__b.symdiff=__b.symmetric_difference;__b.unique=__b.uniq;__b.count=__b.range;__b.mirror=__b.invert
 __b.join=__b.concat;__b.cache=__b.memoize;__b.uId=__b.uniqueId;__b.methods=__b.functions
 __b.choose=__b.pick;__b.drop=__b.omit;__b.defaults=__b.template end
 for bbb,cbb in cda(__b)do
 dab[bbb]=function(dbb,...)
 local _cb=__b.isTable(dbb)and dbb._wrapped or false
 if _cb then local acb=dbb._value;local bcb=cbb(acb,...)return abb(bcb)else return cbb(dbb,...)end end end
-dab.import=function(bbb)return __b.extend(bbb or _G,dab)end;return _bb end
+dab.import=function(bbb,cbb)local dbb={}bbb=bbb or _G
+__b.each(dab,function(_cb,acb)if cbb then
+if not ada(bbb,_cb)then dbb[_cb]=acb end else dbb[_cb]=acb end end)return __b.extend(bbb or _G,dbb)end;return _bb end
