@@ -55,7 +55,11 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#each">each&nbsp;(list, f[, ...])</a></td>
-	<td class="summary">Calls function <code>f</code> on each key-value of a given collection.</td>
+	<td class="summary">Similar to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-pairs">pairs</a>  iterator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#eachi">eachi&nbsp;(list, f[, ...])</a></td>
+	<td class="summary">Similar to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a>  iterator.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#map">map&nbsp;(list, f[, ...])</a></td>
@@ -234,8 +238,12 @@
 	<td class="summary">Flattens a nested array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#difference">difference&nbsp;(array, ...)</a></td>
+	<td class="name" nowrap><a href="#difference">difference&nbsp;(array, another)</a></td>
 	<td class="summary">Returns values from an array not present in all passed-in args.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#symmetric_difference">symmetric_difference&nbsp;(array, array2)</a></td>
+	<td class="summary">Performs a symmetric difference.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#uniq">uniq&nbsp;(array[, isSorted[, iter[, ...]]])</a></td>
@@ -318,8 +326,8 @@
 	<td class="summary">Returns the values of the object properties.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#pairs">pairs&nbsp;(obj)</a></td>
-	<td class="summary">Returns an array of <code>obj</code> key-values pairs</td>
+	<td class="name" nowrap><a href="#paired">paired&nbsp;(obj)</a></td>
+	<td class="summary">Returns an array of key-values pairs</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#extend">extend&nbsp;(destObj, ...)</a></td>
@@ -406,6 +414,10 @@
 	<td class="summary">Checks if the given arg is a boolean.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#isInteger">isInteger&nbsp;(obj)</a></td>
+	<td class="summary">Checks if the given arg is an integer.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#chain">chain&nbsp;(value)</a></td>
 	<td class="summary">Returns a wrapped object.</td>
 	</tr>
@@ -414,7 +426,7 @@
 	<td class="summary">Extracts the value of a wrapped object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#import">import&nbsp;([context])</a></td>
+	<td class="name" nowrap><a href="#import">import&nbsp;([context[, noConflict]])</a></td>
 	<td class="summary">Imports all library functions into a context.</td>
 	</tr>
 </table>
@@ -431,7 +443,33 @@
     <strong>each&nbsp;(list, f[, ...])</strong>
     </dt>
     <dd>
-    Calls function <code>f</code> on each key-value of a given collection.  <br/><em>Aliased as <code>forEach</code></em>.
+    Similar to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-pairs">pairs</a>  iterator.  Calls function <code>f</code> on each key-value of a given collection. <br/><em>Aliased as <code>forEach</code></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       Optional extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "eachi"></a>
+    <strong>eachi&nbsp;(list, f[, ...])</strong>
+    </dt>
+    <dd>
+    Similar to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a>  iterator.  Calls function <code>f</code> only on values indexed with an integer key in a given collection.
+ The array can be sparse, or map-like. Iteration will be performed from the lower integer key to the highest one.
+ <br/><em>Aliased as <code>forEachi</code></em>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1718,19 +1756,47 @@
 </dd>
     <dt>
     <a name = "difference"></a>
-    <strong>difference&nbsp;(array, ...)</strong>
+    <strong>difference&nbsp;(array, another)</strong>
     </dt>
     <dd>
-    Returns values from an array not present in all passed-in args.  <br/><em>Aliased as <code>without</code></em>
+    Returns values from an array not present in all passed-in args.  <br/><em>Aliased as <code>without</code> and <code>diff</code></em>
 
     <h3>Parameters:</h3>
     <ul>
       <li><span class="parameter">array</span>
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        an array</li>
-      <li><span class="parameter">...</span>
-        <span class="types"><span class="type">var_arg</span></span>
-       a variable number of arguments</li>
+      <li><span class="parameter">another</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       array</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a new array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "symmetric_difference"></a>
+    <strong>symmetric_difference&nbsp;(array, array2)</strong>
+    </dt>
+    <dd>
+    Performs a symmetric difference.  Returns values from <code>array</code> not present in <code>array2</code> <strong>and also</strong> values
+ from <code>array2</code> not present in <code>array</code>.<br/><em>Aliased as <code>symdiff</code></em>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">array2</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       another array</li>
     </ul>
 
 
@@ -2299,11 +2365,11 @@
 
 </dd>
     <dt>
-    <a name = "pairs"></a>
-    <strong>pairs&nbsp;(obj)</strong>
+    <a name = "paired"></a>
+    <strong>paired&nbsp;(obj)</strong>
     </dt>
     <dd>
-    Returns an array of <code>obj</code> key-values pairs
+    Returns an array of key-values pairs
 
     <h3>Parameters:</h3>
     <ul>
@@ -2881,6 +2947,30 @@
 
 </dd>
     <dt>
+    <a name = "isInteger"></a>
+    <strong>isInteger&nbsp;(obj)</strong>
+    </dt>
+    <dd>
+    Checks if the given arg is an integer.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">obj</span>
+        <span class="types"><span class="type">object</span></span>
+       a number</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">boolean</span></span>
+        <strong>true</strong> or <strong>false</strong>
+    </ol>
+
+
+</dd>
+    <dt>
     <a name = "chain"></a>
     <strong>chain&nbsp;(value)</strong>
     </dt>
@@ -2925,7 +3015,7 @@
 </dd>
     <dt>
     <a name = "import"></a>
-    <strong>import&nbsp;([context])</strong>
+    <strong>import&nbsp;([context[, noConflict]])</strong>
     </dt>
     <dd>
     Imports all library functions into a context.
@@ -2935,6 +3025,9 @@
       <li><span class="parameter">context</span>
         <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
        a context. Defaults to <code>_G</code> (global environment) when not given.</li>
+      <li><span class="parameter">noConflict</span>
+        <span class="types"><span class="type">boolean</span></span>
+       Skips function import in case its key exists in the given context</li>
     </ul>
 
 

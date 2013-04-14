@@ -11,6 +11,18 @@ __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com
 local _ = require ("moses")
 ````
 
+In case a global `MOSES_NO_ALIASES` set to `true` was found in the global environment, library functions aliases will not be imported.
+
+```lua
+_G.MOSES_NO_ALIASES = true -- Setting this global on purpose
+local _ = require ("moses")
+print(_.each)
+print(_.forEach)
+
+-- => function: 00309410
+-- => nil
+````
+
 ## Collection functions samples
 
 ### each
@@ -21,8 +33,8 @@ Prints a flat array contents:
 _.each({1,2,3},print)
 
 -- => 1 1
--- => 1 2
--- => 1 3
+-- => 2 2
+-- => 3 3
 ````
 
 Iterates over non numeric keys:
@@ -49,6 +61,29 @@ end)
 -- => 3 cc
 ````
 
+### eachi
+
+Iterates only on integer keys in a sparse array or map-like table:
+
+```lua
+_.eachi({1,2,3},print)
+
+-- => 1 1
+-- => 2 2
+-- => 3 3
+````
+
+```lua
+local t = {a = 1, b = 2, [0] = 1, [-1] = 6, 3, x = 4, 5}
+_.eachi(t,function(i,v)
+	print(i,v)
+end)
+
+-- => -1 6
+-- => 0	1
+-- => 1	3
+-- => 2	5
+````
 
 ### map
 
@@ -855,16 +890,31 @@ _.each(array,print)
 
 ### difference
 
-Removes froma given array all passed-in values:
+Returns values in the given array not present in a second array.
 
 ```lua
 local array = {1,2,'a',4,5}
-array = _.difference(array,1,'a')
+array = _.difference(array,{1,'a'})
 _.each(array,print)
 
 -- => 1 2
 -- => 2 4
 -- => 3 5
+````
+
+### symmetric_difference
+
+Returns values in the first array not present in the second and also values in the second array not present in the first one:
+
+```lua
+local array = {1,2,3}
+local array2 = {1,4,5}
+_.each(_.symmetric_difference(array, array2),print)
+
+-- => 1 2
+-- => 2 3
+-- => 3 4
+-- => 4 5
 ````
 
 ### uniq
@@ -1183,12 +1233,12 @@ _.each(_.values({x = 0, y = 1}),print)
 -- => 2 0
 ````
 
-### pairs
+### paired
 
 Collects and returns each value-pairs in an array:
 
 ```lua
-local Pairs = _.pairs({'a','b','c'})
+local Pairs = _.paired({'a','b','c'})
 _.each(Pairs, function(k,v)
   print('Pair',k,v[1],v[2])
 end)
@@ -1505,6 +1555,20 @@ print(_.isBoolean(print))
 -- => false
 ````
 
+### isInteger
+
+Is the given arg an integer ?
+
+```lua
+print(_.isInteger(math.pi))
+print(_.isInteger(1))
+print(_.isInteger(-1))
+
+-- => false
+-- => true
+-- => true
+````
+
 ### import
 
 All library functions can be imported in a context using `import`
@@ -1532,6 +1596,17 @@ each({1,2,3},print)
 -- => 2 2
 -- => 3 3
 -- ...
+````
+
+Passing `noConfilt` arg leaves untouched conflicting keys while importing into the context:
+
+```lua
+local context = {each = 1}
+_.import(context, true)
+
+print(context.each)
+
+-- => 1
 ````
 
 ## Chaining
