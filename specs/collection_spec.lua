@@ -59,7 +59,38 @@ context('Collection functions specs', function()
     
   end)  
  
- 
+	context('count', function()
+		
+		test('count the occurences of value in a list', function()
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},1),2)
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},2),3)
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},3),4)
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},4),1)
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},5),0)
+			assert_equal(_.count({false, false, true},false),2)
+			assert_equal(_.count({false, false, true},true),1)
+			assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{1,1}),3)
+			assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{2,2}),1)		
+		end)
+		
+		test('defaults to size when value is not given', function()
+			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2}),_.size({1,1,2,3,3,3,2,4,3,2}))
+			assert_equal(_.count({false, false, true}),_.size({false, false, true}))	
+		end)
+	end)
+	
+	context('countf', function()
+		
+		test('count the occurences of values passing an iterator test in a list', function()
+			assert_equal(_.countf({1,2,3,4,5,6}, function(i,v)
+				return v%2==0
+			end),3)
+			assert_equal(_.countf({print, pairs, os, assert, ipairs}, function(i,v)
+				return type(v)=='function'
+			end),4)			
+		end)
+	end)
+	
   context('map', function()
   
     test('applies an iterator function over each key-value pair ', function()
