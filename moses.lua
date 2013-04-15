@@ -73,7 +73,32 @@ function _.eachi(list, f, ...)
 	end))
 	for k, key in ipairs(lkeys) do
 		f(key, list[key],...)
-	end	
+	end
+end
+
+--- Counts the number of occurences of a given value in a list. Uses @{isEqual} to compare objects.
+-- @name count
+-- @tparam table list a collection
+-- @tparam[opt] value value a value to be searched in the list. If not given, defaults to @{size}.
+-- @see countf
+-- @see size
+function _.count(list, value)
+	if _.isNil(value) then return _.size(list) end
+	local count = 0
+	_.each(list, function(k,v)
+		if _.isEqual(v, value) then count = count + 1 end
+	end)
+	return count
+end
+
+--- Same as @{count}, but uses an iterator. Provide a count for the number of values passing the test `f(key,value,...)`
+-- @name countf
+-- @tparam table list a collection
+-- @tparam function f an iterator function, prototyped as `f(key,value,...)`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
+-- @see countf
+function _.countf(list, f, ...)
+	return _.count(_.map(list, f, ...), true)
 end
 
 --- Maps function `f` on each key-value of a given collection. Collects
@@ -713,7 +738,7 @@ function _.difference(array,array2)
     end)
 end
 
---- Performs a symmetric difference. Returns values from `array` not present in `array2` __and also__ values 
+--- Performs a symmetric difference. Returns values from `array` not present in `array2` __and also__ values
 -- from `array2` not present in `array`.<br/><em>Aliased as `symdiff`</em>
 -- @name symmetric_difference
 -- @tparam table array an array
@@ -721,7 +746,7 @@ end
 -- @treturn table a new array
 function _.symmetric_difference(array, array2)
 	return _.difference(
-		_.union(array, array2), 
+		_.union(array, array2),
 		_.intersection(array,array2)
 	)
 end
@@ -1422,7 +1447,6 @@ do
 		_.diff = _.difference
 		_.symdiff = _.symmetric_difference
 		_.unique = _.uniq
-		_.count = _.range
 		_.mirror = _.invert
 		_.join = _.concat
 		_.cache = _.memoize
