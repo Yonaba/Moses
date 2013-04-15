@@ -62,6 +62,14 @@
 	<td class="summary">Similar to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a>  iterator.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#count">count&nbsp;(list[, value])</a></td>
+	<td class="summary">Counts the number of occurences of a given value in a list.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#countf">countf&nbsp;(list, f[, ...])</a></td>
+	<td class="summary">Same as <a href="../index.html#count">count</a>, but uses an iterator.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#map">map&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Maps function <code>f</code> on each key-value of a given collection.</td>
 	</tr>
@@ -487,6 +495,60 @@
 
 
 
+</dd>
+    <dt>
+    <a name = "count"></a>
+    <strong>count&nbsp;(list[, value])</strong>
+    </dt>
+    <dd>
+    Counts the number of occurences of a given value in a list.  Uses <a href="../index.html#isEqual">isEqual</a> to compare objects.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">value</span>
+        <span class="types"><span class="type">value</span></span>
+       a value to be searched in the list. If not given, defaults to <a href="../index.html#size">size</a>.</li>
+    </ul>
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="../index.html#countf">countf</a></li>
+         <li><a href="../index.html#size">size</a></li>
+    </ul>
+</dd>
+    <dt>
+    <a name = "countf"></a>
+    <strong>countf&nbsp;(list, f[, ...])</strong>
+    </dt>
+    <dd>
+    Same as <a href="../index.html#count">count</a>, but uses an iterator.  Provide a count for the number of values passing the test <code>f(key,value,...)</code>
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function, prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       Optional extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="../index.html#countf">countf</a>
+    </ul>
 </dd>
     <dt>
     <a name = "map"></a>
@@ -1958,7 +2020,7 @@
     Produce a flexible list of numbers.  If one positive value is passed, will count from 0 to that value,
  with a default step of 1. If two values were passed, will count from the first one to the second one, with the
  same default step of 1. A third passed value will be considered a step value.
- <br/><em>Aliased as <code>count</code></em>
+ <br/><em>Aliased as <a href="../index.html#count">count</a> </em>
 
     <h3>Parameters:</h3>
     <ul>

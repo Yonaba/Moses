@@ -85,6 +85,50 @@ end)
 -- => 2	5
 ````
 
+### count
+
+Counts the occurences of value in a given list
+
+```lua
+print(_.count({1,1,2,3,3,3,2,4,3,2},1))
+print(_.count({1,1,2,3,3,3,2,4,3,2},2))
+print(_.count({1,1,2,3,3,3,2,4,3,2},3))
+print(_.count({false, false, true},false))
+print(_.count({false, false, true},true))
+
+-- => 2
+-- => 2
+-- => 4
+-- => 2
+-- => 1
+````
+
+Returns the size of the list in case value is not provided.
+
+```lua
+print(_.count({1,1,2,3,3}))
+
+-- => 5
+````
+
+### countf
+
+Count the occurences of values passing an iterator test
+
+```lua
+print(_.countf({1,2,3,4,5,6}, function(i,v)
+	return v%2==0
+end))
+
+-- => 3
+
+print(_.countf({print, pairs, os, assert, ipairs}, function(i,v)
+	return type(v)=='function'
+end))	
+
+-- => 4	
+````
+
 ### map
 
 Executes a function on each key-value pairs:
