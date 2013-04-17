@@ -126,7 +126,43 @@ print(_.countf({print, pairs, os, assert, ipairs}, function(i,v)
 	return type(v)=='function'
 end))	
 
--- => 4	
+-- => 4
+````
+
+### cycle
+
+Returns an iterator function which loops on each key-pairs of a given collection and restarts looping again `n` times.
+If `n` is not provided, loops forever.
+
+```lua
+local t = {'a,'b','c'}
+for k,v in _.cycle(t, 2) do
+	print(k,v)
+end
+
+-- => 1 'a'
+-- => 2 'b'
+-- => 3 'c'
+-- => 1 'a'
+-- => 2 'b'
+-- => 3 'c'
+````
+
+Supports array-like tables and map-like tables:
+
+```lua
+local t = {x = 1, y = 2, z = 3}
+for k,v in _.cycle(t) do
+	print(k,v)
+end
+
+-- => y	2
+-- => x	1
+-- => z	3
+-- => y	2
+-- => x	1
+-- => z	3
+-- => ...
 ````
 
 ### map

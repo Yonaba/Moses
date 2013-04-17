@@ -70,6 +70,10 @@
 	<td class="summary">Same as <a href="../index.html#count">count</a>, but uses an iterator.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#cycle">cycle&nbsp;(list, n)</a></td>
+	<td class="summary">Iterator to cycle through the contents of a list or a collection.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#map">map&nbsp;(list, f[, ...])</a></td>
 	<td class="summary">Maps function <code>f</code> on each key-value of a given collection.</td>
 	</tr>
@@ -549,6 +553,35 @@
     <ul>
          <a href="../index.html#countf">countf</a>
     </ul>
+</dd>
+    <dt>
+    <a name = "cycle"></a>
+    <strong>cycle&nbsp;(list, n)</strong>
+    </dt>
+    <dd>
+    Iterator to cycle through the contents of a list or a collection.  Loops on each key-pairs of a given
+ list repeatedly <code>n</code> times or forever (if <code>n</code> is omitted). In case <code>n</code> is lower or equal to 0, does nothing.
+ <br/><em>Aliased as <code>loop</code></em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">list</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       a collection</li>
+      <li><span class="parameter">n</span>
+        <span class="types"><span class="type">number</span></span>
+       a number of loops</li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        an iterator function returning a key-value pair from the passed-in list.
+    </ol>
+
+
 </dd>
     <dt>
     <a name = "map"></a>
