@@ -91,6 +91,41 @@ context('Collection functions specs', function()
 		end)
 	end)
 	
+	context('cycle', function()
+		
+		test('loops n times on a list', function()
+			local times = 3
+			local t = {1,2,3,4,5}
+			local kv = {}
+			for k,v in _.cycle(t,times) do
+				assert_equal(t[k],v)
+				kv[#kv+1] = v
+			end
+			for k,v in ipairs(kv) do
+				assert_equal(_.count(kv,v),times)
+			end
+		end)
+		
+		test('support array-like and map-like tables', function()
+			local times = 10
+			local t = {x = 1, z = 2}
+			local keys = {}
+			local values = {}
+			for k,v in _.cycle(t,times) do
+				assert_equal(t[k],v)
+				keys[#keys+1] = k
+				values[#values+1] = v
+			end
+			for k,v in ipairs(keys) do
+				assert_equal(_.count(keys,v),times)
+			end
+			for k,v in ipairs(values) do
+				assert_equal(_.count(values,v),times)
+			end			
+		end)		
+	
+	end)
+	
   context('map', function()
   
     test('applies an iterator function over each key-value pair ', function()
