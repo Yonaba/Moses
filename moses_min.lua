@@ -18,7 +18,14 @@ __b.isInteger(cbb)end))for bbb,cbb in dda(abb)do _bb(cbb,dab[cbb],...)end end
 function __b.count(dab,_bb)if __b.isNil(_bb)then return __b.size(dab)end;local abb=0
 __b.each(dab,function(bbb,cbb)if
 __b.isEqual(cbb,_bb)then abb=abb+1 end end)return abb end
-function __b.countf(dab,_bb,...)return __b.count(__b.map(dab,_bb,...),true)end;function __b.map(dab,_bb,...)local abb={}
+function __b.countf(dab,_bb,...)return __b.count(__b.map(dab,_bb,...),true)end
+function __b.cycle(dab,_bb)if _bb<=0 then return end;local abb,bbb;local cbb=0
+while true do
+return
+function()
+abb=abb and _aa(dab,abb)or _aa(dab)bbb=not bbb and abb or bbb;if _bb then
+cbb=(abb==bbb)and cbb+1 or cbb;if cbb>_bb then return end end
+return abb,dab[abb]end end end;function __b.map(dab,_bb,...)local abb={}
 for bbb,cbb in cda(dab)do abb[bbb]=_bb(bbb,cbb,...)end;return abb end;function __b.reduce(dab,_bb,abb)
 for bbb,cbb in
 cda(dab)do abb=not abb and cbb or _bb(abb,cbb)end;return abb end;function __b.reduceRight(dab,_bb,abb)return
@@ -231,14 +238,14 @@ daa(_bb,{__call=function(bbb,cbb)return abb(cbb)end,__index=function(bbb,cbb,...
 dab[cbb]end})function _bb.chain(bbb)return abb(bbb)end
 function _bb:value()return self._value end;dab.chain,dab.value=_bb.chain,_bb.value
 if
-not ada(_G,'MOSES_NO_ALIASES')then __b.forEach=__b.each;__b.forEachi=__b.eachi;__b.collect=__b.map
-__b.inject=__b.reduce;__b.foldl=__b.reduce;__b.injectr=__b.reduceRight
-__b.foldr=__b.reduceRight;__b.mapr=__b.mapReduce;__b.maprr=__b.mapReduceRight
-__b.any=__b.include;__b.some=__b.include;__b.find=__b.detect;__b.filter=__b.select
-__b.discard=__b.reject;__b.every=__b.all;__b.takeWhile=__b.selectWhile
-__b.rejectWhile=__b.dropWhile;__b.shift=__b.pop;__b.rmRange=__b.removeRange
-__b.chop=__b.removeRange;__b.head=__b.first;__b.take=__b.first;__b.tail=__b.rest
-__b.skip=__b.last;__b.without=__b.difference;__b.diff=__b.difference
+not ada(_G,'MOSES_NO_ALIASES')then __b.forEach=__b.each;__b.forEachi=__b.eachi;__b.loop=__b.cycle
+__b.collect=__b.map;__b.inject=__b.reduce;__b.foldl=__b.reduce
+__b.injectr=__b.reduceRight;__b.foldr=__b.reduceRight;__b.mapr=__b.mapReduce
+__b.maprr=__b.mapReduceRight;__b.any=__b.include;__b.some=__b.include;__b.find=__b.detect
+__b.filter=__b.select;__b.discard=__b.reject;__b.every=__b.all
+__b.takeWhile=__b.selectWhile;__b.rejectWhile=__b.dropWhile;__b.shift=__b.pop
+__b.rmRange=__b.removeRange;__b.chop=__b.removeRange;__b.head=__b.first;__b.take=__b.first
+__b.tail=__b.rest;__b.skip=__b.last;__b.without=__b.difference;__b.diff=__b.difference
 __b.symdiff=__b.symmetric_difference;__b.unique=__b.uniq;__b.mirror=__b.invert;__b.join=__b.concat
 __b.cache=__b.memoize;__b.uId=__b.uniqueId;__b.methods=__b.functions;__b.choose=__b.pick
 __b.drop=__b.omit;__b.defaults=__b.template end

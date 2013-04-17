@@ -101,6 +101,32 @@ function _.countf(list, f, ...)
 	return _.count(_.map(list, f, ...), true)
 end
 
+--- Iterator to cycle through the contents of a list or a collection. Loops on each key-pairs of a given 
+-- list repeatedly `n` times or forever (if `n` is omitted). In case `n` is lower or equal to 0, does nothing.
+-- <br/><em>Aliased as `loop`</em>.
+-- @name cycle
+-- @tparam table list a collection
+-- @tparam number n a number of loops
+-- @treturn function an iterator function returning a key-value pair from the passed-in list.
+function _.cycle(list, n)
+	if n<=0 then return end
+	local k, fk
+	local i = 0
+	while true do
+		return function()
+			k = k and next(list,k) or next(list)
+			fk = not fk and k or fk
+			if n then
+				i = (k==fk) and i+1 or i
+				if i > n then 
+					return
+				end
+			end
+			return k, list[k]
+		end
+	end
+end
+
 --- Maps function `f` on each key-value of a given collection. Collects
 -- and returns the outputs.<br/><em>Aliased as `collect`</em>.
 -- @name map
@@ -1421,6 +1447,7 @@ do
 	if not rawget(_G, 'MOSES_NO_ALIASES') then
 		_.forEach = _.each
 		_.forEachi = _.eachi
+		_.loop = _.cycle
 		_.collect = _.map
 		_.inject = _.reduce
 		_.foldl = _.reduce
