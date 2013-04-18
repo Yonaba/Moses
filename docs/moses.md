@@ -865,6 +865,31 @@ _.each(array,print)
 -- => 3 9
 ````
 
+### chunk
+
+Iterates over an array chunking together. Values are chunked on the basis of the return
+value of `f(key,value,...)`. Consecutive elements which return the same value are chunked together.
+
+```lua
+local t = {1,1,2,3,3,4}
+local v = _.chunk(t, function(k,v) return v%2==0 end)
+_.each(v,function(k,v)
+	print('table',k)
+	_.each(v,print)
+end)
+
+-- => table	1
+-- => 1	1
+-- => 2	1
+-- => table	2
+-- => 1	2
+-- => table	3
+-- => 1 3
+-- => 2	3
+-- => table	4
+-- => 1	4
+````
+
 ### slice
 
 Slices and returns a part of an array:

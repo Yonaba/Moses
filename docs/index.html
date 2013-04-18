@@ -222,6 +222,10 @@
 	<td class="summary">Trims all values indexed within the range <code>[start,finish]</code>.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#chunk">chunk&nbsp;(array, f[, ...])</a></td>
+	<td class="summary">Iterates over an array chunking together.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#slice">slice&nbsp;(array[, start[, finish]])</a></td>
 	<td class="summary">Slices values indexed within <code>[start,finish]</code> range.</td>
 	</tr>
@@ -1656,6 +1660,38 @@
 
           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
         the passed-in array
+    </ol>
+
+
+</dd>
+    <dt>
+    <a name = "chunk"></a>
+    <strong>chunk&nbsp;(array, f[, ...])</strong>
+    </dt>
+    <dd>
+    Iterates over an array chunking together.  Values are chunked on the basis of the return
+ value of <code>f(key,value,...)</code>. Consecutive elements which return the same value are chunked together.
+ Leaves the first argument untouched if it is not an array.
+
+    <h3>Parameters:</h3>
+    <ul>
+      <li><span class="parameter">array</span>
+        <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+       an array</li>
+      <li><span class="parameter">f</span>
+        <span class="types"><span class="type">function</span></span>
+       an iterator function prototyped as <code>f(key,value,...)</code></li>
+      <li><span class="parameter">...</span>
+        <span class="types"><span class="type">var_arg</span></span>
+       Optional extra-args to be passed to function <code>f</code></li>
+    </ul>
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        a table of chunks (arrays).
     </ol>
 
 
