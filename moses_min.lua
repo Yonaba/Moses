@@ -109,6 +109,12 @@ function __b.removeRange(dab,_bb,abb)local bbb=__b.clone(dab)local cbb,dbb=(_aa(
 #bbb;if dbb<1 then return bbb end
 _bb=c_b(_bb or cbb,cbb,dbb)abb=c_b(abb or dbb,cbb,dbb)if abb<_bb then return bbb end
 local _cb=abb-_bb+1;local acb=_bb;while _cb>0 do cba(bbb,acb)_cb=_cb-1 end;return bbb end
+function __b.chunk(dab,_bb,...)if not __b.isArray(dab)then return dab end;local abb,bbb,cbb={},0
+local dbb=__b.map(dab,_bb,...)
+__b.each(dbb,function(_cb,acb)cbb=(cbb==nil)and acb or cbb;bbb=(
+(acb~=cbb)and(bbb+1)or bbb)
+if not abb[bbb]then abb[bbb]={dab[_cb]}else abb[bbb][
+#abb[bbb]+1]=dab[_cb]end;cbb=acb end)return abb end
 function __b.slice(dab,_bb,abb)return
 __b.select(dab,function(bbb)return
 (bbb>= (_bb or _aa(dab))and bbb<= (abb or#dab))end)end;function __b.first(dab,_bb)local abb=_bb or 1

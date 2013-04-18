@@ -101,7 +101,7 @@ function _.countf(list, f, ...)
 	return _.count(_.map(list, f, ...), true)
 end
 
---- Iterator to cycle through the contents of a list or a collection. Loops on each key-pairs of a given 
+--- Iterator to cycle through the contents of a list or a collection. Loops on each key-pairs of a given
 -- list repeatedly `n` times or forever (if `n` is omitted). In case `n` is lower or equal to 0, does nothing.
 -- <br/><em>Aliased as `loop`</em>.
 -- @name cycle
@@ -118,7 +118,7 @@ function _.cycle(list, n)
 			fk = not fk and k or fk
 			if n then
 				i = (k==fk) and i+1 or i
-				if i > n then 
+				if i > n then
 					return
 				end
 			end
@@ -669,6 +669,31 @@ function _.removeRange(array,start,finish)
     count = count - 1
   end
   return array
+end
+
+--- Iterates over an array chunking together. Values are chunked on the basis of the return
+-- value of `f(key,value,...)`. Consecutive elements which return the same value are chunked together.
+-- Leaves the first argument untouched if it is not an array.
+-- @name chunk
+-- @tparam table array an array 
+-- @tparam function f an iterator function prototyped as `f(key,value,...)`
+-- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
+-- @treturn table a table of chunks (arrays).
+function _.chunk(array, f,...)
+	if not _.isArray(array) then return array end
+	local ch, ck, prev = {}, 0
+	local mask = _.map(array, f,...)
+	_.each(mask, function(k,v)
+		prev = (prev==nil) and v or prev
+		ck = ((v~=prev) and (ck+1) or ck)
+		if not ch[ck] then
+			ch[ck] = {array[k]}
+		else
+			ch[ck][#ch[ck]+1] = array[k]
+		end
+		prev = v
+	end)
+	return ch
 end
 
 --- Slices values indexed within `[start,finish]` range.
