@@ -1,5 +1,28 @@
 #Version history#
 
+##1.3.2 (04/19/13)
+Added `_.import`, export library to context or _G
+Added `noConflict` option to `_.import`
+Added `MOSES_NO_ALIASES` option when requiring the library
+Added `_.symmetric_difference`
+Added `_.eachi`
+Added  `_.isInteger`
+Added `_.cycle`
+Added `_.count`
+Added `_.countf`
+Added `_.chunk` (inspired from Ruby's Enumerable [#chunk](http://ruby-doc.org/core-2.0/Enumerable.html#method-i-chunk))
+Added  `_.chop` as alias to `_.removeRange`
+Added  `_.skip` as alias to `_.last`
+Added  `_.diff` as alias to `_.difference`
+Added  `_.symdiff` as alias to `_.symmetric_difference`
+Added `_.forEachi` as alias to `_.eachi`
+Added `_.loop` as alias to `_.cycle`
+Renamed `_.pairs` to `_.paired`
+Removed `_.count` as alias to `_.range`
+Changed `_.difference behaviour`, now takes up to two arrays as args
+Fixed internal inconsistencies with aliases, should not be used internally with regards to `MOSES_NO_ALIASES` option.
+Fixed `_.each` implementation, should not return anything
+
 ##1.3.1 (04/12/13)
 * Added chaining interface
 * Renamed `_.isObject` to `_.isTable`
