@@ -1,5 +1,8 @@
 #Version history#
 
+##1.3.2.1 (04/22/13)
+Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.
+
 ##1.3.2 (04/19/13)
 Added `_.import`, export library to context or _G
 Added `noConflict` option to `_.import`
