@@ -11,16 +11,25 @@ __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com
 local _ = require ("moses")
 ````
 
-In case a global `MOSES_NO_ALIASES` set to `true` was found in the global environment, library functions aliases will not be imported.
+In case a variable named `MOSES_ALIASES` set to `true` was found in the global environment, library functions aliases will also be available.
 
 ```lua
-_G.MOSES_NO_ALIASES = true -- Setting this global on purpose
 local _ = require ("moses")
 print(_.each)
 print(_.forEach)
 
 -- => function: 00309410
 -- => nil
+````
+
+```lua
+_G.MOSES_ALIASES = true -- Setting this global on purpose
+local _ = require ("moses")
+print(_.each)
+print(_.forEach)
+
+-- => function: 00309410
+-- => function: 00309410
 ````
 
 ## Collection functions samples

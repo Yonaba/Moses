@@ -1,9 +1,7 @@
-_G.MOSES_NO_ALIASES = true
-local _ = require 'moses'
-
 context('Object functions specs', function()
-	
-	test('Defining MOSES_NO_ALIASES before importing moses disable aliases', function()
+
+	local _ = require 'moses'
+	test('Not defining MOSES_ALIASES before calling Moses will not import aliases', function()
 		assert_nil(_.forEach)
 		assert_nil(_.collect)
 		assert_nil(_.inject)
@@ -36,5 +34,45 @@ context('Object functions specs', function()
 		assert_nil(_.drop)
 		assert_nil(_.defaults) 
 	end)
+	
+end)
 
+context('Object functions specs', function()
+	package.loaded.moses = nil
+	_G.MOSES_ALIASES = true
+	local _ = require 'moses'
+	test('Setting MOSES_ALIASES to true before calling Moses will import aliases', function()
+		assert_not_nil(_.forEach)
+		assert_not_nil(_.collect)
+		assert_not_nil(_.inject)
+		assert_not_nil(_.foldl)
+		assert_not_nil(_.injectr)
+		assert_not_nil(_.foldr)
+		assert_not_nil(_.mapr) 
+		assert_not_nil(_.maprr) 
+		assert_not_nil(_.any)
+		assert_not_nil(_.some) 
+		assert_not_nil(_.find)
+		assert_not_nil(_.filter) 
+		assert_not_nil(_.discard) 
+		assert_not_nil(_.every)
+		assert_not_nil(_.takeWhile)
+		assert_not_nil(_.rejectWhile) 
+		assert_not_nil(_.shift)
+		assert_not_nil(_.rmRange) 
+		assert_not_nil(_.head) 
+		assert_not_nil(_.take) 
+		assert_not_nil(_.tail) 
+		assert_not_nil(_.without) 
+		assert_not_nil(_.unique)
+		assert_not_nil(_.mirror) 
+		assert_not_nil(_.join) 
+		assert_not_nil(_.cache) 
+		assert_not_nil(_.uId) 
+		assert_not_nil(_.methods) 
+		assert_not_nil(_.choose) 
+		assert_not_nil(_.drop)
+		assert_not_nil(_.defaults) 
+	end)
+	
 end)

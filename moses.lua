@@ -1468,8 +1468,8 @@ do
 	-- Register chaining methods into the wrapper
 	f.chain, f.value = __.chain, __.value
 
-	-- Enables aliases in case MOSES_NO_ALIASES was not set in the global env
-	if not rawget(_G, 'MOSES_NO_ALIASES') then
+	-- Enables aliases in case MOSES_ALIASES was set to true in the global env
+	if rawget(_G, 'MOSES_ALIASES') then
 		_.forEach = _.each
 		_.forEachi = _.eachi
 		_.loop = _.cycle
