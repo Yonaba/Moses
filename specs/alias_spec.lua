@@ -1,4 +1,4 @@
-context('Object functions specs', function()
+context('Disabling aliases', function()
 
 	local _ = require 'moses'
 	test('Not defining MOSES_ALIASES before calling Moses will not import aliases', function()
@@ -37,7 +37,7 @@ context('Object functions specs', function()
 	
 end)
 
-context('Object functions specs', function()
+context('Enabling aliases', function()
 	package.loaded.moses = nil
 	_G.MOSES_ALIASES = true
 	local _ = require 'moses'
