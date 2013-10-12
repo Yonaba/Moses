@@ -153,7 +153,11 @@ end
 -- @treturn state state a final state of reduction
 function _.reduce(list,f,state)
   for _,value in pairs(list) do
-    state = not state and value or f(state,value)
+    if state == nil then
+      state = value
+    else
+      state = f(state,value)
+    end
   end
   return state
 end
@@ -675,7 +679,7 @@ end
 -- value of `f(key,value,...)`. Consecutive elements which return the same value are chunked together.
 -- Leaves the first argument untouched if it is not an array.
 -- @name chunk
--- @tparam table array an array 
+-- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a table of chunks (arrays).

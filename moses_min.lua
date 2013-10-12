@@ -28,7 +28,7 @@ cbb=(abb==bbb)and cbb+1 or cbb;if cbb>_bb then return end end
 return abb,dab[abb]end end end;function __b.map(dab,_bb,...)local abb={}
 for bbb,cbb in cda(dab)do abb[bbb]=_bb(bbb,cbb,...)end;return abb end;function __b.reduce(dab,_bb,abb)
 for bbb,cbb in
-cda(dab)do abb=not abb and cbb or _bb(abb,cbb)end;return abb end;function __b.reduceRight(dab,_bb,abb)return
+cda(dab)do if abb==nil then abb=cbb else abb=_bb(abb,cbb)end end;return abb end;function __b.reduceRight(dab,_bb,abb)return
 __b.reduce(__b.reverse(dab),_bb,abb)end
 function __b.mapReduce(dab,_bb,abb)
 local bbb={}for cbb,dbb in cda(dab)do bbb[cbb]=not abb and dbb or _bb(abb,dbb)
