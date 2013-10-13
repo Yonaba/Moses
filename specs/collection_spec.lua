@@ -152,6 +152,13 @@ context('Collection functions specs', function()
       assert_equal(_.reduce({'a','b','c'},function(memo,v) return memo..v end),'abc')
     end)    
   
+    test('supports arrays of booleans', function()
+      assert_equal(_.reduce({true, false, true, true},function(memo,v) return memo and v end), false)
+      assert_equal(_.reduce({true, true, true},function(memo,v) return memo and v end), true)
+      assert_equal(_.reduce({false, false, false},function(memo,v) return memo and v end), false)
+      assert_equal(_.reduce({false, false, true},function(memo,v) return memo or v end), true)
+    end)
+    
   end)
   
   context('reduceRight', function()
