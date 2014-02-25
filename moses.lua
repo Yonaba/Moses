@@ -1349,7 +1349,15 @@ end
 -- @treturn boolean __true__ or __false__
 function _.isArray(obj)
 	if not _.isTable(obj) then return false end
-	return count(obj) == #obj
+	-- Thanks @Enrique García Cota for suggesting this
+  -- See : http://love2d.org/forums/viewtopic.php?f=3&t=77255&start=30#p163566
+  local maxKey, count = 0, 0
+  for k in pairs(obj) do
+    if not _.isInteger(k) or k < 1 then return false end
+    if k > maxKey then maxKey = k end
+    count = count + 1
+  end
+  return count == maxKey
 end
 
 --- Checks if the given is empty. If `obj` is a @{string}, will return __true__
