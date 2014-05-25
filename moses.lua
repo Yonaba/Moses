@@ -772,8 +772,8 @@ function _.flatten(array, shallow)
   local new_flattened
   local _flat = {}
   for key,value in pairs(array) do
-    if _.isTable(value) and not shallow then
-      new_flattened = _.flatten (value)
+    if _.isTable(value) then
+      new_flattened = shallow and value or _.flatten (value)
       _.each(new_flattened, function(_,item) _flat[#_flat+1] = item end)
     else _flat[#_flat+1] = value
     end

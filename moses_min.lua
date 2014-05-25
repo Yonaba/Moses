@@ -132,8 +132,8 @@ not abb end)end
 function __b.flatten(dab,_bb)local abb=_bb or false
 local bbb;local cbb={}
 for dbb,_cb in cda(dab)do
-if __b.isTable(_cb)and not abb then
-bbb=__b.flatten(_cb)
+if __b.isTable(_cb)then
+bbb=abb and _cb or __b.flatten(_cb)
 __b.each(bbb,function(acb,bcb)cbb[#cbb+1]=bcb end)else cbb[#cbb+1]=_cb end end;return cbb end
 function __b.difference(dab,_bb)if not _bb then return __b.clone(dab)end;return
 __b.select(dab,function(abb,bbb)return not
