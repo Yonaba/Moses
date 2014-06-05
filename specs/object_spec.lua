@@ -177,6 +177,11 @@ context('Object functions specs', function()
       local object = {a = 1, b = 2, c = 3}
       assert_true(_.isEqual(_.pick(object),{}))
     end)  
+
+    test('should also pick attributes having falsy values',function()
+      local object = {a = false, b = false, c = true}
+      assert_true(_.isEqual(_.pick(object,'a','b'),{a = false,b = false}))
+    end)  
     
   end)  
   
