@@ -205,7 +205,8 @@ if not _bb then abb[bbb]=__b.clone(cbb,_bb)else abb[bbb]=cbb end else abb[bbb]=c
 dab[_bb]~=nil end
 function __b.pick(dab,...)local _bb=__b.flatten{...}
 local abb={}
-__b.each(_bb,function(bbb,cbb)if dab[cbb]then abb[cbb]=dab[cbb]end end)return abb end
+__b.each(_bb,function(bbb,cbb)
+if not __b.isNil(dab[cbb])then abb[cbb]=dab[cbb]end end)return abb end
 function __b.omit(dab,...)local _bb=__b.flatten{...}local abb={}
 __b.each(dab,function(bbb,cbb)if
 not __b.include(_bb,bbb)then abb[bbb]=cbb end end)return abb end;function __b.template(dab,_bb)

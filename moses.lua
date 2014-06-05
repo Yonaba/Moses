@@ -1226,7 +1226,7 @@ function _.pick(obj, ...)
 	local whitelist = _.flatten {...}
 	local _picked = {}
 	_.each(whitelist,function(key,property)
-			if obj[property] then
+			if not _.isNil(obj[property]) then
 				_picked[property] = obj[property]
 			end
 		end)
