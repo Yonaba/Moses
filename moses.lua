@@ -25,9 +25,9 @@ local function clamp(var,a,b) return (var<a) and a or (var>b and b or var) end
 local function isTrue(_,value) return value and true end
 local function iNot(value) return not value end
 local function count(t)
-	local i
+  local i
     for k,v in pairs(t) do i = (i or 0) + 1 end
-	return i
+  return i
 end
 local function extract(list,comp,transform,...)
   local _ans
@@ -68,12 +68,12 @@ end
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 function _.eachi(list, f, ...)
   if not _.isTable(list) then return end
-	local lkeys = _.sort(_.select(_.keys(list), function(k,v)
-		return _.isInteger(v)
-	end))
-	for k, key in ipairs(lkeys) do
-		f(key, list[key],...)
-	end
+  local lkeys = _.sort(_.select(_.keys(list), function(k,v)
+    return _.isInteger(v)
+  end))
+  for k, key in ipairs(lkeys) do
+    f(key, list[key],...)
+  end
 end
 
 --- Counts the number of occurences of a given value in a list. Uses @{isEqual} to compare objects.
@@ -83,12 +83,12 @@ end
 -- @see countf
 -- @see size
 function _.count(list, value)
-	if _.isNil(value) then return _.size(list) end
-	local count = 0
-	_.each(list, function(k,v)
-		if _.isEqual(v, value) then count = count + 1 end
-	end)
-	return count
+  if _.isNil(value) then return _.size(list) end
+  local count = 0
+  _.each(list, function(k,v)
+    if _.isEqual(v, value) then count = count + 1 end
+  end)
+  return count
 end
 
 --- Same as @{count}, but uses an iterator. Provide a count for the number of values passing the test `f(key,value,...)`
@@ -98,7 +98,7 @@ end
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @see countf
 function _.countf(list, f, ...)
-	return _.count(_.map(list, f, ...), true)
+  return _.count(_.map(list, f, ...), true)
 end
 
 --- Iterator to cycle through the contents of a list or a collection. Loops on each key-pairs of a given
@@ -109,22 +109,22 @@ end
 -- @tparam number n a number of loops
 -- @treturn function an iterator function returning a key-value pair from the passed-in list.
 function _.cycle(list, n)
-	if n<=0 then return end
-	local k, fk
-	local i = 0
-	while true do
-		return function()
-			k = k and next(list,k) or next(list)
-			fk = not fk and k or fk
-			if n then
-				i = (k==fk) and i+1 or i
-				if i > n then
-					return
-				end
-			end
-			return k, list[k]
-		end
-	end
+  if n<=0 then return end
+  local k, fk
+  local i = 0
+  while true do
+    return function()
+      k = k and next(list,k) or next(list)
+      fk = not fk and k or fk
+      if n then
+        i = (k==fk) and i+1 or i
+        if i > n then
+          return
+        end
+      end
+      return k, list[k]
+    end
+  end
 end
 
 --- Maps function `f` on each key-value of a given collection. Collects
@@ -241,7 +241,7 @@ end
 -- @tparam object item a value to be searched
 -- @treturn boolean true if present, otherwise false
 function _.contains(list, item)
-	return _.detect(list, item) and true or false
+  return _.detect(list, item) and true or false
 end
 
 --- Returns an array of values. Those are values from list containing all key-value pairs listed in `props`.
@@ -250,14 +250,14 @@ end
 -- @tparam props a set of properties
 -- @treturn table an array of values containing all of the properties found in `props`.
 function _.where(list, props)
-	local found = {}
-	if _.isEmpty(props) then return {} end
-	return _.select(list, function(k,v)
-		for key in pairs(props) do
-			if props[key] ~= v[key] then return false end
-		end
-		return true
-	end)
+  local found = {}
+  if _.isEmpty(props) then return {} end
+  return _.select(list, function(k,v)
+    for key in pairs(props) do
+      if props[key] ~= v[key] then return false end
+    end
+    return true
+  end)
 end
 
 --- Returns a value. This value should be the first value found in an array containing all key-value pairs listed in `props`.
@@ -266,13 +266,13 @@ end
 -- @tparam props a set of properties
 -- @treturn item a value from the passed-in list
 function _.findWhere(list, props)
-	local index = _.detect(list, function(v)
-		for key in pairs(props) do
-			if props[key] ~= v[key] then return false end
-		end
-		return true
-	end)
-	return index and list[index]
+  local index = _.detect(list, function(v)
+    for key in pairs(props) do
+      if props[key] ~= v[key] then return false end
+    end
+    return true
+  end)
+  return index and list[index]
 end
 
 
@@ -328,20 +328,20 @@ function _.invoke(list,method,...)
   local args = {...}
   return _.map(list, function(__,v)
         if _.isTable(v) then
-			if _.has(v,method) then
-				if _.isCallable(v[method]) then
-					return v[method](v,unpack(args))
-				else return v[method]
-				end
-			else
-				if _.isCallable(method) then
-					return method(v,unpack(args))
-				end
-			end
-		elseif _.isCallable(method) then
-			return method(v,unpack(args))
-		end
-	end)
+      if _.has(v,method) then
+        if _.isCallable(v[method]) then
+          return v[method](v,unpack(args))
+        else return v[method]
+        end
+      else
+        if _.isCallable(method) then
+          return method(v,unpack(args))
+        end
+      end
+    elseif _.isCallable(method) then
+      return method(v,unpack(args))
+    end
+  end)
 end
 
 --- Extracts property-values from a collection of objects.
@@ -403,11 +403,11 @@ end
 -- @treturn boolean __true__ or __false__
 function _.same(a,b)
   return _.all(a, function (i,v)
-			return _.include(b,v)
-		end)
+      return _.include(b,v)
+    end)
     and _.all(b, function (i,v)
-			return _.include(a,v)
-		end)
+      return _.include(a,v)
+    end)
 end
 
 --- Sorts a collection. If a comparison function is given, it will be used to sort objects
@@ -460,12 +460,12 @@ end
 -- @treturn table a new collection with subsets names and count
 function _.countBy(list,iter,...)
   local var_arg = {...}
-	local stats = {}
-	_.each(list,function(i,v)
-			local key = iter(i,v,unpack(var_arg))
-			stats[key] = (stats[key] or 0) +1
-		end)
-	return stats
+  local stats = {}
+  _.each(list,function(i,v)
+      local key = iter(i,v,unpack(var_arg))
+      stats[key] = (stats[key] or 0) +1
+    end)
+  return stats
 end
 
 --- Counts the number of values in a collection. If being passed more than one args
@@ -684,20 +684,20 @@ end
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 -- @treturn table a table of chunks (arrays).
 function _.chunk(array, f,...)
-	if not _.isArray(array) then return array end
-	local ch, ck, prev = {}, 0
-	local mask = _.map(array, f,...)
-	_.each(mask, function(k,v)
-		prev = (prev==nil) and v or prev
-		ck = ((v~=prev) and (ck+1) or ck)
-		if not ch[ck] then
-			ch[ck] = {array[k]}
-		else
-			ch[ck][#ch[ck]+1] = array[k]
-		end
-		prev = v
-	end)
-	return ch
+  if not _.isArray(array) then return array end
+  local ch, ck, prev = {}, 0
+  local mask = _.map(array, f,...)
+  _.each(mask, function(k,v)
+    prev = (prev==nil) and v or prev
+    ck = ((v~=prev) and (ck+1) or ck)
+    if not ch[ck] then
+      ch[ck] = {array[k]}
+    else
+      ch[ck][#ch[ck]+1] = array[k]
+    end
+    prev = v
+  end)
+  return ch
 end
 
 --- Slices values indexed within `[start,finish]` range.
@@ -758,8 +758,8 @@ end
 -- @treturn table a new array
 function _.compact(array)
   return _.reject(array, function (_,value)
-		return not value
-	end)
+    return not value
+  end)
 end
 
 --- Flattens a nested array. Passing `shallow` will only flatten at the first single level.
@@ -787,7 +787,7 @@ end
 -- @tparam table another array
 -- @treturn table a new array
 function _.difference(array,array2)
-	if not array2 then return _.clone(array) end
+  if not array2 then return _.clone(array) end
   return _.select(array,function(i,value)
       return not _.include(array2,value)
     end)
@@ -800,10 +800,10 @@ end
 -- @tparam table array2 another array
 -- @treturn table a new array
 function _.symmetric_difference(array, array2)
-	return _.difference(
-		_.union(array, array2),
-		_.intersection(array,array2)
-	)
+  return _.difference(
+    _.union(array, array2),
+    _.intersection(array,array2)
+  )
 end
 
 --- Produces a duplicate-free version of a given array. Passing `isSorted` will
@@ -823,8 +823,8 @@ function _.uniq(array,isSorted,iter,...)
   if not isSorted then
     for __,v in ipairs(init) do
       if not _.include(result,v) then
-		result[#result+1] = v
-		end
+    result[#result+1] = v
+    end
     end
   return result
   end
@@ -832,8 +832,8 @@ function _.uniq(array,isSorted,iter,...)
   result[#result+1] = init[1]
   for i = 2,#init do
     if init[i] ~= result[#result] then
-		result[#result+1] = init[i]
-	end
+    result[#result+1] = init[i]
+  end
   end
   return result
 end
@@ -939,9 +939,9 @@ end
 -- @treturn string a string
 function _.concat(array,sep,i,j)
   local _array = _.map(array,function(i,v)
-		return tostring(v)
-	end)
-	return t_concat(_array,sep,i,j)
+    return tostring(v)
+  end)
+  return t_concat(_array,sep,i,j)
 
 end
 
@@ -1028,7 +1028,7 @@ end
 -- @tparam function wrapper a wrapper function, prototyped as `wrapper(f,...)`
 -- @treturn function a new function
 function _.wrap(f,wrapper)
-	return function (...)
+  return function (...)
       return  wrapper(f,...)
     end
 end
@@ -1082,15 +1082,15 @@ end
 -- @tparam[optchain] var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
 -- @treturn id a formatted Id
 function _.uniqueId(template,...)
-	unique_id_counter = unique_id_counter + 1
-	if template then
-		if _.isString(template) then
-			return template:format(unique_id_counter)
-		elseif _.isFunction(template) then
-			return template(unique_id_counter,...)
-		end
-	end
-	return unique_id_counter
+  unique_id_counter = unique_id_counter + 1
+  if template then
+    if _.isString(template) then
+      return template:format(unique_id_counter)
+    elseif _.isFunction(template) then
+      return template(unique_id_counter,...)
+    end
+  end
+  return unique_id_counter
 end
 
 -- ========= Object functions
@@ -1122,9 +1122,9 @@ end
 function _.paired(obj)
   local paired = {}
   _.each(obj,function(k,v)
-		paired[#paired+1] = {k,v}
-	end)
-	return paired
+    paired[#paired+1] = {k,v}
+  end)
+  return paired
 end
 
 --- Extends an object properties. It copies all of the properties of extra passed-in objects
@@ -1135,15 +1135,15 @@ end
 -- @tparam var_arg ... a variable number of array arguments
 -- @treturn table the destination object extended
 function _.extend(destObj,...)
-	local sources = {...}
-	_.each(sources,function(__,source)
-		if _.isTable(source) then
-			_.each(source,function(key,value)
-				destObj[key] = value
-			end)
-		end
-	end)
-	return destObj
+  local sources = {...}
+  _.each(sources,function(__,source)
+    if _.isTable(source) then
+      _.each(source,function(key,value)
+        destObj[key] = value
+      end)
+    end
+  end)
+  return destObj
 end
 
 --- Returns a sorted list of all methods names found in an object. If the given object
@@ -1155,21 +1155,21 @@ end
 -- @treturn table an array of methods names
 function _.functions(obj)
   if not obj then
-		return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
-	end
+    return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
+  end
   local _methods = {}
   _.each(obj,function(key,value)
     if _.isFunction(value) then
-			_methods[#_methods+1]=key
-		end
+      _methods[#_methods+1]=key
+    end
   end)
-	local mt = getmetatable(obj)
-	if mt and mt.__index then
-		local mt_methods = _.functions(mt.__index)
-		_.each(mt_methods, function(k,fn)
-			_methods[#_methods+1] = fn
-		end)
-	end
+  local mt = getmetatable(obj)
+  if mt and mt.__index then
+    local mt_methods = _.functions(mt.__index)
+    _.each(mt_methods, function(k,fn)
+      _methods[#_methods+1] = fn
+    end)
+  end
    return _.sort(_methods)
 end
 
@@ -1180,17 +1180,17 @@ end
 -- @tparam[opt] boolean shallow whether or not nested array-properties should be cloned, defaults to false.
 -- @treturn table a clone of the passed-in object
 function _.clone(obj,shallow)
-	if not _.isTable(obj) then return obj end
+  if not _.isTable(obj) then return obj end
   local _obj = {}
   _.each(obj,function(i,v)
     if _.isTable(v) then
       if not shallow then
-		_obj[i] = _.clone(v,shallow)
-	  else _obj[i] = v
-	  end
-	else
-		_obj[i] = v
-	end
+    _obj[i] = _.clone(v,shallow)
+    else _obj[i] = v
+    end
+  else
+    _obj[i] = v
+  end
   end)
   return _obj
 end
@@ -1203,8 +1203,8 @@ end
 -- @tparam[opt] vararg ... Extra-args to be passed to interceptor function
 -- @treturn table the passed-in object
 function _.tap(obj, f,...)
-	f(obj,...)
-	return obj
+  f(obj,...)
+  return obj
 end
 
 --- Checks if a given object implements a property.
@@ -1223,14 +1223,14 @@ end
 -- @tparam var_arg ... a variable number of string keys
 -- @treturn table the filtered object
 function _.pick(obj, ...)
-	local whitelist = _.flatten {...}
-	local _picked = {}
-	_.each(whitelist,function(key,property)
-			if not _.isNil(obj[property]) then
-				_picked[property] = obj[property]
-			end
-		end)
-	return _picked
+  local whitelist = _.flatten {...}
+  local _picked = {}
+  _.each(whitelist,function(key,property)
+      if not _.isNil(obj[property]) then
+        _picked[property] = obj[property]
+      end
+    end)
+  return _picked
 end
 
 --- Return a filtered copy of the object. The returned object will not have
@@ -1240,14 +1240,14 @@ end
 -- @tparam var_arg ... a variable number of string keys
 -- @treturn table the filtered object
 function _.omit(obj,...)
-	local blacklist = _.flatten {...}
-	local _picked = {}
-	_.each(obj,function(key,value)
-			if not _.include(blacklist,key) then
-				_picked[key] = value
-			end
-		end)
-	return _picked
+  local blacklist = _.flatten {...}
+  local _picked = {}
+  _.each(obj,function(key,value)
+      if not _.include(blacklist,key) then
+        _picked[key] = value
+      end
+    end)
+  return _picked
 end
 
 --- Fills nil properties in an object with the given `template` object. Pre-existing
@@ -1258,9 +1258,9 @@ end
 -- @treturn table the passed-in object filled
 function _.template(obj,template)
   _.each(template,function(i,v)
-	if not obj[i] then
-		obj[i] = v
-	end
+  if not obj[i] then
+    obj[i] = v
+  end
   end)
   return obj
 end
@@ -1275,8 +1275,8 @@ end
 -- @tparam[opt] boolean useMt whether or not `mt.__eq` should be used, defaults to false.
 -- @treturn boolean __true__ or __false__
 function _.isEqual(objA,objB,useMt)
-	local typeObjA = type(objA)
-	local typeObjB = type(objB)
+  local typeObjA = type(objA)
+  local typeObjB = type(objB)
   if typeObjA~=typeObjB then return false end
   if typeObjA~='table' then return (objA==objB) end
 
@@ -1284,9 +1284,9 @@ function _.isEqual(objA,objB,useMt)
   local mtB = getmetatable(objB)
 
   if useMt then
-	if mtA or mtB and mtA.__eq or mtB.__eq then
-		return (objA==objB)
-	end
+  if mtA or mtB and mtA.__eq or mtB.__eq then
+    return (objA==objB)
+  end
   end
 
   if _.size(objA)~=_.size(objB) then return false end
@@ -1338,8 +1338,8 @@ end
 -- @treturn boolean __true__ or __false__
 function _.isCallable(obj)
   return (_.isFunction(obj) or
-		 (_.isTable(obj) and getmetatable(obj)
-					         and getmetatable(obj).__call~=nil) or false)
+     (_.isTable(obj) and getmetatable(obj)
+                   and getmetatable(obj).__call~=nil) or false)
 end
 
 --- Checks if the given arg is an array. Assumes `obj` is an array
@@ -1348,8 +1348,8 @@ end
 -- @tparam object obj an object
 -- @treturn boolean __true__ or __false__
 function _.isArray(obj)
-	if not _.isTable(obj) then return false end
-	-- Thanks @Wojak and @Enrique García Cota for suggesting this
+  if not _.isTable(obj) then return false end
+  -- Thanks @Wojak and @Enrique García Cota for suggesting this
   -- See : http://love2d.org/forums/viewtopic.php?f=3&t=77255&start=40#p163624
   local i = 0
   for __ in pairs(obj) do
@@ -1366,9 +1366,9 @@ end
 -- @tparam object obj an object
 -- @treturn boolean __true__ or __false__
 function _.isEmpty(obj)
-	if _.isString(obj) then return #obj==0 end
-	if _.isTable(obj) then return next(obj)==nil end
-	return true
+  if _.isString(obj) then return #obj==0 end
+  if _.isTable(obj) then return next(obj)==nil end
+  return true
 end
 
 --- Checks if the given arg is a @{string}.
@@ -1392,7 +1392,7 @@ end
 -- @tparam object obj an object
 -- @treturn boolean __true__ or __false__
 function _.isNil(obj)
-	return obj==nil
+  return obj==nil
 end
 
 --- Checks if the given arg is a finite number.
@@ -1400,8 +1400,8 @@ end
 -- @tparam object obj a number
 -- @treturn boolean __true__ or __false__
 function _.isFinite(obj)
-	if not _.isNumber(obj) then return false end
-	return obj > -huge and obj < huge
+  if not _.isNumber(obj) then return false end
+  return obj > -huge and obj < huge
 end
 
 --- Checks if the given arg is a number.
@@ -1409,7 +1409,7 @@ end
 -- @tparam object obj a number
 -- @treturn boolean __true__ or __false__
 function _.isNumber(obj)
-	return type(obj) == 'number'
+  return type(obj) == 'number'
 end
 
 --- Checks if the given arg is NaN (see [Not-A-Number](http://en.wikipedia.org/wiki/NaN)).
@@ -1433,124 +1433,124 @@ end
 -- @tparam object obj a number
 -- @treturn boolean __true__ or __false__
 function _.isInteger(obj)
-	return _.isNumber(obj) and floor(obj)==obj
+  return _.isNumber(obj) and floor(obj)==obj
 end
 
 -- ========= Chaining
 
 do
 
-	-- Wrapper to Moses
-	local f = {}
+  -- Wrapper to Moses
+  local f = {}
 
-	-- Will be returned upon requiring, indexes into the wrapper
-	local __ = {}
-	__.__index = f
+  -- Will be returned upon requiring, indexes into the wrapper
+  local __ = {}
+  __.__index = f
 
-	-- Wraps a value into an instance, and returns the wrapped object
-	local function new(value)
-		local i = {_value = value, _wrapped = true}
-		return setmetatable(i, __)
-	end
+  -- Wraps a value into an instance, and returns the wrapped object
+  local function new(value)
+    local i = {_value = value, _wrapped = true}
+    return setmetatable(i, __)
+  end
 
-	setmetatable(__,{
-		__call  = function(self,v) return new(v) end, -- Calls returns to instantiation
-		__index = function(t,key,...) return f[key] end  -- Redirects to the wrapper
-	})
+  setmetatable(__,{
+    __call  = function(self,v) return new(v) end, -- Calls returns to instantiation
+    __index = function(t,key,...) return f[key] end  -- Redirects to the wrapper
+  })
 
-	--- Returns a wrapped object. Calling library functions as methods on this object
-	-- will continue to return wrapped objects until @{obj:value} is used. Can be aliased as `_(value)`.
-	-- @class function
-	-- @name chain
-	-- @tparam value value a value to be wrapped
-	-- @treturn object a wrapped object
-	function __.chain(value)
-		return new(value)
-	end
+  --- Returns a wrapped object. Calling library functions as methods on this object
+  -- will continue to return wrapped objects until @{obj:value} is used. Can be aliased as `_(value)`.
+  -- @class function
+  -- @name chain
+  -- @tparam value value a value to be wrapped
+  -- @treturn object a wrapped object
+  function __.chain(value)
+    return new(value)
+  end
 
-	--- Extracts the value of a wrapped object. Must be called on an chained object (see @{chain}).
-	-- @class function
-	-- @name obj:value
-	-- @treturn value the value previously wrapped
-	function __:value()
-		return self._value
-	end
+  --- Extracts the value of a wrapped object. Must be called on an chained object (see @{chain}).
+  -- @class function
+  -- @name obj:value
+  -- @treturn value the value previously wrapped
+  function __:value()
+    return self._value
+  end
 
-	-- Register chaining methods into the wrapper
-	f.chain, f.value = __.chain, __.value
+  -- Register chaining methods into the wrapper
+  f.chain, f.value = __.chain, __.value
 
-	-- Enables aliases in case MOSES_ALIASES was set to true in the global env
-	if rawget(_G, 'MOSES_ALIASES') then
-		_.forEach = _.each
-		_.forEachi = _.eachi
-		_.loop = _.cycle
-		_.collect = _.map
-		_.inject = _.reduce
-		_.foldl = _.reduce
-		_.injectr = _.reduceRight
-		_.foldr = _.reduceRight
-		_.mapr = _.mapReduce
-		_.maprr = _.mapReduceRight
-		_.any = _.include
-		_.some = _.include
-		_.find = _.detect
-		_.filter = _.select
-		_.discard = _.reject
-		_.every = _.all
-		_.takeWhile = _.selectWhile
-		_.rejectWhile = _.dropWhile
-		_.shift = _.pop
-		_.rmRange = _.removeRange
-		_.chop = _.removeRange
-		_.head = _.first
-		_.take = _.first
-		_.tail = _.rest
-		_.skip = _.last
-		_.without = _.difference
-		_.diff = _.difference
-		_.symdiff = _.symmetric_difference
-		_.unique = _.uniq
-		_.mirror = _.invert
-		_.join = _.concat
-		_.cache = _.memoize
-		_.uId = _.uniqueId
-		_.methods = _.functions
-		_.choose = _.pick
-		_.drop = _.omit
-		_.defaults = _.template
-	end
+  -- Enables aliases in case MOSES_ALIASES was set to true in the global env
+  if rawget(_G, 'MOSES_ALIASES') then
+    _.forEach = _.each
+    _.forEachi = _.eachi
+    _.loop = _.cycle
+    _.collect = _.map
+    _.inject = _.reduce
+    _.foldl = _.reduce
+    _.injectr = _.reduceRight
+    _.foldr = _.reduceRight
+    _.mapr = _.mapReduce
+    _.maprr = _.mapReduceRight
+    _.any = _.include
+    _.some = _.include
+    _.find = _.detect
+    _.filter = _.select
+    _.discard = _.reject
+    _.every = _.all
+    _.takeWhile = _.selectWhile
+    _.rejectWhile = _.dropWhile
+    _.shift = _.pop
+    _.rmRange = _.removeRange
+    _.chop = _.removeRange
+    _.head = _.first
+    _.take = _.first
+    _.tail = _.rest
+    _.skip = _.last
+    _.without = _.difference
+    _.diff = _.difference
+    _.symdiff = _.symmetric_difference
+    _.unique = _.uniq
+    _.mirror = _.invert
+    _.join = _.concat
+    _.cache = _.memoize
+    _.uId = _.uniqueId
+    _.methods = _.functions
+    _.choose = _.pick
+    _.drop = _.omit
+    _.defaults = _.template
+  end
 
-	-- Register all functions into the wrapper
-	for fname,fct in pairs(_) do
-		f[fname] = function(v, ...)
-			local wrapped = _.isTable(v) and v._wrapped or false
-			if wrapped then
-				local _arg = v._value
-				local _rslt = fct(_arg,...)
-				return new(_rslt)
-			else
-				return fct(v,...)
-			end
-		end
-	end
+  -- Register all functions into the wrapper
+  for fname,fct in pairs(_) do
+    f[fname] = function(v, ...)
+      local wrapped = _.isTable(v) and v._wrapped or false
+      if wrapped then
+        local _arg = v._value
+        local _rslt = fct(_arg,...)
+        return new(_rslt)
+      else
+        return fct(v,...)
+      end
+    end
+  end
 
-	--- Imports all library functions into a context.
-	-- @name import
-	-- @tparam[opt] table context a context. Defaults to `_G` (global environment) when not given.
-	-- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
-	-- @treturn table the passed-in context
-	f.import = function(context, noConflict)
-		local fs = {}
-		context = context or _G
-		_.each(f, function(k,v)
-			if noConflict then
-				if not rawget(context, k) then fs[k] = v end
-			else
-				fs[k] = v
-			end
-		end)
-		return _.extend(context or _G, fs)
-	end
+  --- Imports all library functions into a context.
+  -- @name import
+  -- @tparam[opt] table context a context. Defaults to `_G` (global environment) when not given.
+  -- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
+  -- @treturn table the passed-in context
+  f.import = function(context, noConflict)
+    local fs = {}
+    context = context or _G
+    _.each(f, function(k,v)
+      if noConflict then
+        if not rawget(context, k) then fs[k] = v end
+      else
+        fs[k] = v
+      end
+    end)
+    return _.extend(context or _G, fs)
+  end
 
-	return __
+  return __
 end
