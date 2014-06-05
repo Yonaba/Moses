@@ -310,8 +310,8 @@ context('Array functions specs', function()
       assert_true(_.isEqual(_.flatten({1,{2,3},{4,5,{6,7}}}),{1,2,3,4,5,6,7}))
     end) 
     
-    test('when given arg "shallow", will do nothing', function()
-      assert_true(_.isEqual(_.flatten({1,{2,3},{4,5,{6,7}}},true),{1,{2,3},{4,5,{6,7}}}))
+    test('when given arg "shallow", flatten only first level', function()
+      assert_true(_.isEqual(_.flatten({1,{2,3},{4,5,{6,7}}},true),{1,2,3,4,5,{6,7}}))
     end)     
     
   end)
