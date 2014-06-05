@@ -83,9 +83,9 @@ context('Object functions specs', function()
 
     test('when given no obj as argument, returns all library functions',function()
       local functions = _.functions()
-			_.each(functions, function(k,v)
-				assert_true(_.isFunction(_[v]))
-			end)
+      _.each(functions, function(k,v)
+        assert_true(_.isFunction(_[v]))
+      end)
     end)
     
   end)  
@@ -123,26 +123,26 @@ context('Object functions specs', function()
     end)     
     
   end)
-	
-	context('tap', function()
-		
-		test('tap-into a method chain', function()
-			local t = {}
-			local catchMax = function(k) t[#t+1] = _.max(k) end
-			local catchMin = function(k) t[#t+1] = _.min(k) end
-			
-			_.chain({1,2,3})
-				:map(function(i,j) return j*2 end)
-				:tap(catchMax)
-				:map(function(i,k) return k^2 end)
-				:tap(catchMin)
-				:value()
-				
-			assert_equal(t[1],6)
-			assert_equal(t[2],4)
-		end)
-	
-	end)
+  
+  context('tap', function()
+    
+    test('tap-into a method chain', function()
+      local t = {}
+      local catchMax = function(k) t[#t+1] = _.max(k) end
+      local catchMin = function(k) t[#t+1] = _.min(k) end
+      
+      _.chain({1,2,3})
+        :map(function(i,j) return j*2 end)
+        :tap(catchMax)
+        :map(function(i,k) return k^2 end)
+        :tap(catchMin)
+        :value()
+        
+      assert_equal(t[1],6)
+      assert_equal(t[2],4)
+    end)
+  
+  end)
 
   context('has', function()
   
@@ -522,7 +522,7 @@ context('Object functions specs', function()
     end)    
     
   end)
-	
+  
   context('isInteger', function()
   
     test('returns "true" if arg is a integer, "false" otherwise',function()
@@ -534,27 +534,27 @@ context('Object functions specs', function()
       assert_false(_.isInteger(0/0))
     end)  
     
-  end)	
+  end)  
   
-	context('import', function()
-		
-		test('import library functions to a context', function()
-			local context = {}
-			_.import(context)
-			assert_not_nil(next(context))
-			_.each(context, function(k,f)
-				assert_equal(f,_[k])
-			end)			
-		end)
+  context('import', function()
+    
+    test('import library functions to a context', function()
+      local context = {}
+      _.import(context)
+      assert_not_nil(next(context))
+      _.each(context, function(k,f)
+        assert_equal(f,_[k])
+      end)      
+    end)
 
-		test('passing arg `noConflict` preserves existing values in the given context', function()
-			local context = {each = 1, map = 2}
-			_.import(context, true)
-			assert_equal(context.each, 1)			
-			assert_equal(context.map, 2)			
-		end)	
-		
-	
-	end)
-	
+    test('passing arg `noConflict` preserves existing values in the given context', function()
+      local context = {each = 1, map = 2}
+      _.import(context, true)
+      assert_equal(context.each, 1)      
+      assert_equal(context.map, 2)      
+    end)  
+    
+  
+  end)
+  
 end)

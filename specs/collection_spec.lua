@@ -47,85 +47,85 @@ context('Collection functions specs', function()
 
     test('ignores non-integer keys', function()
       local t = {a = 1, b = 2, [0] = 1, [-1] = 6, 3, x = 4, 5}
-			local rk = {-1, 0, 1, 2}
-			local rv = {6, 1, 3, 5}
+      local rk = {-1, 0, 1, 2}
+      local rv = {6, 1, 3, 5}
       local inc = 0
       _.eachi(t,function(i,v)
         inc = inc+1
         assert_equal(i,rk[inc])
         assert_equal(v,rv[inc])
       end)
-    end)		
+    end)    
     
   end)  
  
-	context('count', function()
-		
-		test('count the occurences of value in a list', function()
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},1),2)
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},2),3)
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},3),4)
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},4),1)
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},5),0)
-			assert_equal(_.count({false, false, true},false),2)
-			assert_equal(_.count({false, false, true},true),1)
-			assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{1,1}),3)
-			assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{2,2}),1)		
-		end)
-		
-		test('defaults to size when value is not given', function()
-			assert_equal(_.count({1,1,2,3,3,3,2,4,3,2}),_.size({1,1,2,3,3,3,2,4,3,2}))
-			assert_equal(_.count({false, false, true}),_.size({false, false, true}))	
-		end)
-	end)
-	
-	context('countf', function()
-		
-		test('count the occurences of values passing an iterator test in a list', function()
-			assert_equal(_.countf({1,2,3,4,5,6}, function(i,v)
-				return v%2==0
-			end),3)
-			assert_equal(_.countf({print, pairs, os, assert, ipairs}, function(i,v)
-				return type(v)=='function'
-			end),4)			
-		end)
-	end)
-	
-	context('cycle', function()
-		
-		test('loops n times on a list', function()
-			local times = 3
-			local t = {1,2,3,4,5}
-			local kv = {}
-			for k,v in _.cycle(t,times) do
-				assert_equal(t[k],v)
-				kv[#kv+1] = v
-			end
-			for k,v in ipairs(kv) do
-				assert_equal(_.count(kv,v),times)
-			end
-		end)
-		
-		test('support array-like and map-like tables', function()
-			local times = 10
-			local t = {x = 1, z = 2}
-			local keys = {}
-			local values = {}
-			for k,v in _.cycle(t,times) do
-				assert_equal(t[k],v)
-				keys[#keys+1] = k
-				values[#values+1] = v
-			end
-			for k,v in ipairs(keys) do
-				assert_equal(_.count(keys,v),times)
-			end
-			for k,v in ipairs(values) do
-				assert_equal(_.count(values,v),times)
-			end			
-		end)		
-	
-	end)
-	
+  context('count', function()
+    
+    test('count the occurences of value in a list', function()
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},1),2)
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},2),3)
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},3),4)
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},4),1)
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2},5),0)
+      assert_equal(_.count({false, false, true},false),2)
+      assert_equal(_.count({false, false, true},true),1)
+      assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{1,1}),3)
+      assert_equal(_.count({{1,1},{1,1},{1,1},{2,2}},{2,2}),1)    
+    end)
+    
+    test('defaults to size when value is not given', function()
+      assert_equal(_.count({1,1,2,3,3,3,2,4,3,2}),_.size({1,1,2,3,3,3,2,4,3,2}))
+      assert_equal(_.count({false, false, true}),_.size({false, false, true}))  
+    end)
+  end)
+  
+  context('countf', function()
+    
+    test('count the occurences of values passing an iterator test in a list', function()
+      assert_equal(_.countf({1,2,3,4,5,6}, function(i,v)
+        return v%2==0
+      end),3)
+      assert_equal(_.countf({print, pairs, os, assert, ipairs}, function(i,v)
+        return type(v)=='function'
+      end),4)      
+    end)
+  end)
+  
+  context('cycle', function()
+    
+    test('loops n times on a list', function()
+      local times = 3
+      local t = {1,2,3,4,5}
+      local kv = {}
+      for k,v in _.cycle(t,times) do
+        assert_equal(t[k],v)
+        kv[#kv+1] = v
+      end
+      for k,v in ipairs(kv) do
+        assert_equal(_.count(kv,v),times)
+      end
+    end)
+    
+    test('support array-like and map-like tables', function()
+      local times = 10
+      local t = {x = 1, z = 2}
+      local keys = {}
+      local values = {}
+      for k,v in _.cycle(t,times) do
+        assert_equal(t[k],v)
+        keys[#keys+1] = k
+        values[#values+1] = v
+      end
+      for k,v in ipairs(keys) do
+        assert_equal(_.count(keys,v),times)
+      end
+      for k,v in ipairs(values) do
+        assert_equal(_.count(values,v),times)
+      end      
+    end)    
+  
+  end)
+  
   context('map', function()
   
     test('applies an iterator function over each key-value pair ', function()
@@ -270,20 +270,20 @@ context('Collection functions specs', function()
     end) 
   
   end) 
-	
+  
   context('findWhere', function()
   
     test('Returns the first value in a list having all of some given set of properties', function()
-			local a = {a = 1, b = 2}
-			local b = {a = 2, b = 3}
-			local c = {a = 3, b = 4}
+      local a = {a = 1, b = 2}
+      local b = {a = 2, b = 3}
+      local c = {a = 3, b = 4}
       assert_equal(_.findWhere({a, b, c}, {a = 3, b = 4}), c)
     end)
     
     test('returns nil when value was not found', function()
-			local a = {a = 1, b = 2}
-			local b = {a = 2, b = 3}
-			local c = {a = 3, b = 4}
+      local a = {a = 1, b = 2}
+      local b = {a = 2, b = 3}
+      local c = {a = 3, b = 4}
       assert_nil(_.findWhere({a, b, c}, {a = 3, b = 0}))
     end) 
   

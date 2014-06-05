@@ -39,7 +39,7 @@ context('Array functions specs', function()
           return v%2==0
         end),{9,10,12}))
     end)
-		
+    
   end)  
 
   context('sortedIndex', function()
@@ -169,37 +169,37 @@ context('Array functions specs', function()
     
   end)
 
-	context('chunk', function()
-		
-		test('chunks in blocks consecutive values returning the same value from a given function', function()
-			local t = {1,2,2,3,3,4,4}
-			local v = _.chunk(t, function(k,v) return v%2==0 end)
-			assert_equal(#v, 4)
-			_.each(v[1], function(k)
-				assert_equal(v[1][k],1)
-			end)
-			assert_equal(#v[1],1)			
-			_.each(v[2], function(k)
-				assert_equal(v[2][k],2)
-			end)
-			assert_equal(#v[2],2)						
-			_.each(v[3], function(k)
-				assert_equal(v[3][k],3)
-			end)
-			assert_equal(#v[3],2)						
-			_.each(v[4], function(k)
-				assert_equal(v[4][k],4)
-			end)
-			assert_equal(#v[4],2)							
-		end)
-		
-		test('Returns the first argument in case it is not an array', function()
-			local t = {a = 1, b = 2}
-			assert_equal(_.chunk(t, function(k,v) return v%2==0 end), t)
-		end)	
-		
-	end)
-	
+  context('chunk', function()
+    
+    test('chunks in blocks consecutive values returning the same value from a given function', function()
+      local t = {1,2,2,3,3,4,4}
+      local v = _.chunk(t, function(k,v) return v%2==0 end)
+      assert_equal(#v, 4)
+      _.each(v[1], function(k)
+        assert_equal(v[1][k],1)
+      end)
+      assert_equal(#v[1],1)      
+      _.each(v[2], function(k)
+        assert_equal(v[2][k],2)
+      end)
+      assert_equal(#v[2],2)            
+      _.each(v[3], function(k)
+        assert_equal(v[3][k],3)
+      end)
+      assert_equal(#v[3],2)            
+      _.each(v[4], function(k)
+        assert_equal(v[4][k],4)
+      end)
+      assert_equal(#v[4],2)              
+    end)
+    
+    test('Returns the first argument in case it is not an array', function()
+      local t = {a = 1, b = 2}
+      assert_equal(_.chunk(t, function(k,v) return v%2==0 end), t)
+    end)  
+    
+  end)
+  
   context('slice',function()
   
     test('slices a portion of an array',function()
