@@ -1,4 +1,6 @@
 ﻿[![Build Status](https://travis-ci.org/Yonaba/Moses.png)](https://travis-ci.org/Yonaba/Moses)
+[![Coverage Status](https://coveralls.io/repos/Yonaba/Moses/badge.png?branch=master)](https://coveralls.io/r/Yonaba/Moses?branch=master)
+[![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](MIT-LICENSE.txt)
 
 A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
 and support for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier operations on arrays, lists, 
