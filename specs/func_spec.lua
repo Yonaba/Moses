@@ -1,3 +1,4 @@
+require 'luacov'
 package.loaded.moses = nil
 _G.MOSES_NO_ALIASES = false
 local _ = require 'moses'

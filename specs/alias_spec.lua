@@ -1,3 +1,4 @@
+require 'luacov'
 context('Disabling aliases', function()
 
   local _ = require 'moses'

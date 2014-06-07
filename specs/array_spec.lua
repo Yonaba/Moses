@@ -1,3 +1,4 @@
+require 'luacov'
 local _ = require 'moses'
 
 context('Array functions specs', function()

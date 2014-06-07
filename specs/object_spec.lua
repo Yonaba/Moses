@@ -1,3 +1,4 @@
+require 'luacov'
 package.loaded['moses'] = nil
 _G._ = require 'moses'
 
