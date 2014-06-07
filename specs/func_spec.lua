@@ -52,7 +52,7 @@ context('Utility functions specs', function()
     end)
     
     test('memoizes an expensive function by caching its results',function()
-      assert_true(mfib_time<fib_time)
+      assert_true(mfib_time<=fib_time)
     end)
     
     test('can take a hash function to compute an unique output for multiple args',function()
