@@ -1061,7 +1061,7 @@ function _.bindn(f,...)
     end
 end
 
---- Generates a unique Id (unique for the current session). If given a sring `template`
+--- Generates a unique Id (unique for the current session). If given a string `template`
 -- will use this template for output formatting. Otherwise, if `template` is a function,
 -- will compute an output running `template(id,...)`.
 -- <br/><em>Aliased as `uId`</em>.
@@ -1242,13 +1242,11 @@ end
 -- properties will be preserved. <br/><em>Aliased as `defaults`</em>.
 -- @name template
 -- @tparam table obj an object
--- @tparam table template a template object
+-- @tparam[opt] table template a template object. Defaults to `{}`.
 -- @treturn table the passed-in object filled
 function _.template(obj,template)
-  _.each(template,function(i,v)
-  if not obj[i] then
-    obj[i] = v
-  end
+  _.each(template or {},function(i,v)
+  if not obj[i] then obj[i] = v end
   end)
   return obj
 end
