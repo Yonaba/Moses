@@ -6,6 +6,8 @@
 -- @copyright 2012-2014
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
 
+local _MODULEVERSION = '1.4.0'
+
 -- Internalisation
 local next, type, unpack, select = next, type, unpack, select
 local setmetatable, getmetatable = setmetatable, getmetatable
@@ -1536,6 +1538,12 @@ do
     return _.extend(context, fs)
   end
 
+  -- Descriptive tags
+  __._VERSION     = 'Moses v'.._MODULEVERSION
+  __._URL         = 'http://github.com/Yonaba/Moses'
+  __._LICENSE     = 'MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
+  __._DESCRIPTION = 'utility-belt library for functional programming in Lua'
+  
   return __
   
 end
