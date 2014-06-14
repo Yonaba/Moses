@@ -3,6 +3,7 @@
 * `_.reduce` now supports an array of booleans
 * `_.pick` now picks false values
 * Aliases are available by default
+* Renamed alias `_.uId` to `_.uid` 
 
 ##1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.
