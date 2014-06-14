@@ -11,27 +11,6 @@ __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com
 local _ = require ("moses")
 ````
 
-In case a variable named `MOSES_ALIASES` set to `true` was found in the global environment, library functions aliases will also be available.
-
-```lua
-local _ = require ("moses")
-print(_.each)
-print(_.forEach)
-
--- => function: 00309410
--- => nil
-````
-
-```lua
-_G.MOSES_ALIASES = true -- Setting this global on purpose
-local _ = require ("moses")
-print(_.each)
-print(_.forEach)
-
--- => function: 00309410
--- => function: 00309410
-````
-
 ## Collection functions samples
 
 ### each
@@ -1783,23 +1762,5 @@ print(_(a):value() == _.chain(value):value())
 
 ## License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
-Copyright (c) 2012 Roland Yonaba
-
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
-
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Copyright (c) 2012-2014 Roland Yonaba <br/>
+See [LICENSE](LICENSE).

@@ -1,8 +1,10 @@
---- ## Moses: <em>A utility-belt library for functional programming in Lua.</em><br/>
--- @author Roland_Yonaba
--- @copyright 2012
+#!/usr/bin/env lua
+------------------
+-- Moses, *a utility-belt library for functional programming in Lua.*<br/>
+-- Source on [Github](http://github.com/Yonaba/Moses)
+-- @author Roland Yonaba
+-- @copyright 2012-2014
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @script moses
 
 -- Internalisation
 local next, type, unpack, select = next, type, unpack, select
@@ -53,7 +55,6 @@ local unique_id_counter = -1
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 function _.each(list, f, ...)
-  if not _.isTable(list) then return end
   for index,value in pairs(list) do
     f(index,value,...)
   end
@@ -67,7 +68,6 @@ end
 -- @tparam function f an iterator function, prototyped as `f(key,value,...)`
 -- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
 function _.eachi(list, f, ...)
-  if not _.isTable(list) then return end
   local lkeys = _.sort(_.select(_.keys(list), function(k,v)
     return _.isInteger(v)
   end))
@@ -153,10 +153,8 @@ end
 -- @treturn state state a final state of reduction
 function _.reduce(list,f,state)
   for _,value in pairs(list) do
-    if state == nil then
-      state = value
-    else
-      state = f(state,value)
+    if state == nil then state = value
+    else state = f(state,value)
     end
   end
   return state
@@ -388,10 +386,10 @@ function _.shuffle(list,seed)
   if seed then randomseed(seed) end
   local _shuffled = {}
   _.each(list,function(index,value)
-           local randPos = floor(random()*index)+1
-          _shuffled[index] = _shuffled[randPos]
-          _shuffled[randPos] = value
-        end)
+     local randPos = floor(random()*index)+1
+    _shuffled[index] = _shuffled[randPos]
+    _shuffled[randPos] = value
+  end)
   return _shuffled
 end
 
@@ -402,12 +400,8 @@ end
 -- @tparam table b a collection
 -- @treturn boolean __true__ or __false__
 function _.same(a,b)
-  return _.all(a, function (i,v)
-      return _.include(b,v)
-    end)
-    and _.all(b, function (i,v)
-      return _.include(a,v)
-    end)
+  return _.all(a, function (i,v) return _.include(b,v) end) 
+     and _.all(b, function (i,v) return _.include(a,v) end)
 end
 
 --- Sorts a collection. If a comparison function is given, it will be used to sort objects
@@ -424,9 +418,7 @@ end
 -- @name toArray
 -- @tparam[opt] var_arg ... Optional variable number of arguments
 -- @treturn table an array of all passed-in args
-function _.toArray(...)
-  return {...}
-end
+function _.toArray(...) return {...} end
 
 --- Splits a collection into subsets. Each subset feature objects grouped by the result of passing it through an iterator.
 -- If iterator is a string instead of a function, groups by the property named by iterator on each of the values.
@@ -675,7 +667,7 @@ function _.removeRange(array,start,finish)
   return array
 end
 
---- Iterates over an array chunking together. Values are chunked on the basis of the return
+--- Chunks together consecutive values. Values are chunked on the basis of the return
 -- value of `f(key,value,...)`. Consecutive elements which return the same value are chunked together.
 -- Leaves the first argument untouched if it is not an array.
 -- @name chunk
@@ -752,7 +744,7 @@ function _.rest(array,index)
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
 
---- Trims all falsy values.
+--- Trims all falsy (false and nil) values.
 -- @name compact
 -- @tparam table array an array
 -- @treturn table a new array
@@ -951,9 +943,7 @@ end
 -- @name identity
 -- @tparam arg value a value
 -- @treturn arg the passed-in value
-function _.identity(value)
-  return value
-end
+function _.identity(value) return value end
 
 --- Returns a version of `f` that runs only once. Successive calls will make `f`
 -- keep yielding the same answer, no matter what the passed-in arguments are. Can be used to
@@ -1028,9 +1018,7 @@ end
 -- @tparam function wrapper a wrapper function, prototyped as `wrapper(f,...)`
 -- @treturn function a new function
 function _.wrap(f,wrapper)
-  return function (...)
-      return  wrapper(f,...)
-    end
+  return function (...) return  wrapper(f,...) end
 end
 
 --- Runs `iter` function `n` times.
@@ -1479,46 +1467,44 @@ do
   -- Register chaining methods into the wrapper
   f.chain, f.value = __.chain, __.value
 
-  -- Enables aliases in case MOSES_ALIASES was set to true in the global env
-  if rawget(_G, 'MOSES_ALIASES') then
-    _.forEach = _.each
-    _.forEachi = _.eachi
-    _.loop = _.cycle
-    _.collect = _.map
-    _.inject = _.reduce
-    _.foldl = _.reduce
-    _.injectr = _.reduceRight
-    _.foldr = _.reduceRight
-    _.mapr = _.mapReduce
-    _.maprr = _.mapReduceRight
-    _.any = _.include
-    _.some = _.include
-    _.find = _.detect
-    _.filter = _.select
-    _.discard = _.reject
-    _.every = _.all
-    _.takeWhile = _.selectWhile
-    _.rejectWhile = _.dropWhile
-    _.shift = _.pop
-    _.rmRange = _.removeRange
-    _.chop = _.removeRange
-    _.head = _.first
-    _.take = _.first
-    _.tail = _.rest
-    _.skip = _.last
-    _.without = _.difference
-    _.diff = _.difference
-    _.symdiff = _.symmetric_difference
-    _.unique = _.uniq
-    _.mirror = _.invert
-    _.join = _.concat
-    _.cache = _.memoize
-    _.uId = _.uniqueId
-    _.methods = _.functions
-    _.choose = _.pick
-    _.drop = _.omit
-    _.defaults = _.template
-  end
+  -- Aliases
+  _.forEach = _.each
+  _.forEachi = _.eachi
+  _.loop = _.cycle
+  _.collect = _.map
+  _.inject = _.reduce
+  _.foldl = _.reduce
+  _.injectr = _.reduceRight
+  _.foldr = _.reduceRight
+  _.mapr = _.mapReduce
+  _.maprr = _.mapReduceRight
+  _.any = _.include
+  _.some = _.include
+  _.find = _.detect
+  _.filter = _.select
+  _.discard = _.reject
+  _.every = _.all
+  _.takeWhile = _.selectWhile
+  _.rejectWhile = _.dropWhile
+  _.shift = _.pop
+  _.rmRange = _.removeRange
+  _.chop = _.removeRange
+  _.head = _.first
+  _.take = _.first
+  _.tail = _.rest
+  _.skip = _.last
+  _.without = _.difference
+  _.diff = _.difference
+  _.symdiff = _.symmetric_difference
+  _.unique = _.uniq
+  _.mirror = _.invert
+  _.join = _.concat
+  _.cache = _.memoize
+  _.uid = _.uniqueId
+  _.methods = _.functions
+  _.choose = _.pick
+  _.drop = _.omit
+  _.defaults = _.template
 
   -- Register all functions into the wrapper
   for fname,fct in pairs(_) do
@@ -1549,8 +1535,9 @@ do
         fs[k] = v
       end
     end)
-    return _.extend(context or _G, fs)
+    return _.extend(context, fs)
   end
 
   return __
+  
 end
