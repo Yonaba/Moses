@@ -43,13 +43,13 @@ context('Utility functions specs', function()
       end      
       local times = 10
       local mfib = _.memoize(fib)
-      fib_time = os.time()*1000
-        for i = 1, times do fib_value = (fib_value or 0)+fib(30) end
-      fib_time = os.time()*1000-fib_time
+      fib_time = os.clock()*1000
+        for i = 1, times do fib_value = (fib_value or 0)+fib(10) end
+      fib_time = os.clock()*1000-fib_time
       
-      mfib_time = os.time()*1000
-        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(30) end
-      mfib_time = os.time()*1000-mfib_time      
+      mfib_time = os.clock()*1000
+        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(10) end
+      mfib_time = os.clock()*1000-mfib_time      
     end)
     
     test('memoizes an expensive function by caching its results',function()
@@ -62,23 +62,23 @@ context('Utility functions specs', function()
       local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
       local diffFact = function(a,b) return fact(a)-fact(b) end
       local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-      local times, rep = 10, 150
+      local times, rep = 100, 10
       
-      local time = os.time()*1000
+      local time = os.clock()*1000
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do diffFact(ai,aj) end
         end
       end
-      time = os.time()*1000-time
+      time = os.clock()*1000-time
 
-      local mtime = os.time()*1000
+      local mtime = os.clock()*1000
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do mdiffFact(ai,aj) end
         end
       end
-      mtime = os.time()*1000-mtime  
+      mtime = os.clock()*1000-mtime  
 
       assert_true(mtime<=time)
 
