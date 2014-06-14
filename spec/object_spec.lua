@@ -1,6 +1,5 @@
 require 'luacov'
-package.loaded['moses'] = nil
-_G._ = require 'moses'
+local _ = require 'moses'
 
 context('Object functions specs', function()
 

@@ -4,6 +4,7 @@
 * `_.pick` now picks false values
 * Aliases are available by default
 * Renamed alias `_.uId` to `_.uid` 
+* `_.concat` args `i` and `j` defaults explicitely to 1 and array length (for compatibility with LuaJIT)
 
 ##1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.

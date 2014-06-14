@@ -933,7 +933,7 @@ function _.concat(array,sep,i,j)
   local _array = _.map(array,function(i,v)
     return tostring(v)
   end)
-  return t_concat(_array,sep,i,j)
+  return t_concat(_array,sep,i or 1,j or #array)
 
 end
 
