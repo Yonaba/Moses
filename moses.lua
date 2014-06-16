@@ -948,6 +948,19 @@ function _.range(...)
   return _ranged
 end
 
+--- Iterates over the partitions of an array. It returns arrays of length `n` 
+-- made of elements from the given array. In case the array size is not a multiple
+-- of `n`, the last array returned will be made of the rest of the elements.
+-- @name partition.
+-- @tparam table array an array
+-- @tparam[opt] number n the size of each partition. Defaults to 1.
+-- @treturn function an iterator function
+function _.partition(array, n)
+  return coroutine.wrap(function()
+    partgen(array, n or 1, coroutine.yield)
+  end)
+end
+
 --- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
 -- <br/><em>Aliased as `mirror`</em>
 -- @name invert
