@@ -961,6 +961,17 @@ function _.partition(array, n)
   end)
 end
 
+--- Iterates over the permutations of an array. It returns arrays made of all elements
+-- of the passed-in array, with elements permuted.
+-- @name permutation
+-- @tparam table array an array
+-- @treturn function an iterator function
+function _.permutation(array)
+  return coroutine.wrap(function() 
+    permgen(array, #array, coroutine.yield)
+  end)
+end
+
 --- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
 -- <br/><em>Aliased as `mirror`</em>
 -- @name invert
