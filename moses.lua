@@ -1180,6 +1180,14 @@ function _.paired(obj)
   return paired
 end
 
+--- Converts any given value to a boolean
+-- @name toBoolean
+-- @tparam value value a value. Can be of any type
+-- @treturn boolean `true` if value is truthy, `false` otherwise.
+function _.toBoolean(value)
+  return not not value
+end
+
 --- Extends an object properties. It copies all of the properties of extra passed-in objects
 -- over to the destination object, and returns the destination object.
 -- The last object in `...` will override properties of the same name in the previous one
