@@ -1418,6 +1418,14 @@ function _.isArray(obj)
   return true
 end
 
+--- Checks if the given object is iterable with `pairs`.
+-- @name isIterable
+-- @tparam object obj an object
+-- @treturn boolean `true` if the object can be iterated with `pairs`, `false` otherwise
+function _.isIterable(obj)
+  return __.toBoolean((pcall(pairs, obj))
+end
+
 --- Checks if the given is empty. If `obj` is a @{string}, will return __true__
 -- if `#obj==0`. Otherwise, if `obj` is a table, will return whether or not this table
 -- is empty. If `obj` is `nil`, it will return true.
