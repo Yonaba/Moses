@@ -1423,7 +1423,15 @@ end
 -- @tparam object obj an object
 -- @treturn boolean `true` if the object can be iterated with `pairs`, `false` otherwise
 function _.isIterable(obj)
-  return __.toBoolean((pcall(pairs, obj))
+  return __.toBoolean((pcall(pairs, obj)))
+end
+
+--- Checks if the given object is iterable with `ipairs`.
+-- @name isIIterable
+-- @tparam object obj an object
+-- @treturn boolean `true` if the object can be iterated with `ipairs`, `false` otherwise
+function _.isIIterable(obj)
+  return __.toBoolean((pcall(ipairs, obj)))
 end
 
 --- Checks if the given is empty. If `obj` is a @{string}, will return __true__
