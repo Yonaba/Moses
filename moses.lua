@@ -926,6 +926,13 @@ function _.append(array,other)
   return t
 end
 
+--- Interleaves sequences. It returns a single array made of values from all
+-- passed in arrays in their given order, interleaved.
+-- @name interleave
+-- @tparam vararg ... a variable list of arrays
+-- @treturn table a new array
+function _.interleave(...) return _.flatten(_.zip(...)) end
+
 --- Produce a flexible list of numbers. If one positive value is passed, will count from 0 to that value,
 -- with a default step of 1. If two values were passed, will count from the first one to the second one, with the
 -- same default step of 1. A third passed value will be considered a step value.
