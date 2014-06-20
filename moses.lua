@@ -933,6 +933,15 @@ end
 -- @treturn table a new array
 function _.interleave(...) return _.flatten(_.zip(...)) end
 
+--- Interposes a `value` between each pair of elements in `array`.
+-- @name interpose
+-- @tparam value value a value
+-- @tparam table array an array
+-- @treturn table a new array
+function _.interpose(value, array)
+  return _.flatten(_.zip(array, _.rep(value, #array-1)))
+end
+
 --- Produce a flexible list of numbers. If one positive value is passed, will count from 0 to that value,
 -- with a default step of 1. If two values were passed, will count from the first one to the second one, with the
 -- same default step of 1. A third passed value will be considered a step value.
