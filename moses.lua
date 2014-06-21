@@ -1091,6 +1091,17 @@ function _.compose(...)
     end
 end
 
+--- Pipes a value through a series of functions. In math terms, 
+-- given some functions `f`, `g`, and `h` in that order, it returns `f(g(h(value)))`.
+-- @name pipe
+-- @tparam value a value
+-- @tparam vararg ... a variable number of functions
+-- @treturn value the result of the sequence of function calls.
+-- @see compose
+function _.pipe(value, ...)
+  return _.compose({...})(value)
+end
+
 --- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`.
 -- This allows the wrapper to execute code before and after `f` runs,
 -- adjust the arguments, and execute it conditionally.
