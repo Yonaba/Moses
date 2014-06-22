@@ -1112,6 +1112,19 @@ function _.complement(f)
   return function(...) return not f(...) end
 end
 
+--- Calls a sequence of passed-in functions with the same argument.
+-- Returns a sequence of results. 
+-- <br/><em>Aliased as `juxt`</em>
+-- @name juxtapose
+-- @tparam value value a value
+-- @tparam vararg ... a variable number of functions
+-- @treturn table a sequence of results.
+function _.juxtapose(value, ...)
+  local res = {}
+  _.each({...}, function(_,f) res[#res+1] = f(value) end)
+  return res
+end
+
 --- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`.
 -- This allows the wrapper to execute code before and after `f` runs,
 -- adjust the arguments, and execute it conditionally.
