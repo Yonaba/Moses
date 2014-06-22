@@ -1102,6 +1102,16 @@ function _.pipe(value, ...)
   return _.compose({...})(value)
 end
 
+--- Returns the logical complement of a given function. For a given input, the returned 
+-- function will output `false` if the original function would have returned `true`, 
+-- and vice-versa.
+-- @name complement
+-- @tparam function f a function
+-- @treturn function  the logical complement of the given function `f`.
+function _.complement(f)
+  return function(...) return not f(...) end
+end
+
 --- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`.
 -- This allows the wrapper to execute code before and after `f` runs,
 -- adjust the arguments, and execute it conditionally.
