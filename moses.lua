@@ -870,6 +870,19 @@ function _.unique(array,iter,...)
   return ret
 end
 
+--- Checks if a given array is unique. An array is unique if made of distinct elements,
+-- which only occur once in this array. If `iter` is passed, it will be used to compute 
+-- new values based on a transformation.
+-- <br/><em>Aliased as `isuniq`</em>
+-- @name isunique
+-- @tparam table array an array
+-- @tparam[opt] function iter an iterator function prototyped as `iter(key,value,...)`
+-- @tparam[optchain] vararg ... Optional extra-args to be passed to `iter` function
+-- @treturn boolean `true` if the given array is unique, `false` otherwise.
+function _.isunique(array, iter, ...)
+  return _.isEqual(array, _.unique(array, iter, ...))
+end
+
 --- Returns the duplicate-free union of all passed in arrays.
 -- @name union
 -- @tparam vararg ... a variable number of arrays arguments
