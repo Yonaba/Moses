@@ -1001,6 +1001,17 @@ function _.permutation(array)
   end)
 end
 
+--- Creates an array list of n values, repeated.
+-- @name rep
+-- @tparam value value a value to be repeated
+-- @tparam number n the number of repetitions of the given `value`.
+-- @treturn table a new array of n values
+function _.rep(value, n)
+  local ret = {}
+  for i = 1, n do ret[#ret+1] = value end
+  return ret
+end
+
 --- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
 -- <br/><em>Aliased as `mirror`</em>
 -- @name invert
