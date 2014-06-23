@@ -1,10 +1,37 @@
 #Version history#
 
+##1.4.0
+
+###Changes
 * `_.reduce` now supports an array of booleans
 * `_.pick` now picks false values
-* Aliases are available by default
-* Renamed alias `_.uId` to `_.uid` 
+* Aliases are available by default  
 * `_.concat` args `i` and `j` defaults explicitely to 1 and array length (for compatibility with LuaJIT)
+* `_.pop` now takes an optional extra-arg n, to be the number of values to be popped
+* `_.unshift` now takes an optional extra-arg n, to be the number of values to be retrieved
+* `_.find` is no longer an alias to `_.detect`, but a new function
+* Provided a new implementation of `_.unique`, removed argument `_.isSorted`
+* `_.isNil` now returns true if arg is nil, an empty string or empty table and false otherwise. 
+
+### Renamed
+* Renamed alias `_.uId` to `_.uid`
+* Renamed `_.add` to `_.addTop`
+* Renamed `_.uniq` as alias to `_.unique`
+
+### New
+* Added `_.pipe`
+* Added `_.complement`
+* Added `_.juxtapose` and alias `_.juxt`
+* Added `_.isunique` and alias `_.isuniq`
+* Added `_.rep`
+* Added `_.interleave`
+* Added `_.interpose`
+* Added `_.partition` and alias `_.part`
+* Added `_.permutation` and alias `_.perm`
+* Added `_.compare` as alias to `_.isEqual`
+* Added `_.isIterable`
+* Added `_.isIIterable`
+* Added `_.toBoolean`
 
 ##1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.
