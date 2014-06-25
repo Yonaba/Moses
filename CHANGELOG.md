@@ -27,7 +27,7 @@
 * Moved explicitely `_.toArray` to array functions
 * `_.functions` accepts an extra-arg to prevent from looking-up for methods in metatables.
 
-### New
+### New functions (and aliases)
 * Added `_.find`
 * Added `_.pipe`
 * Added `_.complement`
@@ -43,6 +43,9 @@
 * Added `_.isIIterable`
 * Added `_.toBoolean`
 * Added `_.pull` and alias `_.remove`
+
+### New aliases
+* Added `_.xor` as alias to `_.symmetricDifference`
 
 ##1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.

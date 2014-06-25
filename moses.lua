@@ -1750,6 +1750,7 @@ do
   _.without     = _.difference
   _.diff        = _.difference
   _.symdiff     = _.symmetricDifference
+  _.xor         = _.symmetricDifference
   _.uniq        = _.unique
   _.isuniq      = _.isunique
   _.part        = _.partition
