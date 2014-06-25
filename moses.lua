@@ -84,8 +84,9 @@ function _.each(t, f, ...)
   end
 end
 
---- Iterates on each integer key-value pairs in a table. Calls function `f(key, value)` only on values at integer key in a given collection.
--- The table can be a sparse array, or map-like. Iteration will start from the lowest integer key found to the highest one.
+--- Iterates on each integer key-value pairs in a table. Calls function `f(key, value)` 
+-- only on values at integer key in a given collection. The table can be a sparse array, 
+-- or map-like. Iteration will start from the lowest integer key found to the highest one.
 -- <br/><em>Aliased as `forEachi`</em>.
 -- @name eachi
 -- @tparam table t a table
@@ -99,6 +100,19 @@ function _.eachi(t, f, ...)
   for k, key in ipairs(lkeys) do
     f(key, t[key],...)
   end
+end
+
+--- Returns an array of values at specific indexes and keys. 
+-- @name at
+-- @tparam table t a table
+-- @tparam vararg ... A variable number of indexes or keys to extract values
+-- @treturn table an array-list of values from the passed-in table
+function _.at(t, ...)
+  local values = {}
+  for i, key in ipairs({...}) do
+    if _.has(t, key) then values[#values+1] = t[key] end
+  end
+  return values
 end
 
 --- Counts occurrences of a given value in a table. Uses @{isEqual} to compare values.

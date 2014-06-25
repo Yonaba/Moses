@@ -43,6 +43,7 @@
 * Added `_.isIIterable`
 * Added `_.toBoolean`
 * Added `_.pull` and alias `_.remove`
+* Added `_.at`
 
 ### New aliases
 * Added `_.xor` as alias to `_.symmetricDifference`
