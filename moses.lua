@@ -721,6 +721,23 @@ function _.unshift(array, n)
   return unpack(ret)
 end
 
+--- Removes all provided values in a given array.
+-- <br/><em>Aliased as `remove`</em>
+-- @name pull
+-- @tparam table array an array
+-- @tparam vararg ... a variable number of values to be removed from the array
+-- @treturn table the passed-in array
+function _.pull(array, ...)
+  for __, rmValue in ipairs({...}) do
+    for i = #array, 1, -1 do
+      if _.isEqual(array[i], rmValue) then
+        t_remove(array, i)
+      end
+    end
+  end
+  return array
+end
+
 --- Trims all values indexed within the range `[start, finish]`.
 -- <br/><em>Aliased as `rmRange`</em>
 -- @name removeRange
@@ -1722,6 +1739,7 @@ do
   _.takeWhile   = _.selectWhile
   _.rejectWhile = _.dropWhile
   _.shift       = _.pop
+  _.remove      = _.pull
   _.rmRange     = _.removeRange
   _.chop        = _.removeRange
   _.sub         = _.slice
