@@ -2,11 +2,21 @@
 
 ##1.4.0
 
-###Breaking changes
+###Breaking
+#### Changes
 * Aliases are available by default
 * `_.find` is no longer an alias to `_.detect`
 * Provided a new implementation of `_.unique`, removed argument `_.isSorted`
 * `_.isNil` now returns true if arg is nil, an empty string or empty table and false otherwise.
+
+#### Renamed
+* Renamed alias `_.uId` to `_.uid`
+* Renamed `_.add` to `_.addTop`
+* Renamed `_.uniq` as alias to `_.unique`
+* Renamed `_.symmetric_difference` to `_.symmetricDifference`
+
+#### Removed
+* Removed `_.paired`
 
 ###Improvements & bugfixes
 * `_.reduce` now supports an array of booleans
@@ -15,11 +25,7 @@
 * `_.pop` now takes an optional extra-arg n, to be the number of values to be popped
 * `_.unshift` now takes an optional extra-arg n, to be the number of values to be retrieved
 * Moved explicitely `_.toArray` to array functions
-
-### Renamed
-* Renamed alias `_.uId` to `_.uid`
-* Renamed `_.add` to `_.addTop`
-* Renamed `_.uniq` as alias to `_.unique`
+* `_.functions` accepts an extra-arg to prevent from looking-up for methods in metatables.
 
 ### New
 * Added `_.find`
