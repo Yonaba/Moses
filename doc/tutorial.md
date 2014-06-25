@@ -1,19 +1,19 @@
-# Moses: an utility-belt library for Lua
+Moses: an utility-belt library for Lua
 
 __Moses__ is a Lua utility library which provides support for functional programming. 
 It complements built-in Lua functions, making easier operations on arrays, lists, collections, objects, and a lot more.<br/>
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/). 
 
-## Requiring Moses
+# Requiring Moses
 
 ```lua
 -- Minimal code
 local _ = require ("moses")
 ````
 
-## Collection functions samples
+# Collection functions samples
 
-### each
+## each
 
 Prints a flat array contents:
 
@@ -1762,5 +1762,4 @@ print(_(a):value() == _.chain(value):value())
 
 ## License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
-Copyright (c) 2012-2014 Roland Yonaba <br/>
-See [LICENSE](LICENSE).
+Copyright (c) 2012-2014 Roland Yonaba
