@@ -32,8 +32,8 @@ local function isTrue(_,value) return value and true end
 local function iNot(value) return not value end
 
 local function count(t)  -- raw count of items in an map-table
-  local i
-    for k,v in pairs(t) do i = (i or 0) + 1 end
+  local i = 0
+    for k,v in pairs(t) do i = i + 1 end
   return i
 end
 
@@ -230,12 +230,12 @@ end
 -- @treturn table an array of states
 -- @see mapReduceRight
 function _.mapReduce(t, f, state)
-  local t = {}
+  local _t = {}
   for i,value in pairs(t) do
-    t[i] = not state and value or f(state,value)
-    state = t[i]
+    _t[i] = not state and value or f(state,value)
+    state = _t[i]
   end
-  return t
+  return _t
 end
 
 --- Reduces a table while saving intermediate states. Folds the table right-to-left
@@ -294,27 +294,11 @@ function _.contains(t, value)
   return _.toBoolean(_.detect(t, value))
 end
 
---- Picks values from a table having specified keys `props`.
--- @function where
--- @tparam table t a table
--- @tparam table props a set of keys
--- @treturn table an array-list of values containing all of the keys properties found in `props`.
--- @see findWhere
-function _.where(t, props)
-  return _.select(t, function(k,v)
-    for key in pairs(props) do
-      if props[key] ~= v[key] then return false end
-    end
-    return true
-  end)
-end
-
 --- Returns the first value having specified keys `props`.
 -- @function findWhere
 -- @tparam table t a table
 -- @tparam table props a set of keys
--- @treturn table a value from the passed-in table
--- @see where
+-- @treturn value a value from the passed-in table
 function _.findWhere(t, props)
   local index = _.detect(t, function(v)
     for key in pairs(props) do
@@ -324,7 +308,6 @@ function _.findWhere(t, props)
   end)
   return index and t[index]
 end
-
 
 --- Selects and extracts values passing an iterator test.
 -- <br/><em>Aliased as `filter`</em>.
