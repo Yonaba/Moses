@@ -8,6 +8,7 @@
 * `_.find` is no longer an alias to `_.detect`
 * Provided a new implementation of `_.unique`, removed argument `_.isSorted`
 * `_.isNil` now returns true if arg is nil, an empty string or empty table and false otherwise.
+* `_.size` now returns 0 for empty args instead of `nil`
 
 #### Renamed
 * Renamed alias `_.uId` to `_.uid`
