@@ -461,5 +461,128 @@ context('Collection functions specs', function()
     end)     
   
   end)   
+
+  context('toArray', function()
   
+    test('folds a list of args into a array', function()            
+      assert_true(_.isEqual(_.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))
+    end)
+    
+  end)   
+  
+  context('groupBy', function()
+  
+    test('splits a collection into subsets of items behaving the same', function()
+
+      assert_true(_.isEqual(_.groupBy({0,1,2,3,4,5,6},function(i,value) 
+          return value%2==0 and 'even' or 'odd'
+        end),{even = {0,2,4,6},odd = {1,3,5}}))
+        
+      assert_true(_.isEqual(_.groupBy({0,'a',true, false,nil,b,0.5},function(i,value) 
+          return type(value) 
+        end),{number = {0,0.5},string = {'a'},boolean = {true,false}}))
+        
+      assert_true(_.isEqual(_.groupBy({'one','two','three','four','five'},function(i,value) 
+          return value:len()
+        end),{[3] = {'one','two'},[4] = {'four','five'},[5] = {'three'}}))
+        
+    end)     
+  
+  end)   
+
+  context('countBy', function()
+  
+    test('splits a collection in subsets and counts items inside', function()
+
+      assert_true(_.isEqual(_.countBy({0,1,2,3,4,5,6},function(i,value) 
+          return value%2==0 and 'even' or 'odd'
+        end),{even = 4,odd = 3}))
+        
+      assert_true(_.isEqual(_.countBy({0,'a',true, false,nil,b,0.5},function(i,value) 
+          return type(value) 
+        end),{number = 2,string = 1,boolean = 2}))
+        
+      assert_true(_.isEqual(_.countBy({'one','two','three','four','five'},function(i,value) 
+          return value:len()
+        end),{[3] = 2,[4] = 2,[5] = 1}))
+        
+    end)     
+  
+  end)   
+
+  context('size', function()
+  
+    test('counts the very number of objects in a collection', function()      
+      assert_equal(_.size {1,2,3},3)        
+    end)
+    
+    test('counts nested tables elements as a unique value', function()      
+      assert_equal(_.size {1,2,3,{4,5}},4)        
+    end)
+
+    test('leaves nil values', function()      
+      assert_equal(_.size {1,2,3,nil,8},4)        
+    end)
+    
+    test('counts objects', function()      
+      assert_equal(_.size {one = 1,2,b = 3, [{}] = 'nil', 'c', [function() end] = 'foo'},6)   
+    end)
+    
+    test('returns the size of the first arg when it is a table', function()      
+      assert_equal(_.size ({1,2},3,4,5),2)   
+    end)    
+
+    test('counts the number of args when the first one is not a table', function()      
+      assert_equal(_.size (1,3,4,5),4)
+    end)  
+ 
+    test('handles nil', function()      
+      assert_equal(_.size(),0)
+      assert_equal(_.size(nil),0)
+    end)
+  
+  end)   
+
+  context('containsKeys', function()
+  
+    test('returns whether a table has all the keys from a given list', function()      
+      assert_true(_.containsKeys({1,2,3},{1,2,3}))
+      assert_true(_.containsKeys({x = 1, y = 2},{x = 1,y =2}))
+    end)
+    
+    test('does not compare values', function()      
+      assert_true(_.containsKeys({1,2,3},{4,5,6}))
+      assert_true(_.containsKeys({x = 1, y = 2},{x = 4,y = -1}))
+    end)
+
+    test('is not commutative', function()      
+      assert_true(_.containsKeys({1,2,3,4},{4,5,6}))      
+      assert_true(_.containsKeys({x = 1, y = 2,z = 5},{x = 4,y = -1}))
+      assert_false(_.containsKeys({1,2,3},{4,5,6,7}))
+      assert_false(_.containsKeys({x = 1, y = 2},{x = 4,y = -1,z = 0}))
+    end)
+    
+  end) 
+
+  context('sameKeys', function()
+  
+    test('returns whether both tables features the same keys', function()      
+      assert_true(_.sameKeys({1,2,3},{1,2,3}))
+      assert_true(_.sameKeys({x = 1, y = 2},{x = 1,y =2}))
+    end)
+    
+    test('does not compare values', function()      
+      assert_true(_.sameKeys({1,2,3},{4,5,6}))
+      assert_true(_.sameKeys({x = 1, y = 2},{x = 4,y = -1}))
+    end)
+
+    test('is commutative', function()      
+      assert_true(_.sameKeys({1,2,3,4},{4,5,6}))      
+      assert_true(_.sameKeys({x = 1, y = 2,z = 5},{x = 4,y = -1}))
+      assert_true(_.sameKeys({1,2,3},{4,5,6,7}))
+      assert_true(_.sameKeys({x = 1, y = 2},{x = 4,y = -1,z = 0}))
+    end)
+    
+  end) 
+   
 end)
