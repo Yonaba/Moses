@@ -949,24 +949,16 @@ function _.symmetricDifference(array, array2)
   )
 end
 
---- Produces a duplicate-free version of a given array. If `iter` is passed, it will be 
--- used to compute new values based on a transformation.
+--- Produces a duplicate-free version of a given array.
 -- <br/><em>Aliased as `uniq`</em>
 -- @name unique
 -- @tparam table array an array
--- @tparam[opt] function iter an iterator function prototyped as `iter(key, value, ...)`
--- @tparam[optchain] vararg ... Optional extra-args to be passed to `iter` function
 -- @treturn table a new array, duplicate-free
 -- @see isunique
-function _.unique(array, iter ,...)
-  local init = iter and _.map(array,iter,...) or array
+function _.unique(array)
   local ret = {}
-  for i = 1, #init do 
-    if _.find(init, init[i]) then
-      if not _.find(ret, array[i]) then
-        ret[#ret+1] = array[i]
-      end
-    else
+  for i = 1, #array do
+    if not _.find(ret, array[i]) then
       ret[#ret+1] = array[i]
     end
   end
@@ -974,17 +966,14 @@ function _.unique(array, iter ,...)
 end
 
 --- Checks if a given array contains distinct values. Such an array is made of distinct elements,
--- which only occur once in this array. If `iter` is passed, it will be used to compute 
--- new values based on a transformation.
+-- which only occur once in this array.
 -- <br/><em>Aliased as `isuniq`</em>
 -- @name isunique
 -- @tparam table array an array
--- @tparam[opt] function iter an iterator function prototyped as `iter(key, value, ...)`
--- @tparam[optchain] vararg ... Optional extra-args to be passed to `iter` function
 -- @treturn boolean `true` if the given array is unique, `false` otherwise.
 -- @see unique
-function _.isunique(array, iter, ...)
-  return _.isEqual(array, _.unique(array, iter, ...))
+function _.isunique(array)
+  return _.isEqual(array, _.unique(array))
 end
 
 --- Merges values of each of the passed-in arrays in subsets.
