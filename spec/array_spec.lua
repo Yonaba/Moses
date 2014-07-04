@@ -377,14 +377,6 @@ context('Array functions specs', function()
     end)
     
   end)
-
-  context('unique',function()  
-    
-    test('returns a duplicate-free array',function()
-      assert_true(_.isEqual(_.unique({1,1,2,2,3,3,4,4,4,5}),{1,2,3,4,5}))
-    end)
-    
-  end)
   
   context('union',function()  
   
@@ -411,6 +403,34 @@ context('Array functions specs', function()
       local a = {1,{3}}; local b = {4,2,3}; local c = {2,3,10}
       assert_true(_.isEqual(_.intersection(a,b,c),{}))
     end)  
+    
+  end)
+  
+  context('symmetricDifference',function() 
+  
+    test('returns the symmetric difference from two arrays', function()   
+      local a = {1,3}; local b = {4,2,3}; local c = {2,3,10}
+      assert_true(_.same(_.symmetricDifference(a, b), {1,4,2}))
+      assert_true(_.same(_.symmetricDifference(a, c), {1,2,10}))
+      assert_true(_.same(_.symmetricDifference(b, c), {4,10}))
+    end)
+    
+  end)
+   
+  context('unique',function()  
+    
+    test('returns a duplicate-free array',function()
+      assert_true(_.isEqual(_.unique({1,1,2,2,3,3,4,4,4,5}),{1,2,3,4,5}))
+    end)
+    
+  end)
+  
+  context('isunique',function()  
+    
+    test('Checks if a given array is duplicate-free',function()
+      assert_true(_.isunique({1,2,3,4,5}))
+      assert_false(_.isunique({1,2,3,4,4}))
+    end)
     
   end)
   
