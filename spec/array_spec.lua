@@ -3,6 +3,19 @@ local _ = require 'moses'
 
 context('Array functions specs', function()
 
+  context('toArray', function()
+  
+    test('converts a vararg list to an array', function()
+      assert_true(_.isArray(_.toArray(1,2,3,4)))
+    end)
+
+    test('preserves input order', function()
+      local args = _.toArray(1,2,3,4,5)
+      for i = 1, 5 do assert_equal(args[i], i) end
+    end)
+    
+  end)
+
   context('reverse', function()
   
     test('reverse values and objects in a given array', function()
