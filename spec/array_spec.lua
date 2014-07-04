@@ -442,10 +442,30 @@ context('Array functions specs', function()
   end)  
   
   context('append',function()  
+    
     test('appends two arrays together', function()
       assert_true(_.isEqual(_.append({1,2,3},{'a','b'}),{1,2,3,'a','b'}))
     end)    
+  
   end)  
+  
+  context('interleave',function()  
+    
+    test('interleaves values from passed-in arrays', function()
+      assert_true(_.isEqual(_.interleave({1,2,3},{'a','b','c'}),{1,'a',2,'b',3,'c'}))
+      assert_true(_.isEqual(_.interleave({1},{'a','b','c'}),{1,'a','b','c'}))
+    end)    
+  
+  end)  
+   
+  context('interpose',function()  
+    
+    test('interposes a value in-between values from a passed-in array', function()
+      assert_true(_.isEqual(_.interpose('a',{1,2,3}),{1,'a',2,'a',3}))
+      assert_true(_.isEqual(_.interpose(false,{5,5,5,5}),{5,false,5,false,5,false,5}))
+    end)    
+  
+  end)
   
   context('range',function()  
   
@@ -474,6 +494,49 @@ context('Array functions specs', function()
     
   end)  
   
+  context('rep',function()  
+  
+    test('generates a list of n repetitions of a value', function()
+      assert_true(_.isEqual(_.rep('a',4),{'a','a','a','a'})) 
+      assert_true(_.isEqual(_.rep(false,3),{false, false, false})) 
+    end)   
+    
+  end)  
+  
+  context('partition',function()  
+  
+    test('iterates on partitions of a given array', function()
+      local array = _.range(1,10)
+      local split5 = {_.range(1,5), _.range(6,10)}
+      local split3 = {_.range(1,3), _.range(4,6), _.range(7,9), {10}}
+      local i = 0
+      for p in _.partition(array,5) do
+        i = i + 1
+        assert_true(_.isEqual(p, split5[i]))
+      end
+      i = 0
+      for p in _.partition(array,3) do
+        i = i + 1
+        assert_true(_.isEqual(p, split3[i]))
+      end      
+    end)   
+    
+  end)  
+ 
+  context('permutation',function()  
+  
+    test('iterates on permutations of a given array', function()
+      local array = {'a','b', 'c'}
+      local perm = {'abc','acb', 'bac', 'bca', 'cab', 'cba'}
+      for p in _.permutation(array) do
+        local strp = _.concat(p)
+        _.pull(perm, strp)
+      end
+      assert_true(#perm == 0)
+    end)   
+    
+  end)  
+ 
   context('invert',function()
   
     test('switches key-values pairs', function()
