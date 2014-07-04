@@ -16,6 +16,26 @@ context('Array functions specs', function()
     
   end)
 
+  context('find', function()
+  
+    test('looks for a value in a given array and returns its position', function()
+      assert_equal(_.find({4,3,2,1},2), 3)
+    end)
+
+    test('uses _.isEqual to compare values', function()
+      assert_equal(_.find({{4},{3},{2},{1}},{3}), 2)
+    end)
+    
+    test('returns the index of the first occurence', function()
+      assert_equal(_.find({4,4,3,3,2,2,1,1},2),5)
+    end)
+
+    test('can start the search at a specific position', function()
+      assert_equal(_.find({4,4,3,3,2,1,2,1,1},2,6),7)
+    end)
+    
+  end)
+
   context('reverse', function()
   
     test('reverse values and objects in a given array', function()
