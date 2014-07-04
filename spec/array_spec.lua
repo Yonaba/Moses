@@ -179,6 +179,15 @@ context('Array functions specs', function()
     
   end)
 
+  context('pull', function()
+  
+    test('removes all listed values in a given array', function()
+      assert_true(_.same(_.pull({1,4,3,1,2,3},1),{4,3,2,3}))
+      assert_true(_.same(_.pull({1,4,3,1,2,3},1,3),{4,2}))
+    end)
+    
+  end)
+  
   context('removeRange', function()
   
     test('removes all values within "start" and "finish" indexes', function()
