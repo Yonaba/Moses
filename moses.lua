@@ -52,7 +52,8 @@ end
 
 local function partgen(t, n, f) -- generates array partitions
   for i = 0, #t, n do
-    f(_.slice(t, i+1, i+n))
+    local s = _.slice(t, i+1, i+n)
+    if #s>0 then f(s) end
   end
 end
 
@@ -1047,6 +1048,17 @@ function _.range(...)
   return _ranged
 end
 
+--- Creates an array list of `n` values, repeated.
+-- @name rep
+-- @tparam value value a value to be repeated
+-- @tparam number n the number of repetitions of the given `value`.
+-- @treturn table a new array of `n` values
+function _.rep(value, n)
+  local ret = {}
+  for i = 1, n do ret[#ret+1] = value end
+  return ret
+end
+
 --- Iterator returning partitions of an array. It returns arrays of length `n` 
 -- made of values from the given array. In case the array size is not a multiple
 -- of `n`, the last array returned will be made of the rest of the values.
@@ -1069,17 +1081,6 @@ function _.permutation(array)
   return coroutine.wrap(function() 
     permgen(array, #array, coroutine.yield)
   end)
-end
-
---- Creates an array list of `n` values, repeated.
--- @name rep
--- @tparam value value a value to be repeated
--- @tparam number n the number of repetitions of the given `value`.
--- @treturn table a new array of `n` values
-function _.rep(value, n)
-  local ret = {}
-  for i = 1, n do ret[#ret+1] = value end
-  return ret
 end
 
 --- Swaps keys with values. Produces a new array where previous keys are now values, 
