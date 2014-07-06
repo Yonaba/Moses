@@ -1141,21 +1141,6 @@ function _.once(f)
     end
 end
 
---- Returns a version of `f` that runs on the `count-th` call.
--- Useful when dealing with asynchronous tasks.
--- @name after
--- @tparam function f a function
--- @tparam number count the number of calls before `f` answers
--- @treturn function a new function
--- @see once
-function _.after(f, count)
-  local _limit,_internal = count, 0
-  return function(...)
-      _internal = _internal+1
-      if _internal >= _limit then return f(...) end
-    end
-end
-
 --- Memoizes a given function by caching the computed result.
 -- Useful for speeding-up slow-running functions. If function `hash` is passed,
 -- it will be used to compute hash keys for a set of input values to the function for caching.
@@ -1175,6 +1160,20 @@ function _.memoize(f, hash)
     end
 end
 
+--- Returns a version of `f` that runs on the `count-th` call.
+-- Useful when dealing with asynchronous tasks.
+-- @name after
+-- @tparam function f a function
+-- @tparam number count the number of calls before `f` answers
+-- @treturn function a new function
+-- @see once
+function _.after(f, count)
+  local _limit,_internal = count, 0
+  return function(...)
+      _internal = _internal+1
+      if _internal >= _limit then return f(...) end
+    end
+end
 
 --- Composes functions. Each passed-in function consumes the return value of the function that follows.
 -- In math terms, composing the functions `f`, `g`, and `h` produces the function `f(g(h(...)))`.
@@ -1186,7 +1185,7 @@ function _.compose(...)
   local f = _.reverse {...}
   return function (...)
       local _temp
-      for i,func in pairs(f) do
+      for i, func in ipairs(f) do
         _temp = _temp and func(_temp) or func(...)
       end
       return _temp
@@ -1201,7 +1200,7 @@ end
 -- @treturn value the result of the composition of function calls.
 -- @see compose
 function _.pipe(value, ...)
-  return _.compose({...})(value)
+  return _.compose(...)(value)
 end
 
 --- Returns the logical complement of a given function. For a given input, the returned 
@@ -1220,11 +1219,11 @@ end
 -- @name juxtapose
 -- @tparam value value a value
 -- @tparam vararg ... a variable number of functions
--- @treturn table a sequence of results.
+-- @treturn vararg a vargarg list of results.
 function _.juxtapose(value, ...)
   local res = {}
   _.each({...}, function(_,f) res[#res+1] = f(value) end)
-  return res
+  return unpack(res)
 end
 
 --- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`.
@@ -1299,7 +1298,6 @@ function _.uniqueId(template,...)
   end
   return unique_id_counter
 end
-
 
 --- Object functions
 --@section Object functions
@@ -1596,7 +1594,7 @@ function _.isEmpty(obj)
   if _.isNil(obj) then return true end
   if _.isString(obj) then return #obj==0 end
   if _.isTable(obj) then return next(obj)==nil end
-  return false
+  return true
 end
 
 --- Checks if the given argument is a *string*.
@@ -1623,19 +1621,11 @@ function _.isNil(obj)
   return obj==nil
 end
 
---- Checks if the given argument is a finite number.
--- @name isFinite
--- @tparam table obj a number
--- @treturn boolean `true` or `false`
-function _.isFinite(obj)
-  if not _.isNumber(obj) then return false end
-  return obj > -huge and obj < huge
-end
-
 --- Checks if the given argument is a number.
 -- @name isNumber
 -- @tparam table obj a number
 -- @treturn boolean `true` or `false`
+-- @see isNaN
 function _.isNumber(obj)
   return type(obj) == 'number'
 end
@@ -1644,8 +1634,18 @@ end
 -- @name isNaN
 -- @tparam table obj a number
 -- @treturn boolean `true` or `false`
+-- @see isNumber
 function _.isNaN(obj)
   return _.isNumber(obj) and obj~=obj
+end
+
+--- Checks if the given argument is a finite number.
+-- @name isFinite
+-- @tparam table obj a number
+-- @treturn boolean `true` or `false`
+function _.isFinite(obj)
+  if not _.isNumber(obj) then return false end
+  return obj > -huge and obj < huge
 end
 
 --- Checks if the given argument is a boolean.
