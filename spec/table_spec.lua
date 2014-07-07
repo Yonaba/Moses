@@ -1,7 +1,7 @@
 require 'luacov'
 local _ = require 'moses'
 
-context('Collection functions specs', function()
+context('Table functions specs', function()
 
   context('each', function()
   
@@ -54,7 +54,7 @@ context('Collection functions specs', function()
         assert_equal(i,rk[inc])
         assert_equal(v,rv[inc])
       end)
-    end)    
+    end)  
     
   end)  
  
@@ -137,8 +137,8 @@ context('Collection functions specs', function()
       for k,v in ipairs(values) do
         assert_equal(_.count(values,v),times)
       end      
-    end)    
-  
+    end)
+    
   end)
   
   context('map', function()
@@ -153,8 +153,8 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.map({a = 1, b = 2},function(k,v) 
           return k..v 
         end),{a = 'a1',b = 'b2'}))
-    end)  
-  
+    end)
+    
   end)
   
   context('reduce', function()
@@ -184,8 +184,8 @@ context('Collection functions specs', function()
     
     test('initial state defaults to the first value when not given', function()
       assert_equal(_.reduceRight({'a','b','c'},function(memo,v) return memo..v end),'cba')
-    end)    
-  
+    end)
+    
   end)
 
   context('mapReduce', function()
@@ -200,7 +200,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduce({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'a','ab','abc'}))
-    end) 
+    end)  
   
   end)
 
@@ -216,8 +216,8 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduceRight({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'c','cb','cba'}))
-    end) 
-  
+    end)
+    
   end)  
 
   context('include', function()
@@ -238,8 +238,8 @@ context('Collection functions specs', function()
       assert_true(_.include({'a','B','c'}, function(array_value)
         return (array_value:upper() == array_value)
       end))
-    end)  
-  
+    end) 
+    
   end)  
     
   context('detect', function()
@@ -315,7 +315,7 @@ context('Collection functions specs', function()
           return (value%2~=0)
         end),{1,3,5,7}))        
     end)
-
+    
   end) 
    
   context('reject', function()
@@ -328,7 +328,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.reject({1,2,3,4,5,6,7}, function(key,value) 
           return (value%2~=0)
         end),{2,4,6}))        
-    end)      
+    end)
     
   end) 
     
@@ -342,7 +342,7 @@ context('Collection functions specs', function()
       assert_false(_.all({false,true,false}, function(key,value) 
           return value == false
         end))        
-    end)      
+    end) 
     
   end) 
  
