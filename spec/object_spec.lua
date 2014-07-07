@@ -369,7 +369,10 @@ context('Object functions specs', function()
   context('isIterable', function()
   
     test('Checks if the given object is iterable with pairs',function()
-
+      assert_true(_.isIterable({}))
+      assert_false(_.isIterable(function() end))
+      assert_false(_.isIterable(false))
+      assert_false(_.isIterable(1))
     end)
     
   end)  
@@ -377,7 +380,10 @@ context('Object functions specs', function()
   context('isIIterable', function()
   
     test('Checks if the given object is iterable with ipairs',function()
-
+      assert_true(_.isIIterable({}))
+      assert_false(_.isIIterable(function() end))
+      assert_false(_.isIIterable(false))
+      assert_false(_.isIIterable(1))
     end)
     
   end)
