@@ -1664,7 +1664,65 @@ function _.isInteger(obj)
   return _.isNumber(obj) and floor(obj)==obj
 end
 
--- ========= Chaining
+-- Aliases
+
+do
+
+  -- Table functions aliases
+  _.forEach     = _.each
+  _.forEachi    = _.eachi
+  _.loop        = _.cycle
+  _.collect     = _.map
+  _.inject      = _.reduce
+  _.foldl       = _.reduce
+  _.injectr     = _.reduceRight
+  _.foldr       = _.reduceRight
+  _.mapr        = _.mapReduce
+  _.maprr       = _.mapReduceRight
+  _.any         = _.include
+  _.some        = _.include
+  _.filter      = _.select
+  _.discard     = _.reject
+  _.every       = _.all
+  
+  -- Array functions aliases
+  _.takeWhile   = _.selectWhile
+  _.rejectWhile = _.dropWhile
+  _.shift       = _.pop
+  _.remove      = _.pull
+  _.rmRange     = _.removeRange
+  _.chop        = _.removeRange
+  _.sub         = _.slice
+  _.head        = _.first
+  _.take        = _.first
+  _.tail        = _.rest
+  _.skip        = _.last
+  _.without     = _.difference
+  _.diff        = _.difference
+  _.symdiff     = _.symmetricDifference
+  _.xor         = _.symmetricDifference
+  _.uniq        = _.unique
+  _.isuniq      = _.isunique
+  _.part        = _.partition
+  _.perm        = _.permutation
+  _.mirror      = _.invert
+  _.join        = _.concat
+  
+  -- Utility functions aliases
+  _.cache       = _.memoize
+  _.juxt        = _.juxtapose
+  _.uid         = _.uniqueId
+  
+  -- Object functions aliases
+  _.methods     = _.functions
+  _.choose      = _.pick
+  _.drop        = _.omit
+  _.defaults    = _.template
+  _.compare     = _.isEqual
+  
+end
+
+-- Setting chaining and building interface
 
 do
 
@@ -1706,52 +1764,6 @@ do
 
   -- Register chaining methods into the wrapper
   f.chain, f.value = __.chain, __.value
-
-  -- Aliases
-  _.forEach     = _.each
-  _.forEachi    = _.eachi
-  _.loop        = _.cycle
-  _.collect     = _.map
-  _.inject      = _.reduce
-  _.foldl       = _.reduce
-  _.injectr     = _.reduceRight
-  _.foldr       = _.reduceRight
-  _.mapr        = _.mapReduce
-  _.maprr       = _.mapReduceRight
-  _.any         = _.include
-  _.some        = _.include
-  _.filter      = _.select
-  _.discard     = _.reject
-  _.every       = _.all
-  _.takeWhile   = _.selectWhile
-  _.rejectWhile = _.dropWhile
-  _.shift       = _.pop
-  _.remove      = _.pull
-  _.rmRange     = _.removeRange
-  _.chop        = _.removeRange
-  _.sub         = _.slice
-  _.head        = _.first
-  _.take        = _.first
-  _.tail        = _.rest
-  _.skip        = _.last
-  _.without     = _.difference
-  _.diff        = _.difference
-  _.symdiff     = _.symmetricDifference
-  _.xor         = _.symmetricDifference
-  _.uniq        = _.unique
-  _.isuniq      = _.isunique
-  _.part        = _.partition
-  _.perm        = _.permutation
-  _.mirror      = _.invert
-  _.join        = _.concat
-  _.cache       = _.memoize
-  _.juxt        = _.juxtapose
-  _.uid         = _.uniqueId
-  _.methods     = _.functions
-  _.choose      = _.pick
-  _.drop        = _.omit
-  _.defaults    = _.template
-  _.compare     = _.isEqual
 
   -- Register all functions into the wrapper
   for fname,fct in pairs(_) do
