@@ -60,16 +60,14 @@ context('Table functions specs', function()
  
   context('at', function()
   
-    test('returns an array of values at specific indexes', function()
+    test('returns an array of values at numeric keys', function()
       local t = {4,5,6}
       local values = _.at(t,1,2,3)
       assert_true(_.isEqual(values, t))
-    end)
-    
-    test('can also retrieve values at key-indexes', function()
+      
       local t = {a = 4, bb = true, ccc = false}
       local values = _.at(t,'a', 'ccc')
-      assert_true(_.isEqual(values, {4, false}))    
+      assert_true(_.isEqual(values, {4, false}))       
     end)
     
   end)
@@ -460,15 +458,7 @@ context('Table functions specs', function()
       assert_true(_.isEqual(_.sort({'b','a','d','c'}),{'a','b','c','d'}))
     end)     
   
-  end)   
-
-  context('toArray', function()
-  
-    test('folds a list of args into a array', function()            
-      assert_true(_.isEqual(_.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))
-    end)
-    
-  end)   
+  end)     
   
   context('groupBy', function()
   

@@ -7,6 +7,7 @@ context('Array functions specs', function()
   
     test('converts a vararg list to an array', function()
       assert_true(_.isArray(_.toArray(1,2,3,4)))
+      assert_true(_.isEqual(_.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))      
     end)
 
     test('preserves input order', function()
