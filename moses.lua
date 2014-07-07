@@ -1354,12 +1354,10 @@ end
 -- table if argument `recurseMt` is provided. If `obj` is omitted, it defaults to the library functions.
 -- <br/><em>Aliased as `methods`</em>.
 -- @name functions
--- @tparam[obj] table obj an object. Defaults to library functions.
+-- @tparam[opt] table obj an object. Defaults to library functions.
 -- @treturn table an array-list of methods names
 function _.functions(obj, recurseMt)
-  if not obj then
-    return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
-  end
+  obj = obj or _
   local _methods = {}
   _.each(obj,function(key,value)
     if _.isFunction(value) then
@@ -1785,16 +1783,18 @@ do
   -- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
   -- @treturn table the passed-in context
   f.import = function(context, noConflict)
-    local fs = {}
     context = context or _G
-    _.each(f, function(k,v)
-      if noConflict then
-        if not rawget(context, k) then fs[k] = v end
+    local funcs = _.functions()
+    _.each(funcs, function(k, fname)  
+      if rawget(context, fname) then
+        if not noConflict then
+          context[fname] = _[fname]        
+        end
       else
-        fs[k] = v
+        context[fname] = _[fname]
       end
     end)
-    return _.extend(context, fs)
+    return context
   end
 
   -- Descriptive tags
