@@ -1573,7 +1573,7 @@ end
 -- @tparam table obj an object
 -- @treturn boolean `true` if the object can be iterated with `pairs`, `false` otherwise
 function _.isIterable(obj)
-  return __.toBoolean((pcall(pairs, obj)))
+  return _.toBoolean((pcall(pairs, obj)))
 end
 
 --- Checks if the given object is iterable with `ipairs`.
@@ -1581,7 +1581,7 @@ end
 -- @tparam table obj an object
 -- @treturn boolean `true` if the object can be iterated with `ipairs`, `false` otherwise
 function _.isIIterable(obj)
-  return __.toBoolean((pcall(ipairs, obj)))
+  return _.toBoolean((pcall(ipairs, obj)))
 end
 
 --- Checks if the given is empty. If `obj` is a *string*, will return `true`
