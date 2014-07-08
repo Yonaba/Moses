@@ -146,14 +146,16 @@ function _.countf(t, f, ...)
 end
 
 --- Iterates through a table and loops `n` times. The full iteration loop will be 
--- repeated `n` times (or forever, if `n` is omitted). In case `n` is lower or equal to 0, does nothing.
+-- repeated `n` times (or forever, if `n` is omitted). In case `n` is lower or equal to 0, it returns 
+-- an empty function.
 -- <br/><em>Aliased as `loop`</em>.
 -- @name cycle
 -- @tparam table t a table
 -- @tparam number n the number of loops
 -- @treturn function an iterator function yielding key-value pairs from the passed-in table.
 function _.cycle(t, n)
-  if n<=0 then return end
+  n = n or 1
+  if n<=0 then return function() end end
   local k, fk
   local i = 0
   while true do

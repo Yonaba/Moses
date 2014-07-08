@@ -10,6 +10,7 @@
 * `_.isNil` now returns true if arg is nil, an empty string or empty table and false otherwise.
 * `_.size` now returns 0 for empty args instead of `nil`
 * `_.unique` no longer accepts `iter` argument to transform original array values.
+* `_.cycle` argument `n` now defaults to 1.
 
 #### Renamed
 * Renamed alias `_.uId` to `_.uid`
