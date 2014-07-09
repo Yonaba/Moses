@@ -137,6 +137,28 @@ context('Table functions specs', function()
       end      
     end)
     
+    test('n defaults to 1, if not supplied', function()
+      local t = {1,2,3,4,5}
+      for k,v in _.cycle(t) do
+        t[k] = v + 1
+      end
+      _.each(t, function(k, v)
+        assert_equal(v, k + 1)
+      end)
+    end)   
+    
+    test('if n is negative or equal to 0, it does nothing', function()
+      local t = {1,2,3,4,5}
+      for k,v in _.cycle(t, 0) do
+        t[k] = v + 1
+      end
+      for k,v in _.cycle(t, -2) do
+        t[k] = v + 1
+      end      
+      _.each(t, function(k, v)
+        assert_equal(v, k)
+      end)
+    end)     
   end)
   
   context('map', function()
