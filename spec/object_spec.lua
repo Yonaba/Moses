@@ -32,17 +32,15 @@ context('Object functions specs', function()
       assert_true(type(_.toBoolean(nil)) == 'boolean')
       assert_true(type(_.toBoolean({})) == 'boolean')
       assert_true(type(_.toBoolean(1/0)) == 'boolean')
-    end)
-    
-    test('converts a value to a boolean',function()
+      
       assert_true(_.toBoolean(true))
       assert_true(_.toBoolean(1))
       assert_false(_.toBoolean(false))
       assert_false(_.toBoolean(nil))
       assert_true(_.toBoolean({}))
-      assert_true(_.toBoolean(1/0))
+      assert_true(_.toBoolean(1/0))      
     end)
-    
+  
   end)  
   
   context('extend', function()
@@ -51,7 +49,7 @@ context('Object functions specs', function()
       assert_true(_.isEqual(_.extend({},{a = 'b'}),{a = 'b'}))
     end)
     
-    test('source properties overrides destionation properties',function()
+    test('source properties overrides destination properties',function()
       assert_true(_.isEqual(_.extend({a = 'a'},{a = 'b'}),{a = 'b'}))
     end)   
 
@@ -368,7 +366,7 @@ context('Object functions specs', function()
   
   context('isIterable', function()
   
-    test('Checks if the given object is iterable with pairs',function()
+    test('checks if the given object is iterable with pairs',function()
       assert_true(_.isIterable({}))
       assert_false(_.isIterable(function() end))
       assert_false(_.isIterable(false))
@@ -376,18 +374,7 @@ context('Object functions specs', function()
     end)
     
   end)  
-    
-  context('isIIterable', function()
-  
-    test('Checks if the given object is iterable with ipairs',function()
-      assert_true(_.isIIterable({}))
-      assert_false(_.isIIterable(function() end))
-      assert_false(_.isIIterable(false))
-      assert_false(_.isIIterable(1))
-    end)
-    
-  end)
-  
+     
   context('isEmpty', function()
   
     test('returns "true" if arg is an empty array',function()

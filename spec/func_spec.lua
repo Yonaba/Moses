@@ -41,13 +41,13 @@ context('Utility functions specs', function()
       end      
       local times = 10
       local mfib = _.memoize(fib)
-      fib_time = os.clock()*1000
-        for i = 1, times do fib_value = (fib_value or 0)+fib(10) end
-      fib_time = os.clock()*1000-fib_time
+      fib_time = os.clock()
+        for i = 1, times do fib_value = (fib_value or 0)+fib(20) end
+      fib_time = (os.clock()-fib_time)*1000
       
-      mfib_time = os.clock()*1000
-        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(10) end
-      mfib_time = os.clock()*1000-mfib_time      
+      mfib_time = os.clock()
+        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(20) end
+      mfib_time = (os.clock()-mfib_time  )*1000    
     end)
     
     test('memoizes an expensive function by caching its results',function()
@@ -62,21 +62,21 @@ context('Utility functions specs', function()
       local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
       local times, rep = 100, 10
       
-      local time = os.clock()*1000
+      local time = os.clock()
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do diffFact(ai,aj) end
         end
       end
-      time = os.clock()*1000-time
+      time = (os.clock()-time)*1000
 
-      local mtime = os.clock()*1000
+      local mtime = os.clock()
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do mdiffFact(ai,aj) end
         end
       end
-      mtime = os.clock()*1000-mtime  
+      mtime = (os.clock()-mtime)*1000
 
       assert_true(mtime<=time)
 
@@ -134,7 +134,7 @@ context('Utility functions specs', function()
 
   context('complement', function()
     
-    test('returns the logical complement of a given function',function()
+    test('returns a function which returns the logical complement of a given function',function()
       assert_false(_.complement(function() return true end)())
       assert_true(_.complement(function() return false end)())
       assert_true(_.complement(function() return nil end)())
@@ -227,7 +227,7 @@ context('Utility functions specs', function()
       end        
     end)
     
-    test('accepts a function as a template to edit the returned id',function()
+    test('accepts a function as argument to format the returned id',function()
       local ids = {}
       local formatter = function(ID) return '$'..ID..'$' end
       for i = 1,100 do
