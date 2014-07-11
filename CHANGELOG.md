@@ -43,7 +43,6 @@
 * Added `_.permutation` and alias `_.perm`
 * Added `_.compare` as alias to `_.isEqual`
 * Added `_.isIterable`
-* Added `_.isIIterable`
 * Added `_.toBoolean`
 * Added `_.pull` and alias `_.remove`
 * Added `_.at`

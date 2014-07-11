@@ -1568,20 +1568,12 @@ function _.isArray(obj)
   return true
 end
 
---- Checks if the given object is iterable with `pairs`.
+--- Checks if the given object is iterable with `pairs` (or `ipairs`).
 -- @name isIterable
 -- @tparam table obj an object
 -- @treturn boolean `true` if the object can be iterated with `pairs`, `false` otherwise
 function _.isIterable(obj)
   return _.toBoolean((pcall(pairs, obj)))
-end
-
---- Checks if the given object is iterable with `ipairs`.
--- @name isIIterable
--- @tparam table obj an object
--- @treturn boolean `true` if the object can be iterated with `ipairs`, `false` otherwise
-function _.isIIterable(obj)
-  return _.toBoolean((pcall(ipairs, obj)))
 end
 
 --- Checks if the given is empty. If `obj` is a *string*, will return `true`
