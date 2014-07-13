@@ -31,9 +31,9 @@ local _ = require ("moses")
 
 *Moses*' consists of a large set of functions that can be classified into four categories:
 
-* __Table functions__, which are mostly meant for tables, i.e Lua tables which contains both an array-part and/or a map-part.
-* __Array functions__, meant for array lists (or sequences) where values are indexed with consecutive numeric keys (starting from 1).
-* __Utility functions__
+* __Table functions__, which are mostly meant for tables, i.e Lua tables which contains both an array-part and/or a map-part,
+* __Array functions__, meant for array lists (or sequences),
+* __Utility functions__,
 * __Object functions__, meant for instances/classes.
 
 **[[⬆]](#TOC)**
@@ -42,6 +42,7 @@ local _ = require ("moses")
 
 
 ### each (t, f, ...)
+*Aliases: `_.forEach`*.
 
 Iterates over each key-value pair in table.
 
@@ -78,6 +79,7 @@ end)
 ````
 
 ### eachi (t, f, ...)
+*Aliases: `_.forEachi`*.
 
 Iterates only on integer keys in a sparse array table.
 
@@ -148,6 +150,7 @@ end) -- => 4
 ````
 
 ### cycle (t, n)
+*Aliases: `_.loop`*.
 
 Returns a function which iterates on each key-value pair in a given table (similarly to `_.each`), except that it restarts iterating again `n` times.
 If `n` is not provided, it defaults to 1.
@@ -180,6 +183,7 @@ end
 ````
 
 ### map (t, f, ...)
+*Aliases: `_.collect`*.
 
 Executes a function on each key-value pairs.
 
@@ -196,6 +200,7 @@ end) -- => "{a = 'a1', b = 'b2'}"
 ````
 
 ### reduce (t, f, state)
+*Aliases: `_.inject`, `_.foldl`*.
 
 Can sums all values in a table.
 
@@ -214,6 +219,7 @@ end) -- => abcd
 ````
 
 ### reduceRight (t, f, state)
+*Aliases: `_.injectr`, `_.foldr`*.
 
 Similar to `_.reduce`, but performs from right to left.
 
@@ -225,6 +231,7 @@ end,initial_state) -- => 2
 ````
 
 ### mapReduce (t, f, state)
+*Aliases: `_.mapr`*.
 
 Reduces while saving intermediate states.
 
@@ -235,6 +242,7 @@ end) -- => "{'a', 'ab', 'abc'}"
 ````
 
 ### mapReduceRight (t, f, state)
+*Aliases: `_.maprr`*.
 
 Reduces from right to left, while saving intermediate states.
 
@@ -245,6 +253,7 @@ end) -- => "{'c', 'cb', 'cba'}"
 ````
 
 ### include (t, value)
+*Aliases: `_.any`, `_.some`*.
 
 Looks for a value in a table.
 
@@ -317,7 +326,8 @@ _.findWhere({a, b, c}, {a = 3, b = 4}) == c -- => true
 ````
 
 ### select (t, f, ...)
- 
+*Aliases: `_.filte`*.
+
 Collects values passing a validation test.
 
 ```lua
@@ -333,6 +343,7 @@ end) -- => "{1,3,5,7}"
 ````
 
 ### reject (t, f, ...)
+*Aliases: `_.reject`*.
 
 Removes all values failing a validation test:
 
@@ -347,6 +358,7 @@ end) -- => "{2,4,6}"
 ````
 
 ### all (t, f, ...)
+*Aliases: `_.every`*.
 
 Checks whether or not all elements pass a validation test.
 
@@ -558,6 +570,7 @@ _.reverse({1,2,3,'d'}) -- => "{'d',3,2,1}"
 ````
 
 ### selectWhile (array, f, ...
+*Aliases: `_.takeWhile`*.
 
 Collects values as long as they pass a given test. Stops on the first non-passing test.
 
@@ -568,6 +581,7 @@ end) -- => "{2,4}"
 ````
 
 ### dropWhile (array, f, ...
+*Aliases: `_.rejectWhile`*.
 
 Removes values as long as they pass a given test. Stops on the first non-passing test.
 
@@ -627,6 +641,7 @@ _.push(array,1,2,3,4) -- => "{1,1,2,3,4}"
 ````
 
 ### pop (array, n)
+*Aliases: `_.shift`*.
 
 Removes and returns the first value in an array.
 
@@ -645,6 +660,7 @@ local value = _.unshift(array) -- => "value = 3", "array = {1,2}"
 ````
 
 ### pull (array, ...)
+*Aliases: `_.remove`*.
 
 Removes all provided values from a given array.
 
@@ -653,6 +669,7 @@ _.pull({1,2,1,2,3,4,3},1,2,3) -- => "{4}"
 ````
 
 ### removeRange (array, start, finish)
+*Aliases: `_.rmRange`, `_.chop`*.
 
 Trims out all values index within a range.
 
@@ -672,6 +689,7 @@ _.chunk(t, function(k,v) return v%2==0 end) -- => "{{1,1},{2},{3,3},{4}}"
 ````
 
 ### slice (array, start, finish)
+*Aliases: `_.sub`*.
 
 Slices and returns a part of an array.
 
@@ -681,6 +699,7 @@ _.slice(array, 3,6) -- => "{3,4,5,6}"
 ````
 
 ### first (array, n)
+*Aliases: `_.head`, `_.take`*.
 
 Returns the first N elements in an array.
 
@@ -699,6 +718,7 @@ _.initial(array,5) -- => "{1,2,3,4}"
 ````
 
 ### last (array, n)
+*Aliases: `_.skip`*.
 
 Returns the last N elements in an array.
 
@@ -708,6 +728,7 @@ _.last(array,3) -- => "{7,8,9}"
 ````
 
 ### rest (array, index)
+*Aliases: `_.tail`*.
 
 Trims out all values indexed before *index*.
 
@@ -739,6 +760,7 @@ _.flatten({1,{2},{{3}}},true) -- => "{1,{2},{{3}}}"
 ````
 
 ### difference (array, array2)
+*Aliases: `_.without`, `_.diff`*.
 
 Returns values in the given array not present in a second array.
 
@@ -770,6 +792,7 @@ _.intersection(A,B,C) -- => "{'a',2,1}"
 ````
 
 ### symmetricDifference (array, array2)
+*Aliases: `_.symdiff`,`_.xor`*.
 
 Returns values in the first array not present in the second and also values in the second array not present in the first one.
 
@@ -780,6 +803,7 @@ _.symmetricDifference(array, array2) -- => "{2,3,4,5}"
 ````
 
 ### unique (array)
+*Aliases: `_.uniq`*.
 
 Makes an array duplicate-free.
 
@@ -788,6 +812,7 @@ _.unique {1,1,2,2,3,3,4,4,4,5} -- => "{1,2,3,4,5}"
 ````
 
 ### isunique (array)
+*Aliases: `_.isuniq`*.
 
 Checks if a given array contains no duplicate value.
 
@@ -861,6 +886,7 @@ _.rep(4,3) -- => "{4,4,4}"
 ````
 
 ### partition (array, n)
+*Aliases: `_.part`*.
 
 Returns an iterator function for partitions of a given array.
 
@@ -876,6 +902,7 @@ end
 ````
 
 ### permutation (array)
+*Aliases: `_.perm`*.
 
 Returns an iterator function for permutations of a given array.
 
@@ -894,6 +921,7 @@ end
 ````
 
 ### invert (array)
+*Aliases: `_.mirror`*.
 
 Switches <tt>key-value</tt> pairs:
 
@@ -902,6 +930,7 @@ _.invert {'a','b','c'} -- => "{a=1, b=2, c=3}"
 ````
 
 ### concat (array, sep, i, j)
+*Aliases: `_.join`*.
 
 Concatenates a given array values:
 
@@ -938,6 +967,7 @@ sq(5) -- => 1
 ````
 
 ### memoize (f, hash)
+*Aliases: `_.cache`*.
 
 Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.
 
@@ -996,6 +1026,7 @@ _.complement(function() return true end)() -- => false
 ````
 
 ### juxtapose (value, ...)
+*Aliases: `_.juxt`*.
 
 Calls a sequence of functions with the same input.
 
@@ -1051,6 +1082,7 @@ out('a','b','c','d') -- => OutPut: abcd
 ````
 
 ### uniqueId (template, ...)
+*Aliases: `_.uid`*.
 
 Returns an unique integer ID.
 
@@ -1114,6 +1146,7 @@ _.extend({},{a = 'b', c = 'd'}) -- => "{a = 'b', c = 'd'}"
 ````
 
 ### functions (obj, recurseMt)
+*Aliases: `_.methods`*.
 
 Returns all functions names within an object.
 
@@ -1156,6 +1189,7 @@ _.has(math,'random') -- => true
 ````
 
 ### pick (obj, ...)
+*Aliases: `_.choose`*.
 
 Collects whilelisted properties of a given object.
 
@@ -1165,6 +1199,7 @@ _.pick(object,'a','c') -- => "{a = 1, c = 3}"
 ````
 
 ### omit (obj, ...)
+*Aliases: `_.drop`*.
 
 Omits blacklisted properties of a given object.
 
@@ -1174,6 +1209,7 @@ _.omit(object,'a','c') -- => "{b = 2}"
 ````
 
 ### template (obj, template)
+*Aliases: `_.defaults`*.
 
 Applies a template on an object, preserving existing properties.
 
@@ -1183,6 +1219,7 @@ _.template(obj,{a = 1, b = 2, c = 3}) -- => "{a=0, c=3, b=2}"
 ````
 
 ### isEqual (objA, objB, useMt)
+*Aliases: `_.compare`*.
 
 Compares objects:
 
