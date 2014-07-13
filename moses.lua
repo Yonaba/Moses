@@ -251,7 +251,7 @@ end
 -- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the table.
 -- @treturn table an array of states
 -- @see mapReduce
-function _.mapReduceRight(t,f,state)
+function _.mapReduceRight(t, f, state)
   return _.mapReduce(_.reverse(t),f,state)
 end
 
@@ -388,7 +388,7 @@ end
 -- @tparam table t a table
 -- @tparam string a property, will be used to index in each value: `value[property]`
 -- @treturn table an array of values for the specified property
-function _.pluck(t,property)
+function _.pluck(t, property)
   return _.reject(_.map(t,function(__,value)
       return value[property]
     end), iNot)
@@ -441,7 +441,7 @@ end
 -- @tparam table a a table
 -- @tparam table b another table
 -- @treturn boolean `true` or `false`
-function _.same(a,b)
+function _.same(a, b)
   return _.all(a, function (i,v) return _.include(b,v) end) 
      and _.all(b, function (i,v) return _.include(a,v) end)
 end
@@ -464,7 +464,7 @@ end
 -- @tparam function|string iter an iterator function, prototyped as `iter(key, value, ...)`
 -- @tparam[opt] vararg ... Optional extra-args to be passed to function `iter`
 -- @treturn table a new table with values grouped by subsets
-function _.groupBy(t,iter,...)
+function _.groupBy(t, iter, ...)
   local vararg = {...}
   local _t = {}
   local _iter = _.isFunction(iter) and iter
@@ -487,7 +487,7 @@ end
 -- @tparam function iter an iterator function, prototyped as `iter(key, value, ...)`
 -- @tparam[opt] vararg ... Optional extra-args to be passed to function `iter`
 -- @treturn table a new table with subsets names paired with their count
-function _.countBy(t,iter,...)
+function _.countBy(t, iter, ...)
   local vararg = {...}
   local stats = {}
   _.each(t,function(i,v)
@@ -524,7 +524,7 @@ end
 -- @tparam table other another table
 -- @treturn boolean `true` or `false`
 -- @see sameKeys
-function _.containsKeys(t,other)
+function _.containsKeys(t, other)
   for key in pairs(other) do
     if not t[key] then return false end
   end
@@ -1246,7 +1246,7 @@ end
 -- @tparam function iter an iterator function, prototyped as `iter(i, ...)`
 -- @tparam vararg ... extra-args to be passed to `iter` function
 -- @treturn table an array of results
-function _.times(n,iter,...)
+function _.times(n, iter, ...)
   local results = {}
   for i = 1,n do
     results[i] = iter(i,...)
@@ -1289,7 +1289,7 @@ end
 -- @tparam[opt] string|function template either a string or a function template to format the ID
 -- @tparam[optchain] vararg ... a variable number of arguments to be passed to *template*, in case it is a function.
 -- @treturn value an ID
-function _.uniqueId(template,...)
+function _.uniqueId(template, ...)
   unique_id_counter = unique_id_counter + 1
   if template then
     if _.isString(template) then
@@ -1483,7 +1483,7 @@ end
 -- @tparam table objB another object
 -- @tparam[opt] boolean useMt whether or not `__eq` should be used, defaults to false.
 -- @treturn boolean `true` or `false`
-function _.isEqual(objA,objB,useMt)
+function _.isEqual(objA, objB, useMt)
   local typeObjA = type(objA)
   local typeObjB = type(objB)
   if typeObjA~=typeObjB then return false end
@@ -1520,7 +1520,7 @@ end
 -- @tparam string method a string key to index in object `obj`.
 -- @tparam[opt] vararg ... Optional extra-args to be passed to `method`
 -- @treturn value the returned value of `method(obj,...)` call
-function _.result(obj,method,...)
+function _.result(obj, method, ...)
   if obj[method] then
     if _.isCallable(obj[method]) then
       return obj[method](obj,...)
