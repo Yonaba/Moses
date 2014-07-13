@@ -41,7 +41,7 @@ local _ = require ("moses")
 ## <a name='table'>Table functions</a>
 
 
-### each
+### each (t, f, ...)
 
 Iterates over each key-value pair in table.
 
@@ -77,7 +77,7 @@ end)
 -- => 3 cc
 ````
 
-### eachi
+### eachi (t, f, ...)
 
 Iterates only on integer keys in a sparse array table.
 
@@ -103,7 +103,7 @@ end)
 -- => 2	5
 ````
 
-### at
+### at (t, ...)
 
 Collects all values at some specific keys and returns them in an array.
 
@@ -115,7 +115,7 @@ local t = {a = 4, bb = true, ccc = false}
 _.at(t,'a', 'ccc') -- => "{4, false}"
 ````
 
-### count
+### count (t, value)
 
 Counts the number of occurences of a given value in a table.
 
@@ -133,7 +133,7 @@ Returns the size of the list in case no value was provided.
 _.count({1,1,2,3,3}) -- => 5
 ````
 
-### countf
+### countf (t, f, ...)
 
 Count the number of occurences of all values passing an iterator test.
 
@@ -147,7 +147,7 @@ _.countf({print, pairs, os, assert, ipairs}, function(i,v)
 end) -- => 4
 ````
 
-### cycle
+### cycle (t, n)
 
 Returns a function which iterates on each key-value pair in a given table (similarly to `_.each`), except that it restarts iterating again `n` times.
 If `n` is not provided, it defaults to 1.
@@ -179,7 +179,7 @@ end
 -- => z	3
 ````
 
-### map
+### map (t, f, ...)
 
 Executes a function on each key-value pairs.
 
@@ -195,7 +195,7 @@ _.map({a = 1, b = 2},function(k,v)
 end) -- => "{a = 'a1', b = 'b2'}"
 ````
 
-### reduce
+### reduce (t, f, state)
 
 Can sums all values in a table.
 
@@ -213,7 +213,7 @@ _.reduce({'a','b','c','d'},function(memo,v)
 end) -- => abcd	 
 ````
 
-### reduceRight
+### reduceRight (t, f, state)
 
 Similar to `_.reduce`, but performs from right to left.
 
@@ -224,7 +224,7 @@ _.reduceRight({1,2,4,16},function(memo,v)
 end,initial_state) -- => 2
 ````
 
-### mapReduce
+### mapReduce (t, f, state)
 
 Reduces while saving intermediate states.
 
@@ -234,7 +234,7 @@ _.mapReduce({'a','b','c'},function(memo,v)
 end) -- => "{'a', 'ab', 'abc'}"
 ````
 
-### mapReduceRight
+### mapReduceRight (t, f, state)
 
 Reduces from right to left, while saving intermediate states.
 
@@ -244,7 +244,7 @@ _.mapReduceRight({'a','b','c'},function(memo,v)
 end) -- => "{'c', 'cb', 'cba'}"
 ````
 
-### include
+### include (t, value)
 
 Looks for a value in a table.
 
@@ -264,7 +264,7 @@ local function isUpper(v) return v:upper()== v end
 _.include({'a','B','c'},isUpper) -- => true
 ````
 
-### detect
+### detect (t, value)
 
 Returns the index of a value in a table.
 
@@ -286,7 +286,7 @@ end
 _.detect({'a','B','c'},isUpper) -- => 2
 ````
 
-### contains
+### contains (t, value)
 
 Returns true if the passed-in value was found in a given table.
 
@@ -305,7 +305,7 @@ _.contains({'a','B','c'}, function(array_value)
 end) -- => true
 ````	
 
-### findWhere
+### findWhere (t, props)
 
 Looks through a table and returns the first value that matches all of the key-value pairs listed in properties. 
 
@@ -316,8 +316,8 @@ local c = {a = 3, b = 4, e = 5}
 _.findWhere({a, b, c}, {a = 3, b = 4}) == c -- => true
 ````
 
-### select
-
+### select (t, f, ...)
+ 
 Collects values passing a validation test.
 
 ```lua
@@ -332,7 +332,7 @@ _.select({1,2,3,4,5,6,7}, function(key,value)
 end) -- => "{1,3,5,7}"
 ````
 
-### reject
+### reject (t, f, ...)
 
 Removes all values failing a validation test:
 
@@ -346,7 +346,7 @@ _.reject({1,2,3,4,5,6,7}, function(key,value)
 end) -- => "{2,4,6}"
 ````
 
-### all
+### all (t, f, ...)
 
 Checks whether or not all elements pass a validation test.
 
@@ -356,7 +356,7 @@ _.all({2,4,6}, function(key,value)
 end) -- => true
 ````
 
-### invoke
+### invoke (t, method, ...)
 
 Invokes a given function on each value in a table
 
@@ -375,7 +375,7 @@ b.call, c.call, d.call = a.call, a.call, a.call
 _.invoke({a,b,c,d},'call') -- => "{'a','a','a','a'}"
 ````
 
-### pluck
+### pluck (t, property)
 
 Fetches all values indxed with specific key in a table of objects.
 
@@ -388,7 +388,7 @@ _.pluck(peoples,'age') -- => "{23,17,15,33}"
 _.pluck(peoples,'name') -- => "{'John', 'Peter', 'Steve'}"
 ````
 
-### max
+### max (t, transform, ...)
 
 Returns the maximum value in a collection.
 
@@ -406,7 +406,7 @@ local peoples = {
 _.max(peoples,function(people) return people.age end) -- => 33
 ````
 
-### min
+### min (t, transform, ...)
 
 Returns the minimum value in a collection.
 
@@ -424,7 +424,7 @@ local peoples = {
 _.min(peoples,function(people) return people.age end) -- => 15
 ````
 
-### shuffle
+### shuffle (t, seed)
 
 Shuffles a collection.
 
@@ -433,7 +433,7 @@ local list = _.shuffle {1,2,3,4,5,6} -- => "{3,2,6,4,1,5}"
 _.each(list,print)
 ````
 
-### same
+### same (a, b)
 
 Tests whether or not all values in each of the passed-in tables exists in both tables.
 
@@ -446,7 +446,7 @@ b[#b+1] = 'e'
 _.same(a,b) -- => false
 ````
 
-### sort
+### sort (t, comp)
 
 Sorts a collection.
 
@@ -462,7 +462,7 @@ _.sort({'b','a','d','c'}, function(a,b)
 end) -- => "{'d','c','b','a'}"
 ````
 
-### groupBy
+### groupBy (t, iter, ...)
 
 Groups values in a collection depending on their return value when passed to a predicate test.
 
@@ -476,7 +476,7 @@ _.groupBy({0,'a',true, false,nil,b,0.5},function(i,value)
 end) -- => "{number = {0,0.5}, string = {'a'}, boolean = {true, false}}"		
 ````
 
-### countBy
+### countBy (t, iter, ...)
 
 Splits a table in subsets and provide the count for each subset.
 
@@ -486,7 +486,7 @@ _.countBy({0,1,2,3,4,5,6},function(i,value)
 end) -- => "{odd = 3, even = 4}"
 ````
 
-### size
+### size (...)
 
 When given a table, provides the count for the very number of values in that table.
 
@@ -502,7 +502,7 @@ _.size(1,2,3) -- => 3
 _.size('a','b',{}, function() end) -- => 4
 ````
 
-### containsKeys
+### containsKeys (t, other)
 
 Checks whether a table has all the keys existing in another table.
 
@@ -512,7 +512,7 @@ _.contains({1,2,'d','b'},{1,2,3,5}) -- => true
 _.contains({x = 1, y = 2, z = 3},{x = 1, y = 2}) -- => true
 ````
 
-### sameKeys
+### sameKeys (tA, tB)
 
 Checks whether both tables features the same keys:
 
@@ -526,7 +526,7 @@ _.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}) -- => false
 
 ## <a name='array'>Array functions</a>
 
-### toArray
+### toArray (...)
 
 Converts a vararg list of arguments to an array.
 
@@ -534,7 +534,7 @@ Converts a vararg list of arguments to an array.
 _.toArray(1,2,8,'d','a',0) -- => "{1,2,8,'d','a',0}"
 ````
 
-### find
+### find (array, value, from)
 
 Looks for a value in a given array and returns the position of the first occurence.
 
@@ -549,7 +549,7 @@ It can also start the search at a specific position in the array:
 _.find({1,4,2,3,4,5},4,3) -- => 5
 ````
 
-### reverse
+### reverse (array)
 
 Reverses an array.
 
@@ -557,7 +557,7 @@ Reverses an array.
 _.reverse({1,2,3,'d'}) -- => "{'d',3,2,1}"
 ````
 
-### selectWhile
+### selectWhile (array, f, ...
 
 Collects values as long as they pass a given test. Stops on the first non-passing test.
 
@@ -567,7 +567,7 @@ _.selectWhile({2,4,5,8}, function(i,v)
 end) -- => "{2,4}"
 ````
 
-### dropWhile
+### dropWhile (array, f, ...
 
 Removes values as long as they pass a given test. Stops on the first non-passing test.
 
@@ -577,7 +577,7 @@ _.dropWhile({2,4,5,8}, function(i,v)
 end) -- => "{5,8}"
 ````
 
-### sortedIndex
+### sortedIndex (array, value, comp, sort)
 
 Returns the index at which a value should be inserted to preserve order.
 
@@ -592,7 +592,7 @@ local comp = function(a,b) return a<b end
 _.sortedIndex({-5,0,4,4},3,comp) -- => 3
 ````
 
-### indexOf
+### indexOf (array, value)
 
 Returns the index of a value in an array.
 
@@ -600,7 +600,7 @@ Returns the index of a value in an array.
 _.indexOf({1,2,3},2) -- => 2
 ````
 
-### lastIndexOf
+### lastIndexOf (array, value)
 
 Returns the index of the last occurence of a given value in an array.
 
@@ -608,7 +608,7 @@ Returns the index of the last occurence of a given value in an array.
 _.lastIndexOf({1,2,2,3},2) -- => 3
 ````
 
-### addTop
+### addTop (array, ...)
 
 Adds given values at the top of an array. The latter values bubbles at the top.
 
@@ -617,7 +617,7 @@ local array = {1}
 _.addTop(array,1,2,3,4) -- => "{4,3,2,1,1}"
 ````
 
-### push
+### push (array, ...)
 
 Adds given values at the end of an array.
 
@@ -626,7 +626,7 @@ local array = {1}
 _.push(array,1,2,3,4) -- => "{1,1,2,3,4}"
 ````
 
-### pop
+### pop (array, n)
 
 Removes and returns the first value in an array.
 
@@ -635,7 +635,7 @@ local array = {1,2,3}
 local pop = _.pop(array) -- => "pop = 1", "array = {2,3}"
 ````
 
-### unshift
+### unshift (array, n)
 
 Removes and returns the last value in an array.
 
@@ -644,7 +644,15 @@ local array = {1,2,3}
 local value = _.unshift(array) -- => "value = 3", "array = {1,2}"
 ````
 
-### removeRange
+### pull (array, ...)
+
+Removes all provided values from a given array.
+
+```lua
+_.pull({1,2,1,2,3,4,3},1,2,3) -- => "{4}"
+````
+
+### removeRange (array, start, finish)
 
 Trims out all values index within a range.
 
@@ -653,7 +661,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.removeRange(array, 3,8) -- => "{1,2,9}"
 ````
 
-### chunk
+### chunk (array, f, ...)
 
 Iterates over an array aggregating consecutive values in subsets tables, on the basis of the return
 value of `f(key,value,...)`. Consecutive elements which return the same value are aggregated together.
@@ -663,7 +671,7 @@ local t = {1,1,2,3,3,4}
 _.chunk(t, function(k,v) return v%2==0 end) -- => "{{1,1},{2},{3,3},{4}}"
 ````
 
-### slice
+### slice (array, start, finish)
 
 Slices and returns a part of an array.
 
@@ -672,7 +680,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.slice(array, 3,6) -- => "{3,4,5,6}"
 ````
 
-### first
+### first (array, n)
 
 Returns the first N elements in an array.
 
@@ -681,7 +689,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.first(array,3) -- => "{1,2,3}"
 ````
 
-### initial
+### initial (array, n)
 
 Excludes the last N elements in an array.
 
@@ -690,7 +698,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.initial(array,5) -- => "{1,2,3,4}"
 ````
 
-### last
+### last (array, n)
 
 Returns the last N elements in an array.
 
@@ -699,7 +707,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.last(array,3) -- => "{7,8,9}"
 ````
 
-### rest
+### rest (array, index)
 
 Trims out all values indexed before *index*.
 
@@ -708,7 +716,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.rest(array,6) -- => "{6,7,8,9}"
 ````
 
-### compact
+### compact (array)
 
 Trims out all falsy values.
 
@@ -716,7 +724,7 @@ Trims out all falsy values.
 _.compact {a,'aa',false,'bb',true} -- => "{'aa','bb',true}"
 ````
 
-### flatten
+### flatten (array, shallow)
 
 Flattens a nested array.
 
@@ -730,7 +738,7 @@ When given arg "shallow", flatten only at the first level.
 _.flatten({1,{2},{{3}}},true) -- => "{1,{2},{{3}}}"
 ````
 
-### difference
+### difference (array, array2)
 
 Returns values in the given array not present in a second array.
 
@@ -739,7 +747,7 @@ local array = {1,2,'a',4,5}
 _.difference(array,{1,'a'}) -- => "{2,4,5}"
 ````
 
-### union
+### union (...)
 
 Produces a duplicate-free union of all passed-in arrays.
 
@@ -750,7 +758,7 @@ local C = {2,10}
 _.union(A,B,C) -- => "{'a',1,2,3,10}"
 ````
 
-### intersection
+### intersection (array, ...)
 
 Returns the intersection (common-part) of all passed-in arrays:
 
@@ -761,7 +769,7 @@ local C = {2,10,1,'a'}
 _.intersection(A,B,C) -- => "{'a',2,1}"
 ````
 
-### symmetricDifference
+### symmetricDifference (array, array2)
 
 Returns values in the first array not present in the second and also values in the second array not present in the first one.
 
@@ -771,7 +779,7 @@ local array2 = {1,4,5}
 _.symmetricDifference(array, array2) -- => "{2,3,4,5}"
 ````
 
-### unique
+### unique (array)
 
 Makes an array duplicate-free.
 
@@ -779,7 +787,7 @@ Makes an array duplicate-free.
 _.unique {1,1,2,2,3,3,4,4,4,5} -- => "{1,2,3,4,5}"
 ````
 
-### isunique
+### isunique (array)
 
 Checks if a given array contains no duplicate value.
 
@@ -788,7 +796,7 @@ _.isunique({1,2,3,4,5}) -- => true
 _.isunique({1,2,3,4,4}) -- => false
 ````
 
-### zip
+### zip (...)
 
 Zips values from different arrays, on the basis on their common keys.
 
@@ -798,7 +806,7 @@ local ages = {22, 23}
 _.zip(names,ages) -- => "{{'Bob',22},{'Alice',23},{'James'}}"
 ````
 
-### append
+### append (array, other)
 
 Appends two arrays.
 
@@ -806,7 +814,7 @@ Appends two arrays.
 _.append({1,2,3},{'a','b'}) -- => "{1,2,3,'a','b'}"
 ````
 
-### interleave
+### interleave (...)
 
 Interleaves values from passed-in arrays.
 
@@ -816,7 +824,7 @@ t2 = {'a', 'b', 'c'}
 _.interleave(t1, t2) -- => "{1,'a',2,'b',3,'c'}"
 ````
 
-### interpose
+### interpose (value, array)
 
 Interposes a value between consecutive values in an arrays.
 
@@ -824,7 +832,7 @@ Interposes a value between consecutive values in an arrays.
 _.interleave('a', {1,2,3}) -- => "{1,'a',2,'a',3}"
 ````
 
-### range
+### range (...)
 
 Generates an arithmetic sequence.
 
@@ -844,7 +852,7 @@ The incremental step can also be provided as third argument.
 _.range(0,2,0.7) -- => "{0,0.7,1.4}"
 ````
 
-### rep
+### rep (value, n)
 
 Generates a list of n repetitions of a value.
 
@@ -852,7 +860,7 @@ Generates a list of n repetitions of a value.
 _.rep(4,3) -- => "{4,4,4}"
 ````
 
-### partition
+### partition (array, n)
 
 Returns an iterator function for partitions of a given array.
 
@@ -867,7 +875,7 @@ end
 -- => 5,6
 ````
 
-### permutation
+### permutation (array)
 
 Returns an iterator function for permutations of a given array.
 
@@ -885,7 +893,7 @@ end
 -- => 'abc'
 ````
 
-### invert
+### invert (array)
 
 Switches <tt>key-value</tt> pairs:
 
@@ -893,7 +901,7 @@ Switches <tt>key-value</tt> pairs:
 _.invert {'a','b','c'} -- => "{a=1, b=2, c=3}"
 ````
 
-### concat
+### concat (array, sep, i, j)
 
 Concatenates a given array values:
 
@@ -905,7 +913,7 @@ _.concat({'a',1,0,1,'b'}) -- => 'a101b'
 
 ## <a name='utility'>Utility functions</a>
 
-### identity
+### identity (value)
 
 Returns the passed-in value. <br/>
 This function is internally used as a default transformation function.
@@ -916,7 +924,7 @@ _.identity(false) -- => false
 _.identity('hello!') -- => 'hello!'
 ````
 
-### once
+### once (f)
 
 Produces a function that runs only once. Successive calls to this function will still yield the same input.
 
@@ -929,7 +937,7 @@ sq(4) -- => 1
 sq(5) -- => 1
 ````
 
-### memoize
+### memoize (f, hash)
 
 Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.
 
@@ -942,7 +950,7 @@ fibonacci(20) -- => 6765 (but takes some time)
 mem_fibonacci(20) -- => 6765 (takes less time)
 ````
 
-### after
+### after (f, count)
 
 Produces a function that will respond only after a given number of calls.
 
@@ -954,7 +962,7 @@ f(3) -- => 3
 f(4) -- => 4
 ````
 
-### compose
+### compose (...)
 
 Composes functions. Each function consumes the return value of the one that follows.
 
@@ -967,7 +975,7 @@ compositae(10) -- => 36
 compositae(20) -- => 121
 ````
 
-### pipe
+### pipe (value, ...)
 
 Pipes a value through a series of functions.
 
@@ -979,7 +987,7 @@ _.pipe(10,f,g,h) -- => 36
 _.pipe(20,f,g,h) -- => 121
 ````
 
-### complement
+### complement (f)
 
 Returns a function which returns the logical complement of a given function.
 
@@ -987,7 +995,7 @@ Returns a function which returns the logical complement of a given function.
 _.complement(function() return true end)() -- => false
 ````
 
-### juxtapose
+### juxtapose (value, ...)
 
 Calls a sequence of functions with the same input.
 
@@ -998,7 +1006,7 @@ local function h(x) return x/2 end
 _.juxtapose(10, f, g, h) -- => 100, 11, 5
 ````
 
-### wrap
+### wrap (f, wrapper)
 
 Wraps a function inside a wrapper. Allows the wrapper to execute code before and after function run.
 
@@ -1013,7 +1021,7 @@ greet_backwards('John')
 -- => hi: nhoJ
 ````
 
-### times
+### times (n, iter, ...)
 
 Calls a given function `n` times.
 
@@ -1022,7 +1030,7 @@ local f = ('Lua programming'):gmatch('.')
 _.times(3,f) -- => {'L','u','a'}
 ````
 
-### bind
+### bind (f, v)
 
 Binds a value to be the first argument to a function.
 
@@ -1031,7 +1039,7 @@ local sqrt2 = _.bind(math.sqrt,2)
 sqrt2() -- => 1.4142135623731
 ````
 
-### bindn
+### bindn (f, ...)
 
 Binds a variable number of values to be the first arguments to a function.
 
@@ -1042,7 +1050,7 @@ out(1,2,3) -- => OutPut: 123
 out('a','b','c','d') -- => OutPut: abcd
 ````
 
-### uniqueId
+### uniqueId (template, ...)
 
 Returns an unique integer ID.
 
@@ -1067,7 +1075,7 @@ _.uniqueId(formatter) -- => '$ID1$'
 
 ## <a name='object'>Object functions</a>
 
-### keys
+### keys (obj)
 
 Collects the names of an object attributes.
 
@@ -1076,7 +1084,7 @@ _.keys({1,2,3}) -- => "{1,2,3}"
 _.keys({x = 0, y = 1}) -- => "{'y','x'}"
 ````
 
-### values
+### values (obj)
 
 Collects the values of an object attributes.
 
@@ -1085,7 +1093,7 @@ _.values({1,2,3}) -- => "{1,2,3}"
 _.values({x = 0, y = 1}) -- => "{1,0}"
 ````
 
-### toBoolean
+### toBoolean (value)
 
 Converts a given value to a boolean.
 
@@ -1097,7 +1105,7 @@ _.toBoolean({}) -- => true
 _.toBoolean(1) -- => true
 ````
 
-### extend
+### extend (destObj, ...)
 
 Extends a destination object with the properties of some source objects.
 
@@ -1105,7 +1113,7 @@ Extends a destination object with the properties of some source objects.
 _.extend({},{a = 'b', c = 'd'}) -- => "{a = 'b', c = 'd'}"
 ````
 
-### functions
+### functions (obj, recurseMt)
 
 Returns all functions names within an object.
 
@@ -1113,7 +1121,7 @@ Returns all functions names within an object.
 _.functions(coroutine) -- => "{'create','resume','running','status','wrap','yield'}"
 ````
 
-### clone
+### clone (obj, shallow)
 
 Clones a given object.
 
@@ -1124,7 +1132,7 @@ print(obj2 == obj) -- => false
 print(_.isEqual(obj2, obj)) -- => true
 ````
 
-### tap
+### tap (obj, f, ...)
 
 Invokes a given interceptor function on some object, and then returns the object itself. Useful to tap into method chaining to hook intermediate results.
 The pased-interceptor is prototyped as `f(obj,...)`.
@@ -1137,7 +1145,7 @@ local v = _.chain({1,2,3,4,5,6,7,8,9,10)
   :value() -- =>	 Max is 9
 ````
 
-### has
+### has (obj, key)
 
 Checks if an object has a given attribute.
 
@@ -1147,7 +1155,7 @@ _.has(coroutine,'resume') -- => true
 _.has(math,'random') -- => true
 ````
 
-### pick
+### pick (obj, ...)
 
 Collects whilelisted properties of a given object.
 
@@ -1156,7 +1164,7 @@ local object = {a = 1, b = 2, c = 3}
 _.pick(object,'a','c') -- => "{a = 1, c = 3}"
 ````
 
-### omit
+### omit (obj, ...)
 
 Omits blacklisted properties of a given object.
 
@@ -1165,7 +1173,7 @@ local object = {a = 1, b = 2, c = 3}
 _.omit(object,'a','c') -- => "{b = 2}"
 ````
 
-### template
+### template (obj, template)
 
 Applies a template on an object, preserving existing properties.
 
@@ -1174,7 +1182,7 @@ local obj = {a = 0}
 _.template(obj,{a = 1, b = 2, c = 3}) -- => "{a=0, c=3, b=2}"
 ````
 
-### isEqual
+### isEqual (objA, objB, useMt)
 
 Compares objects:
 
@@ -1185,7 +1193,7 @@ _.isEqual(3.14,math.pi) -- => false
 _.isEqual({3,4,5},{3,4,{5}}) -- => false
 ````
 
-### result
+### result (obj, method, ...)
 
 Calls an object method, passing it as a first argument the object itself.
 
@@ -1194,7 +1202,7 @@ _.result('abc','len') -- => 3
 _.result({'a','b','c'},table.concat) -- => 'abc'
 ````
 
-### isTable
+### isTable (t)
 
 Is the given argument an object (i.e a table) ?
 
@@ -1204,7 +1212,7 @@ _.isTable(math) -- => true
 _.isTable(string) -- => true
 ````
 
-### isCallable
+### isCallable (obj)
 
 Is the given argument callable ?
 
@@ -1215,7 +1223,7 @@ _.isCallable(setmetatable({},{__index = string}).upper) -- => true
 _.isCallable(setmetatable({},{__call = function() return end})) -- => true
 ````
 
-### isArray
+### isArray (obj)
 
 Is the given argument an array (i.e. a sequence) ?
 
@@ -1225,7 +1233,7 @@ _.isArray({1,2,3}) -- => true
 _.isArray({'a','b','c'}) -- => true
 ````
 
-### isIterable
+### isIterable (obj)
 
 Checks if the given object is iterable with `pairs`.
 
@@ -1236,7 +1244,7 @@ _.isIterable(false) -- => false
 _.isIterable(1) -- => false
 ````
 
-### isEmpty
+### isEmpty (obj)
 
 Is the given argument empty ?
 
@@ -1246,7 +1254,7 @@ _.isEmpty({})  -- => true
 _.isEmpty({'a','b','c'}) -- => false
 ````
 
-### isString
+### isString (obj)
 
 Is the given argument a string ?
 
@@ -1256,7 +1264,7 @@ _.isString('Hello') -- => false
 _.isString({}) -- => false
 ````
 
-### isFunction
+### isFunction (obj)
 
 Is the given argument a function ?
 
@@ -1266,7 +1274,7 @@ _.isFunction(function() end) -- => true
 _.isFunction({}) -- => false
 ````
 
-### isNil
+### isNil (obj)
 
 Is the given argument nil ?
 
@@ -1276,7 +1284,7 @@ _.isNil() -- => true
 _.isNil({}) -- => false
 ````
 
-### isNumber
+### isNumber (obj)
 
 Is the given argument a number ?
 
@@ -1287,7 +1295,7 @@ _.isNumber(0/0) -- => true
 _.isNumber() -- => false
 ````
 
-### isNaN
+### isNaN (obj)
 
 Is the given argument NaN ?
 
@@ -1296,7 +1304,7 @@ _.isNaN(1) -- => false
 _.isNaN(0/0) -- => true
 ````
 
-### isFinite
+### isFinite (obj)
 
 Is the given argument a finite number ?
 
@@ -1308,7 +1316,7 @@ _.isFinite(1/0) -- => false
 _.isFinite(0/0) -- => false
 ````
 
-### isBoolean
+### isBoolean (obj)
 
 Is the given argument a boolean ?
 
@@ -1319,7 +1327,7 @@ _.isBoolean(1==1) -- => true
 _.isBoolean(print) -- => false
 ````
 
-### isInteger
+### isInteger (obj)
 
 Is the given argument an integer ?
 
