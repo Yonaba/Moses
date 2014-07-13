@@ -1,6 +1,5 @@
 require 'luacov'
-package.loaded['moses'] = nil
-_G._ = require 'moses'
+local _ = require 'moses'
 
 context('Object functions specs', function()
 
@@ -24,14 +23,24 @@ context('Object functions specs', function()
    
   end)  
   
-  context('paired', function()
+  context('toBoolean', function()
   
-    test('collects and exports each key-pairs in an array',function()
-      assert_true(_.isEqual(_.paired({1,2,3}),{{1,1},{2,2},{3,3}}))
-      assert_true(_.isEqual(_.paired({4,5,6}),{{1,4},{2,5},{3,6}}))
-      assert_true(_.same(_.paired({x = 1, y = 2, 3}),{{'x',1},{'y',2},{1,3}}))
+    test('converts a value to a boolean',function()
+      assert_true(type(_.toBoolean(true)) == 'boolean')
+      assert_true(type(_.toBoolean(1)) == 'boolean')
+      assert_true(type(_.toBoolean(false)) == 'boolean')
+      assert_true(type(_.toBoolean(nil)) == 'boolean')
+      assert_true(type(_.toBoolean({})) == 'boolean')
+      assert_true(type(_.toBoolean(1/0)) == 'boolean')
+      
+      assert_true(_.toBoolean(true))
+      assert_true(_.toBoolean(1))
+      assert_false(_.toBoolean(false))
+      assert_false(_.toBoolean(nil))
+      assert_true(_.toBoolean({}))
+      assert_true(_.toBoolean(1/0))      
     end)
-    
+  
   end)  
   
   context('extend', function()
@@ -40,7 +49,7 @@ context('Object functions specs', function()
       assert_true(_.isEqual(_.extend({},{a = 'b'}),{a = 'b'}))
     end)
     
-    test('source properties overrides destionation properties',function()
+    test('source properties overrides destination properties',function()
       assert_true(_.isEqual(_.extend({a = 'a'},{a = 'b'}),{a = 'b'}))
     end)   
 
@@ -74,12 +83,13 @@ context('Object functions specs', function()
       assert_true(_.isEqual(_.functions(x),{'a','b'}))
     end)
     
-    test('can reference another object from which the given one inherits',function()
+    test('collects metatable functions if "recurseMt" arg is supplied',function()
       local x = {} ; x.__index = x
       function x.a() return end; function x.b() return end
       local xx = setmetatable({},x)
       function xx.c() return end
-      assert_true(_.isEqual(_.functions(xx),{'a','b','c'}))
+      assert_true(_.same(_.functions(xx),{'c'}))
+      assert_true(_.same(_.functions(xx,true),{'a','b','c'}))
     end)
 
     test('when given no obj as argument, returns all library functions',function()
@@ -354,6 +364,17 @@ context('Object functions specs', function()
   
   end)
   
+  context('isIterable', function()
+  
+    test('checks if the given object is iterable with pairs',function()
+      assert_true(_.isIterable({}))
+      assert_false(_.isIterable(function() end))
+      assert_false(_.isIterable(false))
+      assert_false(_.isIterable(1))
+    end)
+    
+  end)  
+     
   context('isEmpty', function()
   
     test('returns "true" if arg is an empty array',function()
@@ -459,6 +480,27 @@ context('Object functions specs', function()
     
   end)
 
+  context('isNaN', function()
+  
+    test('returns "true" if arg is NaN',function()
+      assert_true(_.isNaN(0/0))  
+    end)
+    
+    test('returns "false" for not NaN values',function()
+      assert_false(_.isNaN(1/0))  
+      assert_false(_.isNaN(math.huge))
+      assert_false(_.isNaN(math.pi))
+      assert_false(_.isNaN(1))
+      assert_false(_.isNaN(''))
+      assert_false(_.isNaN('0'))
+      assert_false(_.isNaN({}))
+      assert_false(_.isNaN(nil))
+      assert_false(_.isNaN(false))
+      assert_false(_.isNaN(true))
+    end)    
+    
+  end) 
+  
   context('isFinite', function()
   
     test('returns "true" if arg is a finite number',function()
@@ -481,27 +523,6 @@ context('Object functions specs', function()
     end)    
     
   end)
-
-  context('isNaN', function()
-  
-    test('returns "true" if arg is NaN',function()
-      assert_true(_.isNaN(0/0))  
-    end)
-    
-    test('returns "false" for not NaN values',function()
-      assert_false(_.isNaN(1/0))  
-      assert_false(_.isNaN(math.huge))
-      assert_false(_.isNaN(math.pi))
-      assert_false(_.isNaN(1))
-      assert_false(_.isNaN(''))
-      assert_false(_.isNaN('0'))
-      assert_false(_.isNaN({}))
-      assert_false(_.isNaN(nil))
-      assert_false(_.isNaN(false))
-      assert_false(_.isNaN(true))
-    end)    
-    
-  end) 
 
   context('isBoolean', function()
  
@@ -535,27 +556,6 @@ context('Object functions specs', function()
       assert_false(_.isInteger(0/0))
     end)  
     
-  end)  
-  
-  context('import', function()
-    
-    test('import library functions to a context', function()
-      local context = {}
-      _.import(context)
-      assert_not_nil(next(context))
-      _.each(context, function(k,f)
-        assert_equal(f,_[k])
-      end)      
-    end)
-
-    test('passing arg `noConflict` preserves existing values in the given context', function()
-      local context = {each = 1, map = 2}
-      _.import(context, true)
-      assert_equal(context.each, 1)      
-      assert_equal(context.map, 2)      
-    end)  
-    
-  
   end)
   
 end)

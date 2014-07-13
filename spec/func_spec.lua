@@ -1,6 +1,4 @@
 require 'luacov'
-package.loaded.moses = nil
-_G.MOSES_NO_ALIASES = false
 local _ = require 'moses'
 
 context('Utility functions specs', function()
@@ -43,13 +41,13 @@ context('Utility functions specs', function()
       end      
       local times = 10
       local mfib = _.memoize(fib)
-      fib_time = os.time()*1000
-        for i = 1, times do fib_value = (fib_value or 0)+fib(30) end
-      fib_time = os.time()*1000-fib_time
+      fib_time = os.clock()
+        for i = 1, times do fib_value = (fib_value or 0)+fib(20) end
+      fib_time = (os.clock()-fib_time)*1000
       
-      mfib_time = os.time()*1000
-        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(30) end
-      mfib_time = os.time()*1000-mfib_time      
+      mfib_time = os.clock()
+        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(20) end
+      mfib_time = (os.clock()-mfib_time  )*1000    
     end)
     
     test('memoizes an expensive function by caching its results',function()
@@ -62,23 +60,23 @@ context('Utility functions specs', function()
       local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
       local diffFact = function(a,b) return fact(a)-fact(b) end
       local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-      local times, rep = 10, 150
+      local times, rep = 100, 10
       
-      local time = os.time()*1000
+      local time = os.clock()
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do diffFact(ai,aj) end
         end
       end
-      time = os.time()*1000-time
+      time = (os.clock()-time)*1000
 
-      local mtime = os.time()*1000
+      local mtime = os.clock()
       for j = 1,times do 
         for ai = 1,rep do
           for aj = 1,rep do mdiffFact(ai,aj) end
         end
       end
-      mtime = os.time()*1000-mtime  
+      mtime = (os.clock()-mtime)*1000
 
       assert_true(mtime<=time)
 
@@ -122,6 +120,43 @@ context('Utility functions specs', function()
     
   end) 
 
+  context('pipe', function()
+    
+    test('pipes a value through a series of functions',function()
+      local function f(x) return x^2 end
+      local function g(x) return x+1 end
+      local function h(x) return x/2 end
+      assert_equal(_.pipe(10,f,g,h),36)
+      assert_equal(_.pipe(20,f,g,h),121)  
+    end) 
+    
+  end)
+
+  context('complement', function()
+    
+    test('returns a function which returns the logical complement of a given function',function()
+      assert_false(_.complement(function() return true end)())
+      assert_true(_.complement(function() return false end)())
+      assert_true(_.complement(function() return nil end)())
+      assert_false(_.complement(function() return 1 end)())
+    end) 
+    
+  end)
+  
+  context('juxtapose', function()
+    
+    test('calls a sequence of functions with the same set of args',function()
+      local function f(x) return x^2 end
+      local function g(x) return x+1 end
+      local function h(x) return x/2 end
+      local rf, rg, rh = _.juxtapose(10, f, g, h)
+      assert_equal(rf, 100)
+      assert_equal(rg, 11)
+      assert_equal(rh, 5)
+    end) 
+    
+  end)
+  
   context('wrap', function()
   
     test('wraps a function and passes args',function()
@@ -192,7 +227,7 @@ context('Utility functions specs', function()
       end        
     end)
     
-    test('accepts a function as a template to edit the returned id',function()
+    test('accepts a function as argument to format the returned id',function()
       local ids = {}
       local formatter = function(ID) return '$'..ID..'$' end
       for i = 1,100 do

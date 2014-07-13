@@ -3,6 +3,40 @@ local _ = require 'moses'
 
 context('Array functions specs', function()
 
+  context('toArray', function()
+  
+    test('converts a vararg list to an array', function()
+      assert_true(_.isArray(_.toArray(1,2,3,4)))
+      assert_true(_.isEqual(_.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))      
+    end)
+
+    test('preserves input order', function()
+      local args = _.toArray(1,2,3,4,5)
+      for i = 1, 5 do assert_equal(args[i], i) end
+    end)
+    
+  end)
+
+  context('find', function()
+  
+    test('looks for a value in a given array and returns its position', function()
+      assert_equal(_.find({4,3,2,1},2), 3)
+    end)
+
+    test('uses _.isEqual to compare values', function()
+      assert_equal(_.find({{4},{3},{2},{1}},{3}), 2)
+    end)
+    
+    test('returns the index of the first occurence', function()
+      assert_equal(_.find({4,4,3,3,2,2,1,1},2),5)
+    end)
+
+    test('can start the search at a specific position', function()
+      assert_equal(_.find({4,4,3,3,2,1,2,1,1},2,6),7)
+    end)
+    
+  end)
+
   context('reverse', function()
   
     test('reverse values and objects in a given array', function()
@@ -90,16 +124,16 @@ context('Array functions specs', function()
     
   end)
 
-  context('add', function()
+  context('addTop', function()
   
     test('adds values at the top of an array', function()
-      assert_true(_.isEqual(_.add({},1,2,3),{3,2,1}))
-      assert_true(_.isEqual(_.add({},'a',true,3),{3,true,'a'}))
+      assert_true(_.isEqual(_.addTop({},1,2,3),{3,2,1}))
+      assert_true(_.isEqual(_.addTop({},'a',true,3),{3,true,'a'}))
     end)
 
     test('preserves the existing elements', function()
-      assert_true(_.isEqual(_.add({1,2},1,2,3),{3,2,1,1,2}))
-      assert_true(_.isEqual(_.add({'i','j'},'a',true,3),{3,true,'a','i','j'}))
+      assert_true(_.isEqual(_.addTop({1,2},1,2,3),{3,2,1,1,2}))
+      assert_true(_.isEqual(_.addTop({'i','j'},'a',true,3),{3,true,'a','i','j'}))
     end)    
     
   end)
@@ -146,6 +180,15 @@ context('Array functions specs', function()
     
   end)
 
+  context('pull', function()
+  
+    test('removes all listed values in a given array', function()
+      assert_true(_.same(_.pull({1,4,3,1,2,3},1),{4,3,2,3}))
+      assert_true(_.same(_.pull({1,4,3,1,2,3},1,3),{4,2}))
+    end)
+    
+  end)
+  
   context('removeRange', function()
   
     test('removes all values within "start" and "finish" indexes', function()
@@ -335,31 +378,6 @@ context('Array functions specs', function()
     end)
     
   end)
-
-  context('uniq',function()  
-    
-    test('returns a duplicate-free array',function()
-      assert_true(_.isEqual(_.uniq({1,1,2,2,3,3,4,4,4,5}),{1,2,3,4,5}))
-    end)
-    
-    test('runs faster if the given array is sorted, and passing "isSorted"', function()   
-      assert_true(_.isEqual(_.uniq({1,1,2,2,3,3,4,4,4,5},true),{1,2,3,4,5}))
-    end)    
-    
-    test('can take an iterator to extract targetted attribute values"', function()
-      local logs = {
-        {name = 'Gray', timestamp = 000},{name = 'Jade', timestamp = 133},
-        {name = 'Dave', timestamp = 005},{name = 'Katy', timestamp = 020},
-        {name = 'Gere', timestamp = 090},{name = 'Paul', timestamp = 888},
-        {name = 'Gray', timestamp = 030},{name = 'Gere', timestamp = 091},
-        {name = 'Gray', timestamp = 004},{name = 'Jade', timestamp = 177}}
-        
-      assert_true(_.isEqual(_.uniq(logs,false,function(i,people)
-        return people.name
-      end),{'Gray','Jade','Dave','Katy','Gere','Paul'}))
-    end)    
-    
-  end)
   
   context('union',function()  
   
@@ -389,6 +407,34 @@ context('Array functions specs', function()
     
   end)
   
+  context('symmetricDifference',function() 
+  
+    test('returns the symmetric difference from two arrays', function()   
+      local a = {1,3}; local b = {4,2,3}; local c = {2,3,10}
+      assert_true(_.same(_.symmetricDifference(a, b), {1,4,2}))
+      assert_true(_.same(_.symmetricDifference(a, c), {1,2,10}))
+      assert_true(_.same(_.symmetricDifference(b, c), {4,10}))
+    end)
+    
+  end)
+   
+  context('unique',function()  
+    
+    test('returns a duplicate-free array',function()
+      assert_true(_.isEqual(_.unique({1,1,2,2,3,3,4,4,4,5}),{1,2,3,4,5}))
+    end)
+    
+  end)
+  
+  context('isunique',function()  
+    
+    test('Checks if a given array is duplicate-free',function()
+      assert_true(_.isunique({1,2,3,4,5}))
+      assert_false(_.isunique({1,2,3,4,4}))
+    end)
+    
+  end)
+  
   context('zip',function()  
     test('zips together values from different arrays sharing the same index', function()   
       local names = {'Bob','Alice','James'}; local ages = {22, 23}
@@ -397,10 +443,30 @@ context('Array functions specs', function()
   end)  
   
   context('append',function()  
+    
     test('appends two arrays together', function()
       assert_true(_.isEqual(_.append({1,2,3},{'a','b'}),{1,2,3,'a','b'}))
     end)    
+  
   end)  
+  
+  context('interleave',function()  
+    
+    test('interleaves values from passed-in arrays', function()
+      assert_true(_.isEqual(_.interleave({1,2,3},{'a','b','c'}),{1,'a',2,'b',3,'c'}))
+      assert_true(_.isEqual(_.interleave({1},{'a','b','c'}),{1,'a','b','c'}))
+    end)    
+  
+  end)  
+   
+  context('interpose',function()  
+    
+    test('interposes a value in-between values from a passed-in array', function()
+      assert_true(_.isEqual(_.interpose('a',{1,2,3}),{1,'a',2,'a',3}))
+      assert_true(_.isEqual(_.interpose(false,{5,5,5,5}),{5,false,5,false,5,false,5}))
+    end)    
+  
+  end)
   
   context('range',function()  
   
@@ -429,6 +495,49 @@ context('Array functions specs', function()
     
   end)  
   
+  context('rep',function()  
+  
+    test('generates a list of n repetitions of a value', function()
+      assert_true(_.isEqual(_.rep('a',4),{'a','a','a','a'})) 
+      assert_true(_.isEqual(_.rep(false,3),{false, false, false})) 
+    end)   
+    
+  end)  
+  
+  context('partition',function()  
+  
+    test('iterates on partitions of a given array', function()
+      local array = _.range(1,10)
+      local split5 = {_.range(1,5), _.range(6,10)}
+      local split3 = {_.range(1,3), _.range(4,6), _.range(7,9), {10}}
+      local i = 0
+      for p in _.partition(array,5) do
+        i = i + 1
+        assert_true(_.isEqual(p, split5[i]))
+      end
+      i = 0
+      for p in _.partition(array,3) do
+        i = i + 1
+        assert_true(_.isEqual(p, split3[i]))
+      end      
+    end)   
+    
+  end)  
+ 
+  context('permutation',function()  
+  
+    test('iterates on permutations of a given array', function()
+      local array = {'a','b', 'c'}
+      local perm = {'abc','acb', 'bac', 'bca', 'cab', 'cba'}
+      for p in _.permutation(array) do
+        local strp = _.concat(p)
+        _.pull(perm, strp)
+      end
+      assert_true(#perm == 0)
+    end)   
+    
+  end)  
+ 
   context('invert',function()
   
     test('switches key-values pairs', function()

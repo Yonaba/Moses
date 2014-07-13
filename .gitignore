@@ -4,3 +4,4 @@ ldoc*
 telescope*
 LuaMin*
 *.ld
+luacov*

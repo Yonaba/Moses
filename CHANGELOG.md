@@ -1,7 +1,54 @@
 #Version history#
 
-`_.reduce` now supports an array of booleans
-`_.pick` now picks false values
+##1.4.0
+
+###Breaking
+#### Changes
+* Aliases are available by default
+* `_.find` is no longer an alias to `_.detect`
+* Provided a new implementation of `_.unique`, removed argument `_.isSorted`
+* `_.isNil` now returns true if arg is nil, an empty string or empty table and false otherwise.
+* `_.size` now returns 0 for empty args instead of `nil`
+* `_.unique` no longer accepts `iter` argument to transform original array values.
+* `_.cycle` argument `n` now defaults to 1.
+
+#### Renamed
+* Renamed alias `_.uId` to `_.uid`
+* Renamed `_.add` to `_.addTop`
+* Renamed `_.uniq` as alias to `_.unique`
+* Renamed `_.symmetric_difference` to `_.symmetricDifference`
+
+#### Removed
+* Removed `_.paired`
+
+###Improvements & bugfixes
+* `_.reduce` now supports an array of booleans
+* `_.pick` now picks false values
+* `_.concat` args `i` and `j` defaults explicitely to 1 and array length (for compatibility with LuaJIT)
+* `_.pop` now takes an optional extra-arg n, to be the number of values to be popped
+* `_.unshift` now takes an optional extra-arg n, to be the number of values to be retrieved
+* Moved explicitely `_.toArray` to array functions
+* `_.functions` accepts an extra-arg to prevent from looking-up for methods in metatables.
+
+### New functions (and aliases)
+* Added `_.find`
+* Added `_.pipe`
+* Added `_.complement`
+* Added `_.juxtapose` and alias `_.juxt`
+* Added `_.isunique` and alias `_.isuniq`
+* Added `_.rep`
+* Added `_.interleave`
+* Added `_.interpose`
+* Added `_.partition` and alias `_.part`
+* Added `_.permutation` and alias `_.perm`
+* Added `_.compare` as alias to `_.isEqual`
+* Added `_.isIterable`
+* Added `_.toBoolean`
+* Added `_.pull` and alias `_.remove`
+* Added `_.at`
+
+### New aliases
+* Added `_.xor` as alias to `_.symmetricDifference`
 
 ##1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.

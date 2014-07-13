@@ -1,11 +1,15 @@
---- ## Moses: <em>A utility-belt library for functional programming in Lua.</em><br/>
--- @author Roland_Yonaba
--- @copyright 2012
+--- *Utility-belt library for functional programming in Lua.*<br/>
+-- Source on [Github](http://github.com/Yonaba/Moses)
+-- @author [Roland Yonaba](http://github.com/Yonaba)
+-- @copyright 2012-2014
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @script moses
+-- @release 1.4.0
+-- @module moses
+
+local _MODULEVERSION = '1.4.0'
 
 -- Internalisation
-local next, type, unpack, select = next, type, unpack, select
+local next, type, unpack, select, pcall = next, type, unpack, select, pcall
 local setmetatable, getmetatable = setmetatable, getmetatable
 local t_insert, t_sort = table.insert, table.sort
 local t_remove,t_concat = table.remove, table.concat
@@ -24,12 +28,14 @@ local function f_min(a,b) return a<b end
 local function clamp(var,a,b) return (var<a) and a or (var>b and b or var) end
 local function isTrue(_,value) return value and true end
 local function iNot(value) return not value end
-local function count(t)
-  local i
-    for k,v in pairs(t) do i = (i or 0) + 1 end
+
+local function count(t)  -- raw count of items in an map-table
+  local i = 0
+    for k,v in pairs(t) do i = i + 1 end
   return i
 end
-local function extract(list,comp,transform,...)
+
+local function extract(list,comp,transform,...) -- extracts value from a list
   local _ans
   local transform = transform or _.identity
   for index,value in pairs(list) do
@@ -42,79 +48,117 @@ local function extract(list,comp,transform,...)
   return _ans
 end
 
+local function partgen(t, n, f) -- generates array partitions
+  for i = 0, #t, n do
+    local s = _.slice(t, i+1, i+n)
+    if #s>0 then f(s) end
+  end
+end
+
+local function permgen(t, n, f) -- taken from PiL: http://www.lua.org/pil/9.3.html
+  if n == 0 then f(t) end
+  for i = 1,n do
+    t[n], t[i] = t[i], t[n]
+    permgen(t, n-1, f)
+    t[n], t[i] = t[i], t[n]
+  end
+end
+
 -- Internal counter for unique ids generation
 local unique_id_counter = -1
 
--- ========= Collection functions
+--- Table functions
+-- @section Table functions
 
---- Similar to `pairs` iterator. Calls function `f` on each key-value of a given collection. <br/><em>Aliased as `forEach`</em>.
+--- Iterates on each key-value pairs in a table. Calls function `f(key, value)` at each step of iteration.
+-- <br/><em>Aliased as `forEach`</em>.
 -- @name each
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
-function _.each(list, f, ...)
-  if not _.isTable(list) then return end
-  for index,value in pairs(list) do
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @see eachi
+function _.each(t, f, ...)
+  for index,value in pairs(t) do
     f(index,value,...)
   end
 end
 
---- Similar to `ipairs` iterator. Calls function `f` only on values indexed with an integer key in a given collection.
--- The array can be sparse, or map-like. Iteration will be performed from the lower integer key to the highest one.
+--- Iterates on each integer key-value pairs in a table. Calls function `f(key, value)` 
+-- only on values at integer key in a given collection. The table can be a sparse array, 
+-- or map-like. Iteration will start from the lowest integer key found to the highest one.
 -- <br/><em>Aliased as `forEachi`</em>.
 -- @name eachi
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
-function _.eachi(list, f, ...)
-  if not _.isTable(list) then return end
-  local lkeys = _.sort(_.select(_.keys(list), function(k,v)
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @see each
+function _.eachi(t, f, ...)
+  local lkeys = _.sort(_.select(_.keys(t), function(k,v)
     return _.isInteger(v)
   end))
   for k, key in ipairs(lkeys) do
-    f(key, list[key],...)
+    f(key, t[key],...)
   end
 end
 
---- Counts the number of occurences of a given value in a list. Uses @{isEqual} to compare objects.
+--- Returns an array of values at specific indexes and keys. 
+-- @name at
+-- @tparam table t a table
+-- @tparam vararg ... A variable number of indexes or keys to extract values
+-- @treturn table an array-list of values from the passed-in table
+function _.at(t, ...)
+  local values = {}
+  for i, key in ipairs({...}) do
+    if _.has(t, key) then values[#values+1] = t[key] end
+  end
+  return values
+end
+
+--- Counts occurrences of a given value in a table. Uses @{isEqual} to compare values.
 -- @name count
--- @tparam table list a collection
--- @tparam[opt] value value a value to be searched in the list. If not given, defaults to @{size}.
+-- @tparam table t a table
+-- @tparam[opt] value value a value to be searched in the table. If not given, the @{size} of the table will be returned
+-- @treturn number the count of occurrences of `value`
 -- @see countf
 -- @see size
-function _.count(list, value)
-  if _.isNil(value) then return _.size(list) end
+function _.count(t, value)
+  if _.isNil(value) then return _.size(t) end
   local count = 0
-  _.each(list, function(k,v)
+  _.each(t, function(k,v)
     if _.isEqual(v, value) then count = count + 1 end
   end)
   return count
 end
 
---- Same as @{count}, but uses an iterator. Provide a count for the number of values passing the test `f(key,value,...)`
+--- Counts occurrences validating a predicate. Same as @{count}, but uses an iterator. 
+-- Returns the count for values passing the test `f(key, value, ...)`
 -- @name countf
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @see countf
-function _.countf(list, f, ...)
-  return _.count(_.map(list, f, ...), true)
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn number the count of values validating the predicate
+-- @see count
+-- @see size
+function _.countf(t, f, ...)
+  return _.count(_.map(t, f, ...), true)
 end
 
---- Iterator to cycle through the contents of a list or a collection. Loops on each key-pairs of a given
--- list repeatedly `n` times or forever (if `n` is omitted). In case `n` is lower or equal to 0, does nothing.
+--- Iterates through a table and loops `n` times. The full iteration loop will be 
+-- repeated `n` times (or forever, if `n` is omitted). In case `n` is lower or equal to 0, it returns 
+-- an empty function.
 -- <br/><em>Aliased as `loop`</em>.
 -- @name cycle
--- @tparam table list a collection
--- @tparam number n a number of loops
--- @treturn function an iterator function returning a key-value pair from the passed-in list.
-function _.cycle(list, n)
-  if n<=0 then return end
+-- @tparam table t a table
+-- @tparam number n the number of loops
+-- @treturn function an iterator function yielding key-value pairs from the passed-in table.
+function _.cycle(t, n)
+  n = n or 1
+  if n<=0 then return function() end end
   local k, fk
   local i = 0
   while true do
     return function()
-      k = k and next(list,k) or next(list)
+      k = k and next(t,k) or next(t)
       fk = not fk and k or fk
       if n then
         i = (k==fk) and i+1 or i
@@ -122,211 +166,204 @@ function _.cycle(list, n)
           return
         end
       end
-      return k, list[k]
+      return k, t[k]
     end
   end
 end
 
---- Maps function `f` on each key-value of a given collection. Collects
--- and returns the outputs.<br/><em>Aliased as `collect`</em>.
+--- Maps function `f(key, value)` on all key-value pairs. Collects
+-- and returns the results as a table.
+-- <br/><em>Aliased as `collect`</em>.
 -- @name map
--- @tparam table list a collection
--- @tparam function f  an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
+-- @tparam table t a table
+-- @tparam function f  an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
 -- @treturn table a table of results
-function _.map(list, f, ...)
-  local _list = {}
-  for index,value in pairs(list) do
-    _list[index] = f(index,value,...)
+function _.map(t, f, ...)
+  local _t = {}
+  for index,value in pairs(t) do
+    _t[index] = f(index,value,...)
   end
-  return _list
+  return _t
 end
 
---- Reduces an entire collection. Folds from left to right to a single value,
--- with respect to a given iterator and an initial state.
--- The given function takes a state and a value, and returns a new state.
+--- Reduces a table, left-to-right. Folds the table from the first element to the last element
+-- to into a single value, with respect to a given iterator and an initial state.
+-- The given function takes a state and a value and returns a new state.
 -- <br/><em>Aliased as `inject`, `foldl`</em>.
 -- @name reduce
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam[opt] state state an initial state of reduction. Defaults to the first value in the list.
--- @treturn state state a final state of reduction
-function _.reduce(list,f,state)
-  for _,value in pairs(list) do
-    if state == nil then
-      state = value
-    else
-      state = f(state,value)
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(state, value)`
+-- @tparam[opt] state state an initial state of reduction. Defaults to the first value in the table.
+-- @treturn state state the final state of reduction
+-- @see reduceRight
+function _.reduce(t, f, state)
+  for __,value in pairs(t) do
+    if state == nil then state = value
+    else state = f(state,value)
     end
   end
   return state
 end
 
---- Reduces an entire collection. Folds from right to left to a single value,
--- with respect to a given iterator and an initial state.
+--- Reduces a table, right-to-left. Folds the table from the last element to the first element 
+-- to single value, with respect to a given iterator and an initial state.
 -- The given function takes a state and a value, and returns a new state.
 -- <br/><em>Aliased as `injectr`, `foldr`</em>.
 -- @name reduceRight
--- @tparam table list a collection
+-- @tparam table t a table
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
--- @treturn state state a final state of reduction
-function _.reduceRight(list,f,state)
-  return _.reduce(_.reverse(list),f,state)
+-- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the table.
+-- @treturn state state the final state of reduction
+-- @see reduce
+function _.reduceRight(t, f, state)
+  return _.reduce(_.reverse(t),f,state)
 end
 
---- Reduces a collection while saving intermediate states.
--- Folds the collection from left to right to a single value,
--- with respect to a given iterator and an initial state.
--- The given function takes a state and a value, and returns a new state.
--- The function returns an array of intermediate states.
+--- Reduces a table while saving intermediate states. Folds the table left-to-right
+-- to a single value, with respect to a given iterator and an initial state. The given function 
+-- takes a state and a value, and returns a new state. It returns an array of intermediate states.
 -- <br/><em>Aliased as `mapr`</em>
 -- @name mapReduce
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(state, value)`
+-- @tparam[opt] state state an initial state of reduction. Defaults to the first value in the table.
 -- @treturn table an array of states
-function _.mapReduce(list,f,state)
-  local t = {}
-  for i,value in pairs(list) do
-    t[i] = not state and value or f(state,value)
-    state = t[i]
+-- @see mapReduceRight
+function _.mapReduce(t, f, state)
+  local _t = {}
+  for i,value in pairs(t) do
+    _t[i] = not state and value or f(state,value)
+    state = _t[i]
   end
-  return t
+  return _t
 end
 
---- Reduces a collection while saving intermediate states. It proceeds in reverse order,
--- folding the collection from right to left to a single value,
--- with respect to a given iterator and an initial state.
--- The given function takes a state and a value, and returns a new state.
--- The function returns an array of intermediate states.
+--- Reduces a table while saving intermediate states. Folds the table right-to-left
+-- to a single value, with respect to a given iterator and an initial state. The given function 
+-- takes a state and a value, and returns a new state. It returns an array of intermediate states.
 -- <br/><em>Aliased as `maprr`</em>
 -- @name mapReduceRight
--- @tparam table list a collection
+-- @tparam table t a table
 -- @tparam function f an iterator function, prototyped as `f(state,value)`
--- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the list.
+-- @tparam[opt] state state an initial state of reduction. Defaults to the last value in the table.
 -- @treturn table an array of states
-function _.mapReduceRight(list,f,state)
-  return _.mapReduce(_.reverse(list),f,state)
+-- @see mapReduce
+function _.mapReduceRight(t, f, state)
+  return _.mapReduce(_.reverse(t),f,state)
 end
 
---- Looks for an object in a collection. <br/><em>Aliased as `any`, `some`</em>
+--- Search for a value in a table. It does not search in nested tables.
+-- <br/><em>Aliased as `any`, `some`</em>
 -- @name include
--- @tparam table list a collection
--- @tparam object item a value to be searched
--- @treturn boolean a boolean : __true__ when found, __false__ otherwise
-function _.include(list,item)
-  local _iter = _.isFunction(item) and item or _.isEqual
-  for _,value in pairs(list) do
-    if _iter(value,item) then return true end
+-- @tparam table t a table
+-- @tparam value|function value a value to search for
+-- @treturn boolean a boolean : `true` when found, `false` otherwise
+-- @see detect
+-- @see contains
+function _.include(t,value)
+  local _iter = _.isFunction(value) and value or _.isEqual
+  for __,v in pairs(t) do
+    if _iter(v,value) then return true end
   end
   return false
 end
 
---- Looks for an object index in a collection. <br/><em>Aliased as `find`, `some`</em>
+--- Search for a value in a table. Returns the key of the value if found.
+-- It does not search in nested tables.
 -- @name detect
--- @tparam table list a collection
--- @tparam object item a value to be searched
--- @treturn key the object key or __nil__
-function _.detect(list,item)
-  local _iter = _.isFunction(item) and item or _.isEqual
-  for key,arg in pairs(list) do
-    if _iter(arg,item) then return key end
+-- @tparam table t a table
+-- @tparam value value a value to search for
+-- @treturn key the value key or __nil__
+-- @see include
+-- @see contains
+function _.detect(t, value)
+  local _iter = _.isFunction(value) and value or _.isEqual
+  for key,arg in pairs(t) do
+    if _iter(arg,value) then return key end
   end
 end
 
---- Returns true if item is present in the list, false otherwise.
+--- Checks if a value is present in a table.
 -- @name contains
--- @tparam table list a collection
--- @tparam object item a value to be searched
+-- @tparam table t a table
+-- @tparam value value a value to search for
 -- @treturn boolean true if present, otherwise false
-function _.contains(list, item)
-  return _.detect(list, item) and true or false
+-- @see include
+-- @see detect
+function _.contains(t, value)
+  return _.toBoolean(_.detect(t, value))
 end
 
---- Returns an array of values. Those are values from list containing all key-value pairs listed in `props`.
--- @function where
--- @tparam table list a collection
--- @tparam props a set of properties
--- @treturn table an array of values containing all of the properties found in `props`.
-function _.where(list, props)
-  local found = {}
-  if _.isEmpty(props) then return {} end
-  return _.select(list, function(k,v)
-    for key in pairs(props) do
-      if props[key] ~= v[key] then return false end
-    end
-    return true
-  end)
-end
-
---- Returns a value. This value should be the first value found in an array containing all key-value pairs listed in `props`.
+--- Returns the first value having specified keys `props`.
 -- @function findWhere
--- @tparam table list a collection
--- @tparam props a set of properties
--- @treturn item a value from the passed-in list
-function _.findWhere(list, props)
-  local index = _.detect(list, function(v)
+-- @tparam table t a table
+-- @tparam table props a set of keys
+-- @treturn value a value from the passed-in table
+function _.findWhere(t, props)
+  local index = _.detect(t, function(v)
     for key in pairs(props) do
       if props[key] ~= v[key] then return false end
     end
     return true
   end)
-  return index and list[index]
+  return index and t[index]
 end
 
-
---- Selects and extracts objects passing an iterator test.
--- <br/><em>Aliased as `filter`</em>
+--- Selects and extracts values passing an iterator test.
+-- <br/><em>Aliased as `filter`</em>.
 -- @name select
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn table the selected objects
-function _.select(list,f,...)
-  local _mapped = _.map(list,f,...)
-  local _list = {}
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn table the selected values
+-- @see reject
+function _.select(t, f, ...)
+  local _mapped = _.map(t, f, ...)
+  local _t = {}
   for index,value in pairs(_mapped) do
-    if value then _list[#_list+1] = list[index] end
+    if value then _t[#_t+1] = t[index] end
   end
-  return _list
+  return _t
 end
 
---- Clones a collection, rejecting objects passing an iterator test.
+--- Clones a table while dropping values passing an iterator test.
 -- <br/><em>Aliased as `discard`</em>
 -- @name reject
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn table the remaining objects
-function _.reject(list,f,...)
-  local _mapped = _.map(list,f,...)
-  local _list = {}
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn table the remaining values
+-- @see select
+function _.reject(t, f, ...)
+  local _mapped = _.map(t,f,...)
+  local _t = {}
   for index,value in pairs (_mapped) do
-    if not value then _list[#_list+1] = list[index] end
+    if not value then _t[#_t+1] = t[index] end
   end
-  return _list
+  return _t
 end
 
---- Tests if all objects in a collection passes an iterator test. <br/><em>Aliased as `every`</em>
+--- Checks if all values in a table are passing an iterator test.
+-- <br/><em>Aliased as `every`</em>
 -- @name all
--- @tparam table list a collection
--- @tparam function f an iterator function, prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn boolean __true__ or __false__
-function _.all(list,f,...)
-  return ((#_.select(_.map(list,f,...), isTrue)) == (#list))
+-- @tparam table t a table
+-- @tparam function f an iterator function, prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn boolean `true` if all values passes the predicate, `false` otherwise
+function _.all(t, f, ...)
+  return ((#_.select(_.map(t,f,...), isTrue)) == (#t))
 end
 
---- Invokes a method on each object in a collection.
+--- Invokes a method on each value in a table.
 -- @name invoke
--- @tparam table list a collection
--- @tparam function method a function, prototyped as `f(object,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `method`
--- @treturn table an array of results
-function _.invoke(list,method,...)
+-- @tparam table t a table
+-- @tparam function method a function, prototyped as `f(value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `method`
+-- @treturn result the result(s) of method call `f(value, ...)`
+function _.invoke(t, method, ...)
   local args = {...}
-  return _.map(list, function(__,v)
+  return _.map(t, function(__,v)
         if _.isTable(v) then
       if _.has(v,method) then
         if _.isCallable(v[method]) then
@@ -344,135 +381,127 @@ function _.invoke(list,method,...)
   end)
 end
 
---- Extracts property-values from a collection of objects.
+--- Extracts property-values from a table of values.
 -- @name pluck
--- @tparam table list a collection
--- @tparam string a property, to index in each object: `object[property]`
+-- @tparam table t a table
+-- @tparam string a property, will be used to index in each value: `value[property]`
 -- @treturn table an array of values for the specified property
-function _.pluck(list,property)
-  return _.reject(_.map(list,function(__,value)
+function _.pluck(t, property)
+  return _.reject(_.map(t,function(__,value)
       return value[property]
-    end),
-  iNot)
+    end), iNot)
 end
 
---- Returns the maximum value in a collection. If an iterator is passed, it will
--- be used to extract the property value by which all objects will be ranked.
+--- Returns the max value in a collection. If an transformation function is passed, it will
+-- be used to extract the value by which all objects will be sorted.
 -- @name max
--- @tparam table list a collection
--- @tparam[opt] function iter an iterator function, prototyped as `iter(value,...)`, defaults to @{identity}
--- @tparam[optchain] var_arg ... Optional extra-args to be passed to function `iter`
--- @treturn value the maximum property value found
-function _.max(list,iter,...)
-  return extract(list,f_max,iter,...)
+-- @tparam table t a table
+-- @tparam[opt] function transform an transformation function, prototyped as `transform(value,...)`, defaults to @{identity}
+-- @tparam[optchain] vararg ... Optional extra-args to be passed to function `transform`
+-- @treturn value the maximum value found
+-- @see min
+function _.max(t, transform, ...)
+  return extract(t, f_max, transform, ...)
 end
 
---- Returns the minimum value in a collection. If an iterator is passed, it will
--- be used to extract the property value by which all objects will be ranked.
+--- Returns the min value in a collection. If an transformation function is passed, it will
+-- be used to extract the value by which all objects will be sorted.
 -- @name min
--- @tparam table list a collection
--- @tparam[opt] function iter an iterator function, prototyped as `iter(value,...)`, defaults to @{identity}
--- @tparam[optchain] var_arg ... Optional extra-args to be passed to function `iter`
--- @treturn value the minimum property value found
-function _.min(list, iter,...)
-  return extract(list,f_min, iter,...)
+-- @tparam table t a table
+-- @tparam[opt] function transform an transformation function, prototyped as `transform(value,...)`, defaults to @{identity}
+-- @tparam[optchain] vararg ... Optional extra-args to be passed to function `transform`
+-- @treturn value the minimum value found
+-- @see max
+function _.min(t, transform, ...)
+  return extract(t, f_min, transform, ...)
 end
 
 --- Returns a shuffled copy of a given collection. If a seed is provided, it will
--- be used to init the random number generator.
+-- be used to init the random number generator (via `math.randomseed`).
 -- @name shuffle
--- @tparam table list a collection
+-- @tparam table t a table
 -- @tparam[opt] number seed a seed
--- @treturn table a shuffled copy of the given collection
-function _.shuffle(list,seed)
+-- @treturn table a shuffled copy of the given table
+function _.shuffle(t, seed)
   if seed then randomseed(seed) end
   local _shuffled = {}
-  _.each(list,function(index,value)
-           local randPos = floor(random()*index)+1
-          _shuffled[index] = _shuffled[randPos]
-          _shuffled[randPos] = value
-        end)
+  _.each(t,function(index,value)
+     local randPos = floor(random()*index)+1
+    _shuffled[index] = _shuffled[randPos]
+    _shuffled[randPos] = value
+  end)
   return _shuffled
 end
 
---- Tests if two collections are the same. I.e, they feature the same objects, but not
--- necessarily at the same keys
+--- Checks if two tables are the same. It compares if both tables features the same values,
+-- but not necessarily at the same keys.
 -- @name same
--- @tparam table a a collection
--- @tparam table b a collection
--- @treturn boolean __true__ or __false__
-function _.same(a,b)
-  return _.all(a, function (i,v)
-      return _.include(b,v)
-    end)
-    and _.all(b, function (i,v)
-      return _.include(a,v)
-    end)
+-- @tparam table a a table
+-- @tparam table b another table
+-- @treturn boolean `true` or `false`
+function _.same(a, b)
+  return _.all(a, function (i,v) return _.include(b,v) end) 
+     and _.all(b, function (i,v) return _.include(a,v) end)
 end
 
---- Sorts a collection. If a comparison function is given, it will be used to sort objects
+--- Sorts a table, in-place. If a comparison function is given, it will be used to sort values.
 -- @name sort
--- @tparam table list a collection
+-- @tparam table t a table
 -- @tparam[opt] function comp a comparison function prototyped as `comp(a,b)`, defaults to <tt><</tt> operator.
--- @treturn table the given list, sorted.
-function _.sort(list,comp)
-  t_sort(list,comp)
-  return list
+-- @treturn table the given table, sorted.
+function _.sort(t, comp)
+  t_sort(t, comp)
+  return t
 end
 
---- Converts a list of __var_args__ to a collection.
--- @name toArray
--- @tparam[opt] var_arg ... Optional variable number of arguments
--- @treturn table an array of all passed-in args
-function _.toArray(...)
-  return {...}
-end
-
---- Splits a collection into subsets. Each subset feature objects grouped by the result of passing it through an iterator.
--- If iterator is a string instead of a function, groups by the property named by iterator on each of the values.
+--- Splits a table into subsets. Each subset feature values from the original table grouped
+-- by the result of passing it through an iterator. If iterator is a string instead of a 
+-- function, groups by the property named by iterator on each of the values.
 -- @name groupBy
--- @tparam table list a collection
--- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `iter`
--- @treturn table a new collection with items grouped by subsets
-function _.groupBy(list,iter,...)
-  local var_arg = {...}
-  local _list = {}
+-- @tparam table t a table
+-- @tparam function|string iter an iterator function, prototyped as `iter(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `iter`
+-- @treturn table a new table with values grouped by subsets
+function _.groupBy(t, iter, ...)
+  local vararg = {...}
+  local _t = {}
   local _iter = _.isFunction(iter) and iter
     or (_.isString(iter) and function(_,item)
-        return item[iter](item,unpack(var_arg))
+        return item[iter](item,unpack(vararg))
       end)
   if not _iter then return end
-  _.each(list, function(i,v)
+  _.each(t, function(i,v)
       local _key = _iter(i,v)
-      if _list[_key] then _list[_key][#_list[_key]+1] = v
-      else _list[_key] = {v}
+      if _t[_key] then _t[_key][#_t[_key]+1] = v
+      else _t[_key] = {v}
       end
     end)
-  return _list
+  return _t
 end
 
---- Groups objects in a collection and counts them.
+--- Groups values in a collection and counts them.
 -- @name countBy
--- @tparam table list a collection
--- @tparam function iter an iterator function, prototyped as `iter(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `iter`
--- @treturn table a new collection with subsets names and count
-function _.countBy(list,iter,...)
-  local var_arg = {...}
+-- @tparam table t a table
+-- @tparam function iter an iterator function, prototyped as `iter(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `iter`
+-- @treturn table a new table with subsets names paired with their count
+function _.countBy(t, iter, ...)
+  local vararg = {...}
   local stats = {}
-  _.each(list,function(i,v)
-      local key = iter(i,v,unpack(var_arg))
+  _.each(t,function(i,v)
+      local key = iter(i,v,unpack(vararg))
       stats[key] = (stats[key] or 0) +1
     end)
   return stats
 end
 
 --- Counts the number of values in a collection. If being passed more than one args
--- it will return the number of passed-in args.
+-- it will return the count of all passed-in args.
 -- @name size
--- @tparam[opt] var_arg ... Optional variable number of arguments
--- @treturn number a size
+-- @tparam[opt] vararg ... Optional variable number of arguments
+-- @treturn number a count
+-- @see count
+-- @see countf
 function _.size(...)
   local args = {...}
   local arg1 = args[1]
@@ -485,36 +514,58 @@ function _.size(...)
   end
 end
 
---- Checks if all the keys of `other` object exists in a `list`. It does not
--- compares values. The test is not commutative, i.e `list` may contains keys
+--- Checks if all the keys of `other` table exists in table `t`. It does not
+-- compares values. The test is not commutative, i.e table `t` may contains keys
 -- not existing in `other`.
 -- @name containsKeys
--- @tparam table list a collection
--- @tparam table other a collection
--- @treturn boolean __true__ or __false__
-function _.containsKeys(list,other)
+-- @tparam table t a table
+-- @tparam table other another table
+-- @treturn boolean `true` or `false`
+-- @see sameKeys
+function _.containsKeys(t, other)
   for key in pairs(other) do
-    if not list[key] then return false end
+    if not t[key] then return false end
   end
   return true
 end
 
---- Checks if both given lists have the same keys. It does not compares values.
+--- Checks if both given tables have the same keys. It does not compares values.
 -- @name sameKeys
--- @tparam table listA a collection
--- @tparam table listB a collection
--- @treturn boolean __true__ or __false__
-function _.sameKeys(listA,listB)
-  _.each(listA,function(key)
-      if not listB[key] then return false end
+-- @tparam table tA a table
+-- @tparam table tB another table
+-- @treturn boolean `true` or `false`
+-- @see containsKeys
+function _.sameKeys(tA, tB)
+  _.each(tA,function(key)
+      if not tB[key] then return false end
      end)
-  _.each(listB,function(key)
-      if not listA[key] then return false end
+  _.each(tB,function(key)
+      if not tA[key] then return false end
      end)
   return true
 end
 
--- ========= Array functions
+
+--- Array functions
+-- @section Array functions
+
+--- Converts a vararg list to an array-list.
+-- @name toArray
+-- @tparam[opt] vararg ... Optional variable number of arguments
+-- @treturn table an array-list of all passed-in args
+function _.toArray(...) return {...} end
+
+--- Looks for the first occurrence of a given value in an array. Returns the value index if found.
+-- @name find
+-- @tparam table array an array of values
+-- @tparam value value a value to search for
+-- @tparam[opt] number from the index from where to start the search. Defaults to 1.
+-- @treturn number|nil the index of the value if found in the array, `nil` otherwise.
+function _.find(array, value, from)
+  for i = from or 1, #array do
+    if _.isEqual(array[i], value) then return i end
+  end
+end
 
 --- Reverses values in a given array. The passed-in array should not be sparse.
 -- @name reverse
@@ -530,14 +581,15 @@ end
 
 --- Collects values from a given array. The passed-in array should not be sparse.
 -- This function collects values as long as they satisfy a given predicate.
--- Therefore, it returns on the first false test.
+-- Therefore, it returns on the first falsy test.
 -- <br/><em>Aliased as `takeWhile`</em>
 -- @name selectWhile
 -- @tparam table array an array
--- @tparam function f an iterator function prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn table a new table containing the first truthy values collected
-function _.selectWhile(array,f,...)
+-- @tparam function f an iterator function prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn table a new table containing all values collected
+-- @see dropWhile
+function _.selectWhile(array, f, ...)
   local t = {}
   for i,v in ipairs(array) do
     if f(i,v,...) then t[i] = v else break end
@@ -546,15 +598,16 @@ function _.selectWhile(array,f,...)
 end
 
 --- Collects values from a given array. The passed-in array should not be sparse.
--- This function collects values as soon as they do not satisfy a given predicate.
+-- This function collects values as long as they do not satisfy a given predicate.
 -- Therefore it returns on the first true test.
 -- <br/><em>Aliased as `rejectWhile`</em>
 -- @name dropWhile
 -- @tparam table array an array
 -- @tparam function f an iterator function prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn table a new table containing the first falsy values collected
-function _.dropWhile(array, f,...)
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn table a new table containing all values collected
+-- @selectWhile
+function _.dropWhile(array, f, ...)
   local _i
   for i,v in ipairs(array) do
     if not f(i,v,...) then
@@ -566,17 +619,16 @@ function _.dropWhile(array, f,...)
   return _.rest(array,_i)
 end
 
-
---- Returns the index at which a value should be inserted. This returned index is determined so that it maintains the sort.
--- If a comparison function is passed, it will be used to determine the sort ranking of each
--- value, including the passed-in value.
+--- Returns the index at which a value should be inserted. This returned index is determined so 
+-- that it maintains the sort. If a comparison function is passed, it will be used to sort all
+-- values.
 -- @name sortedIndex
 -- @tparam table array an array
 -- @tparam value the value to be inserted
--- @tparam[opt] function comp an comparison function prototyped as `f(a,b)`, defaults to <tt><</tt> operator
--- @tparam[optchain] boolean sort whether or not to sort the passed-in array
--- @treturn index the index at which the passed-in value should be inserted
-function _.sortedIndex(array,value,comp,sort)
+-- @tparam[opt] function comp an comparison function prototyped as `f(a, b)`, defaults to <tt><</tt> operator.
+-- @tparam[optchain] boolean sort whether or not the passed-in array should be sorted
+-- @treturn number the index at which the passed-in value should be inserted
+function _.sortedIndex(array, value, comp, sort)
   local _comp = comp or f_min
   if sort then _.sort(array,_comp) end
   for i = 1,#array do
@@ -585,35 +637,38 @@ function _.sortedIndex(array,value,comp,sort)
   return #array+1
 end
 
---- Returns the index of the given value in an array. If the passed-in value exists
--- more than once in the array, it will return the index of the first occurence.
+--- Returns the index of a given value in an array. If the passed-in value exists
+-- more than once in the array, it will return the index of the first occurrence.
 -- @name indexOf
 -- @tparam table array an array
--- @tparam value the value to be searched
--- @treturn index the index of the passed-in value or __nil__
+-- @tparam value the value to search for
+-- @treturn number|nil the index of the passed-in value
+-- @see lastIndexOf
 function _.indexOf(array, value)
   for k = 1,#array do
     if array[k] == value then return k end
   end
 end
 
---- Returns the last occurence index of a given value.
+--- Returns the index of the last occurrence of a given value.
 -- @name lastIndexOf
 -- @tparam table array an array
--- @tparam value the value to be searched
--- @treturn index the index of the last occurence of the passed-in value or __nil__
-function _.lastIndexOf(array,value)
+-- @tparam value the value to search for
+-- @treturn number|nil the index of the last occurrence of the passed-in value or __nil__
+-- @see indexOf
+function _.lastIndexOf(array, value)
   local key = _.indexOf(_.reverse(array),value)
   if key then return #array-key+1 end
 end
 
---- Adds all passed-in values at the top of an array. The latter args will come the
--- first in the given array.
--- @name add
+--- Adds all passed-in values at the top of an array. The last arguments will bubble to the 
+-- top of the given array.
+-- @name addTop
 -- @tparam table array an array
--- @tparam var_arg ... a variable number of arguments
+-- @tparam vararg ... a variable number of arguments
 -- @treturn table the passed-in array
-function _.add(array,...)
+-- @see push
+function _.addTop(array, ...)
   _.each({...},function(i,v) t_insert(array,1,v) end)
   return array
 end
@@ -621,42 +676,74 @@ end
 --- Pushes all passed-in values at the end of an array.
 -- @name push
 -- @tparam table array an array
--- @tparam var_arg ... a variable number of arguments
+-- @tparam vararg ... a variable number of arguments
 -- @treturn table the passed-in array
-function _.push(array,...)
+-- @see addTop
+function _.push(array, ...)
   _.each({...}, function(i,v) array[#array+1] = v end)
   return array
 end
 
---- Removes and returns the value at the top of a given array.
+--- Removes and returns the values at the top of a given array.
 -- <br/><em>Aliased as `shift`</em>
 -- @name pop
 -- @tparam table array an array
--- @treturn value the popped value
-function _.pop(array)
-  local retValue = array[1]
-  t_remove(array,1)
-  return retValue
+-- @tparam[opt] number n the number of values to be popped. Defaults to 1.
+-- @treturn vararg a vararg list of values popped from the array
+-- @see unshift
+function _.pop(array, n)
+  n = min(n or 1, #array)
+  local ret = {}
+  for i = 1, n do 
+    local retValue = array[1]
+    ret[#ret + 1] = retValue
+    t_remove(array,1)
+  end
+  return unpack(ret)
 end
 
---- Removes and returns the value at the end of a given array.
+--- Removes and returns the values at the end of a given array.
 -- @name unshift
 -- @tparam table array an array
--- @treturn value the popped value
-function _.unshift(array)
-  local retValue = array[#array]
-  t_remove(array)
-  return retValue
+-- @tparam[opt] number n the number of values to be unshifted. Defaults to 1.
+-- @treturn vararg a vararg list of values
+-- @see pop
+function _.unshift(array, n)
+  n = min(n or 1, #array)
+  local ret = {}
+  for i = 1, n do
+    local retValue = array[#array]
+    ret[#ret + 1] = retValue
+    t_remove(array)
+  end
+  return unpack(ret)
 end
 
---- Trims all values indexed within the range `[start,finish]`.
+--- Removes all provided values in a given array.
+-- <br/><em>Aliased as `remove`</em>
+-- @name pull
+-- @tparam table array an array
+-- @tparam vararg ... a variable number of values to be removed from the array
+-- @treturn table the passed-in array
+function _.pull(array, ...)
+  for __, rmValue in ipairs({...}) do
+    for i = #array, 1, -1 do
+      if _.isEqual(array[i], rmValue) then
+        t_remove(array, i)
+      end
+    end
+  end
+  return array
+end
+
+--- Trims all values indexed within the range `[start, finish]`.
 -- <br/><em>Aliased as `rmRange`</em>
 -- @name removeRange
 -- @tparam table array an array
--- @tparam[opt] index start the lower bound index, defaults to the first index in the array.
--- @tparam[optchain] index finish the upper bound index, defaults to the array length.
+-- @tparam[opt] number start the lower bound index, defaults to the first index in the array.
+-- @tparam[optchain] number finish the upper bound index, defaults to the array length.
 -- @treturn table the passed-in array
-function _.removeRange(array,start,finish)
+function _.removeRange(array, start, finish)
   local array = _.clone(array)
   local i,n = (next(array)),#array
   if n < 1 then return array end
@@ -675,15 +762,16 @@ function _.removeRange(array,start,finish)
   return array
 end
 
---- Iterates over an array chunking together. Values are chunked on the basis of the return
--- value of `f(key,value,...)`. Consecutive elements which return the same value are chunked together.
--- Leaves the first argument untouched if it is not an array.
+--- Chunks together consecutive values. Values are chunked on the basis of the return
+-- value of a provided predicate `f(key, value, ...)`. Consecutive elements which return 
+-- the same value are chunked together. Leaves the first argument untouched if it is not an array.
 -- @name chunk
 -- @tparam table array an array
--- @tparam function f an iterator function prototyped as `f(key,value,...)`
--- @tparam[opt] var_arg ... Optional extra-args to be passed to function `f`
--- @treturn table a table of chunks (arrays).
-function _.chunk(array, f,...)
+-- @tparam function f an iterator function prototyped as `f(key, value, ...)`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
+-- @treturn table a table of chunks (arrays)
+-- @see zip
+function _.chunk(array, f, ...)
   if not _.isArray(array) then return array end
   local ch, ck, prev = {}, 0
   local mask = _.map(array, f,...)
@@ -700,24 +788,29 @@ function _.chunk(array, f,...)
   return ch
 end
 
---- Slices values indexed within `[start,finish]` range.
+--- Slices values indexed within `[start, finish]` range.
+-- <br/><em>Aliased as `_.sub`</em>
 -- @name slice
 -- @tparam table array an array
--- @tparam[opt] index start the lower bound index, defaults to the first index in the array.
--- @tparam[optchain] index finish the upper bound index, defaults to the array length.
+-- @tparam[opt] number start the lower bound index, defaults to the first index in the array.
+-- @tparam[optchain] number finish the upper bound index, defaults to the array length.
 -- @treturn table a new array
-function _.slice(array,start,finish)
+function _.slice(array, start, finish)
   return _.select(array, function(index)
       return (index >= (start or next(array)) and index <= (finish or #array))
     end)
 end
 
---- Returns the first N values in an array. <br/><em>Aliased as `head`, `take`</em>
+--- Returns the first N values in an array.
+-- <br/><em>Aliased as `head`, `take`</em>
 -- @name first
 -- @tparam table array an array
 -- @tparam[opt] number n the number of values to be collected, defaults to 1.
 -- @treturn table a new array
-function _.first(array,n)
+-- @see initial
+-- @see last
+-- @see rest
+function _.first(array, n)
   local n = n or 1
   return _.slice(array,1, min(n,#array))
 end
@@ -727,7 +820,10 @@ end
 -- @tparam table array an array
 -- @tparam[opt] number n the number of values to be left, defaults to the array length.
 -- @treturn table a new array
-function _.initial(array,n)
+-- @see first
+-- @see last
+-- @see rest
+function _.initial(array, n)
   if n and n < 0 then return end
   return _.slice(array,1, n and #array-(min(n,#array)) or #array-1)
 end
@@ -737,22 +833,29 @@ end
 -- @tparam table array an array
 -- @tparam[opt] number n the number of values to be collected, defaults to the array length.
 -- @treturn table a new array
+-- @see first
+-- @see initial
+-- @see rest
 function _.last(array,n)
   if n and n <= 0 then return end
   return _.slice(array,n and #array-min(n-1,#array-1) or 2,#array)
 end
 
---- Trims all values before index. <br/><em>Aliased as `tail`</em>
+--- Trims all values before index.
+-- <br/><em>Aliased as `tail`</em>
 -- @name rest
 -- @tparam table array an array
--- @tparam[opt] index index an index, defaults to 1
+-- @tparam[opt] number index an index, defaults to 1
 -- @treturn table a new array
+-- @see first
+-- @see initial
+-- @see last
 function _.rest(array,index)
   if index and index > #array then return {} end
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
 
---- Trims all falsy values.
+--- Trims all falsy (false and nil) values.
 -- @name compact
 -- @tparam table array an array
 -- @treturn table a new array
@@ -762,7 +865,7 @@ function _.compact(array)
   end)
 end
 
---- Flattens a nested array. Passing `shallow` will only flatten at the first single level.
+--- Flattens a nested array. Passing `shallow` will only flatten at the first level.
 -- @name flatten
 -- @tparam table array an array
 -- @tparam[opt] boolean shallow specifies the flattening depth
@@ -781,67 +884,29 @@ function _.flatten(array, shallow)
   return _flat
 end
 
---- Returns values from an array not present in all passed-in args. <br/><em>Aliased as `without` and `diff`</em>
+--- Returns values from an array not present in all passed-in args.
+-- <br/><em>Aliased as `without` and `diff`</em>
 -- @name difference
 -- @tparam table array an array
 -- @tparam table another array
 -- @treturn table a new array
-function _.difference(array,array2)
+-- @see union
+-- @see intersection
+-- @see symmetricDifference
+function _.difference(array, array2)
   if not array2 then return _.clone(array) end
   return _.select(array,function(i,value)
       return not _.include(array2,value)
     end)
 end
 
---- Performs a symmetric difference. Returns values from `array` not present in `array2` __and also__ values
--- from `array2` not present in `array`.<br/><em>Aliased as `symdiff`</em>
--- @name symmetric_difference
--- @tparam table array an array
--- @tparam table array2 another array
--- @treturn table a new array
-function _.symmetric_difference(array, array2)
-  return _.difference(
-    _.union(array, array2),
-    _.intersection(array,array2)
-  )
-end
-
---- Produces a duplicate-free version of a given array. Passing `isSorted` will
--- provide a much faster version, but will produce the desired result if the array
--- is properly sorted. If `iter` is passed, it will be used to compute new values based on
--- a transformation.
--- <br/><em>Aliased as `unique`</em>
--- @name uniq
--- @tparam table array an array
--- @tparam[opt] boolean isSorted whether or not the passed-in array is already sorted, defaults to `false`
--- @tparam[optchain] function iter an iterator function prototyped as `iter(key,value,...)`
--- @tparam[optchain] var_arg ... Optional extra-args to be passed to `iter` function
--- @treturn table a new array
-function _.uniq(array,isSorted,iter,...)
-  local init = iter and _.map(array,iter,...) or array
-  local result = {}
-  if not isSorted then
-    for __,v in ipairs(init) do
-      if not _.include(result,v) then
-    result[#result+1] = v
-    end
-    end
-  return result
-  end
-
-  result[#result+1] = init[1]
-  for i = 2,#init do
-    if init[i] ~= result[#result] then
-    result[#result+1] = init[i]
-  end
-  end
-  return result
-end
-
 --- Returns the duplicate-free union of all passed in arrays.
 -- @name union
--- @tparam var_arg ... a variable number of arrays arguments
+-- @tparam vararg ... a variable number of arrays arguments
 -- @treturn table a new array
+-- @see difference
+-- @see intersection
+-- @see symmetricDifference
 function _.union(...)
   return _.uniq(_.flatten({...}))
 end
@@ -850,9 +915,12 @@ end
 -- Each value in the result is present in each of the passed-in arrays.
 -- @name intersection
 -- @tparam table array an array
--- @tparam var_arg ... a variable number of array arguments
+-- @tparam vararg ... a variable number of array arguments
 -- @treturn table a new array
-function _.intersection(array,...)
+-- @see difference
+-- @see union
+-- @see symmetricDifference
+function _.intersection(array, ...)
   local arg = {...}
   local _intersect = {}
   for i,value in ipairs(array) do
@@ -865,10 +933,54 @@ function _.intersection(array,...)
   return _intersect
 end
 
+--- Performs a symmetric difference. Returns values from `array` not present in `array2` and also values
+-- from `array2` not present in `array`.
+-- <br/><em>Aliased as `symdiff`</em>
+-- @name symmetricDifference
+-- @tparam table array an array
+-- @tparam table array2 another array
+-- @treturn table a new array
+-- @see difference
+-- @see union
+-- @see intersection
+function _.symmetricDifference(array, array2)
+  return _.difference(
+    _.union(array, array2),
+    _.intersection(array,array2)
+  )
+end
+
+--- Produces a duplicate-free version of a given array.
+-- <br/><em>Aliased as `uniq`</em>
+-- @name unique
+-- @tparam table array an array
+-- @treturn table a new array, duplicate-free
+-- @see isunique
+function _.unique(array)
+  local ret = {}
+  for i = 1, #array do
+    if not _.find(ret, array[i]) then
+      ret[#ret+1] = array[i]
+    end
+  end
+  return ret
+end
+
+--- Checks if a given array contains distinct values. Such an array is made of distinct elements,
+-- which only occur once in this array.
+-- <br/><em>Aliased as `isuniq`</em>
+-- @name isunique
+-- @tparam table array an array
+-- @treturn boolean `true` if the given array is unique, `false` otherwise.
+-- @see unique
+function _.isunique(array)
+  return _.isEqual(array, _.unique(array))
+end
+
 --- Merges values of each of the passed-in arrays in subsets.
--- Only values at the same position in the initial array are merged.
+-- Only values indexed with the same key in the given arrays are merged in the same subset.
 -- @name zip
--- @tparam var_arg ... a variable number of array arguments
+-- @tparam vararg ... a variable number of array arguments
 -- @treturn table a new array
 function _.zip(...)
   local arg = {...}
@@ -882,24 +994,43 @@ function _.zip(...)
   return _ans
 end
 
---- Clones `array` and appends `other` to the result.
+--- Clones `array` and appends `other` values.
 -- @name append
 -- @tparam table array an array
 -- @tparam table other an array
 -- @treturn table a new array
-function _.append(array,other)
+function _.append(array, other)
   local t = {}
   for i,v in ipairs(array) do t[i] = v end
   for i,v in ipairs(other) do t[#t+1] = v end
   return t
 end
 
+--- Interleaves arrays. It returns a single array made of values from all
+-- passed in arrays in their given order, interleaved.
+-- @name interleave
+-- @tparam vararg ... a variable list of arrays
+-- @treturn table a new array
+-- @see interpose
+function _.interleave(...) return _.flatten(_.zip(...)) end
+
+--- Interposes `value` in-between consecutive pair of values in `array`.
+-- @name interpose
+-- @tparam value value a value
+-- @tparam table array an array
+-- @treturn table a new array
+-- @see interleave
+function _.interpose(value, array)
+  return _.flatten(_.zip(array, _.rep(value, #array-1)))
+end
+
 --- Produce a flexible list of numbers. If one positive value is passed, will count from 0 to that value,
--- with a default step of 1. If two values were passed, will count from the first one to the second one, with the
+-- with a default step of 1. If two values are passed, will count from the first one to the second one, with the
 -- same default step of 1. A third passed value will be considered a step value.
--- <br/><em>Aliased as `count`</em>
 -- @name range
--- @tparam var_arg ... a variable list of numbers
+-- @tparam[opt] number from the initial value of the range
+-- @tparam[optchain] number to the final value of the range
+-- @tparam[optchain] number step the count step value
 -- @treturn table a new array of numbers
 function _.range(...)
   local arg = {...}
@@ -917,7 +1048,43 @@ function _.range(...)
   return _ranged
 end
 
---- Inverts `key-value` pairs. Keys becomes values, while values becomes keys.
+--- Creates an array list of `n` values, repeated.
+-- @name rep
+-- @tparam value value a value to be repeated
+-- @tparam number n the number of repetitions of the given `value`.
+-- @treturn table a new array of `n` values
+function _.rep(value, n)
+  local ret = {}
+  for i = 1, n do ret[#ret+1] = value end
+  return ret
+end
+
+--- Iterator returning partitions of an array. It returns arrays of length `n` 
+-- made of values from the given array. In case the array size is not a multiple
+-- of `n`, the last array returned will be made of the rest of the values.
+-- @name partition.
+-- @tparam table array an array
+-- @tparam[opt] number n the size of each partition. Defaults to 1.
+-- @treturn function an iterator function
+function _.partition(array, n)
+  return coroutine.wrap(function()
+    partgen(array, n or 1, coroutine.yield)
+  end)
+end
+
+--- Iterator returning the permutations of an array. It returns arrays made of all values
+-- from the passed-in array, with values permuted.
+-- @name permutation
+-- @tparam table array an array
+-- @treturn function an iterator function
+function _.permutation(array)
+  return coroutine.wrap(function() 
+    permgen(array, #array, coroutine.yield)
+  end)
+end
+
+--- Swaps keys with values. Produces a new array where previous keys are now values, 
+-- while previous values are now keys.
 -- <br/><em>Aliased as `mirror`</em>
 -- @name invert
 -- @tparam table array a given array
@@ -929,38 +1096,41 @@ function _.invert(array)
 end
 
 --- Concatenates values in a given array. Handles booleans as well. If `sep` string is
--- passed, it will be used as a separator. Optional `i` and `j` will only concatenate
--- values within `[i,j]` range. <br/><em>Aliased as `join`</em>
+-- passed, it will be used as a separator. Passing `i` and `j` will result in concatenating
+-- values within `[i,j]` range.
+-- <br/><em>Aliased as `join`</em>
 -- @name concat
 -- @tparam table array a given array
 -- @tparam[opt] string sep a separator string, defaults to `''`.
 -- @tparam[optchain] number i the starting index, defaults to 1.
 -- @tparam[optchain] number j the final index, defaults to the array length.
 -- @treturn string a string
-function _.concat(array,sep,i,j)
+function _.concat(array, sep, i, j)
   local _array = _.map(array,function(i,v)
     return tostring(v)
   end)
-  return t_concat(_array,sep,i,j)
+  return t_concat(_array,sep,i or 1,j or #array)
 
 end
 
--- ========= Utility functions
 
---- Returns the passed-in value. Used internally as a default iterator.
+--- Utility functions
+-- @section Utility functions
+
+--- Returns the passed-in value. This function seems useless, but it is used internally
+-- as a default iterator.
 -- @name identity
--- @tparam arg value a value
--- @treturn arg the passed-in value
-function _.identity(value)
-  return value
-end
+-- @tparam value value a value
+-- @treturn value the passed-in value
+function _.identity(value) return value end
 
---- Returns a version of `f` that runs only once. Successive calls will make `f`
--- keep yielding the same answer, no matter what the passed-in arguments are. Can be used to
--- init variables as well.
+--- Returns a version of `f` that runs only once. Successive calls to `f`
+-- will keep yielding the same output, no matter what the passed-in arguments are. 
+-- It can be used to initialize variables.
 -- @name once
 -- @tparam function f a function
 -- @treturn function a new function
+-- @see after
 function _.once(f)
   local _internal = 0
   local _args = {}
@@ -972,14 +1142,14 @@ function _.once(f)
 end
 
 --- Memoizes a given function by caching the computed result.
--- Useful for speeding up slow-running functions. If function `hash` is passed,
--- it will be used to compute unique keys from args passed to `hash` for results caching.
+-- Useful for speeding-up slow-running functions. If function `hash` is passed,
+-- it will be used to compute hash keys for a set of input values to the function for caching.
 -- <br/><em>Aliased as `cache`</em>
 -- @name memoize
 -- @tparam function f a function
 -- @tparam[opt] function hash a hash function, defaults to @{identity}
 -- @treturn function a new function
-function _.memoize(f,hash)
+function _.memoize(f, hash)
   local _cache = setmetatable({},{__mode = 'kv'})
   local _hasher = hash or _.identity
   return function (...)
@@ -996,7 +1166,8 @@ end
 -- @tparam function f a function
 -- @tparam number count the number of calls before `f` answers
 -- @treturn function a new function
-function _.after(f,count)
+-- @see once
+function _.after(f, count)
   local _limit,_internal = count, 0
   return function(...)
       _internal = _internal+1
@@ -1005,19 +1176,54 @@ function _.after(f,count)
 end
 
 --- Composes functions. Each passed-in function consumes the return value of the function that follows.
--- In math terms, composing the functions `f`, `g`, and `h` produces `f(g(h(...)))`.
+-- In math terms, composing the functions `f`, `g`, and `h` produces the function `f(g(h(...)))`.
 -- @name compose
--- @tparam var_arg ... a variable number of functions
+-- @tparam vararg ... a variable number of functions
 -- @treturn function a new function
+-- @see pipe
 function _.compose(...)
   local f = _.reverse {...}
   return function (...)
       local _temp
-      for i,func in pairs(f) do
+      for i, func in ipairs(f) do
         _temp = _temp and func(_temp) or func(...)
       end
       return _temp
     end
+end
+
+--- Pipes a value through a series of functions. In math terms, 
+-- given some functions `f`, `g`, and `h` in that order, it returns `f(g(h(value)))`.
+-- @name pipe
+-- @tparam value value a value
+-- @tparam vararg ... a variable number of functions
+-- @treturn value the result of the composition of function calls.
+-- @see compose
+function _.pipe(value, ...)
+  return _.compose(...)(value)
+end
+
+--- Returns the logical complement of a given function. For a given input, the returned 
+-- function will output `false` if the original function would have returned `true`, 
+-- and vice-versa.
+-- @name complement
+-- @tparam function f a function
+-- @treturn function  the logical complement of the given function `f`.
+function _.complement(f)
+  return function(...) return not f(...) end
+end
+
+--- Calls a sequence of passed-in functions with the same argument.
+-- Returns a sequence of results. 
+-- <br/><em>Aliased as `juxt`</em>
+-- @name juxtapose
+-- @tparam value value a value
+-- @tparam vararg ... a variable number of functions
+-- @treturn vararg a vargarg list of results.
+function _.juxtapose(value, ...)
+  local res = {}
+  _.each({...}, function(_,f) res[#res+1] = f(value) end)
+  return unpack(res)
 end
 
 --- Wraps `f` inside of the `wrapper` function. It passes `f` as the first argument to `wrapper`.
@@ -1027,20 +1233,18 @@ end
 -- @tparam function f a function to be wrapped, prototyped as `f(...)`
 -- @tparam function wrapper a wrapper function, prototyped as `wrapper(f,...)`
 -- @treturn function a new function
-function _.wrap(f,wrapper)
-  return function (...)
-      return  wrapper(f,...)
-    end
+function _.wrap(f, wrapper)
+  return function (...) return  wrapper(f,...) end
 end
 
 --- Runs `iter` function `n` times.
 -- Collects the results of each run and returns them in an array.
 -- @name times
 -- @tparam number n the number of times `iter` should be called
--- @tparam function iter an iterator function, prototyped as `iter(i,...)`
--- @tparam var_arg ... extra-args to be passed to `iter` function
+-- @tparam function iter an iterator function, prototyped as `iter(i, ...)`
+-- @tparam vararg ... extra-args to be passed to `iter` function
 -- @treturn table an array of results
-function _.times(n,iter,...)
+function _.times(n, iter, ...)
   local results = {}
   for i = 1,n do
     results[i] = iter(i,...)
@@ -1049,39 +1253,41 @@ function _.times(n,iter,...)
 end
 
 --- Binds `v` to be the first argument to function `f`. As a result,
--- calling `f(...)` will result to `f(v,...)`.
+-- calling `f(...)` will result to `f(v, ...)`.
 -- @name bind
 -- @tparam function f a function
--- @tparam arg v an argument
--- @treturn function a function, prototyped as `f(v,...)`
-function _.bind(f,v)
+-- @tparam value v a value
+-- @treturn function a function
+-- @see bindn
+function _.bind(f, v)
   return function (...)
       return f(v,...)
     end
 end
 
 --- Binds `...` to be the N-first arguments to function `f`. As a result,
--- calling `f(a1,a2,...,aN)` will result to `f(...,a1,a2,...,aN)`.
+-- calling `f(a1, a2, ..., aN)` will result to `f(..., a1, a2, ...,aN)`.
 -- @name bindn
 -- @tparam function f a function
--- @tparam var_arg ... a variable numer of arguments
--- @treturn function a function, prototyped as `f(v,...)`
-function _.bindn(f,...)
+-- @tparam vararg ... a variable number of arguments
+-- @treturn function a function
+-- @see bind
+function _.bindn(f, ...)
   local iArg = {...}
   return function (...)
       return f(unpack(_.append(iArg,{...})))
     end
 end
 
---- Generates a unique Id (unique for the current session). If given a sring `template`
--- will use this template for output formatting. Otherwise, if `template` is a function,
--- will compute an output running `template(id,...)`.
--- <br/><em>Aliased as `uId`</em>.
+--- Generates a unique ID for the current session. If given a string *template*
+-- will use this template for output formatting. Otherwise, if *template* is a function,
+-- will evaluate `template(id, ...)`.
+-- <br/><em>Aliased as `uid`</em>.
 -- @name uniqueId
--- @tparam[opt] string|function template either a string or a function
--- @tparam[optchain] var_arg ... a variable numer of arguments to be passed to `template`, in case it is a function.
--- @treturn id a formatted Id
-function _.uniqueId(template,...)
+-- @tparam[opt] string|function template either a string or a function template to format the ID
+-- @tparam[optchain] vararg ... a variable number of arguments to be passed to *template*, in case it is a function.
+-- @treturn value an ID
+function _.uniqueId(template, ...)
   unique_id_counter = unique_id_counter + 1
   if template then
     if _.isString(template) then
@@ -1093,9 +1299,10 @@ function _.uniqueId(template,...)
   return unique_id_counter
 end
 
--- ========= Object functions
+--- Object functions
+--@section Object functions
 
---- Returns the names of the object properties.
+--- Returns the keys of the object properties.
 -- @name keys
 -- @tparam table obj an object
 -- @treturn table an array
@@ -1115,26 +1322,22 @@ function _.values(obj)
   return _oValues
 end
 
---- Returns an array of key-values pairs
--- @name paired
--- @tparam table obj an object
--- @treturn table an array
-function _.paired(obj)
-  local paired = {}
-  _.each(obj,function(k,v)
-    paired[#paired+1] = {k,v}
-  end)
-  return paired
+--- Converts any given value to a boolean
+-- @name toBoolean
+-- @tparam value value a value. Can be of any type
+-- @treturn boolean `true` if value is true, `false` otherwise (false or nil).
+function _.toBoolean(value)
+  return not not value
 end
 
 --- Extends an object properties. It copies all of the properties of extra passed-in objects
--- over to the destination object, and returns the destination object.
--- The last object in `...` will override properties of the same name in the previous one
+-- into the destination object, and returns the destination object.
+-- The last object in the `...` set will override properties of the same name in the previous one
 -- @name extend
 -- @tparam table destObj a destination object
--- @tparam var_arg ... a variable number of array arguments
+-- @tparam vararg ... a variable number of array arguments
 -- @treturn table the destination object extended
-function _.extend(destObj,...)
+function _.extend(destObj, ...)
   local sources = {...}
   _.each(sources,function(__,source)
     if _.isTable(source) then
@@ -1148,21 +1351,22 @@ end
 
 --- Returns a sorted list of all methods names found in an object. If the given object
 -- has a metatable implementing an `__index` field pointing to another table, will also recurse on this
--- table.
+-- table if argument `recurseMt` is provided. If `obj` is omitted, it defaults to the library functions.
 -- <br/><em>Aliased as `methods`</em>.
 -- @name functions
--- @tparam table obj an object
--- @treturn table an array of methods names
-function _.functions(obj)
-  if not obj then
-    return _.sort(_.push(_.keys(_),'chain', 'value', 'import'))
-  end
+-- @tparam[opt] table obj an object. Defaults to library functions.
+-- @treturn table an array-list of methods names
+function _.functions(obj, recurseMt)
+  obj = obj or _
   local _methods = {}
   _.each(obj,function(key,value)
     if _.isFunction(value) then
       _methods[#_methods+1]=key
     end
   end)
+  if not recurseMt then 
+    return _.sort(_methods)
+  end
   local mt = getmetatable(obj)
   if mt and mt.__index then
     local mt_methods = _.functions(mt.__index)
@@ -1170,7 +1374,7 @@ function _.functions(obj)
       _methods[#_methods+1] = fn
     end)
   end
-   return _.sort(_methods)
+  return _.sort(_methods)
 end
 
 --- Clones a given object properties. If `shallow` is passed
@@ -1178,31 +1382,32 @@ end
 -- @name clone
 -- @tparam table obj an object
 -- @tparam[opt] boolean shallow whether or not nested array-properties should be cloned, defaults to false.
--- @treturn table a clone of the passed-in object
-function _.clone(obj,shallow)
+-- @treturn table a copy of the passed-in object
+function _.clone(obj, shallow)
   if not _.isTable(obj) then return obj end
   local _obj = {}
   _.each(obj,function(i,v)
     if _.isTable(v) then
       if not shallow then
-    _obj[i] = _.clone(v,shallow)
-    else _obj[i] = v
+        _obj[i] = _.clone(v,shallow)
+      else _obj[i] = v
+      end
+    else
+      _obj[i] = v
     end
-  else
-    _obj[i] = v
-  end
   end)
   return _obj
 end
 
 --- Invokes interceptor with the object, and then returns object.
--- The primary purpose of this method is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
+-- The primary purpose of this method is to "tap into" a method chain, in order to perform operations 
+-- on intermediate results within the chain.
 -- @name tap
 -- @tparam table obj an object
--- @tparam function f an interceptor function, should be prototyped as `f(obj,...)`
+-- @tparam function f an interceptor function, should be prototyped as `f(obj, ...)`
 -- @tparam[opt] vararg ... Extra-args to be passed to interceptor function
 -- @treturn table the passed-in object
-function _.tap(obj, f,...)
+function _.tap(obj, f, ...)
   f(obj,...)
   return obj
 end
@@ -1210,17 +1415,18 @@ end
 --- Checks if a given object implements a property.
 -- @name has
 -- @tparam table obj an object
--- @tparam key key a key property to be checked
--- @treturn boolean __true__ or __false__
+-- @tparam value key a key property to be checked
+-- @treturn boolean `true` or `false`
 function _.has(obj, key)
   return obj[key]~=nil
 end
 
 --- Return a filtered copy of the object. The returned object will only have
--- the whitelisted properties. <br/><em>Aliased as `choose`</em>.
+-- the white-listed properties paired with their original values.
+-- <br/><em>Aliased as `choose`</em>.
 -- @name pick
 -- @tparam table obj an object
--- @tparam var_arg ... a variable number of string keys
+-- @tparam vararg ... a variable number of string keys
 -- @treturn table the filtered object
 function _.pick(obj, ...)
   local whitelist = _.flatten {...}
@@ -1234,12 +1440,13 @@ function _.pick(obj, ...)
 end
 
 --- Return a filtered copy of the object. The returned object will not have
--- the blacklisted properties. <br/><em>Aliased as `drop`</em>.
+-- the black-listed properties.
+-- <br/><em>Aliased as `drop`</em>.
 -- @name omit
 -- @tparam table obj an object
--- @tparam var_arg ... a variable number of string keys
+-- @tparam vararg ... a variable number of string keys
 -- @treturn table the filtered object
-function _.omit(obj,...)
+function _.omit(obj, ...)
   local blacklist = _.flatten {...}
   local _picked = {}
   _.each(obj,function(key,value)
@@ -1251,30 +1458,30 @@ function _.omit(obj,...)
 end
 
 --- Fills nil properties in an object with the given `template` object. Pre-existing
--- properties will be preserved. <br/><em>Aliased as `defaults`</em>.
+-- properties will be preserved.
+-- <br/><em>Aliased as `defaults`</em>.
 -- @name template
 -- @tparam table obj an object
--- @tparam table template a template object
+-- @tparam[opt] table template a template object. Defaults to an empty table `{}`.
 -- @treturn table the passed-in object filled
-function _.template(obj,template)
-  _.each(template,function(i,v)
-  if not obj[i] then
-    obj[i] = v
-  end
+function _.template(obj, template)
+  _.each(template or {},function(i,v)
+  if not obj[i] then obj[i] = v end
   end)
   return obj
 end
 
---- Performs an equality test between two objects.
--- Can compare strings, functions (by reference), nil, booleans. Compares tables by reference or by component-values.
--- Comparing objects, if `useMt` is passed, the equality operator `==` will be used if one of
--- the given objects has a metatable implementing `mt.__eq`
+--- Performs a deep comparison test between two objects. Can compare strings, functions 
+-- (by reference), nil, booleans. Compares tables by reference or by values. If `useMt` 
+-- is passed, the equality operator `==` will be used if one of the given objects has a 
+-- metatable implementing `__eq`.
+-- <br/><em>Aliased as `_.compare`</em>
 -- @name isEqual
 -- @tparam table objA an object
 -- @tparam table objB another object
--- @tparam[opt] boolean useMt whether or not `mt.__eq` should be used, defaults to false.
--- @treturn boolean __true__ or __false__
-function _.isEqual(objA,objB,useMt)
+-- @tparam[opt] boolean useMt whether or not `__eq` should be used, defaults to false.
+-- @treturn boolean `true` or `false`
+function _.isEqual(objA, objB, useMt)
   local typeObjA = type(objA)
   local typeObjB = type(objB)
   if typeObjA~=typeObjB then return false end
@@ -1309,9 +1516,9 @@ end
 -- @name result
 -- @tparam table obj an object
 -- @tparam string method a string key to index in object `obj`.
--- @tparam[opt] var_arg ... Optional extra-args to be passed to `method`
+-- @tparam[opt] vararg ... Optional extra-args to be passed to `method`
 -- @treturn value the returned value of `method(obj,...)` call
-function _.result(obj,method,...)
+function _.result(obj, method, ...)
   if obj[method] then
     if _.isCallable(obj[method]) then
       return obj[method](obj,...)
@@ -1323,30 +1530,30 @@ function _.result(obj,method,...)
   end
 end
 
---- Checks if the given arg is an object (i.e a Lua table).
+--- Checks if the given arg is a table.
 -- @name isTable
--- @tparam object t a value to be tested
--- @treturn boolean __true__ or __false__
+-- @tparam table t a value to be tested
+-- @treturn boolean `true` or `false`
 function _.isTable(t)
   return type(t) == 'table'
 end
 
---- Checks if the given arg is an callable. Assumes `obj` is callable if
+--- Checks if the given argument is an callable. Assumes `obj` is callable if
 -- it is either a function or a table having a metatable implementing `__call` metamethod.
 -- @name isCallable
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam table obj an object
+-- @treturn boolean `true` or `false`
 function _.isCallable(obj)
   return (_.isFunction(obj) or
      (_.isTable(obj) and getmetatable(obj)
                    and getmetatable(obj).__call~=nil) or false)
 end
 
---- Checks if the given arg is an array. Assumes `obj` is an array
+--- Checks if the given argument is an array. Assumes `obj` is an array
 -- if is a table with integer numbers starting at 1.
 -- @name isArray
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam table obj an object
+-- @treturn boolean `true` or `false`
 function _.isArray(obj)
   if not _.isTable(obj) then return false end
   -- Thanks @Wojak and @Enrique García Cota for suggesting this
@@ -1359,84 +1566,153 @@ function _.isArray(obj)
   return true
 end
 
---- Checks if the given is empty. If `obj` is a @{string}, will return __true__
--- if `#obj==0`. Otherwise, if `obj` is a table, will return whether or not this table
--- is empty.
+--- Checks if the given object is iterable with `pairs` (or `ipairs`).
+-- @name isIterable
+-- @tparam table obj an object
+-- @treturn boolean `true` if the object can be iterated with `pairs`, `false` otherwise
+function _.isIterable(obj)
+  return _.toBoolean((pcall(pairs, obj)))
+end
+
+--- Checks if the given is empty. If `obj` is a *string*, will return `true`
+-- if `#obj == 0`. Otherwise, if `obj` is a table, will return whether or not this table
+-- is empty. If `obj` is `nil`, it will return true.
 -- @name isEmpty
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam[opt] table|string obj an object
+-- @treturn boolean `true` or `false`
 function _.isEmpty(obj)
+  if _.isNil(obj) then return true end
   if _.isString(obj) then return #obj==0 end
   if _.isTable(obj) then return next(obj)==nil end
   return true
 end
 
---- Checks if the given arg is a @{string}.
+--- Checks if the given argument is a *string*.
 -- @name isString
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam table obj an object
+-- @treturn boolean `true` or `false`
 function _.isString(obj)
   return type(obj) == 'string'
 end
 
---- Checks if the given arg is a function.
+--- Checks if the given argument is a function.
 -- @name isFunction
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam table obj an object
+-- @treturn boolean `true` or `false`
 function _.isFunction(obj)
    return type(obj) == 'function'
 end
 
---- Checks if the given arg is nil.
+--- Checks if the given argument is nil.
 -- @name isNil
--- @tparam object obj an object
--- @treturn boolean __true__ or __false__
+-- @tparam table obj an object
+-- @treturn boolean `true` or `false`
 function _.isNil(obj)
   return obj==nil
 end
 
---- Checks if the given arg is a finite number.
+--- Checks if the given argument is a number.
+-- @name isNumber
+-- @tparam table obj a number
+-- @treturn boolean `true` or `false`
+-- @see isNaN
+function _.isNumber(obj)
+  return type(obj) == 'number'
+end
+
+--- Checks if the given argument is NaN (see [Not-A-Number](http://en.wikipedia.org/wiki/NaN)).
+-- @name isNaN
+-- @tparam table obj a number
+-- @treturn boolean `true` or `false`
+-- @see isNumber
+function _.isNaN(obj)
+  return _.isNumber(obj) and obj~=obj
+end
+
+--- Checks if the given argument is a finite number.
 -- @name isFinite
--- @tparam object obj a number
--- @treturn boolean __true__ or __false__
+-- @tparam table obj a number
+-- @treturn boolean `true` or `false`
 function _.isFinite(obj)
   if not _.isNumber(obj) then return false end
   return obj > -huge and obj < huge
 end
 
---- Checks if the given arg is a number.
--- @name isNumber
--- @tparam object obj a number
--- @treturn boolean __true__ or __false__
-function _.isNumber(obj)
-  return type(obj) == 'number'
-end
-
---- Checks if the given arg is NaN (see [Not-A-Number](http://en.wikipedia.org/wiki/NaN)).
--- @name isNaN
--- @tparam object obj a number
--- @treturn boolean __true__ or __false__
-function _.isNaN(obj)
-  return _.isNumber(obj) and obj~=obj
-end
-
---- Checks if the given arg is a boolean.
+--- Checks if the given argument is a boolean.
 -- @name isBoolean
--- @tparam object obj a boolean
--- @treturn boolean __true__ or __false__
+-- @tparam table obj a boolean
+-- @treturn boolean `true` or `false`
 function _.isBoolean(obj)
   return type(obj) == 'boolean'
 end
 
---- Checks if the given arg is an integer.
+--- Checks if the given argument is an integer.
 -- @name isInteger
--- @tparam object obj a number
--- @treturn boolean __true__ or __false__
+-- @tparam table obj a number
+-- @treturn boolean `true` or `false`
 function _.isInteger(obj)
   return _.isNumber(obj) and floor(obj)==obj
 end
 
--- ========= Chaining
+-- Aliases
+
+do
+
+  -- Table functions aliases
+  _.forEach     = _.each
+  _.forEachi    = _.eachi
+  _.loop        = _.cycle
+  _.collect     = _.map
+  _.inject      = _.reduce
+  _.foldl       = _.reduce
+  _.injectr     = _.reduceRight
+  _.foldr       = _.reduceRight
+  _.mapr        = _.mapReduce
+  _.maprr       = _.mapReduceRight
+  _.any         = _.include
+  _.some        = _.include
+  _.filter      = _.select
+  _.discard     = _.reject
+  _.every       = _.all
+  
+  -- Array functions aliases
+  _.takeWhile   = _.selectWhile
+  _.rejectWhile = _.dropWhile
+  _.shift       = _.pop
+  _.remove      = _.pull
+  _.rmRange     = _.removeRange
+  _.chop        = _.removeRange
+  _.sub         = _.slice
+  _.head        = _.first
+  _.take        = _.first
+  _.tail        = _.rest
+  _.skip        = _.last
+  _.without     = _.difference
+  _.diff        = _.difference
+  _.symdiff     = _.symmetricDifference
+  _.xor         = _.symmetricDifference
+  _.uniq        = _.unique
+  _.isuniq      = _.isunique
+  _.part        = _.partition
+  _.perm        = _.permutation
+  _.mirror      = _.invert
+  _.join        = _.concat
+  
+  -- Utility functions aliases
+  _.cache       = _.memoize
+  _.juxt        = _.juxtapose
+  _.uid         = _.uniqueId
+  
+  -- Object functions aliases
+  _.methods     = _.functions
+  _.choose      = _.pick
+  _.drop        = _.omit
+  _.defaults    = _.template
+  _.compare     = _.isEqual
+  
+end
+
+-- Setting chaining and building interface
 
 do
 
@@ -1479,47 +1755,6 @@ do
   -- Register chaining methods into the wrapper
   f.chain, f.value = __.chain, __.value
 
-  -- Enables aliases in case MOSES_ALIASES was set to true in the global env
-  if rawget(_G, 'MOSES_ALIASES') then
-    _.forEach = _.each
-    _.forEachi = _.eachi
-    _.loop = _.cycle
-    _.collect = _.map
-    _.inject = _.reduce
-    _.foldl = _.reduce
-    _.injectr = _.reduceRight
-    _.foldr = _.reduceRight
-    _.mapr = _.mapReduce
-    _.maprr = _.mapReduceRight
-    _.any = _.include
-    _.some = _.include
-    _.find = _.detect
-    _.filter = _.select
-    _.discard = _.reject
-    _.every = _.all
-    _.takeWhile = _.selectWhile
-    _.rejectWhile = _.dropWhile
-    _.shift = _.pop
-    _.rmRange = _.removeRange
-    _.chop = _.removeRange
-    _.head = _.first
-    _.take = _.first
-    _.tail = _.rest
-    _.skip = _.last
-    _.without = _.difference
-    _.diff = _.difference
-    _.symdiff = _.symmetric_difference
-    _.unique = _.uniq
-    _.mirror = _.invert
-    _.join = _.concat
-    _.cache = _.memoize
-    _.uId = _.uniqueId
-    _.methods = _.functions
-    _.choose = _.pick
-    _.drop = _.omit
-    _.defaults = _.template
-  end
-
   -- Register all functions into the wrapper
   for fname,fct in pairs(_) do
     f[fname] = function(v, ...)
@@ -1540,17 +1775,26 @@ do
   -- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
   -- @treturn table the passed-in context
   f.import = function(context, noConflict)
-    local fs = {}
     context = context or _G
-    _.each(f, function(k,v)
-      if noConflict then
-        if not rawget(context, k) then fs[k] = v end
+    local funcs = _.functions()
+    _.each(funcs, function(k, fname)  
+      if rawget(context, fname) then
+        if not noConflict then
+          context[fname] = _[fname]        
+        end
       else
-        fs[k] = v
+        context[fname] = _[fname]
       end
     end)
-    return _.extend(context or _G, fs)
+    return context
   end
 
+  -- Descriptive tags
+  __._VERSION     = 'Moses v'.._MODULEVERSION
+  __._URL         = 'http://github.com/Yonaba/Moses'
+  __._LICENSE     = 'MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
+  __._DESCRIPTION = 'utility-belt library for functional programming in Lua'
+  
   return __
+  
 end

@@ -1,9 +1,7 @@
 require 'luacov'
-package.loaded.moses = nil
-_G.MOSES_NO_ALIASES = false
 local _ = require 'moses'
 
-context('Collection functions specs', function()
+context('Table functions specs', function()
 
   context('each', function()
   
@@ -56,10 +54,24 @@ context('Collection functions specs', function()
         assert_equal(i,rk[inc])
         assert_equal(v,rv[inc])
       end)
-    end)    
+    end)  
     
   end)  
  
+  context('at', function()
+  
+    test('returns an array of values at numeric keys', function()
+      local t = {4,5,6}
+      local values = _.at(t,1,2,3)
+      assert_true(_.isEqual(values, t))
+      
+      local t = {a = 4, bb = true, ccc = false}
+      local values = _.at(t,'a', 'ccc')
+      assert_true(_.isEqual(values, {4, false}))       
+    end)
+    
+  end)
+  
   context('count', function()
     
     test('count the occurences of value in a list', function()
@@ -123,8 +135,30 @@ context('Collection functions specs', function()
       for k,v in ipairs(values) do
         assert_equal(_.count(values,v),times)
       end      
-    end)    
-  
+    end)
+    
+    test('n defaults to 1, if not supplied', function()
+      local t = {1,2,3,4,5}
+      for k,v in _.cycle(t) do
+        t[k] = v + 1
+      end
+      _.each(t, function(k, v)
+        assert_equal(v, k + 1)
+      end)
+    end)   
+    
+    test('if n is negative or equal to 0, it does nothing', function()
+      local t = {1,2,3,4,5}
+      for k,v in _.cycle(t, 0) do
+        t[k] = v + 1
+      end
+      for k,v in _.cycle(t, -2) do
+        t[k] = v + 1
+      end      
+      _.each(t, function(k, v)
+        assert_equal(v, k)
+      end)
+    end)     
   end)
   
   context('map', function()
@@ -139,8 +173,8 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.map({a = 1, b = 2},function(k,v) 
           return k..v 
         end),{a = 'a1',b = 'b2'}))
-    end)  
-  
+    end)
+    
   end)
   
   context('reduce', function()
@@ -170,8 +204,8 @@ context('Collection functions specs', function()
     
     test('initial state defaults to the first value when not given', function()
       assert_equal(_.reduceRight({'a','b','c'},function(memo,v) return memo..v end),'cba')
-    end)    
-  
+    end)
+    
   end)
 
   context('mapReduce', function()
@@ -186,7 +220,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduce({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'a','ab','abc'}))
-    end) 
+    end)  
   
   end)
 
@@ -202,8 +236,8 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.mapReduceRight({'a','b','c'},function(memo,v) 
           return memo..v 
         end),{'c','cb','cba'}))
-    end) 
-  
+    end)
+    
   end)  
 
   context('include', function()
@@ -224,8 +258,8 @@ context('Collection functions specs', function()
       assert_true(_.include({'a','B','c'}, function(array_value)
         return (array_value:upper() == array_value)
       end))
-    end)  
-  
+    end) 
+    
   end)  
     
   context('detect', function()
@@ -289,7 +323,7 @@ context('Collection functions specs', function()
     end) 
   
   end) 
-  
+   
   context('select', function()
   
     test('collects all values passing a truth test with an iterator', function()
@@ -301,7 +335,7 @@ context('Collection functions specs', function()
           return (value%2~=0)
         end),{1,3,5,7}))        
     end)
-
+    
   end) 
    
   context('reject', function()
@@ -314,7 +348,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.reject({1,2,3,4,5,6,7}, function(key,value) 
           return (value%2~=0)
         end),{2,4,6}))        
-    end)      
+    end)
     
   end) 
     
@@ -328,7 +362,7 @@ context('Collection functions specs', function()
       assert_false(_.all({false,true,false}, function(key,value) 
           return value == false
         end))        
-    end)      
+    end) 
     
   end) 
  
@@ -446,15 +480,7 @@ context('Collection functions specs', function()
       assert_true(_.isEqual(_.sort({'b','a','d','c'}),{'a','b','c','d'}))
     end)     
   
-  end)   
-
-  context('toArray', function()
-  
-    test('folds a list of args into a array', function()            
-      assert_true(_.isEqual(_.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))
-    end)
-    
-  end)   
+  end)     
   
   context('groupBy', function()
   
