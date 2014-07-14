@@ -373,7 +373,9 @@ context('Table functions specs', function()
         {1,3,5}))
 
       assert_true(_.isEqual(_.invoke({{2,3,2},{13,8,10},{0,-5}},_.sort),
-        {{2,2,3},{8,10,13},{-5,0}}))         
+        {{2,2,3},{8,10,13},{-5,0}}))
+        
+      assert_true(_.isEqual(_.invoke({{x = 1, y = 2},{x = 3, y=4}},'x'), {1,3}))
     end)
    
     test('given a string, calls the matching object property the same way', function()

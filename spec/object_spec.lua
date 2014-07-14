@@ -265,7 +265,14 @@ context('Object functions specs', function()
     test('compares nested properties',function()
       assert_true(_.isEqual({x = 0,{x1 = 0,{x2 =0}}}, {x = 0,{x1 = 0,{x2 =0}}}))
       assert_false(_.isEqual({x = 0,{x1 = 0,{x2 =0}}}, {x = 0,{x1 = 0,{x2 =1}}}))
-    end)    
+    end)
+
+    test('can compare tables on the basis of their metatable',function()
+      local a, b = {x = 1, y = 2}, {x = 2, y = 1}
+      setmetatable(a,{__eq = function(a,b) return (a.x and b.x and a.y and b.y)~=nil end})
+      assert_false(_.isEqual(a, b))
+      assert_true(_.isEqual(a, b, true))
+    end)
   
     
   end)
