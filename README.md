@@ -45,7 +45,7 @@ Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/
   
 ##Documentation##
 * Available in HTML-format for download : see [doc](https://github.com/Yonaba/Moses/blob/master/doc).
-* Read it in your browser : see [online doc](http://yonabe.github.io/Moses/doc)
+* Read it in your browser : see [online doc](http://yonaba.github.io/Moses/doc)
 
 ##Credits and Acknowledgement##
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
