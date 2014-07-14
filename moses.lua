@@ -361,14 +361,16 @@ end
 -- @tparam function method a function, prototyped as `f(value, ...)`
 -- @tparam[opt] vararg ... Optional extra-args to be passed to function `method`
 -- @treturn result the result(s) of method call `f(value, ...)`
+-- @see pluck
 function _.invoke(t, method, ...)
   local args = {...}
   return _.map(t, function(__,v)
-        if _.isTable(v) then
+    if _.isTable(v) then
       if _.has(v,method) then
         if _.isCallable(v[method]) then
           return v[method](v,unpack(args))
-        else return v[method]
+        else
+          return v[method]
         end
       else
         if _.isCallable(method) then
@@ -455,23 +457,17 @@ function _.sort(t, comp)
 end
 
 --- Splits a table into subsets. Each subset feature values from the original table grouped
--- by the result of passing it through an iterator. If iterator is a string instead of a 
--- function, groups by the property named by iterator on each of the values.
+-- by the result of passing it through an iterator.
 -- @name groupBy
 -- @tparam table t a table
--- @tparam function|string iter an iterator function, prototyped as `iter(key, value, ...)`
+-- @tparam function iter an iterator function, prototyped as `iter(key, value, ...)`
 -- @tparam[opt] vararg ... Optional extra-args to be passed to function `iter`
 -- @treturn table a new table with values grouped by subsets
 function _.groupBy(t, iter, ...)
   local vararg = {...}
   local _t = {}
-  local _iter = _.isFunction(iter) and iter
-    or (_.isString(iter) and function(_,item)
-        return item[iter](item,unpack(vararg))
-      end)
-  if not _iter then return end
   _.each(t, function(i,v)
-      local _key = _iter(i,v)
+      local _key = iter(i,v)
       if _t[_key] then _t[_key][#_t[_key]+1] = v
       else _t[_key] = {v}
       end
@@ -1484,6 +1480,7 @@ end
 function _.isEqual(objA, objB, useMt)
   local typeObjA = type(objA)
   local typeObjB = type(objB)
+
   if typeObjA~=typeObjB then return false end
   if typeObjA~='table' then return (objA==objB) end
 
@@ -1491,9 +1488,9 @@ function _.isEqual(objA, objB, useMt)
   local mtB = getmetatable(objB)
 
   if useMt then
-  if mtA or mtB and mtA.__eq or mtB.__eq then
-    return (objA==objB)
-  end
+    if (mtA or mtB) and (mtA.__eq or mtB.__eq) then
+      return mtA.__eq(objA, objB) or mtB.__eq(objB, objA) or (objA==objB)
+    end
   end
 
   if _.size(objA)~=_.size(objB) then return false end
