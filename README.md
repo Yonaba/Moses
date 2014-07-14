@@ -2,9 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/Yonaba/Moses/badge.png?branch=master)](https://coveralls.io/r/Yonaba/Moses?branch=master)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 
-A utility library which provides a set of helpers acting as shortcuts for common programming tasks,
-and support for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier operations on arrays, lists, 
-collections, objects, through 98 odd functions.<br/>
+A Lua utility-belt library for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier 
+operations on arrays, lists, collections.<br/>
+
 __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
 
 ##Download & Installation
@@ -29,29 +29,30 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 ````
 
 ##Usage##
-Put the file [Moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
+Put the file [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
 __Note__: 
-The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (approximately 50 kiB).<br/>
-You can alternatively use the lighter [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (16 kiB).
+The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~59 kiB).<br/>
+You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~17.5 kiB).
 
-##Usage examples##
-Find a complete set of samples in [moses.md](https://github.com/Yonaba/Moses/blob/master/docs/moses.md)
+##Tutorial##
+Find a complete set of code examples in [moses.md](https://github.com/Yonaba/Moses/blob/master/doc/tutorial.md)
   
 ##Documentation##
-A fully complete documentation, in HTML-format, can be found in [Docs](https://github.com/Yonaba/Moses/blob/master/docs), and is also available for [download](http://github.com/Yonaba/Moses/downloads). <br/>
+Available in HTML-format for download : see [doc](https://github.com/Yonaba/Moses/blob/master/doc).
+Read it in your browser : see [online doc](http://yonabe.github.io/Moses/doc)
 
 ##Credits and Acknowledgement##
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
 * [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this.
-* The amazing documentation tool [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate the current HTML documentation.
+* [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate the current HTML documentation.
 
 ##Specification
-Specs tests have been included.<br/>
+Spec tests have been included.<br/>
 Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
 
 ```
-tsc -f specs/*
+tsc -f spec/*
 ```
 
 ##License##
