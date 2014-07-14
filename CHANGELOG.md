@@ -1,6 +1,6 @@
 #Version history#
 
-##1.4.0
+##1.4.0 (07/14/14)
 
 ###Breaking
 #### Changes

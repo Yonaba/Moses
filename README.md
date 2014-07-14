@@ -15,8 +15,8 @@ git clone git://github.com/Yonaba/Moses.git
 ````
 
 ###Archive
-* __Zip__: [Latest stable 1.3.2.1](https://github.com/Yonaba/Moses/archive/Moses-1.3.2.1-1.zip) | [current](https://github.com/Yonaba/Moses/archive/master.zip) | [all](https://github.com/Yonaba/Moses/tags)
-* __Tar.gz__: [Latest stable 1.3.2.1](https://github.com/Yonaba/Moses/archive/Moses-1.3.2.1-1.tar.gz) | [current](https://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](https://github.com/Yonaba/Moses/tags)
+* __zip__: [latest stable 1.4.0](http://github.com/Yonaba/Moses/archive/Moses-1.4.0-1.zip) | [current](http://github.com/Yonaba/Moses/archive/master.zip) | [all](http://github.com/Yonaba/Moses/tags)
+* __tarball__: [latest stable 1.4.0](http://github.com/Yonaba/Moses/archive/Moses-1.4.0-1.tar.gz) | [current](http://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](http://github.com/Yonaba/Moses/tags)
 
 ###LuaRocks
 ```
@@ -24,6 +24,13 @@ luarocks install moses
 ````
 
 ###MoonRocks
+
+```bash
+moonrocks install moses
+````
+
+or : 
+
 ```bash
 luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 ````
@@ -31,16 +38,14 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 ##Usage##
 Put the file [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
-__Note__: 
-The full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~59 kiB).<br/>
-You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~17.5 kiB).
+*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~59 kiB). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~17.5 kiB).
 
 ##Tutorial##
-Find a complete set of code examples in [moses.md](https://github.com/Yonaba/Moses/blob/master/doc/tutorial.md)
+Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/Moses/blob/master/doc/tutorial.md)
   
 ##Documentation##
-Available in HTML-format for download : see [doc](https://github.com/Yonaba/Moses/blob/master/doc).
-Read it in your browser : see [online doc](http://yonabe.github.io/Moses/doc)
+* Available in HTML-format for download : see [doc](https://github.com/Yonaba/Moses/blob/master/doc).
+* Read it in your browser : see [online doc](http://yonabe.github.io/Moses/doc)
 
 ##Credits and Acknowledgement##
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
@@ -49,9 +54,9 @@ Read it in your browser : see [online doc](http://yonabe.github.io/Moses/doc)
 
 ##Specification
 Spec tests have been included.<br/>
-Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
+Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root folder:
 
-```
+```bash
 tsc -f spec/*
 ```
 
