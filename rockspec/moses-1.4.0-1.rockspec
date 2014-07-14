@@ -22,5 +22,5 @@ build = {
     ["moses"] = "moses.lua",
     ["moses_min"] = "moses_min.lua",
   },
-  copy_directories = {"docs","specs"}	
+  copy_directories = {"doc","spec"}	
 }
