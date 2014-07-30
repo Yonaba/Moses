@@ -467,7 +467,7 @@ function _.groupBy(t, iter, ...)
   local vararg = {...}
   local _t = {}
   _.each(t, function(i,v)
-      local _key = iter(i,v)
+      local _key = iter(i,v, unpack(vararg))
       if _t[_key] then _t[_key][#_t[_key]+1] = v
       else _t[_key] = {v}
       end

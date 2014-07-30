@@ -500,7 +500,14 @@ context('Table functions specs', function()
           return value:len()
         end),{[3] = {'one','two'},[4] = {'four','five'},[5] = {'three'}}))
         
-    end)     
+    end)
+    
+    test('can takes extra-args', function()
+    
+      assert_true(_.isEqual(_.groupBy({3,9,10,12,15}, function(k,v,x) return v%x == 0 end,2), {[false] = {3,9,15}, [true] = {10,12}}))
+      assert_true(_.isEqual(_.groupBy({3,9,10,12,15}, function(k,v,x) return v%x == 0 end,3), {[false] = {10}, [true] = {3,9,12,15}}))
+      
+    end)
   
   end)   
 
