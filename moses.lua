@@ -532,12 +532,12 @@ end
 -- @treturn boolean `true` or `false`
 -- @see containsKeys
 function _.sameKeys(tA, tB)
-  _.each(tA,function(key)
-      if not tB[key] then return false end
-     end)
-  _.each(tB,function(key)
-      if not tA[key] then return false end
-     end)
+  for key in pairs(tA) do
+    if not tB[key] then return false end
+  end
+  for key in pairs(tB) do
+    if not tA[key] then return false end
+  end
   return true
 end
 
