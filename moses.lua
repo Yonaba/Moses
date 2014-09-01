@@ -182,7 +182,8 @@ end
 function _.map(t, f, ...)
   local _t = {}
   for index,value in pairs(t) do
-    _t[index] = f(index,value,...)
+    local k, kv, v = index, f(index,value,...)
+    _t[v and kv or k] = v or kv
   end
   return _t
 end
