@@ -10,6 +10,8 @@ __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com
 ##Download & Installation
 ###Bash
 
+[![Join the chat at https://gitter.im/Yonaba/Moses](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Yonaba/Moses?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ```bash
 git clone git://github.com/Yonaba/Moses.git
 ````
