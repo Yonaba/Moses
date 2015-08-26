@@ -339,6 +339,14 @@ context('Array functions specs', function()
     end)     
   
   end)  
+
+  context('nth', function()
+
+    test('returns the value at "index"', function()
+      assert_equal(3, _.nth({1,2,3,4,5,6}, 3))
+    end)
+    
+  end)
   
   context('compact',function() 
   
