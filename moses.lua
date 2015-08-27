@@ -9,14 +9,14 @@
 local _MODULEVERSION = '1.4.0'
 
 -- Internalisation
-local next, type, unpack, select, pcall = next, type, unpack, select, pcall
+local next, type, select, pcall = next, type, select, pcall
 local setmetatable, getmetatable = setmetatable, getmetatable
 local t_insert, t_sort = table.insert, table.sort
 local t_remove,t_concat = table.remove, table.concat
 local randomseed, random, huge = math.randomseed, math.random, math.huge
 local floor, max, min = math.floor, math.max, math.min
 local rawget = rawget
-local unpack = unpack
+local unpack = table.unpack or unpack
 local pairs,ipairs = pairs,ipairs
 local _ = {}
 
