@@ -851,6 +851,15 @@ function _.rest(array,index)
   return _.slice(array,index and max(1,min(index,#array)) or 1,#array)
 end
 
+--- Returns the value at index.
+-- @name nth
+-- @tparam table array an array
+-- @tparam number index an index
+-- @treturn the value at the given index
+function _.nth(array, index)
+  return array[index]
+end
+
 --- Trims all falsy (false and nil) values.
 -- @name compact
 -- @tparam table array an array

@@ -737,6 +737,15 @@ local array = {1,2,3,4,5,6,7,8,9}
 _.rest(array,6) -- => "{6,7,8,9}"
 ````
 
+### nth (array, index)
+
+Returns the value at *index*.
+
+```lua
+local array = {1,2,3,4,5,6}
+_.nth(array,3) -- => "3"
+````
+
 ### compact (array)
 
 Trims out all falsy values.
