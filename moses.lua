@@ -1270,6 +1270,19 @@ function _.bind(f, v)
     end
 end
 
+--- Binds `v` to be the second argument to function `f`. As a result,
+-- calling `f(a, ...)` will result to `f(a, v, ...)`.
+-- @name bind2
+-- @tparam function f a function
+-- @tparam value v a value
+-- @treturn function a function
+-- @see bindn
+function _.bind2(f, v)
+  return function (t, ...)
+    return f(t, v, ...)
+  end
+end
+
 --- Binds `...` to be the N-first arguments to function `f`. As a result,
 -- calling `f(a1, a2, ..., aN)` will result to `f(..., a1, a2, ...,aN)`.
 -- @name bindn
