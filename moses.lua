@@ -319,11 +319,12 @@ end
 -- @treturn table the selected values
 -- @see reject
 function _.select(t, f, ...)
-  local _mapped = _.map(t, f, ...)
-  local _t = {}
-  for index,value in pairs(_mapped) do
-    if value then _t[#_t+1] = t[index] end
-  end
+   local _t = {}
+   for index,value in pairs(t) do
+      if (f(index, value, ...)) then
+         _t[#_t+1] = t[index]
+          end
+     end
   return _t
 end
 
