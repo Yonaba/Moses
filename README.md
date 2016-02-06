@@ -5,7 +5,7 @@
 A Lua utility-belt library for [functional programming](http://en.wikipedia.org/wiki/Functional_programming). It complements the built-in __Lua table library__, making easier 
 operations on arrays, lists, collections.<br/>
 
-__Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com/underscore/).
+__Moses__ was deeply inspired by [Underscore.js](http://underscorejs.org).
 
 ##Download & Installation
 ###Bash
