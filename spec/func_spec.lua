@@ -116,7 +116,17 @@ context('Utility functions specs', function()
       local compositae = _.compose(f,g,h)
       assert_equal(compositae(10),36)
       assert_equal(compositae(20),121)
-    end)    
+    end)   
+
+    test('compose non commutative functions in reverse order',function()
+      local function f(s) return (s or '')..'f' end
+      local function g(s) return (s or '')..'g' end
+      local function h(s) return (s or '')..'h' end
+      assert_equal(_.compose(f,g,h)(),'hgf')
+      assert_equal(_.compose(h,g,f)(),'fgh')
+      assert_equal(_.compose(f,h,g)(),'ghf')
+      assert_equal(_.compose(g,h,f)(),'fhg')
+    end) 		
     
   end) 
 

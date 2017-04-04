@@ -1174,14 +1174,20 @@ end
 -- @treturn function a new function
 -- @see pipe
 function _.compose(...)
+	-- See: https://github.com/Yonaba/Moses/pull/15#issuecomment-139038895
   local f = _.reverse {...}
   return function (...)
-      local _temp
-      for i, func in ipairs(f) do
-        _temp = _temp and func(_temp) or func(...)
-      end
-      return _temp
-    end
+		local first, _temp = true
+		for i, func in ipairs(f) do
+			if first then
+				first = false
+				_temp = func(...)
+			else
+				_temp = func(_temp)
+			end
+		end
+		return _temp
+	end
 end
 
 --- Pipes a value through a series of functions. In math terms, 
