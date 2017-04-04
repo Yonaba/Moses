@@ -313,6 +313,21 @@ context('Table functions specs', function()
           return (value%2~=0)
         end),{1,3,5,7}))        
     end)
+
+    test('order of items is preserved', function()
+      local collection = { "wk_infant", "wk_armor", "wk_min", "wk_artil", "wk_antiair",
+        "wk_antitank", "wk_engeneer", "wk_transp", "wk_fighter", "wk_bomb", "wk_airrecon",
+        "wk_airtrans", "wk_helicopter", "wk_aerostat", "wk_hq", "wk_fort" }
+      local exists = {
+         wk_transp   = true,
+         wk_antitank = true,
+         wk_armor    = true,
+      }
+      local filtered = _.select(collection, function(key,value)
+        return exists[value]
+      end)
+      assert_true(_.isEqual(filtered,{"wk_armor","wk_antitank","wk_transp"}))
+    end)
     
   end) 
    
