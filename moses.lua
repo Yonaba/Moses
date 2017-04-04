@@ -352,7 +352,7 @@ end
 -- @tparam[opt] vararg ... Optional extra-args to be passed to function `f`
 -- @treturn boolean `true` if all values passes the predicate, `false` otherwise
 function _.all(t, f, ...)
-  return ((#_.select(_.map(t,f,...), isTrue)) == (#t))
+  return ((#_.select(_.map(t,f,...), isTrue)) == count(t))
 end
 
 --- Invokes a method on each value in a table.
