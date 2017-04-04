@@ -537,7 +537,7 @@ context('Table functions specs', function()
       assert_equal(_.size {1,2,3},3)        
     end)
     
-    test('counts nested tables elements as a unique value', function()      
+    test('counts nested tables elements as an unique value', function()      
       assert_equal(_.size {1,2,3,{4,5}},4)        
     end)
 
@@ -553,15 +553,18 @@ context('Table functions specs', function()
       assert_equal(_.size ({1,2},3,4,5),2)   
     end)    
 
-    test('counts the number of args when the first one is not a table', function()      
+    test('counts the number of non-nil args when the first one is not a table', function()      
       assert_equal(_.size (1,3,4,5),4)
+      assert_equal(_.size (nil,1,3,4,5),4)
+      assert_equal(_.size (nil,1,3,4,nil,5),4)
     end)  
  
     test('handles nil', function()      
       assert_equal(_.size(),0)
       assert_equal(_.size(nil),0)
     end)
-  
+
+		
   end)   
 
   context('containsKeys', function()

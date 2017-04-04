@@ -501,9 +501,7 @@ end
 function _.size(...)
   local args = {...}
   local arg1 = args[1]
-  if _.isNil(arg1) then
-    return 0
-  elseif _.isTable(arg1) then
+  if _.isTable(arg1) then
     return count(args[1])
   else
     return count(args)
@@ -1781,7 +1779,7 @@ do
   -- @tparam[optchain] boolean noConflict Skips function import in case its key exists in the given context
   -- @treturn table the passed-in context
   f.import = function(context, noConflict)
-    context = context or _G
+    context = context or _ENV or _G
     local funcs = _.functions()
     _.each(funcs, function(k, fname)  
       if rawget(context, fname) then
