@@ -1178,7 +1178,11 @@ function _.compose(...)
   return function (...)
       local _temp
       for i, func in ipairs(f) do
-        _temp = _temp and func(_temp) or func(...)
+        if not _temp then
+          _temp = func(...)
+        else
+          _temp = func(_temp)
+        end
       end
       return _temp
     end
