@@ -326,7 +326,7 @@ _.findWhere({a, b, c}, {a = 3, b = 4}) == c -- => true
 ````
 
 ### select (t, f, ...)
-*Aliases: `_.filte`*.
+*Aliases: `_.filter`*.
 
 Collects values passing a validation test.
 
