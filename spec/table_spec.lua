@@ -284,28 +284,6 @@ context('Table functions specs', function()
   
   end) 
  
-  context('contains', function()
-  
-    test('returns true if value is present in a list', function()
-      assert_true(_.contains({6,8,10,16},8))
-    end)
-    
-    test('returns false when value was not found', function()
-      assert_false(_.contains({nil,true,0,true,true},false))
-    end)
-    
-    test('can lookup for a object', function()
-      assert_true(_.contains({6,{18,{2,6}},10,{18,{2,{3}}},29},{18,{2,6}}))
-    end)    
-    
-    test('accepts iterator functions', function()
-      assert_true(_.contains({'a','B','c'}, function(array_value)
-        return (array_value:upper() == array_value)
-      end))
-    end) 
-  
-  end) 
-  
   context('findWhere', function()
   
     test('Returns the first value in a list having all of some given set of properties', function()

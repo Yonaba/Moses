@@ -284,17 +284,6 @@ function _.detect(t, value)
   end
 end
 
---- Checks if a value is present in a table.
--- @name contains
--- @tparam table t a table
--- @tparam value value a value to search for
--- @treturn boolean true if present, otherwise false
--- @see include
--- @see detect
-function _.contains(t, value)
-  return _.toBoolean(_.detect(t, value))
-end
-
 --- Returns the first value having specified keys `props`.
 -- @function findWhere
 -- @tparam table t a table
@@ -1675,6 +1664,7 @@ do
   _.maprr       = _.mapReduceRight
   _.any         = _.include
   _.some        = _.include
+  _.contains    = _.include
   _.filter      = _.select
   _.discard     = _.reject
   _.every       = _.all
