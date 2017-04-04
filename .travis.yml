@@ -11,7 +11,7 @@ env:
     - LUA=lua5.3
     - LUA=luajit     # latest stable version (2.0.4)
     - LUA=luajit2.0  # current head of 2.0 branch
-    #- LUA=luajit2.1  # current head of 2.1 branc
+    - LUA=luajit2.1  # current head of 2.1 branc
 
 before_install:
   - source .travis/setenv_lua.sh
