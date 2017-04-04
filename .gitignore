@@ -5,3 +5,5 @@ telescope*
 LuaMin*
 *.ld
 luacov*
+*.exe
+*.dll
