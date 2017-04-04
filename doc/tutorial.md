@@ -190,7 +190,7 @@ Executes a function on each key-value pairs.
 ```lua
 _.map({1,2,3},function(i,v) 
   return v+10 
-end)) -- => "{11,12,13}"
+end) -- => "{11,12,13}"
 ````
 
 ```lua
