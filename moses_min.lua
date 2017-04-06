@@ -196,6 +196,7 @@ function aab.wrap(bcb,ccb)return function(...)return
 ccb(bcb,...)end end
 function aab.times(bcb,ccb,...)local dcb={}for i=1,bcb do dcb[i]=ccb(i,...)end;return dcb end
 function aab.bind(bcb,ccb)return function(...)return bcb(ccb,...)end end
+function aab.bind2(bcb,ccb)return function(t, ...)return bcb(t, ccb, ...)end end
 function aab.bindn(bcb,...)local ccb={...}return function(...)
 return bcb(c_b(aab.append(ccb,{...})))end end
 function aab.uniqueId(bcb,...)acb=acb+1

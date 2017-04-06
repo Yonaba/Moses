@@ -203,6 +203,16 @@ context('Utility functions specs', function()
     
   end) 
 
+  context('bind2', function()
+  
+    test('binds a value to the second arg of a function',function()
+      local last2 = _.bind2(_.last,2)
+      local r = last2({1,2,3,4,5,6})
+      assert_true(_.isEqual(r, {5,6}))
+    end)
+    
+  end)
+
   context('bindn', function()
   
     test('binds n values to as the n-first args of a function',function()
