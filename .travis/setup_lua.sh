@@ -8,7 +8,8 @@
 
 set -eufo pipefail
 
-LUAJIT_BASE="LuaJIT-2.0.4"
+LUAJIT_VERSION="2.0.4"
+LUAJIT_BASE="LuaJIT-$LUAJIT_VERSION"
 
 source .travis/platform.sh
 
@@ -39,26 +40,23 @@ mkdir -p "$LUA_HOME_DIR"
 if [ "$LUAJIT" == "yes" ]; then
 
   if [ "$LUA" == "luajit" ]; then
-    curl http://luajit.org/download/$LUAJIT_BASE.tar.gz | tar xz;
+    curl --location https://github.com/LuaJIT/LuaJIT/archive/v$LUAJIT_VERSION.tar.gz | tar xz;
   else
-    git clone http://luajit.org/git/luajit-2.0.git $LUAJIT_BASE;
+    git clone https://github.com/LuaJIT/LuaJIT.git $LUAJIT_BASE;
   fi
 
   cd $LUAJIT_BASE
 
   if [ "$LUA" == "luajit2.1" ]; then
     git checkout v2.1;
+    # force the INSTALL_TNAME to be luajit
+    perl -i -pe 's/INSTALL_TNAME=.+/INSTALL_TNAME= luajit/' Makefile
   fi
 
   make && make install PREFIX="$LUA_HOME_DIR"
 
-  if [ "$LUA" == "luajit2.1" ]; then
-    ln -s $LUA_HOME_DIR/bin/luajit-2.1.0-alpha $HOME/.lua/luajit
-    ln -s $LUA_HOME_DIR/bin/luajit-2.1.0-alpha $HOME/.lua/lua;
-  else
-    ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/luajit
-    ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/lua;
-  fi;
+  ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/luajit
+  ln -s $LUA_HOME_DIR/bin/luajit $HOME/.lua/lua;
 
 else
 
@@ -69,8 +67,8 @@ else
     curl http://www.lua.org/ftp/lua-5.2.4.tar.gz | tar xz
     cd lua-5.2.4;
   elif [ "$LUA" == "lua5.3" ]; then
-    curl http://www.lua.org/ftp/lua-5.3.1.tar.gz | tar xz
-    cd lua-5.3.1;
+    curl http://www.lua.org/ftp/lua-5.3.2.tar.gz | tar xz
+    cd lua-5.3.2;
   fi
 
   # Build Lua without backwards compatibility for testing
@@ -120,5 +118,5 @@ elif [ "$LUA" == "lua5.1" ]; then
 elif [ "$LUA" == "lua5.2" ]; then
   rm -rf lua-5.2.4;
 elif [ "$LUA" == "lua5.3" ]; then
-  rm -rf lua-5.3.1;
+  rm -rf lua-5.3.2;
 fi

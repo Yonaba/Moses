@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - LUAROCKS=2.2.2
+    - LUAROCKS=2.3.0
   matrix:
     - LUA=lua5.1
     - LUA=lua5.2
@@ -12,6 +12,10 @@ env:
     - LUA=luajit     # latest stable version (2.0.4)
     - LUA=luajit2.0  # current head of 2.0 branch
     - LUA=luajit2.1  # current head of 2.1 branc
+
+branches:
+  only:
+    - master
 
 before_install:
   - source .travis/setenv_lua.sh
