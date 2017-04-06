@@ -199,6 +199,14 @@ _.map({a = 1, b = 2},function(k,v)
 end) -- => "{a = 'a1', b = 'b2'}"
 ````
 
+It also maps key-value pairs to key-value pairs
+
+```lua
+_.map({a = 1, b = 2},function(k,v) 
+  return k..k, v*2 
+end) -- => "{aa = 2, bb = 4}"
+````
+
 ### reduce (t, f, state)
 *Aliases: `_.inject`, `_.foldl`*.
 
