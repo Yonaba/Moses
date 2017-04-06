@@ -1,5 +1,14 @@
 #Version history#
 
+##1.5.0 (04/04/17)
+
+* Improved `_.select` (cd9237c710c485d87a0bdb46e3d4eaae6f45b37c)
+* Fixed `_.compose` (452d519a4f66038eb13e403fdb6ba58b868cfa88)
+* Made `_.contains` as an alias to `_.include` (5622dac6ee2760d99654a4b575ef5dc9c3fdac11)
+* Improved `_.all` (8df3f7c6f6d0d4e395b936a4d804ad608db28072)
+* Fixed _.size (34eada9c525e589e7596ac5c8fc75e4447fa583e)
+* Added `_.bind2` (749f2b4c80663fef50d1f27062be5f230b3ff3f3)
+
 ##1.4.0 (07/14/14)
 
 ###Breaking
