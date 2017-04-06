@@ -174,6 +174,12 @@ context('Table functions specs', function()
           return k..v 
         end),{a = 'a1',b = 'b2'}))
     end)
+
+    test('maps key-value pairs to key-value pairs', function()
+      assert_true(_.isEqual(_.map({a = 1, b = 2}, function(k, v)
+          return k .. k, v + 10
+        end), {aa = 11, bb = 12}))
+    end)
     
   end)
   
