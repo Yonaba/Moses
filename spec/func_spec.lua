@@ -260,4 +260,17 @@ context('Utility functions specs', function()
     
   end)  
   
+	context('iterator', function()
+
+		test('creates an iterator which continuously applies f on an input',function()
+			local next_even = _.iterator(function(x) return x + 2 end, 0)
+			assert_equal(next_even(), 2)
+			assert_equal(next_even(), 4)
+			assert_equal(next_even(), 6)
+			assert_equal(next_even(), 8)
+			assert_equal(next_even(),10)
+		end)
+		
+	end)
+	
 end)

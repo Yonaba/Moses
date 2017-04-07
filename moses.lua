@@ -1316,6 +1316,20 @@ function _.uniqueId(template, ...)
   return unique_id_counter
 end
 
+--- Produces an iterator which repeatedly apply a function `f` onto an input. 
+-- Yields x, then f(x), then f(f(x)), continuously.
+-- @name iterate
+-- @param f a function 
+-- @param x an initial input to `f`
+-- @return an iterator fnction
+-- <br/><em>Aliased as `iter`</em>.
+function _.iterator(f, x)
+	return function()
+		x = f(x)
+		return x
+	end
+end
+
 --- Object functions
 --@section Object functions
 
@@ -1717,7 +1731,8 @@ do
   _.cache       = _.memoize
   _.juxt        = _.juxtapose
   _.uid         = _.uniqueId
-  
+  _.iter        = _.iterator
+	
   -- Object functions aliases
   _.methods     = _.functions
   _.choose      = _.pick

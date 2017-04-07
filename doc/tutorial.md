@@ -1159,6 +1159,20 @@ local formatter = function(ID) return '$'..ID..'$' end
 _.uniqueId(formatter) -- => '$ID1$'
 ````
 
+### iterator(f, x)
+*Aliases: `_.iter`*.
+
+Returns an iterator function which constinuously applies a function `f` onto an input `x`.
+For example, let us go through the powers of two.
+
+```lua
+local function po2(x) return x*2 end
+local function iter_po2 = _.iterator(po2, 1)
+iter_po2() -- => 2
+iter_po2() -- => 4
+iter_po2() -- => 8
+````
+
 **[[⬆]](#TOC)**
 
 ## <a name='object'>Object functions</a>
