@@ -195,6 +195,7 @@ end
 -- @param[opt] state an initial state of reduction. Defaults to the first value in the table.
 -- @return the final state of reduction
 -- @see reduceRight
+-- @see reduceby
 function _.reduce(t, f, state)
   for __,value in pairs(t) do
     if state == nil then state = value
@@ -202,6 +203,20 @@ function _.reduce(t, f, state)
     end
   end
   return state
+end
+
+--- Reduces values in a table passing a given predicate. Folds the table left-to-right, considering
+-- only values validating a given predicate.
+-- @name reduceby
+-- @param t a table
+-- @param f an iterator function, prototyped as `f (state, value)`
+-- @param state an initial state of reduction.
+-- @param pred a predicate function `pred (k, v, ...)` to select values to be considered for reduction
+-- @param[opt] ... optional args to be passed to `pred`
+-- @return the final state of reduction
+-- @see reduce
+function _.reduceby(t, f, state, pred, ...)
+	return _.reduce(_.select(t, pred, ...), f, state)
 end
 
 --- Reduces a table, right-to-left. Folds the table from the last element to the first element 

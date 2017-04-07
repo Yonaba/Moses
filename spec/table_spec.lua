@@ -201,6 +201,17 @@ context('Table functions specs', function()
     end)
     
   end)
+	
+  context('reduceby', function()
+  
+    test('folds a collection (left to right) for specific values', function()
+			local function even(_,v) return v%2==0 end
+			local function odd(_,v) return v%2~=0 end
+      assert_equal(_.reduceby({1,2,3,4},function(memo,v) return memo+v end,0,even), 6)
+      assert_equal(_.reduceby({1,2,3,4},function(memo,v) return memo+v end,0,odd), 4)
+    end)
+   
+  end)	
   
   context('reduceRight', function()
   

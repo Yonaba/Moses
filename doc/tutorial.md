@@ -222,6 +222,40 @@ _.reduce({'a','b','c','d'},function(memo,v)
 end) -- => abcd	 
 ````
 
+### reduceby (t, f, state, pred, ...)
+
+Reduces a table considering only values matching a predicate.
+For example,let us define a set of values.
+
+```lua
+local val = {-1, 8, 0, -6, 3, -1, 7, 1, -9}
+````
+We can also define some predicate functions.
+
+```lua
+-- predicate for negative values
+local function neg(_, v) return v<=0 end
+
+-- predicate for positive values
+local function pos(_, v) return v>=0 end
+````
+
+Then we can perform reduction considering only negative values :
+
+```lua
+_.reduceby(val, function(memo,v)
+  return memo+v
+end, 0, neg) -- => -17
+````
+
+Or only positive values :
+
+```lua
+_.reduceby(val, function(memo,v)
+  return memo+v
+end, 0, pos) -- => 19
+````
+
 ### reduceRight (t, f, state)
 *Aliases: `_.injectr`, `_.foldr`*.
 
