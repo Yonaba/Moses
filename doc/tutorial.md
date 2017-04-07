@@ -1,4 +1,4 @@
-*Moses: a utility-belt library for Lua*
+*Moses: a utility-belt library for functional programming in Lua*
 
 __Moses__ is a Lua utility library which provides support for functional programming. 
 It complements built-in Lua functions, making easier common operations on tables, arrays, lists, collections, objects, and a lot more.<br/>
@@ -6,14 +6,14 @@ __Moses__ was deeply inspired by [Underscore.js](http://documentcloud.github.com
 
 # <a name='TOC'>Table of Contents</a>
 
+
 * [Adding *Moses* to your project](#adding)
-* [*Moses*' API](#API)
-	* [Table functions](#table)
-	* [Array functions](#array)
-	* [Utility functions](#utility)
-	* [Object functions](#object)
-	* [Chaining](#chaining)
-	* [Import](#import)
+* [Table functions](#table)
+* [Array functions](#array)
+* [Utility functions](#utility)
+* [Object functions](#object)
+* [Chaining](#chaining)
+* [Import](#import)
 
 # <a name='adding'>Adding *Moses* to your project</a>
 
@@ -25,16 +25,12 @@ local _ = require ("moses")
 
 *Note: Lua purists tend to use "\_" to design a "dummy variable". Here, the usage of this underscore is quite idiomatic and refers to the name [Underscore](http://documentcloud.github.com/underscore/), the JS library from which *Moses* takes inspiration*.
 
-**[[⬆]](#TOC)**
+*Moses*' provides a large set of functions that can be classified into four categories:
 
-# <a name='API'>*Moses*' API</a>
-
-*Moses*' consists of a large set of functions that can be classified into four categories:
-
-* __Table functions__, which are mostly meant for tables, i.e Lua tables which contains both an array-part and/or a map-part,
+* __Table functions__, which are mostly meant for tables, i.e Lua tables which contains both an array-part and a hash-part,
 * __Array functions__, meant for array lists (or sequences),
 * __Utility functions__,
-* __Object functions__, meant for instances/classes.
+* __Object functions__.
 
 **[[⬆]](#TOC)**
 
@@ -261,7 +257,7 @@ end) -- => "{'c', 'cb', 'cba'}"
 ````
 
 ### include (t, value)
-*Aliases: `_.any`, `_.some`*.
+*Aliases: `_.any`, `_.some`, `_.contains`*.
 
 Looks for a value in a table.
 
