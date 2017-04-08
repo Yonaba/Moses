@@ -932,7 +932,7 @@ Generates a list of n repetitions of a value.
 _.rep(4,3) -- => "{4,4,4}"
 ````
 
-### partition (array, n)
+### partition (array, n, pad)
 *Aliases: `_.part`*.
 
 Returns an iterator function for partitions of a given array.
@@ -946,6 +946,26 @@ end
 -- => 1,2
 -- => 3,4
 -- => 5,6
+
+local t = {1,2,3,4,5,6}
+for p in _.partition(t,4) do
+  print(table.concat(p, ','))
+end
+
+-- => 1,2,3,4
+-- => 5,6
+````
+
+In case the last partition has less elements than desired, a 3rd argument can be supplied to adjust the partition size.
+
+```lua
+local t = {1,2,3,4,5,6}
+for p in _.partition(t,4,0) do
+  print(table.concat(p, ','))
+end
+
+-- => 1,2,3,4
+-- => 5,6,0,0
 ````
 
 ### sliding (array, n, pad)

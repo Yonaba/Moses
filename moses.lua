@@ -47,10 +47,13 @@ local function extract(list,comp,transform,...) -- extracts value from a list
   return _ans
 end
 
-local function partgen(t, n, f) -- generates array partitions
+local function partgen(t, n, f, pad) -- generates array partitions
   for i = 0, #t, n do
     local s = _.slice(t, i+1, i+n)
-    if #s>0 then f(s) end
+    if #s>0 then 
+			while (#s < n and pad) do s[#s+1] = pad end			
+			f(s)
+		end
   end
 end
 
@@ -1071,22 +1074,23 @@ function _.rep(value, n)
 end
 
 --- Iterator returning partitions of an array. It returns arrays of length `n` 
--- made of values from the given array. In case the array size is not a multiple
--- of `n`, the last array returned will be made of the remaining values.
+-- made of values from the given array. If the last partition has lower elements than `n` and 
+-- `pad` is supplied, it will be adjusted to `n` of elements with `pad` value.
 -- @name partition.
 -- @param array an array
 -- @param[opt] n the size of partitions. Should be greater than 0. Defaults to 1.
+-- @param[optchain] pad a value to adjust the last subsequence to the `n` elements
 -- @return an iterator function
-function _.partition(array, n)
+function _.partition(array, n, pad)
 	if n<=0 then return end
   return coroutine.wrap(function()
-    partgen(array, n or 1, coroutine.yield)
+    partgen(array, n or 1, coroutine.yield, pad)
   end)
 end
 
 --- Iterator returning sliding partitions of an array. It returns overlapping subsequences
--- of length `n`. If `n` does not evenly divides the array length and `pad` is supplied, the
--- last subsequence will ped adjusted to the right number of elements with `pad`.
+-- of length `n`. If the last subsequence has lower elements than `n` and `pad` is 
+-- supplied, it will be adjusted to `n` elements with `pad` value.
 -- @name sliding.
 -- @param array an array
 -- @param[opt] n the size of partitions. Should be greater than 1. Defaults to 2.

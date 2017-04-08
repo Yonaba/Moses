@@ -530,6 +530,16 @@ context('Array functions specs', function()
       end      
     end)   
     
+    test('if a 3rd argument pad is supplied, will adjust the last partition', function()
+      local array = _.range(1,10)
+      local split4 = {{1,2,3,4},{5,6,7,8},{9,10,0,0}}
+      local i = 0
+      for p in _.partition(array,4,0) do
+        i = i + 1
+        assert_true(_.isEqual(p, split4[i]))
+      end     
+    end)
+		
   end)
 	
   context('sliding',function()  

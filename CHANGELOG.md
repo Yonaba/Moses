@@ -12,6 +12,7 @@
 * Added `_.reduceby`
 * Added `_.iterator` (and alias `_.iter`)
 * Fixed `_.partition` to generate an error for partition size < 1.
+* Added parameter `pad` to `_.partition`
 * Added `_.sliding`
 
 ##1.4.0 (07/14/14)
