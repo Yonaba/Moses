@@ -1,6 +1,6 @@
 #Version history#
 
-##1.5.0 (04/04/17)
+##1.5.0 (04/08/17)
 
 * Improved `_.select`
 * Fixed `_.compose`
@@ -11,6 +11,8 @@
 * Improved `_.map` to map key-value pairs to key-value pairs
 * Added `_.reduceby`
 * Added `_.iterator` (and alias `_.iter`)
+* Fixed `_.partition` to generate an error for partition size < 1.
+* Added `_.sliding`
 
 ##1.4.0 (07/14/14)
 

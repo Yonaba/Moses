@@ -530,7 +530,49 @@ context('Array functions specs', function()
       end      
     end)   
     
-  end)  
+  end)
+	
+  context('sliding',function()  
+  
+    test('returns overlapping subsequences', function()
+      local array = _.range(1,10)
+			local sliding2 = {{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,9},{9,10}}
+			local sliding3 = {{1,2,3},{3,4,5},{5,6,7},{7,8,9},{9,10}}
+			local sliding5 = {{1,2,3,4,5},{5,6,7,8,9},{9,10}}
+      local i = 0
+      for p in _.sliding(array,2) do
+        i = i + 1
+        assert_true(_.isEqual(p, sliding2[i]))
+      end
+      i = 0
+      for p in _.sliding(array,3) do
+        i = i + 1
+        assert_true(_.isEqual(p, sliding3[i]))
+      end
+      i = 0
+      for p in _.sliding(array,5) do
+        i = i + 1
+        assert_true(_.isEqual(p, sliding5[i]))
+      end  			
+    end)
+		
+    test('if a 3rd argument pad is supplied, will adjust the last subsequence', function()
+      local array = _.range(1,10)
+			local sliding3 = {{1,2,3},{3,4,5},{5,6,7},{7,8,9},{9,10,0}}
+			local sliding5 = {{1,2,3,4,5},{5,6,7,8,9},{9,10,0,0,0}}
+      local i = 0
+      for p in _.sliding(array,3,0) do
+        i = i + 1
+        assert_true(_.isEqual(p, sliding3[i]))
+      end
+      i = 0
+      for p in _.sliding(array,5,0) do
+        i = i + 1
+        assert_true(_.isEqual(p, sliding5[i]))
+      end  			
+    end)   		
+    
+  end)	
  
   context('permutation',function()  
   

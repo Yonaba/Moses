@@ -948,6 +948,47 @@ end
 -- => 5,6
 ````
 
+### sliding (array, n, pad)
+
+Returns an iterator function which provides overlapping subsequences of a given array.
+
+```lua
+local t = {1,2,3,4,5,6,7}
+for p in _.sliding(t,3) do
+	print(table.concat(p,','))
+end
+
+-- => 1,2,3
+-- => 3,4,5
+-- => 5,6,7
+
+for p in _.sliding(t,4) do
+	print(table.concat(p,','))
+end
+
+-- => 1,2,3,4
+-- => 4,5,6,7
+
+for p in _.sliding(t,5) do
+	print(table.concat(p,','))
+end
+
+-- => 1,2,3,4,5
+-- => 5,6,7
+````
+
+In case the last subsequence wil not match the exact desired length, it can be adjusted with a 3rd argument `pad`.
+
+```lua
+local t = {1,2,3,4,5,6,7}
+for p in _.sliding(t,5,0) do
+	print(table.concat(p,','))
+end
+
+-- => 1,2,3,4,5
+-- => 5,6,7,0,0
+````
+
 ### permutation (array)
 *Aliases: `_.perm`*.
 
