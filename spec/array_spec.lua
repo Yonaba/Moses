@@ -5,9 +5,28 @@ context('Array functions specs', function()
 
   context('sample', function()
   
+    test('samples n values from array', function()
+			local array = _.range(1,20)
+			local sample = _.sample(array, 5)
+			assert_equal(#sample, 5)
+			_.each(sample, function(__,v)
+				assert_true(_.include(array, v))
+			end)
+    end)	
+    
+    test('when not given, n defaults to 1', function()
+			local array = _.range(1,20)
+			local sample = _.sample(array)
+			assert_true(_.include(array, sample))
+    end)
+		
+  end)
+	
+  context('sampleProb', function()
+  
     test('returns a sample of an array values', function()
 			local array = _.range(1,20)
-			local sample = _.sample(array, 0.2)
+			local sample = _.sampleProb(array, 0.2)
 			_.each(sample, function(__,v)
 				assert_true(_.include(array, v))
 			end)

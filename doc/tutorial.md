@@ -576,19 +576,43 @@ _.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}) -- => false
 
 ## <a name='array'>Array functions</a>
 
-### sample (array, prob, seed)
+### sample (array, n, seed)
 
-Returns an array of values randomly selected from a given array.
-In case `seed` is provided, it is used to init the pseudo-random number generator, hence ensuring a deterministic sampling.
+Samples `n` values from array.
 
 ```lua
 local array = _.range(1,20)
-local sample = _.sample(array, 0.2)
+local sample = _.sample(array, 3)
+print(table.concat(sample,','))
+
+-- => {12,11,15}
+````
+
+`n` defaults to 1. In that case, a single value will be returned.
+
+```lua
+local array = _.range(1,20)
+local sample = _.sample(array)
+print(sample)
+
+-- => 12
+````
+
+An optional 3rd argument `seed` can be passed for deterministic random sampling.
+
+### sampleProb (array, prob, seed)
+
+Returns an array of values randomly selected from a given array.
+In case `seed` is provided, it is used for deterministic sampling.
+
+```lua
+local array = _.range(1,20)
+local sample = _.sampleProb(array, 0.2)
 print(table.concat(sample,','))
 
 -- => 5,11,12,15
 
-sample = _.sample(array, 0.2, os.time())
+sample = _.sampleProb(array, 0.2, os.time())
 print(table.concat(sample,','))
 
 -- => 1,6,10,12,15,20 (or similar)

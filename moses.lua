@@ -556,15 +556,35 @@ end
 --- Array functions
 -- @section Array functions
 
+--- Samples `n` random values from an array. If `n` is not specified, returns a single element.
+-- It uses internally @{shuffle} to shuffle the array before sampling values. If `seed` is passed,
+-- it will be used for shuffling.
+-- @name sample
+-- @param array an array
+-- @param[opt] n a number of elements to be sampled. Defaults to 1.
+-- @param[optchain] seed an optional seed for shuffling 
+-- @return an array of selected values or a single value when `n` == 1
+-- @see sampleProb
+function _.sample(array, n, seed)
+	n = n or 1
+	if n < 1 then return end
+	if n == 1 then
+		if seed then randomseed(seed) end
+		return array[random(1, #array)]
+	end
+	return _.slice(_.shuffle(array, seed), 1, n)
+end
+
 --- Return elements from a sequence with a given probability. It considers each value independently. 
 -- Providing a seed will result in deterministic sampling. Given the same seed it will return the same sample
 -- every time.
--- @name sample
+-- @name sampleProb
 -- @param array an array
 -- @param prob a probability for each element in array to be selected
 -- @param[opt] seed an optional seed for deterministic sampling
 -- @return an array of selected values
-function _.sample(array, prob, seed)
+-- @see sample
+function _.sampleProb(array, prob, seed)
 	if seed then randomseed(seed) end
 	return _.select(array, function(_,v) return random() < prob end)
 end

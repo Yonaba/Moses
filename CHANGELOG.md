@@ -14,7 +14,7 @@
 * Fixed `_.partition` to generate an error for partition size < 1.
 * Added parameter `pad` to `_.partition`
 * Added `_.sliding`
-* Added `_.sample`
+* Added `_.sample` and `_.sampleProb`
 
 ##1.4.0 (07/14/14)
 
