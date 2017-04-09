@@ -576,6 +576,24 @@ _.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}) -- => false
 
 ## <a name='array'>Array functions</a>
 
+### sample (array, prob, seed)
+
+Returns an array of values randomly selected from a given array.
+In case `seed` is provided, it is used to init the pseudo-random number generator, hence ensuring a deterministic sampling.
+
+```lua
+local array = _.range(1,20)
+local sample = _.sample(array, 0.2)
+print(table.concat(sample,','))
+
+-- => 5,11,12,15
+
+sample = _.sample(array, 0.2, os.time())
+print(table.concat(sample,','))
+
+-- => 1,6,10,12,15,20 (or similar)
+````
+
 ### toArray (...)
 
 Converts a vararg list of arguments to an array.

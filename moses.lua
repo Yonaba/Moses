@@ -556,6 +556,19 @@ end
 --- Array functions
 -- @section Array functions
 
+--- Return elements from a sequence with a given probability. It considers each value independently. 
+-- Providing a seed will result in deterministic sampling. Given the same seed it will return the same sample
+-- every time.
+-- @name sample
+-- @param array an array
+-- @param prob a probability for each element in array to be selected
+-- @param[opt] seed an optional seed for deterministic sampling
+-- @return an array of selected values
+function _.sample(array, prob, seed)
+	if seed then randomseed(seed) end
+	return _.select(array, function(_,v) return random() < prob end)
+end
+
 --- Converts a list of arguments to an array.
 -- @name toArray
 -- @param ... a list of arguments

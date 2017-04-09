@@ -3,6 +3,18 @@ local _ = require 'moses'
 
 context('Array functions specs', function()
 
+  context('sample', function()
+  
+    test('returns a sample of an array values', function()
+			local array = _.range(1,20)
+			local sample = _.sample(array, 0.2)
+			_.each(sample, function(__,v)
+				assert_true(_.include(array, v))
+			end)
+    end)	
+    
+  end)
+	
   context('toArray', function()
   
     test('converts a vararg list to an array', function()
