@@ -333,28 +333,31 @@ end
 _.detect({'a','B','c'},isUpper) -- => 2
 ````
 
-### contains (t, value)
+### where (t, props)
 
-Returns true if the passed-in value was found in a given table.
+Looks through a table and returns all the values that matches all of the key-value pairs listed in `props`. 
 
 ```lua
-_.contains({6,8,10,16},8) -- => true
-_.contains({nil,true,0,true,true},false) -- => false
+local tA = {a = 1, b = 2, c = 0}
+local tB = {a = 1, b = 4, c = 1}
+local tC = {a = 4, b = 4, c = 3}
+local tD = {a = 1, b = 2, c = 3}
+local found = _.where({tA, tB, tC, tD}, {a = 1})
+
+-- => found = {tA, tB, tD}
+
+found = _.where({tA, tB, tC, tD}, {b = 4})
+
+-- => found = {tB, tC}
+
+found = _.where({tA, tB, tC, tD}, {b = 4, c = 3})
+
+-- => found = {tC}
 ````
-
-It can lookup for objects, and accepts iterator functions aswell:
-
-```lua
-_.contains({6,{18,{2,6}},10,{18,{2,{3}}},29},{18,{2,6}}) -- => true
-
-_.contains({'a','B','c'}, function(array_value)
-  return (array_value:upper() == array_value)
-end) -- => true
-````	
 
 ### findWhere (t, props)
 
-Looks through a table and returns the first value that matches all of the key-value pairs listed in properties. 
+Looks through a table and returns the first value that matches all of the key-value pairs listed in `props`. 
 
 ```lua
 local a = {a = 1, b = 2, c = 3}

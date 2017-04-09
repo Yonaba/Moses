@@ -311,11 +311,28 @@ function _.detect(t, value)
   end
 end
 
+--- Returns all values having specified keys `props`.
+-- @name where
+-- @param t a table
+-- @param props a set of keys
+-- @return an array of values from the passed-in table
+-- @see findWhere
+function _.where(t, props)
+	local r = _.select(t, function(__,v)
+		for key in pairs(props) do
+			if v[key] ~= props[key] then return false end
+		end
+		return true
+	end)
+	return #r > 0 and r or nil
+end
+
 --- Returns the first value having specified keys `props`.
 -- @name findWhere
 -- @param t a table
 -- @param props a set of keys
 -- @return a value from the passed-in table
+-- @see where
 function _.findWhere(t, props)
   local index = _.detect(t, function(v)
     for key in pairs(props) do

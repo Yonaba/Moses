@@ -301,9 +301,34 @@ context('Table functions specs', function()
   
   end) 
  
+	context('where', function()
+	
+    test('Returns all values in a list having all of a given set of properties', function()
+      local set = {
+				{a = 1, b = 2},
+				{a = 2, b = 2},
+				{a = 2, b = 4},
+				{a = 3, b = 4}
+			}
+      assert_true(_.isEqual(_.where(set, {a = 2}), {set[2],set[3]}))
+      assert_true(_.isEqual(_.where(set, {b = 4}), {set[3],set[4]}))
+      assert_true(_.isEqual(_.where(set, {a = 2, b = 2}), {set[2]}))
+    end)
+    
+    test('returns nil when value was not found', function()
+      local set = {
+				{a = 1, b = 2},
+				{a = 2, b = 2},
+			}
+      assert_nil(_.where(set, {a = 3}))
+      assert_nil(_.where(set, {b = 1}))
+    end) 	
+	
+	end)
+	
   context('findWhere', function()
   
-    test('Returns the first value in a list having all of some given set of properties', function()
+    test('Returns the first value in a list having all of a given set of properties', function()
       local a = {a = 1, b = 2}
       local b = {a = 2, b = 3}
       local c = {a = 3, b = 4}
