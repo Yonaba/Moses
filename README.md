@@ -50,7 +50,8 @@ Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/
 
 ## Credits and Acknowledgement
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
-* [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this.
+* [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this
+* [Matthew Rocklin](https://github.com/mrocklin)(s [Toolz](https://github.com/pytoolz/toolz/)
 * [LDoc](https://github.com/stevedonovan/ldoc/) (from *Steve Donovan*) used to generate the current HTML documentation.
 
 ## Specification
@@ -63,7 +64,7 @@ tsc -f spec/*
 
 ## License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
-Copyright (c) 2012-2014 Roland Yonaba. <br/>
+Copyright (c) 2012-2017 Roland Yonaba. <br/>
 See [LICENSE](LICENSE).
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Yonaba/moses/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
