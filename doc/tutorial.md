@@ -1183,6 +1183,17 @@ _.identity(false) -- => false
 _.identity('hello!') -- => 'hello!'
 ````
 
+### constant (value)
+
+Creates a constant function. This function will constinuously yield the same output.
+
+```lua
+local pi = _.constant(math.pi)
+pi(1) -- => 3.1415926535898
+pi(2) -- => 3.1415926535898
+pi(math.pi) -- => 3.1415926535898
+````
+
 ### once (f)
 
 Produces a function that runs only once. Successive calls to this function will still yield the same input.

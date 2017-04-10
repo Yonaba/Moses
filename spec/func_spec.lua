@@ -13,6 +13,17 @@ context('Utility functions specs', function()
     end)
     
   end)
+	
+  context('constant', function()
+  
+    test('creates a constant function',function()
+			local gravity = _.constant(9.81)
+			assert_equal(gravity(),9.81)
+			assert_equal(gravity(10), 9.81)
+			assert_equal(gravity(nil), 9.81)
+    end)
+    
+  end)	
   
   context('once', function()
   

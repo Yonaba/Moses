@@ -27,8 +27,9 @@ context('Object functions specs', function()
   
     test('converts key-values pairs in object to array-list of k,v pairs',function()
 			local obj = _.kvpairs({x = 1, y = 2, z = 3})
-			assert_true(_.isEqual(obj[1],{'y',2}))
-			assert_true(_.isEqual(obj[2],{'x',1}))
+			table.sort(obj, function(a,b) return a[1] < b[1] end)
+			assert_true(_.isEqual(obj[1],{'x',1}))
+			assert_true(_.isEqual(obj[2],{'y',2}))
 			assert_true(_.isEqual(obj[3],{'z',3}))
     end)
    

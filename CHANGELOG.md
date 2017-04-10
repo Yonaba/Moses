@@ -1,6 +1,6 @@
 #Version history#
 
-##1.5.0 (04/08/17)
+##1.5.0 (04/10/17)
 
 * Improved `_.select`
 * Fixed `_.compose`
@@ -22,6 +22,7 @@
 * Added `_.partial`
 * Added `_.kvpairs`
 * Added `_.property` and `_.propertyOf`
+* Added `_.constant`
 
 ##1.4.0 (07/14/14)
 

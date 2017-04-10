@@ -1254,6 +1254,12 @@ end
 -- @return the passed-in value
 function _.identity(value) return value end
 
+--- Creates a constant function which returns the same output on every call.
+-- @name constant
+-- @param value a constant value
+-- @return a constant function
+function _.constant(value) return function() return value end end
+
 --- Returns a version of `f` that runs only once. Successive calls to `f`
 -- will keep yielding the same output, no matter what the passed-in arguments are. 
 -- It can be used to initialize variables.
