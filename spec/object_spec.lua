@@ -22,6 +22,17 @@ context('Object functions specs', function()
     end)
    
   end)  
+	
+  context('pairs', function()
+  
+    test('converts key-values pairs in object to array-list of k,v pairs',function()
+			local obj = _.kvpairs({x = 1, y = 2, z = 3})
+			assert_true(_.isEqual(obj[1],{'y',2}))
+			assert_true(_.isEqual(obj[2],{'x',1}))
+			assert_true(_.isEqual(obj[3],{'z',3}))
+    end)
+   
+  end)  	
   
   context('toBoolean', function()
   

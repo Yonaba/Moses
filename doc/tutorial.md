@@ -1416,6 +1416,21 @@ _.values({1,2,3}) -- => "{1,2,3}"
 _.values({x = 0, y = 1}) -- => "{1,0}"
 ````
 
+### kvpairs (obj)
+
+Converts an object to an array-list of key-value pairs.
+
+```lua
+local obj = {x = 1, y = 2, z = 3}
+_.each(_.kvpairs(obj), function(k,v)
+	print(k, table.concat(v,','))	
+end)
+
+-- => 1	y,2
+-- => 2	x,1
+-- => 3	z,3
+````
+
 ### toBoolean (value)
 
 Converts a given value to a boolean.

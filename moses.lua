@@ -1525,6 +1525,16 @@ function _.values(obj)
   return _oValues
 end
 
+--- Converts keys and values a an array-list of [k, v].
+-- @name pairs
+-- @param obj an object
+-- @return an array list of key-values pairs
+function _.kvpairs(obj)
+	local t = {}
+	_.each(obj, function(k,v) t[#t+1] = {k,v} end)
+	return t
+end
+
 --- Converts any given value to a boolean
 -- @name toBoolean
 -- @param value a value. Can be of any type

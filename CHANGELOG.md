@@ -20,6 +20,7 @@
 * Added `_.findIndex` and `_.findLastIndex`
 * Added `_.bindAll`
 * Added `_.partial`
+* Added `_.kvpairs`
 
 ##1.4.0 (07/14/14)
 
