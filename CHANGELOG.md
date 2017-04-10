@@ -1,32 +1,40 @@
-#Version history#
+# Version history
 
-##1.5.0 (04/10/17)
+## 1.5.0 (04/10/17)
 
+#### Additions
+* Added `_.bind2`
+* Added `_.reduceby`
+* Added `_.iterator` (and alias `_.iter`)
+* Added `_.sliding`
+* Added `_.sample`
+* Added `_.sampleProb`
+* Added `_.where`
+* Added `_.sortBy`
+* Added `_.findIndex`
+* Added `_.findLastIndex`
+* Added `_.bindAll`
+* Added `_.partial`
+* Added `_.kvpairs`
+* Added `_.property`
+* Added `_.propertyOf`
+* Added `_.constant`
+
+* Added parameter `pad` to `_.partition`
+
+#### Changes, bugfixes
 * Improved `_.select`
 * Fixed `_.compose`
 * Made `_.contains` as an alias to `_.include`
 * Improved `_.all`
 * Fixed `_.size`
-* Added `_.bind2`
 * Improved `_.map` to map key-value pairs to key-value pairs
-* Added `_.reduceby`
-* Added `_.iterator` (and alias `_.iter`)
 * Fixed `_.partition` to generate an error for partition size < 1.
-* Added parameter `pad` to `_.partition`
-* Added `_.sliding`
-* Added `_.sample` and `_.sampleProb`
-* Added `_.where`
-* Added `_.sortBy`
-* Added `_.findIndex` and `_.findLastIndex`
-* Added `_.bindAll`
-* Added `_.partial`
-* Added `_.kvpairs`
-* Added `_.property` and `_.propertyOf`
-* Added `_.constant`
 
-##1.4.0 (07/14/14)
 
-###Breaking
+## 1.4.0 (07/14/14)
+
+### Breaking
 #### Changes
 * Aliases are available by default
 * `_.find` is no longer an alias to `_.detect`
@@ -46,7 +54,7 @@
 #### Removed
 * Removed `_.paired`
 
-###Improvements & bugfixes
+### Improvements & bugfixes
 * `_.reduce` now supports an array of booleans
 * `_.pick` now picks false values
 * `_.concat` args `i` and `j` defaults explicitely to 1 and array length (for compatibility with LuaJIT)
@@ -75,10 +83,10 @@
 ### New aliases
 * Added `_.xor` as alias to `_.symmetricDifference`
 
-##1.3.2.1 (04/22/13)
+## 1.3.2.1 (04/22/13)
 Renamed global `MOSES_NO_ALIASES` to global `MOSES_ALIASES`. Aliases are not available by default.
 
-##1.3.2 (04/19/13)
+## 1.3.2 (04/19/13)
 Added `_.import`, export library to context or _G
 Added `noConflict` option to `_.import`
 Added `MOSES_NO_ALIASES` option when requiring the library
@@ -101,7 +109,7 @@ Changed `_.difference behaviour`, now takes up to two arrays as args
 Fixed internal inconsistencies with aliases, should not be used internally with regards to `MOSES_NO_ALIASES` option.
 Fixed `_.each` implementation, should not return anything
 
-##1.3.1 (04/12/13)
+## 1.3.1 (04/12/13)
 * Added chaining interface
 * Renamed `_.isObject` to `_.isTable`
 * Added `_.tap`, `_.chain`, `_()` and `_.value`
@@ -112,7 +120,7 @@ Fixed `_.each` implementation, should not return anything
 * Updated specs
 * Updated docs and samples
 
-##1.3.0 (11/12/12)
+## 1.3.0 (11/12/12)
 * Removed _.iterate (slower than pairs, ipairs)
 * Added _.identity
 * Removed _.curry (was more like a closure, will provide a proper implementation later)
@@ -125,13 +133,13 @@ Fixed `_.each` implementation, should not return anything
 * Added Specs
 * Added samples
 
-##1.2.1 (08/20/12)
+## 1.2.1 (08/20/12)
 * Added `_.takeWhile` (as alias to `_.selectWhile`)
 * Added `_.dropWhile` and `_.rejectWhile` (as alias)
 * Updated Moses_Lib_Test.lua
 * Updated documentation
 
-##1.2 (08/19/12)
+## 1.2 (08/19/12)
 * Added `_.selectWhile`
 * Added `_.mapReduce` and `_.mapr` (as alias)
 * Added `_.mapReduceRight` and `_.maprr` (as alias)
@@ -140,7 +148,7 @@ Fixed `_.each` implementation, should not return anything
 * Updated Moses_Lib_Test.lua
 * Updated documentation
 
-##1.1 (08/04/12)
+## 1.1 (08/04/12)
 * Removed `_.contains` as alias to `_.include`
 * Added `_.removeRange` (as Array function)
 * Added `_.sameKeys` and `_.contains` (as Collection functions)
@@ -148,10 +156,10 @@ Fixed `_.each` implementation, should not return anything
 * Updated Moses_Lib_Test.lua
 * Updated documentation
 
-##1.0 (08/02/12)
+## 1.0 (08/02/12)
 * Added `_.append`, `_.invert`, `_.import`, `_.template`, `_.curry`
 * Updated Moses_Lib_Test.lua
 * Updated documentation
 
-##0.1 (07/24/12)
+## 0.1 (07/24/12)
 * Initial Release
