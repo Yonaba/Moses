@@ -28,7 +28,6 @@ del,ins {
     text-decoration: none;
 }
 li {
-    list-style: disc;
     margin-left: 20px;
 }
 caption,th {
@@ -71,7 +70,7 @@ body {
     background-color: #ffffff; margin: 0px;
 }
 
-code, tt { font-family: monospace; }
+code, tt { font-family: monospace; font-size: 1.1em; }
 span.parameter { font-family:monospace; }
 span.parameter:after { content:":"; }
 span.types:before { content:"("; }
@@ -88,7 +87,7 @@ em { font-style: italic;}
 
 h1 {
     font-size: 1.5em;
-    margin: 0 0 20px 0;
+    margin: 20px 0 20px 0;
 }
 h2, h3, h4 { margin: 15px 0 10px 0; }
 h2 { font-size: 1.25em; }
@@ -114,24 +113,18 @@ p.name {
     padding-top: 1em;
 }
 
-pre.example {
-    background-color: rgb(245, 245, 245);
-    border: 1px solid silver;
-    padding: 10px;
-    margin: 10px 0 10px 0;
-    font-family: "Andale Mono", monospace;
-    font-size: .85em;
-}
-
 pre {
     background-color: rgb(245, 245, 245);
-    border: 1px solid silver;
+    border: 1px solid #C0C0C0; /* silver */
     padding: 10px;
     margin: 10px 0 10px 0;
     overflow: auto;
     font-family: "Andale Mono", monospace;
 }
 
+pre.example {
+    font-size: .85em;
+}
 
 table.index { border: 1px #00007f; }
 table.index td { text-align: left; vertical-align: top; }
@@ -159,7 +152,7 @@ table.index td { text-align: left; vertical-align: top; }
 
 #navigation {
     float: left;
-    width: 18em;
+    width: 14em;
     vertical-align: top;
     background-color: #f0f0f0;
     overflow: visible;
@@ -193,7 +186,7 @@ table.index td { text-align: left; vertical-align: top; }
 }
 
 #content {
-    margin-left: 18em;
+    margin-left: 14em;
     padding: 1em;
     width: 700px;
     border-left: 2px solid #cccccc;
@@ -286,17 +279,25 @@ ol ul { margin-top: 0px; }
 ol ol { margin-top: 0px; }
 ul ol { margin-top: 0px; }
 
+/* make the target distinct; helps when we're navigating to a function */
+a:target + * {
+  background-color: #FF9;
+}
+
+
 /* styles for prettification of source */
 pre .comment { color: #558817; }
 pre .constant { color: #a8660d; }
 pre .escape { color: #844631; }
-pre .keyword { color: #2239a8; font-weight: bold; }
+pre .keyword { color: #aa5050; font-weight: bold; }
 pre .library { color: #0e7c6b; }
 pre .marker { color: #512b1e; background: #fedc56; font-weight: bold; }
-pre .string { color: #a8660d; }
+pre .string { color: #8080ff; }
 pre .number { color: #f8660d; }
 pre .operator { color: #2239a8; font-weight: bold; }
 pre .preprocessor, pre .prepro { color: #a33243; }
 pre .global { color: #800080; }
+pre .user-keyword { color: #800080; }
 pre .prompt { color: #558817; }
 pre .url { color: #272fc2; text-decoration: underline; }
+
