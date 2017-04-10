@@ -19,6 +19,7 @@
 * Added `_.sortBy`
 * Added `_.findIndex` and `_.findLastIndex`
 * Added `_.bindAll`
+* Added `_.partial`
 
 ##1.4.0 (07/14/14)
 

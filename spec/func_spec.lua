@@ -293,4 +293,24 @@ context('Utility functions specs', function()
 		
 	end)
 	
+	context('partial', function()
+
+		test('applies partially f',function()
+			local function diff(a, b) return a - b end
+			local diffFrom20 = _.partial(diff, 20)
+			assert_equal(diffFrom20(5), 15)
+			assert_equal(diffFrom20(10), 10)
+			assert_equal(diffFrom20(-5), 25)
+		end)
+		
+		test('\'_\' can be used as a placeholder',function()
+			local function diff(a, b) return a - b end
+			local remove10 = _.partial(diff, '_',10)
+			assert_equal(remove10(5), -5)
+			assert_equal(remove10(10), 0)
+			assert_equal(remove10(15), 5)
+		end)
+		
+	end)	
+	
 end)

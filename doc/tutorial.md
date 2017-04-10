@@ -1376,6 +1376,24 @@ iter_po2() -- => 4
 iter_po2() -- => 8
 ````
 
+### partial (f, ...)
+
+Partially apply a function by filling in any number of its arguments. 
+
+```lua
+local function diff(a, b) return a - b end
+local diffFrom20 = _.partial(diff, 20) -- arg 'a' will be 20 by default
+diffFrom20(5) -- => 15
+````
+
+The string `'_'` can be used as a placeholder in the list of arguments to specify an argument that should not be pre-filled, but left open to be supplied at call-time.
+
+```lua
+local function diff(a, b) return a - b end
+local remove5 = _.partial(diff, '_', 5) -- arg 'a' will be given at call-time, but 'b' is set to 5
+remove5(20) -- => 15
+````
+
 **[[⬆]](#TOC)**
 
 ## <a name='object'>Object functions</a>

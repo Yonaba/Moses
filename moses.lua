@@ -1483,6 +1483,25 @@ function _.iterator(f, x)
 	end
 end
 
+--- Partially apply a function by filling in any number of its arguments. 
+-- One may pass a string `'_'` as a placeholder in your list of arguments to specify an argument 
+-- that should not be pre-filled, but left open to be supplied at call-time. 
+-- @name partial
+-- @param f a function
+-- @param ... a list of partial arguments to `f`
+-- @return a new version of function f where having some of it original arguments filled
+function _.partial(f,...)
+	local partial_args = {...}
+	return function (...)
+		local n_args = {...}	
+		local f_args = {}
+		for k,v in ipairs(partial_args) do
+			f_args[k] = (v == '_') and _.pop(n_args) or v
+		end
+		return f(unpack(_.append(f_args,n_args)))
+	end
+end
+
 --- Object functions
 --@section Object functions
 
