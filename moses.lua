@@ -740,6 +740,31 @@ function _.lastIndexOf(array, value)
   if key then return #array-key+1 end
 end
 
+--- Returns the first index at which a predicate returns true.
+-- @name findIndex
+-- @param array an array
+-- @param predicate a predicate function prototyped as `predicate (k, v, ...)`
+-- @param[opt] ... optional arguments to `pred`
+-- @return the index found or __nil__
+-- @see findLastIndex
+function _.findIndex(array, predicate, ...)
+	for k = 1, #array do
+		if predicate(k,array[k],...) then return k end
+	end
+end
+
+--- Returns the last index at which a predicate returns true.
+-- @name findLastIndex
+-- @param array an array
+-- @param predicate a predicate function prototyped as `predicate (k, v, ...)`
+-- @param[opt] ... optional arguments to `pred`
+-- @return the index found or __nil__
+-- @see findIndex
+function _.findLastIndex(array, predicate, ...)
+  local key = _.findIndex(_.reverse(array),predicate,...)
+  if key then return #array-key+1 end
+end
+
 --- Adds all passed-in values at the top of an array. The last elements will bubble to the
 -- top of the given array.
 -- @name addTop
@@ -1150,7 +1175,7 @@ end
 --- Iterator returning partitions of an array. It returns arrays of length `n` 
 -- made of values from the given array. If the last partition has lower elements than `n` and 
 -- `pad` is supplied, it will be adjusted to `n` of elements with `pad` value.
--- @name partition.
+-- @name partition
 -- @param array an array
 -- @param[opt] n the size of partitions. Should be greater than 0. Defaults to 1.
 -- @param[optchain] pad a value to adjust the last subsequence to the `n` elements
@@ -1367,7 +1392,9 @@ end
 -- @param f a function
 -- @param v a value
 -- @return a function
+-- @see bind2
 -- @see bindn
+-- @see bindAll
 function _.bind(f, v)
   return function (...)
       return f(v,...)
@@ -1379,7 +1406,9 @@ end
 -- @param f a function
 -- @param v a value
 -- @return a function
+-- @see bind
 -- @see bindn
+-- @see bindAll
 function _.bind2(f, v)
   return function (t, ...)
     return f(t, v, ...)
@@ -1393,11 +1422,31 @@ end
 -- @param ... a variable number of arguments
 -- @return a function
 -- @see bind
+-- @see bind2
+-- @see bindAll
 function _.bindn(f, ...)
   local iArg = {...}
   return function (...)
       return f(unpack(_.append(iArg,{...})))
     end
+end
+
+--- Binds methods to object. As such, whenever any of these methods is invoked, it 
+-- always receives the object as its first argument.
+-- @name bindAll
+-- @param obj an abject
+-- @param ... a variable number of method names
+-- @return the passed-in object with all methods bound to the object itself.
+-- @see bind
+-- @see bind2
+-- @see bindn
+function _.bindAll(obj, ...)
+	local methodNames = {...}
+	for __, methodName in ipairs(methodNames) do
+		local method = obj[methodName]
+		if method then obj[methodName] = _.bind(method, obj) end
+	end
+	return obj
 end
 
 --- Generates an unique ID for the current session. If given a string `template`, it

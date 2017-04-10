@@ -762,6 +762,26 @@ Returns the index of the last occurence of a given value in an array.
 _.lastIndexOf({1,2,2,3},2) -- => 3
 ````
 
+### findIndex (array, predicate, ...)
+
+Returns the first index at which a predicate passes a truth test.
+
+```lua
+local array = {1,2,3,4,5,6}
+local function multipleOf3(__,v) return v%3==0 end
+_.findIndex(array, multipleOf3) -- => 3
+````
+
+### findLastIndex (array, predicate, ...)
+
+Returns the last index at which a predicate passes a truth test.
+
+```lua
+local array = {1,2,3,4,5,6}
+local function multipleOf3(__,v) return v%3==0 end
+_.findLastIndex(array, multipleOf3) -- => 6
+````
+
 ### addTop (array, ...)
 
 Adds given values at the top of an array. The latter values bubbles at the top.
@@ -1298,6 +1318,26 @@ local function out(...) return table.concat {...} end
 local out = _.bindn(out,'OutPut',':',' ')
 out(1,2,3) -- => OutPut: 123
 out('a','b','c','d') -- => OutPut: abcd
+````
+
+### bindAll (obj, ...)
+
+Binds methods to object. As such, when calling any of these methods, they will receive object as a first argument.
+
+```lua
+local window = {
+	setPos = function(w,x,y) w.x, w.y = x, y end, 
+	setName = function(w,name) w.name = name end,
+	getName = function(w) return w.name end,
+}
+window = _.bindAll(window, 'setPos', 'setName', 'getName')
+window.setPos(10,15)
+print(window.x, window.y) -- => 10,15
+
+window.setName('fooApp')
+print(window.name) -- => 'fooApp'
+
+print(window.getName()) -- => 'fooApp'
 ````
 
 ### uniqueId (template, ...)

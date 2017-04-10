@@ -236,6 +236,14 @@
 	<td class="summary">Returns the index of the last occurrence of value in an array.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#findIndex">findIndex (array, predicate[, ...])</a></td>
+	<td class="summary">Returns the first index at which a predicate returns true.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#findLastIndex">findLastIndex (array, predicate[, ...])</a></td>
+	<td class="summary">Returns the last index at which a predicate returns true.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#addTop">addTop (array, ...)</a></td>
 	<td class="summary">Adds all passed-in values at the top of an array.</td>
 	</tr>
@@ -344,7 +352,7 @@
 	<td class="summary">Creates an array list of <code>n</code> values, repeated.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#partition.">partition. (array[, n[, pad]])</a></td>
+	<td class="name" nowrap><a href="#partition">partition (array[, n[, pad]])</a></td>
 	<td class="summary">Iterator returning partitions of an array.</td>
 	</tr>
 	<tr>
@@ -417,6 +425,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#bindn">bindn (f, ...)</a></td>
 	<td class="summary">Binds <code>&hellip;</code> to be the N-first arguments to function <code>f</code>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bindAll">bindAll (obj, ...)</a></td>
+	<td class="summary">Binds methods to object.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#uniqueId">uniqueId ([template[, ...]])</a></td>
@@ -1995,6 +2007,78 @@
 
 </dd>
     <dt>
+    <a name = "findIndex"></a>
+    <strong>findIndex (array, predicate[, ...])</strong>
+    </dt>
+    <dd>
+    Returns the first index at which a predicate returns true.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+        <li><span class="parameter">predicate</span>
+         a predicate function prototyped as <code>predicate (k, v, &hellip;)</code>
+        </li>
+        <li><span class="parameter">...</span>
+         optional arguments to <code>pred</code>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the index found or <strong>nil</strong>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#findLastIndex">findLastIndex</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "findLastIndex"></a>
+    <strong>findLastIndex (array, predicate[, ...])</strong>
+    </dt>
+    <dd>
+    Returns the last index at which a predicate returns true.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+        <li><span class="parameter">predicate</span>
+         a predicate function prototyped as <code>predicate (k, v, &hellip;)</code>
+        </li>
+        <li><span class="parameter">...</span>
+         optional arguments to <code>pred</code>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the index found or <strong>nil</strong>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#findIndex">findIndex</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "addTop"></a>
     <strong>addTop (array, ...)</strong>
     </dt>
@@ -2864,8 +2948,8 @@
 
 </dd>
     <dt>
-    <a name = "partition."></a>
-    <strong>partition. (array[, n[, pad]])</strong>
+    <a name = "partition"></a>
+    <strong>partition (array[, n[, pad]])</strong>
     </dt>
     <dd>
     Iterator returning partitions of an array.  It returns arrays of length <code>n</code>
@@ -3360,7 +3444,9 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#bindn">bindn</a>
+         <li><a href="index.html#bind2">bind2</a></li>
+         <li><a href="index.html#bindn">bindn</a></li>
+         <li><a href="index.html#bindAll">bindAll</a></li>
     </ul>
 
 
@@ -3392,7 +3478,9 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#bindn">bindn</a>
+         <li><a href="index.html#bind">bind</a></li>
+         <li><a href="index.html#bindn">bindn</a></li>
+         <li><a href="index.html#bindAll">bindAll</a></li>
     </ul>
 
 
@@ -3425,7 +3513,44 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#bind">bind</a>
+         <li><a href="index.html#bind">bind</a></li>
+         <li><a href="index.html#bind2">bind2</a></li>
+         <li><a href="index.html#bindAll">bindAll</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "bindAll"></a>
+    <strong>bindAll (obj, ...)</strong>
+    </dt>
+    <dd>
+    Binds methods to object.  As such, whenever any of these methods is invoked, it
+ always receives the object as its first argument.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         an abject
+        </li>
+        <li><span class="parameter">...</span>
+         a variable number of method names
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the passed-in object with all methods bound to the object itself.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#bind">bind</a></li>
+         <li><a href="index.html#bind2">bind2</a></li>
+         <li><a href="index.html#bindn">bindn</a></li>
     </ul>
 
 
@@ -4299,7 +4424,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-04-10 08:40:46 </i>
+<i style="float:right;">Last updated 2017-04-10 11:16:24 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

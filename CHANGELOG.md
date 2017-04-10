@@ -17,6 +17,8 @@
 * Added `_.sample` and `_.sampleProb`
 * Added `_.where`
 * Added `_.sortBy`
+* Added `_.findIndex` and `_.findLastIndex`
+* Added `_.bindAll`
 
 ##1.4.0 (07/14/14)
 

@@ -226,6 +226,26 @@ context('Utility functions specs', function()
     
   end)
   
+  context('bindAll', function()
+  
+    test('binds methods to object',function()
+			local window = {
+				setPos = function(w,x,y) w.x, w.y = x, y end, 
+				setName = function(w,name) w.name = name end,
+				getName = function(w) return w.name end,
+			}
+			window = _.bindAll(window, 'setPos', 'setName', 'getName')
+			window.setPos(10,15)
+			window.setName('fooApp')
+			
+			assert_equal(window.x, 10)
+			assert_equal(window.y, 15)
+			assert_equal(window.name, 'fooApp')
+			assert_equal(window.getName(), 'fooApp')
+    end)
+    
+  end)
+	
   context('uniqueId', function()
   
     test('returns an unique (for the current session) integer Id',function()
