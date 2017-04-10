@@ -16,6 +16,7 @@
 * Added `_.sliding`
 * Added `_.sample` and `_.sampleProb`
 * Added `_.where`
+* Added `_.sortBy`
 
 ##1.4.0 (07/14/14)
 

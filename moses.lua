@@ -488,6 +488,28 @@ function _.sort(t, comp)
   return t
 end
 
+--- Sorts a table in-place using a transform. Values are ranked in a custom order of the results of
+-- running `transform (v)` on all values. `transform` may also be a string name property  sort by. 
+-- `comp` is a comparison function.
+-- @name sortBy
+-- @param t a table
+-- @param[opt] transform a `transform` function to sort elements prototyped as `transform (v)`. Defaults to @{identity}
+-- @param[optchain] comp a comparision function, defaults to the `<` operator
+-- @return a new array of sorted values
+function _.sortBy(t, transform, comp)
+	local f = transform or _.identity
+	if _.isString(transform) then
+		f = function(t) return t[transform] end
+	end
+	comp = comp or f_min	
+	local _t = {}
+	_.each(t, function(__,v)
+		_t[#_t+1] = {value = v, transform = f(v)}
+	end)
+	t_sort(_t, function(a,b) return comp(a.transform, b.transform) end)
+	return _.pluck(_t, 'value')
+end
+
 --- Splits a table into subsets groups.
 -- @name groupBy
 -- @param t a table

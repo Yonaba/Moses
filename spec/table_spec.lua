@@ -502,7 +502,32 @@ context('Table functions specs', function()
       assert_true(_.isEqual(_.sort({'b','a','d','c'}),{'a','b','c','d'}))
     end)     
   
-  end)     
+  end)
+
+	context('sortBy', function()
+	
+		test('sort values on the result of a transform function', function()
+			assert_true(_.isEqual(_.sortBy({1,2,3,4,5}, math.sin), {5,4,3,1,2}))
+		end)
+		
+		test('the transform function defaults to _.identity', function()
+			assert_true(_.isEqual(_.sortBy({1,2,3,4,5}), {1,2,3,4,5}))
+		end)
+
+		test('transform function can be a string name property', function()
+			local unsorted = {{item = 1, value = 10},{item = 2, value = 5},{item = 3, value = 8}}
+			local sorted = {{item = 2, value = 5},{item = 3, value = 8},{item = 1, value = 10}}
+			assert_true(_.isEqual(_.sortBy(unsorted, 'value'), sorted))
+		end)
+		
+		test('can use a custom comparison function', function()
+			local unsorted = {{item = 1, value = 10},{item = 2, value = 5},{item = 3, value = 8}}
+			local sorted = {{item = 1, value = 10},{item = 3, value = 8},{item = 2, value = 5}}
+			local function comp(a,b) return a > b end
+			assert_true(_.isEqual(_.sortBy(unsorted, 'value', comp), sorted))
+		end)		
+	
+	end)
   
   context('groupBy', function()
   

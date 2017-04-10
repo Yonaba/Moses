@@ -515,6 +515,63 @@ _.sort({'b','a','d','c'}, function(a,b)
 end) -- => "{'d','c','b','a'}"
 ````
 
+### sortBy (t, transform, comp)
+
+Sorts items in a collection based on the result of running a transform function through every item in the collection.
+
+```lua
+local r = _.sortBy({1,2,3,4,5}, math.sin)
+print(table.concat(r,','))
+
+-- => {5,4,3,1,2}
+````
+
+The transform function can also be a string name property.
+
+```lua
+local people ={
+	{name = 'albert', age = 40},
+	{name = 'louis', age = 55},
+	{name = 'steve', age = 35},
+	{name = 'henry', age = 19},
+}
+local r = _.sortBy(people, 'age')
+_.each(r, function(__,v) print(v.age, v.name)	end)
+
+-- => 19	henry
+-- => 35	steve
+-- => 40	albert
+-- => 55	louis
+````
+
+As seen above, the defaut comparison function is the '<' operator. For example, let us supply a different one to sort
+the list of people by decreasing age order :
+
+```lua
+local people ={
+	{name = 'albert', age = 40},
+	{name = 'louis', age = 55},
+	{name = 'steve', age = 35},
+	{name = 'henry', age = 19},
+}
+local r = _.sortBy(people, 'age', function(a,b) return a > b end)
+_.each(r, function(__,v) print(v.age, v.name)	end)
+
+-- => 55	louis
+-- => 40	albert
+-- => 35	steve
+-- => 19	henry
+````
+
+The `transform` function defaults to `_.indentity` and in that case, `_.sortBy` behaves like `_.sort`.
+
+```lua
+local r = _.sortBy({1,2,3,4,5})
+print(table.concat(r,','))
+
+-- => {1,2,3,4,5}
+````
+
 ### groupBy (t, iter, ...)
 
 Groups values in a collection depending on their return value when passed to a predicate test.
