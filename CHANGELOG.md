@@ -21,6 +21,7 @@
 * Added `_.bindAll`
 * Added `_.partial`
 * Added `_.kvpairs`
+* Added `_.property` and `_.propertyOf`
 
 ##1.4.0 (07/14/14)
 

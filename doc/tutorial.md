@@ -1431,6 +1431,25 @@ end)
 -- => 3	z,3
 ````
 
+### property (key)
+
+Returns a function that will return the key property of any passed-in object.
+
+```lua
+local who = _.property('name')
+local people = {name = 'Henry'}
+who(people) -- => 'Henry'
+````
+
+### propertyOf (obj)
+
+Returns a function that will return the key property of any passed-in object.
+
+```lua
+local people = {name = 'Henry'}
+print(_.propertyOf(people)('name')) -- => 'Henry'
+````
+
 ### toBoolean (value)
 
 Converts a given value to a boolean.

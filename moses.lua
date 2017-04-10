@@ -1526,13 +1526,31 @@ function _.values(obj)
 end
 
 --- Converts keys and values a an array-list of [k, v].
--- @name pairs
+-- @name kvpairs
 -- @param obj an object
 -- @return an array list of key-values pairs
 function _.kvpairs(obj)
 	local t = {}
 	_.each(obj, function(k,v) t[#t+1] = {k,v} end)
 	return t
+end
+
+--- Returns a function that will return the key property of any passed-in object.
+-- @name property
+-- @param key a key property name
+-- @return a function which should accept an object as argument
+-- @see propertyOf
+function _.property(key)
+	return function(obj) return obj[key] end
+end
+
+--- Returns a function which will return the value of an object property. 
+-- @name propertyOf
+-- @param obj an object
+-- @return a function which should accept a key property argument
+-- @see property
+function _.propertyOf(obj)
+	return function(key) return obj[key] end
 end
 
 --- Converts any given value to a boolean
