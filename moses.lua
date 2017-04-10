@@ -483,6 +483,7 @@ end
 -- @param t a table
 -- @param[opt] comp a comparison function prototyped as `comp (a, b)`, defaults to <tt><</tt> operator.
 -- @return the initial table, sorted.
+-- @see sortBy
 function _.sort(t, comp)
   t_sort(t, comp)
   return t
@@ -496,6 +497,7 @@ end
 -- @param[opt] transform a `transform` function to sort elements prototyped as `transform (v)`. Defaults to @{identity}
 -- @param[optchain] comp a comparision function, defaults to the `<` operator
 -- @return a new array of sorted values
+-- @see sort
 function _.sortBy(t, transform, comp)
 	local f = transform or _.identity
 	if _.isString(transform) then
