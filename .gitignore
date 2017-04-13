@@ -7,3 +7,4 @@ LuaMin*
 luacov*
 *.exe
 *.dll
+test*
