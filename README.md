@@ -16,8 +16,8 @@ git clone git://github.com/Yonaba/Moses.git
 ````
 
 ### Archive
-* __zip__: [1.5.0 (latest stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.0-1.zip) | [current](http://github.com/Yonaba/Moses/archive/master.zip) | [all](http://github.com/Yonaba/Moses/tags)
-* __tarball__: [1.5.0 (latestt stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.0-1.tar.gz) | [current](http://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](http://github.com/Yonaba/Moses/tags)
+* __zip__: [1.5.1 (latest stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.1-1.zip) | [current](http://github.com/Yonaba/Moses/archive/master.zip) | [all](http://github.com/Yonaba/Moses/tags)
+* __tarball__: [1.5.1 (latestt stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.1-1.tar.gz) | [current](http://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](http://github.com/Yonaba/Moses/tags)
 
 ### LuaRocks
 ```
