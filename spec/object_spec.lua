@@ -34,6 +34,17 @@ context('Object functions specs', function()
     end)
    
   end)  	
+	
+  context('toObj', function()
+  
+    test('converts an array-list of {k,v} pairs to an object',function()
+			local obj = _.toObj({{'x',1},{'y',2},{'z',3}})
+			assert_equal(obj.x,1)
+			assert_equal(obj.y,2)
+			assert_equal(obj.z,3)
+    end)
+   
+  end)  	
   
   context('property', function()
   

@@ -1495,6 +1495,17 @@ end)
 -- => 3	z,3
 ````
 
+### toObj
+
+Converts an array list of `kvpairs` to an object where keys are taken from the 1rst column in the `kvpairs` sequence, associated with values in the 2nd column.
+
+```lua
+local list_pairs = {{'x',1},{'y',2},{'z',3}}
+obj = _.toObj(list_pairs)
+
+-- => {x = 1, y = 2, z = 3}
+````
+
 ### property (key)
 
 Returns a function that will return the key property of any passed-in object.

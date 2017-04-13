@@ -1506,7 +1506,7 @@ function _.iterator(f, x)
 end
 
 --- Partially apply a function by filling in any number of its arguments. 
--- One may pass a string `'_'` as a placeholder in your list of arguments to specify an argument 
+-- One may pass a string `'_'` as a placeholder in the list of arguments to specify an argument 
 -- that should not be pre-filled, but left open to be supplied at call-time. 
 -- @name partial
 -- @param f a function
@@ -1577,10 +1577,26 @@ end
 -- @name kvpairs
 -- @param obj an object
 -- @return an array list of key-values pairs
+-- @see toObj
 function _.kvpairs(obj)
 	local t = {}
 	_.each(obj, function(k,v) t[#t+1] = {k,v} end)
 	return t
+end
+
+--- Converts an array list of `kvpairs` to an object where keys are taken
+-- from the 1rst column in the `kvpairs` sequence, associated with values in the 2nd
+-- column
+-- @name toObj
+-- @param kvpairs an array-list of `kvpairs`
+-- @return an object
+-- @see kvpairs
+function _.toObj(kvpairs)
+	local obj = {}
+	for __, v in ipairs(kvpairs) do
+		obj[v[1]] = v[2]
+	end
+	return obj
 end
 
 --- Returns a function that will return the key property of any passed-in object.

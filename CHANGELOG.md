@@ -1,5 +1,9 @@
 # Version history
 
+##
+
+* Added `_.toObj`
+
 ## 1.5.1 (04/13/17)
 
 * Added `_.curry`
