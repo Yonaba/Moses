@@ -322,6 +322,50 @@ context('Utility functions specs', function()
 			assert_equal(remove10(15), 5)
 		end)
 		
+	end)
+	
+	context('curry', function()
+
+		test('curries a function for a specific number of args',function()
+			local function sumOf5args(a,b,c,d,e) return a+b+c+d+e end
+			local curried_sumOf5args = _.curry(sumOf5args, 5)
+			assert_equal(curried_sumOf5args(1)(2)(3)(4)(5),15)
+			assert_equal(curried_sumOf5args(8)(-2)(4)(-10)(1),1)
+		end)
+		
+		test('n_args defaults to 2 when not supplied',function()
+			local function prod(x,y) return x*y end
+			local curried_prod = _.curry(prod)
+			assert_equal(curried_prod(2)(3), (_.curry(prod,2))(2)(3))
+			assert_equal(curried_prod(-2)(6), (_.curry(prod,2))(-2)(6))
+		end)
+
+		test('n_args can be equal to 1',function()
+			local curried_identity = _.curry(_.identity,1)
+			assert_equal(curried_identity('value'), 'value')
+			assert_equal(curried_identity(1), 1)
+			assert_equal(curried_identity(true), true)
+			assert_equal(curried_identity(false), false)
+		end)
+		
+		test('giving more args than n_args will raise an error',function()
+			local function add(a,b) return a+b end
+			local curried_add = _.curry(add, 2)
+			assert_error(function() curried_add(1)(2)(3) end)
+			assert_error(function() curried_add(4)(5)(6)(7)(8) end)
+		end)		
+		
+		test('When given less than n_args, it will wait for missing args',function()
+			local function add(a,b,c) return a+b+c end
+			local curried_add = _.curry(add, 3)
+			local c1 = curried_add(1)
+			local c2 = c1(2)
+			local c3 = c2(3)
+			assert_type(c1, 'function')		
+			assert_type(c2, 'function')
+			assert_equal(c3, 6)
+		end)
+		
 	end)	
 	
 end)

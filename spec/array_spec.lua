@@ -76,6 +76,30 @@ context('Array functions specs', function()
     
   end)
   
+  context('fill', function()
+  
+    test('fills an array with a value', function()
+			local array = _.range(1,5)
+      assert_true(_.isEqual(_.fill(array,0),{0,0,0,0,0}))
+    end)
+		
+    test('fills an array starting from an index', function()
+			local array = _.range(1,5)
+      assert_true(_.isEqual(_.fill(array,0,4),{1,2,3,0,0}))
+    end)		
+    
+    test('fills an array replacing values inside a range', function()
+			local array = _.range(1,5)
+      assert_true(_.isEqual(_.fill(array,0,3,4),{1,2,0,0,5}))
+    end)
+		
+    test('enlarges the array when the last index is greater than array size', function()
+			local array = _.range(1,5)
+      assert_true(_.isEqual(_.fill(array,0,3,8),{1,2,0,0,0,0,0,0}))
+    end)
+		
+  end)
+	
   context('selectWhile', function()
   
     test('collect values from an array while they pass a thruth test', function()

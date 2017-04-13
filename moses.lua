@@ -2,10 +2,10 @@
 -- @author [Roland Yonaba](http://github.com/Yonaba)
 -- @copyright 2012-2017
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @release 1.5.0
+-- @release 1.5.1
 -- @module moses
 
-local _MODULEVERSION = '1.5.0'
+local _MODULEVERSION = '1.5.1'
 
 -- Internalisation
 local next, type, select, pcall = next, type, select, pcall
@@ -661,6 +661,21 @@ function _.reverse(array)
   return _array
 end
 
+--- Replaces elements in a given array with a given value. In case `i` and `j` are given
+-- it will only replaces values at indexes between `[i,j]`. In case `j` is greather than the array
+-- size, it will append new values, increasing the array.
+-- @name fill
+-- @param array an array
+-- @param value a value
+-- @param[opt] i the index from which to start replacing values. Defaults to 1.
+-- @param[optchain] j the index where to stop replacing values. Defaults to the array size.
+-- @return the original array with values changed
+function _.fill(array, value, i, j)
+	j = j or _.size(array)
+	for i = i or 1, j do array[i] = value end
+	return array
+end
+
 --- Collects values from a given array. The passed-in array should not be sparse.
 -- This function collects values as long as they satisfy a given predicate and returns on the first falsy test.
 -- <br/><em>Aliased as `takeWhile`</em>
@@ -1092,6 +1107,7 @@ end
 
 --- Merges values of each of the passed-in arrays in subsets.
 -- Only values indexed with the same key in the given arrays are merged in the same subset.
+-- <br/><em>Aliased as `transpose`</em>
 -- @name zip
 -- @param ... a variable number of array arguments
 -- @return a new array
@@ -1496,6 +1512,7 @@ end
 -- @param f a function
 -- @param ... a list of partial arguments to `f`
 -- @return a new version of function f where having some of it original arguments filled
+-- @see curry
 function _.partial(f,...)
 	local partial_args = {...}
 	return function (...)
@@ -1506,6 +1523,31 @@ function _.partial(f,...)
 		end
 		return f(unpack(_.append(f_args,n_args)))
 	end
+end
+
+--- Curries a function. If the given function `f` takes multiple arguments, it returns another version of 
+-- `f` that takes a single argument (the first of the arguments to the original function) and returns a new 
+-- function that takes the remainder of the arguments and returns the result. 
+-- @name curry
+-- @param f a function
+-- @param[opt] n_args the number of arguments expected for `f`. Defaults to 2.
+-- @return a curried version of `f`
+-- @see partial
+function _.curry(f, n_args)
+	n_args = n_args or 2
+	local _args = {}
+	local function scurry(v)
+		if n_args == 1 then return f(v) end
+		if v ~= nil then _args[#_args+1] = v end
+		if #_args < n_args then
+			return scurry
+		else
+			local r = {f(unpack(_args))}
+			_args = {}
+			return unpack(r)
+		end
+	end
+	return scurry
 end
 
 --- Object functions
@@ -1928,6 +1970,7 @@ do
   _.xor         = _.symmetricDifference
   _.uniq        = _.unique
   _.isuniq      = _.isunique
+	_.transpose   = _.zip
   _.part        = _.partition
   _.perm        = _.permutation
   _.mirror      = _.invert

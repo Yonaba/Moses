@@ -1,4 +1,4 @@
-local daa='1.5.0'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
+local daa='1.5.1'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
 local aca,bca=table.insert,table.sort;local cca,dca=table.remove,table.concat
 local _da,ada,bda=math.randomseed,math.random,math.huge;local cda,dda,__b=math.floor,math.max,math.min;local a_b=rawget
 local b_b=table.unpack or unpack;local c_b,d_b=pairs,ipairs;local _ab={}local function aab(bcb,ccb)return bcb>ccb end
@@ -110,9 +110,11 @@ function _ab.sampleProb(bcb,ccb,dcb)if dcb then _da(dcb)end;return
 _ab.select(bcb,function(_db,adb)return ada()<ccb end)end;function _ab.toArray(...)return{...}end
 function _ab.find(bcb,ccb,dcb)for i=dcb or 1,#bcb do if
 _ab.isEqual(bcb[i],ccb)then return i end end end
-function _ab.reverse(bcb)local ccb={}for i=#bcb,1,-1 do ccb[#ccb+1]=bcb[i]end;return ccb end
-function _ab.selectWhile(bcb,ccb,...)local dcb={}for _db,adb in d_b(bcb)do
-if ccb(_db,adb,...)then dcb[_db]=adb else break end end;return dcb end
+function _ab.reverse(bcb)local ccb={}for i=#bcb,1,-1 do ccb[#ccb+1]=bcb[i]end;return ccb end;function _ab.fill(bcb,ccb,dcb,_db)_db=_db or _ab.size(bcb)
+for i=dcb or 1,_db do bcb[i]=ccb end;return bcb end
+function _ab.selectWhile(bcb,ccb,...)
+local dcb={}
+for _db,adb in d_b(bcb)do if ccb(_db,adb,...)then dcb[_db]=adb else break end end;return dcb end
 function _ab.dropWhile(bcb,ccb,...)local dcb
 for _db,adb in d_b(bcb)do if not ccb(_db,adb,...)then dcb=_db;break end end;if _ab.isNil(dcb)then return{}end;return _ab.rest(bcb,dcb)end
 function _ab.sortedIndex(bcb,ccb,dcb,_db)local adb=dcb or bab;if _db then _ab.sort(bcb,adb)end;for i=1,#bcb do if not
@@ -236,7 +238,11 @@ function _ab.partial(bcb,...)local ccb={...}
 return
 function(...)local dcb={...}local _db={}for adb,bdb in d_b(ccb)do _db[adb]=
 (bdb=='_')and _ab.pop(dcb)or bdb end;return
-bcb(b_b(_ab.append(_db,dcb)))end end;function _ab.keys(bcb)local ccb={}
+bcb(b_b(_ab.append(_db,dcb)))end end
+function _ab.curry(bcb,ccb)ccb=ccb or 2;local dcb={}
+local function _db(adb)if ccb==1 then return bcb(adb)end;if adb~=nil then
+dcb[#dcb+1]=adb end;if#dcb<ccb then return _db else local bdb={bcb(b_b(dcb))}dcb={}return
+b_b(bdb)end end;return _db end;function _ab.keys(bcb)local ccb={}
 _ab.each(bcb,function(dcb)ccb[#ccb+1]=dcb end)return ccb end;function _ab.values(bcb)local ccb={}
 _ab.each(bcb,function(dcb,_db)ccb[
 #ccb+1]=_db end)return ccb end;function _ab.kvpairs(bcb)local ccb={}
@@ -310,7 +316,7 @@ _ab.takeWhile=_ab.selectWhile;_ab.rejectWhile=_ab.dropWhile;_ab.shift=_ab.pop;_a
 _ab.rmRange=_ab.removeRange;_ab.chop=_ab.removeRange;_ab.sub=_ab.slice;_ab.head=_ab.first
 _ab.take=_ab.first;_ab.tail=_ab.rest;_ab.skip=_ab.last;_ab.without=_ab.difference
 _ab.diff=_ab.difference;_ab.symdiff=_ab.symmetricDifference;_ab.xor=_ab.symmetricDifference
-_ab.uniq=_ab.unique;_ab.isuniq=_ab.isunique;_ab.part=_ab.partition
+_ab.uniq=_ab.unique;_ab.isuniq=_ab.isunique;_ab.transpose=_ab.zip;_ab.part=_ab.partition
 _ab.perm=_ab.permutation;_ab.mirror=_ab.invert;_ab.join=_ab.concat;_ab.cache=_ab.memoize
 _ab.juxt=_ab.juxtapose;_ab.uid=_ab.uniqueId;_ab.iter=_ab.iterator;_ab.methods=_ab.functions
 _ab.choose=_ab.pick;_ab.drop=_ab.omit;_ab.defaults=_ab.template;_ab.compare=_ab.isEqual end

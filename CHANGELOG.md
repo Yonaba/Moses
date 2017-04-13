@@ -1,5 +1,11 @@
 # Version history
 
+## 1.5.1 (04/13/17)
+
+* Added `_.curry`
+* Added `_.fill`
+* Added `.transpose` as an alias to `_.zip`
+
 ## 1.5.0 (04/10/17)
 
 #### Additions

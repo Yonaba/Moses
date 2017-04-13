@@ -709,6 +709,36 @@ Reverses an array.
 _.reverse({1,2,3,'d'}) -- => "{'d',3,2,1}"
 ````
 
+### fill (array, value, i, j)
+
+Replaces all elements in a given array with a given value.
+
+```lua
+local array = _.range(1,5)
+_.fill(array, 0) -- => {0,0,0,0,0}
+````
+
+It can start replacing value at a specific index.
+
+```lua
+local array = _.range(1,5)
+_.fill(array,0,3) -- => {1,2,0,0,0}
+````
+
+It can replace only values within a specific range.
+
+```lua
+local array = _.range(1,5)
+_.fill(array,0,2,4) -- => {1,0,0,0,5}
+````
+
+In case the upper bound index i greather than the array size, it will enlarge the array.
+
+```lua
+local array = _.range(1,5)
+_.fill(array,0,5,10) -- => {1,2,3,4,0,0,0,0,0,0}
+````
+
 ### selectWhile (array, f, ...
 *Aliases: `_.takeWhile`*.
 
@@ -991,6 +1021,7 @@ _.isunique({1,2,3,4,4}) -- => false
 ````
 
 ### zip (...)
+*Aliases: `_.transpose`*.
 
 Zips values from different arrays, on the basis on their common keys.
 
@@ -1403,6 +1434,28 @@ The string `'_'` can be used as a placeholder in the list of arguments to specif
 local function diff(a, b) return a - b end
 local remove5 = _.partial(diff, '_', 5) -- arg 'a' will be given at call-time, but 'b' is set to 5
 remove5(20) -- => 15
+````
+
+### curry (f, n_args)
+
+Curries a function. If the given function `f` takes multiple arguments, it returns another version of `f` that takes a single argument 
+(the first of the arguments to the original function) and returns a new function that takes the remainder of the arguments and returns the result.
+
+```lua
+local function sumOf3args(x,y,z) return x + y + z end
+local curried_sumOf3args = _.curry(sumOf3args, 3)
+sumOf3args(1)(2)(3)) -- => 6
+sumOf3args(0)(6)(9)) -- => 15
+````
+
+`n_args` defaults to 2.
+
+```lua
+local function product(x,y) return x * y end
+local curried_product = _.curry(product)
+curried_product(5)(4) -- => 20
+curried_product(3)(-5) -- => -15
+curried_product(0)(1) -- => 0
 ````
 
 **[[⬆]](#TOC)**
