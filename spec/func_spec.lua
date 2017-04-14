@@ -337,6 +337,24 @@ context('Utility functions specs', function()
 		
 	end)
 	
+	context('partialRight', function()
+
+		test('applies partial but from the right',function()
+			local function concat(a,b,c,d) return a..b..c..d end
+			assert_equal(_.partialRight(concat,'a','b','c')('d'), 'dabc')
+			assert_equal(_.partialRight(concat,'a','b')('c','d'), 'cdab')
+			assert_equal(_.partialRight(concat,'a')('b','c','d'), 'bcda')
+		end)
+		
+		test('\'_\' can be used as a placeholder',function()
+			local function concat(a,b,c,d) return a..b..c..d end		
+			assert_equal(_.partialRight(concat,'a','_','c')('d','b'), 'badc')
+			assert_equal(_.partialRight(concat,'a','b','_')('c','d'), 'dabc')
+			assert_equal(_.partialRight(concat,'_','a')('b','c','d'), 'cdba')
+		end)
+		
+	end)	
+	
 	context('curry', function()
 
 		test('curries a function for a specific number of args',function()

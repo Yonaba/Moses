@@ -1436,12 +1436,43 @@ local diffFrom20 = _.partial(diff, 20) -- arg 'a' will be 20 by default
 diffFrom20(5) -- => 15
 ````
 
-The string `'_'` can be used as a placeholder in the list of arguments to specify an argument that should not be pre-filled, but left open to be supplied at call-time.
+The string `'_'` can be used as a placeholder in the list of arguments to specify an argument that should not be pre-filled, but is rather left open to be supplied at call-time.
 
 ```lua
 local function diff(a, b) return a - b end
 local remove5 = _.partial(diff, '_', 5) -- arg 'a' will be given at call-time, but 'b' is set to 5
 remove5(20) -- => 15
+````
+
+### partialRight (f, ...)
+
+Like `_.partial`, it partially applies a function by filling in any number of its arguments, but from the right.
+
+```lua
+local function concat(...) return table.concat({...},',') end
+local concat_right = _.partialRight(concat,'a','b','c')
+concat_right('d') -- => d,a,b,c
+
+concat_right = _.partialRight(concat,'a','b')
+concat_right('c','d') -- => c,d,a,b
+
+concat_right = _.partialRight(concat,'a')
+concat_right('b','c','d') -- => b,c,d,a
+```
+
+The string `'_'`, as always, can be used as a placeholder in the list of arguments to specify an argument that should not be pre-filled, but is rather left open to be supplied at call-time.
+In that case, the first args supplied at runtime will be used to fill the initial list of args while the remaining will be prepended.
+
+```lua
+local function concat(...) return table.concat({...},',') end
+local concat_right = _.partialRight(concat,'a','_','c')
+concat_right('d','b') -- => b,a,d,c
+
+concat_right = _.partialRight(concat,'a','b','_')
+concat_right('c','d') -- => d,a,b,c
+
+concat_right = _.partialRight(concat,'_','a')
+concat_right('b','c','d') -- => c,d,b,a
 ````
 
 ### curry (f, n_args)

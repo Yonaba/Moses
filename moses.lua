@@ -1516,7 +1516,8 @@ end
 -- @name partial
 -- @param f a function
 -- @param ... a list of partial arguments to `f`
--- @return a new version of function f where having some of it original arguments filled
+-- @return a new version of function f having some of it original arguments filled
+-- @see partialRight
 -- @see curry
 function _.partial(f,...)
 	local partial_args = {...}
@@ -1530,6 +1531,25 @@ function _.partial(f,...)
 	end
 end
 
+--- Similar to @{partial}, but from the right.
+-- @name partialRight
+-- @param f a function
+-- @param ... a list of partial arguments to `f`
+-- @return a new version of function f having some of it original arguments filled
+-- @see partialRight
+-- @see curry
+function _.partialRight(f,...)
+	local partial_args = {...}
+	return function (...)
+		local n_args = {...}	
+		local f_args = {}
+		for k = 1,#partial_args do
+			f_args[k] = (partial_args[k] == '_') and _.pop(n_args) or partial_args[k]
+		end
+		return f(unpack(_.append(n_args, f_args)))
+	end
+end
+
 --- Curries a function. If the given function `f` takes multiple arguments, it returns another version of 
 -- `f` that takes a single argument (the first of the arguments to the original function) and returns a new 
 -- function that takes the remainder of the arguments and returns the result. 
@@ -1538,6 +1558,7 @@ end
 -- @param[opt] n_args the number of arguments expected for `f`. Defaults to 2.
 -- @return a curried version of `f`
 -- @see partial
+-- @see partialRight
 function _.curry(f, n_args)
 	n_args = n_args or 2
 	local _args = {}
