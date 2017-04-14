@@ -16,8 +16,8 @@ git clone git://github.com/Yonaba/Moses.git
 ````
 
 ### Archive
-* __zip__: [1.5.1 (latest stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.1-1.zip) | [current](http://github.com/Yonaba/Moses/archive/master.zip) | [all](http://github.com/Yonaba/Moses/tags)
-* __tarball__: [1.5.1 (latestt stable)](http://github.com/Yonaba/Moses/archive/Moses-1.5.1-1.tar.gz) | [current](http://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](http://github.com/Yonaba/Moses/tags)
+* __zip__: [1.6.0 (latest stable)](http://github.com/Yonaba/Moses/archive/Moses-1.6.0-1.zip) | [current](http://github.com/Yonaba/Moses/archive/master.zip) | [all](http://github.com/Yonaba/Moses/tags)
+* __tarball__: [1.6.0 (latestt stable)](http://github.com/Yonaba/Moses/archive/Moses-1.6.0-1.tar.gz) | [current](http://github.com/Yonaba/Moses/archive/master.tar.gz) | [all](http://github.com/Yonaba/Moses/tags)
 
 ### LuaRocks
 ```
@@ -39,7 +39,7 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba moses
 ## Usage
 Put the file [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) inside your project folder and call it using *require* command.
 
-*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~63 kiB). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~20 kiB).
+*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~68 kiB). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~22 kiB).
 
 ## Tutorial
 Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/Moses/blob/master/doc/tutorial.md)

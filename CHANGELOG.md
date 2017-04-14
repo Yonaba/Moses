@@ -1,6 +1,6 @@
 # Version history
 
-##
+## 1.6.0 (14/04/17)
 
 * Added `_.toObj`
 * Added `_.noop`

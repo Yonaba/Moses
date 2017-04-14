@@ -2,10 +2,10 @@
 -- @author [Roland Yonaba](http://github.com/Yonaba)
 -- @copyright 2012-2017
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @release 1.5.1
+-- @release 1.6.0
 -- @module moses
 
-local _MODULEVERSION = '1.5.1'
+local _MODULEVERSION = '1.6.0'
 
 -- Internalisation
 local next, type, select, pcall = next, type, select, pcall

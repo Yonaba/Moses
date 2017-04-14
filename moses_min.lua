@@ -1,4 +1,4 @@
-local daa='1.5.1'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
+local daa='1.6.0'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
 local aca,bca=table.insert,table.sort;local cca,dca=table.remove,table.concat
 local _da,ada,bda=math.randomseed,math.random,math.huge;local cda,dda,__b=math.floor,math.max,math.min;local a_b=rawget
 local b_b=table.unpack or unpack;local c_b,d_b=pairs,ipairs;local _ab={}local function aab(bcb,ccb)return bcb>ccb end
@@ -29,14 +29,13 @@ function _ab.count(bcb,ccb)if _ab.isNil(ccb)then return _ab.size(bcb)end;local d
 _ab.each(bcb,function(_db,adb)if
 _ab.isEqual(adb,ccb)then dcb=dcb+1 end end)return dcb end
 function _ab.countf(bcb,ccb,...)return _ab.count(_ab.map(bcb,ccb,...),true)end
-function _ab.cycle(bcb,ccb)ccb=ccb or 1;if ccb<=0 then return function()end end;local dcb,_db;local adb=0
+function _ab.cycle(bcb,ccb)ccb=ccb or 1;if ccb<=0 then return _ab.noop end;local dcb,_db;local adb=0
 while true do
 return
-function()dcb=
-dcb and _ba(bcb,dcb)or _ba(bcb)_db=
-not _db and dcb or _db;if ccb then
-adb=(dcb==_db)and adb+1 or adb;if adb>ccb then return end end
-return dcb,bcb[dcb]end end end
+function()dcb=dcb and
+_ba(bcb,dcb)or _ba(bcb)
+_db=not _db and dcb or _db;if ccb then adb=(dcb==_db)and adb+1 or adb
+if adb>ccb then return end end;return dcb,bcb[dcb]end end end
 function _ab.map(bcb,ccb,...)local dcb={}
 for _db,adb in c_b(bcb)do local bdb,cdb,ddb=_db,ccb(_db,adb,...)dcb[ddb and cdb or bdb]=
 ddb or cdb end;return dcb end;function _ab.reduce(bcb,ccb,dcb)
@@ -203,14 +202,15 @@ coroutine.wrap(function()_cb(bcb,
 _ab.each(bcb,function(dcb,_db)ccb[_db]=dcb end)return ccb end
 function _ab.concat(bcb,ccb,dcb,_db)
 local adb=_ab.map(bcb,function(bdb,cdb)return
-tostring(cdb)end)return dca(adb,ccb,dcb or 1,_db or#bcb)end;function _ab.identity(bcb)return bcb end;function _ab.constant(bcb)
-return function()return bcb end end;function _ab.once(bcb)local ccb=0;local dcb={}
-return function(...)ccb=ccb+1
-if ccb<=1 then dcb={...}end;return bcb(b_b(dcb))end end
-function _ab.memoize(bcb,ccb)
-local dcb=dba({},{__mode='kv'})local _db=ccb or _ab.identity;return
-function(...)local adb=_db(...)local bdb=dcb[adb]if not bdb then
-dcb[adb]=bcb(...)end;return dcb[adb]end end
+tostring(cdb)end)return dca(adb,ccb,dcb or 1,_db or#bcb)end;function _ab.noop()return end;function _ab.identity(bcb)return bcb end;function _ab.constant(bcb)return
+function()return bcb end end
+function _ab.once(bcb)local ccb=0;local dcb={}return
+function(...)ccb=ccb+1;if
+ccb<=1 then dcb={...}end;return bcb(b_b(dcb))end end
+function _ab.memoize(bcb,ccb)local dcb=dba({},{__mode='kv'})
+local _db=ccb or _ab.identity
+return function(...)local adb=_db(...)local bdb=dcb[adb]
+if not bdb then dcb[adb]=bcb(...)end;return dcb[adb]end end
 function _ab.after(bcb,ccb)local dcb,_db=ccb,0;return
 function(...)_db=_db+1;if _db>=dcb then return bcb(...)end end end
 function _ab.compose(...)local bcb=_ab.reverse{...}
@@ -233,12 +233,31 @@ d_b(ccb)do local adb=bcb[_db]if adb then bcb[_db]=_ab.bind(adb,bcb)end end;retur
 function _ab.uniqueId(bcb,...)acb=acb+1
 if bcb then if _ab.isString(bcb)then return bcb:format(acb)elseif
 _ab.isFunction(bcb)then return bcb(acb,...)end end;return acb end
-function _ab.iterator(bcb,ccb)return function()ccb=bcb(ccb)return ccb end end
+function _ab.iterator(bcb,ccb)return function()ccb=bcb(ccb)return ccb end end;function _ab.flip(bcb)return
+function(...)return bcb(b_b(_ab.reverse({...})))end end;function _ab.over(...)
+local bcb={...}
+return function(...)local ccb={}for dcb,_db in d_b(bcb)do ccb[#ccb+1]=_db(...)end
+return ccb end end;function _ab.overEvery(...)
+local bcb=_ab.over(...)
+return function(...)return
+_ab.reduce(bcb(...),function(ccb,dcb)return ccb and dcb end)end end;function _ab.overSome(...)
+local bcb=_ab.over(...)
+return function(...)return
+_ab.reduce(bcb(...),function(ccb,dcb)return ccb or dcb end)end end
+function _ab.overArgs(bcb,...)
+local ccb={...}return
+function(...)local dcb={...}for i=1,#ccb do local _db=ccb[i]
+if dcb[i]then dcb[i]=_db(dcb[i])end end;return bcb(b_b(dcb))end end
 function _ab.partial(bcb,...)local ccb={...}
 return
 function(...)local dcb={...}local _db={}for adb,bdb in d_b(ccb)do _db[adb]=
 (bdb=='_')and _ab.pop(dcb)or bdb end;return
 bcb(b_b(_ab.append(_db,dcb)))end end
+function _ab.partialRight(bcb,...)local ccb={...}
+return
+function(...)local dcb={...}local _db={}
+for k=1,#ccb do _db[k]=
+(ccb[k]=='_')and _ab.pop(dcb)or ccb[k]end;return bcb(b_b(_ab.append(dcb,_db)))end end
 function _ab.curry(bcb,ccb)ccb=ccb or 2;local dcb={}
 local function _db(adb)if ccb==1 then return bcb(adb)end;if adb~=nil then
 dcb[#dcb+1]=adb end;if#dcb<ccb then return _db else local bdb={bcb(b_b(dcb))}dcb={}return
@@ -247,10 +266,11 @@ _ab.each(bcb,function(dcb)ccb[#ccb+1]=dcb end)return ccb end;function _ab.values
 _ab.each(bcb,function(dcb,_db)ccb[
 #ccb+1]=_db end)return ccb end;function _ab.kvpairs(bcb)local ccb={}
 _ab.each(bcb,function(dcb,_db)ccb[
-#ccb+1]={dcb,_db}end)return ccb end;function _ab.property(bcb)return function(ccb)
-return ccb[bcb]end end
-function _ab.propertyOf(bcb)return function(ccb)return
-bcb[ccb]end end;function _ab.toBoolean(bcb)return not not bcb end
+#ccb+1]={dcb,_db}end)return ccb end
+function _ab.toObj(bcb)local ccb={}for dcb,_db in
+d_b(bcb)do ccb[_db[1]]=_db[2]end;return ccb end
+function _ab.property(bcb)return function(ccb)return ccb[bcb]end end
+function _ab.propertyOf(bcb)return function(ccb)return bcb[ccb]end end;function _ab.toBoolean(bcb)return not not bcb end
 function _ab.extend(bcb,...)local ccb={...}
 _ab.each(ccb,function(dcb,_db)if
 _ab.isTable(_db)then
