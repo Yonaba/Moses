@@ -319,6 +319,27 @@ context('Utility functions specs', function()
 	
 	context('flip', function()
 
+		test('creates a function which runs f with arguments flipped',function()
+			local function f(...) return table.concat({...}) end
+			local flipped = _.flip(f)
+			assert_equal(flipped('a','b','c'),'cba')
+		end)
+		
+	end)		
+	
+	context('over', function()
+
+		test('returns a function which applies a set of transforms to its args',function()
+			local minmax = _.over(math.min, math.max)
+			local maxmin = _.over(math.max, math.min)
+			assert_true(_.isEqual(minmax(5,10,12,4,3),{3,12}))
+			assert_true(_.isEqual(maxmin(5,10,12,4,3),{12,3}))	
+		end)
+		
+	end)		
+		
+	context('overArgs', function()
+
 		test('Creates a function that invokes `f` with its arguments transformed',function()
 			local function f(x, y) return {x, y} end
 			local function triple(x) return x*3 end
@@ -338,16 +359,6 @@ context('Utility functions specs', function()
 		end)		
 		
 	end)	
-	
-	context('flip', function()
-
-		test('creates a function which runs f with arguments flipped',function()
-			local function f(...) return table.concat({...}) end
-			local flipped = _.flip(f)
-			assert_equal(flipped('a','b','c'),'cba')
-		end)
-		
-	end)		
 	
 	context('partial', function()
 

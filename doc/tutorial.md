@@ -1436,6 +1436,16 @@ local flipped = _.flip(f)
 flipped('a','b','c') -- => 'cba'
 ````
 
+### over (...)
+
+Creates a function that invokes a set of transforms with the arguments it receives.<br/>
+One can use use for example to get the tuple of min and max values from a set of values
+
+```lua
+local minmax = _.over(math.min, math.max)
+minmax(5,10,12,4,3) -- => {3,12}
+````
+
 ### overArgs (f, ...)
 
 Creates a function that invokes `f` with its arguments transformed

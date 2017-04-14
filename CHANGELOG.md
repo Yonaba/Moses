@@ -7,6 +7,7 @@
 * Added `_.partialRight`
 * Added `_.flip`
 * Added `_.overArgs`
+* Added `_.over`
 
 ## 1.5.1 (04/13/17)
 

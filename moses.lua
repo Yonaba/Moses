@@ -1520,12 +1520,29 @@ function _.flip(f)
 	end
 end
 
+--- Creates a function that runs transforms on arguments it receives.
+-- @name over
+-- @param ... a set of functions which will receive all arguments to the returned function
+-- @return a function
+-- @see overArgs
+function _.over(...)
+	local transforms = {...}
+	return function(...)
+		local r = {}
+		for __,transform in ipairs(transforms) do
+			r[#r+1] = transform(...)
+		end
+		return r
+	end
+end
+
 --- Creates a function that invokes `f` with its arguments transformed. 1rst arguments will be passed to 
 -- the 1rst transform, 2nd arg to the 2nd transform, etc. Remaining arguments will not be transformed.
 -- @name overArgs
 -- @param f a function
 -- @param ... a list of transforms funcs prototyped as `f (v)`
 -- @return the result of running `f` with its transformed arguments
+-- @see over
 function _.overArgs(f,...)
 	local _argf = {...}
 	return function(...)
