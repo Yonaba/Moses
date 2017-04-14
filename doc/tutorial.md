@@ -1203,6 +1203,14 @@ _.concat({'a',1,0,1,'b'}) -- => 'a101b'
 
 ## <a name='utility'>Utility functions</a>
 
+### noop ()
+
+The no-operation function. Takes nothing, returns nothing. It is being used internally.
+
+```lua
+_.noop() -- => nil
+````
+
 ### identity (value)
 
 Returns the passed-in value. <br/>

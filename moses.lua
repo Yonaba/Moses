@@ -164,7 +164,7 @@ end
 -- @return an iterator function yielding key-value pairs from the passed-in table.
 function _.cycle(t, n)
   n = n or 1
-  if n<=0 then return function() end end
+  if n<=0 then return _.noop end
   local k, fk
   local i = 0
   while true do
@@ -1262,6 +1262,11 @@ end
 
 --- Utility functions
 -- @section Utility functions
+
+--- The no-operation function.
+-- @name noop
+-- @return nothing
+function _.noop() return end
 
 --- Returns the passed-in value. This function is used internally
 -- as a default iterator.

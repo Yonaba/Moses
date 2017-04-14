@@ -3,6 +3,19 @@ local _ = require 'moses'
 
 context('Utility functions specs', function()
 
+  context('noop', function()
+  
+    test('the no-operation function',function()
+			assert_nil(_.noop())
+			assert_nil(_.noop(nil))
+			assert_nil(_.noop(false))
+			assert_nil(_.noop({}))
+			assert_nil(_.noop(function() end))
+			assert_nil(_.noop(_.noop))
+    end)
+    
+  end)
+	
   context('identity', function()
   
     test('returns the received value',function()
