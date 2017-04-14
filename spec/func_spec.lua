@@ -317,6 +317,16 @@ context('Utility functions specs', function()
 		
 	end)
 	
+	context('flip', function()
+
+		test('creates a function which runs f with arguments flipped',function()
+			local function f(...) return table.concat({...}) end
+			local flipped = _.flip(f)
+			assert_equal(flipped('a','b','c'),'cba')
+		end)
+		
+	end)	
+	
 	context('partial', function()
 
 		test('applies partially f',function()

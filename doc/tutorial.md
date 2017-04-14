@@ -1426,6 +1426,16 @@ iter_po2() -- => 4
 iter_po2() -- => 8
 ````
 
+### flip (f)
+
+Creates a function of `f` with arguments flipped in reverse order.
+
+```lua
+local function f(...) return table.concat({...}) end
+local flipped = _.flip(f)
+flipped('a','b','c') -- => 'cba'
+````
+
 ### partial (f, ...)
 
 Partially apply a function by filling in any number of its arguments. 

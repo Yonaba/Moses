@@ -1510,6 +1510,16 @@ function _.iterator(f, x)
 	end
 end
 
+--- Creates a function of `f` with arguments flipped in reverse order.
+-- @name flip
+-- @param f a function 
+-- @return a function
+function _.flip(f)
+	return function(...)
+		return f(unpack(_.reverse({...})))
+	end
+end
+
 --- Partially apply a function by filling in any number of its arguments. 
 -- One may pass a string `'_'` as a placeholder in the list of arguments to specify an argument 
 -- that should not be pre-filled, but left open to be supplied at call-time. 
@@ -1610,7 +1620,7 @@ function _.kvpairs(obj)
 	return t
 end
 
---- Converts an array list of `kvpairs` to an object where keys are taken
+--- Converts an array list of `kvpairs` to an object. Keys are taken
 -- from the 1rst column in the `kvpairs` sequence, associated with values in the 2nd
 -- column
 -- @name toObj
