@@ -337,7 +337,57 @@ context('Utility functions specs', function()
 		end)
 		
 	end)		
+	
+	context('overEvery', function()
 		
+		local alleven, allpositive
+		
+		before(function()
+			alleven = function(...) 
+				for i, v in ipairs({...}) do if v%2~=0 then return false end end 
+				return true 
+			end
+
+			allpositive = function(...)
+				for i, v in ipairs({...}) do if v < 0 then return false end end
+				return true 	
+			end		
+		end)
+		
+		test('checks if all predicates passes truth with args. ',function()
+			local allok = _.overEvery(alleven, allpositive)
+			assert_false(allok(2,4,-1,8))
+			assert_false(allok(10,3,2,6))
+			assert_true(allok(8,4,6,10))
+		end)
+		
+	end)
+
+	context('overSome', function()
+		
+		local alleven, allpositive
+		
+		before(function()
+			alleven = function(...) 
+				for i, v in ipairs({...}) do if v%2~=0 then return false end end 
+				return true 
+			end
+
+			allpositive = function(...)
+				for i, v in ipairs({...}) do if v < 0 then return false end end
+				return true 	
+			end		
+		end)
+		
+		test('checks if all predicates passes truth with args. ',function()
+			local anyok = _.overSome(alleven, allpositive)
+			assert_false(anyok(2,4,-1,8))
+			assert_true(anyok(10,3,2,6))
+			assert_false(anyok(-1,-5,-3))
+		end)
+		
+	end)	
+	
 	context('overArgs', function()
 
 		test('Creates a function that invokes `f` with its arguments transformed',function()

@@ -8,6 +8,8 @@
 * Added `_.flip`
 * Added `_.overArgs`
 * Added `_.over`
+* Added `_.overEvery`
+* Added `_.overSome`
 
 ## 1.5.1 (04/13/17)
 

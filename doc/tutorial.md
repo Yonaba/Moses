@@ -1446,6 +1446,58 @@ local minmax = _.over(math.min, math.max)
 minmax(5,10,12,4,3) -- => {3,12}
 ````
 
+### overEvery (...)
+
+Creates a validation function. The returned function checks if all of the given predicates return truthy when invoked with the arguments it receives.
+
+```lua
+local function alleven(...) 
+	for i, v in ipairs({...}) do 
+		if v%2~=0 then return false end 
+	end 
+	return true 
+end
+
+local function allpositive(...)
+	for i, v in ipairs({...}) do 
+		if v < 0 then return false end 
+	end 
+	return true 	
+end
+
+local allok = _.overEvery(alleven, allpositive)
+
+allok(2,4,-1,8) -- => false
+allok(10,3,2,6) -- => false
+allok(8,4,6,10) -- => true
+````
+
+### overSome (...)
+
+Creates a validation function. The returned function checks if any of the given predicates return truthy when invoked with the arguments it receives.
+
+```lua
+local function alleven(...) 
+	for i, v in ipairs({...}) do 
+		if v%2~=0 then return false end 
+	end 
+	return true 
+end
+
+local function allpositive(...)
+	for i, v in ipairs({...}) do 
+		if v < 0 then return false end 
+	end 
+	return true 	
+end
+
+local anyok = _.overSome(alleven,allpositive)
+
+anyok(2,4,-1,8) -- => false
+anyok(10,3,2,6) -- => true
+anyok(-1,-5,-3) -- => false
+````
+
 ### overArgs (f, ...)
 
 Creates a function that invokes `f` with its arguments transformed

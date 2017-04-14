@@ -1520,10 +1520,12 @@ function _.flip(f)
 	end
 end
 
---- Creates a function that runs transforms on arguments it receives.
+--- Creates a function that runs transforms on all arguments it receives.
 -- @name over
 -- @param ... a set of functions which will receive all arguments to the returned function
 -- @return a function
+-- @see overEvery
+-- @see overSome
 -- @see overArgs
 function _.over(...)
 	local transforms = {...}
@@ -1536,6 +1538,36 @@ function _.over(...)
 	end
 end
 
+--- Creates a validation function. The returned function checks if *all* of the given predicates return 
+-- truthy when invoked with the arguments it receives.
+-- @name overEvery
+-- @param ... a list of predicate functions
+-- @return a new function
+-- @see over
+-- @see overSome
+-- @see overArgs
+function _.overEvery(...)
+	local f = _.over(...)
+	return function(...)
+		return _.reduce(f(...),function(state,v) return state and v end)
+	end
+end
+
+--- Creates a validation function. The return function checks if *any* of a given predicates return 
+-- truthy when invoked with the arguments it receives.
+-- @name overSome
+-- @param ... a list of predicate functions
+-- @return a new function
+-- @see over
+-- @see overEvery
+-- @see overArgs
+function _.overSome(...)
+	local f = _.over(...)
+	return function(...)
+		return _.reduce(f(...),function(state,v) return state or v end)
+	end
+end
+
 --- Creates a function that invokes `f` with its arguments transformed. 1rst arguments will be passed to 
 -- the 1rst transform, 2nd arg to the 2nd transform, etc. Remaining arguments will not be transformed.
 -- @name overArgs
@@ -1543,6 +1575,8 @@ end
 -- @param ... a list of transforms funcs prototyped as `f (v)`
 -- @return the result of running `f` with its transformed arguments
 -- @see over
+-- @see overEvery
+-- @see overSome
 function _.overArgs(f,...)
 	local _argf = {...}
 	return function(...)
