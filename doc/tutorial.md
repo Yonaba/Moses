@@ -1436,6 +1436,32 @@ local flipped = _.flip(f)
 flipped('a','b','c') -- => 'cba'
 ````
 
+### overArgs (f, ...)
+
+Creates a function that invokes `f` with its arguments transformed
+
+```lua
+local function f(x, y) return x, y end
+local function triple(x) retun x*3 end
+local function square(x) retun x^2 end
+local new_f = _.overArgs(f, triple, square)
+
+new_f(1,2) -- => 3, 4
+new_f(10,10) -- => 30, 100
+````
+
+In case the number of arguments is greater than the number of transforms, the remaining args will be left as-is.
+
+```lua
+local function f(x, y, z) return x, y, z end
+local function triple(x) retun x*3 end
+local function square(x) retun x^2 end
+local new_f = _.overArgs(f, triple, square)
+
+new_f(1,2,3) -- => 3, 4, 3
+new_f(10,10,10) -- => 30, 100, 10
+````
+
 ### partial (f, ...)
 
 Partially apply a function by filling in any number of its arguments. 

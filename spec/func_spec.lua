@@ -319,13 +319,35 @@ context('Utility functions specs', function()
 	
 	context('flip', function()
 
+		test('Creates a function that invokes `f` with its arguments transformed',function()
+			local function f(x, y) return {x, y} end
+			local function triple(x) return x*3 end
+			local function square(x) return x^2 end
+			local new_f = _.overArgs(f, triple, square)
+			assert_true(_.isEqual(new_f(1,2), {3,4}))
+			assert_true(_.isEqual(new_f(10,10), {30,100}))			
+		end)
+		
+		test('when supplied more args than transforms, remaining are left as-is',function()
+			local function f(x, y, z, k) return {x, y, z, k} end
+			local function triple(x) return x*3 end
+			local function square(x) return x^2 end
+			local new_f = _.overArgs(f, triple, square)
+			assert_true(_.isEqual(new_f(1,2,3,4), {3,4,3,4}))
+			assert_true(_.isEqual(new_f(10,10,10,10), {30,100,10,10}))			
+		end)		
+		
+	end)	
+	
+	context('flip', function()
+
 		test('creates a function which runs f with arguments flipped',function()
 			local function f(...) return table.concat({...}) end
 			local flipped = _.flip(f)
 			assert_equal(flipped('a','b','c'),'cba')
 		end)
 		
-	end)	
+	end)		
 	
 	context('partial', function()
 

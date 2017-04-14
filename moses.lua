@@ -1520,6 +1520,24 @@ function _.flip(f)
 	end
 end
 
+--- Creates a function that invokes `f` with its arguments transformed. 1rst arguments will be passed to 
+-- the 1rst transform, 2nd arg to the 2nd transform, etc. Remaining arguments will not be transformed.
+-- @name overArgs
+-- @param f a function
+-- @param ... a list of transforms funcs prototyped as `f (v)`
+-- @return the result of running `f` with its transformed arguments
+function _.overArgs(f,...)
+	local _argf = {...}
+	return function(...)
+		local _args = {...}
+		for i = 1,#_argf do
+			local f = _argf[i]
+			if _args[i] then _args[i] = f(_args[i]) end
+		end
+		return f(unpack(_args))
+	end
+end
+
 --- Partially apply a function by filling in any number of its arguments. 
 -- One may pass a string `'_'` as a placeholder in the list of arguments to specify an argument 
 -- that should not be pre-filled, but left open to be supplied at call-time. 
