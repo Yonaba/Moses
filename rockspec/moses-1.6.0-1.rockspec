@@ -2,7 +2,7 @@ package = "moses"
 version = "1.6.0-1"
 source = {
    url = "https://github.com/Yonaba/Moses/archive/Moses-1.6.0-1.tar.gz",
-   dir = "Moses-Moses-1.0.0-1"
+   dir = "Moses-Moses-1.6.0-1"
 }
 description = {
    summary = "Utility-belt library for functional programming in Lua",
