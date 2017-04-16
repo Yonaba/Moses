@@ -58,9 +58,9 @@ Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/
 Spec tests have been included.<br/>
 Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root folder:
 
-```bash
+````
 tsc -f spec/*
-```
+````
 
 ## License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
