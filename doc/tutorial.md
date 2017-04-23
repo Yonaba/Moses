@@ -152,7 +152,7 @@ Returns a function which iterates on each key-value pair in a given table (simil
 If `n` is not provided, it defaults to 1.
 
 ```lua
-local t = {'a,'b','c'}
+local t = {'a','b','c'}
 for k,v in _.cycle(t, 2) do
   print(k,v)
 end
