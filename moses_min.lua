@@ -1,4 +1,4 @@
-local daa='1.6.0'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
+local daa='1.6.1'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
 local aca,bca=table.insert,table.sort;local cca,dca=table.remove,table.concat
 local _da,ada,bda=math.randomseed,math.random,math.huge;local cda,dda,__b=math.floor,math.max,math.min;local a_b=rawget
 local b_b=table.unpack or unpack;local c_b,d_b=pairs,ipairs;local _ab={}local function aab(bcb,ccb)return bcb>ccb end
@@ -233,7 +233,8 @@ d_b(ccb)do local adb=bcb[_db]if adb then bcb[_db]=_ab.bind(adb,bcb)end end;retur
 function _ab.uniqueId(bcb,...)acb=acb+1
 if bcb then if _ab.isString(bcb)then return bcb:format(acb)elseif
 _ab.isFunction(bcb)then return bcb(acb,...)end end;return acb end
-function _ab.iterator(bcb,ccb)return function()ccb=bcb(ccb)return ccb end end;function _ab.flip(bcb)return
+function _ab.iterator(bcb,ccb)return function()ccb=bcb(ccb)return ccb end end
+function _ab.array(...)local bcb={}for ccb in...do bcb[#bcb+1]=ccb end;return bcb end;function _ab.flip(bcb)return
 function(...)return bcb(b_b(_ab.reverse({...})))end end;function _ab.over(...)
 local bcb={...}
 return function(...)local ccb={}for dcb,_db in d_b(bcb)do ccb[#ccb+1]=_db(...)end

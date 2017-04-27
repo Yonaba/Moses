@@ -1426,6 +1426,16 @@ iter_po2() -- => 4
 iter_po2() -- => 8
 ````
 
+### array (...)
+
+Iterates a given iterator function and returns its values packed in an array.
+
+```lua
+local text = 'letters'
+local chars = string.gmatch(text, '.')
+local letters = _.array(chars) -- => {'l','e','t','t','e','r','s'}
+````
+
 ### flip (f)
 
 Creates a function of `f` with arguments flipped in reverse order.

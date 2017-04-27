@@ -2,10 +2,10 @@
 -- @author [Roland Yonaba](http://github.com/Yonaba)
 -- @copyright 2012-2017
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @release 1.6.0
+-- @release 1.6.1
 -- @module moses
 
-local _MODULEVERSION = '1.6.0'
+local _MODULEVERSION = '1.6.1'
 
 -- Internalisation
 local next, type, select, pcall = next, type, select, pcall
@@ -1498,7 +1498,7 @@ end
 
 --- Produces an iterator which repeatedly apply a function `f` onto an input. 
 -- Yields x, then f(x), then f(f(x)), continuously.
--- @name iterate
+-- @name iterator
 -- @param f a function 
 -- @param x an initial input to `f`
 -- @return an iterator fnction
@@ -1508,6 +1508,16 @@ function _.iterator(f, x)
 		x = f(x)
 		return x
 	end
+end
+
+--- Iterates an iterator and returns its values in an array.
+-- @name array
+-- @param ... an iterator (a function, a table and a value)
+-- @return an array of results
+function _.array(...)
+	local r = {}
+	for v in ... do r[#r+1] = v end
+	return r
 end
 
 --- Creates a function of `f` with arguments flipped in reverse order.

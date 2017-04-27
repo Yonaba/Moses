@@ -317,6 +317,18 @@ context('Utility functions specs', function()
 		
 	end)
 	
+	context('array', function()
+
+		test('iterates a given iterator and returns its values in an array',function()
+			local letters = _.array(('Lua'):gmatch('.'))
+			assert_true(_.isEqual(letters,{'L','u','a'}))
+			
+			local numbers = _.array(pairs(_.range(1,10)))
+			assert_true(_.isEqual(numbers,_.range(1,10)))			
+		end)
+		
+	end)	
+	
 	context('flip', function()
 
 		test('creates a function which runs f with arguments flipped',function()
