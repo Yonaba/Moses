@@ -502,6 +502,22 @@ context('Utility functions specs', function()
 			assert_equal(c3, 6)
 		end)
 		
-	end)	
+	end)
+	
+	context('time', function()
+	
+		test('returns the execution time of a function and its results', function()
+			local function f(...) return ... end
+			
+			local duration, r = _.time(f, 'a')
+			assert_type(duration, 'number')
+			assert_equal(r, 'a')
+			
+			local duration, a, b, c = _.time(f, 1, 2, 3)
+			assert_type(duration, 'number')
+			assert_true(a == 1 and b == 2 and c == 3)	
+		end)
+	
+	end)
 	
 end)

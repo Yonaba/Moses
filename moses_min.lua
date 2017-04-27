@@ -1,361 +1,362 @@
-local daa='1.6.1'local _ba,aba,bba,cba=next,type,select,pcall;local dba,_ca=setmetatable,getmetatable
-local aca,bca=table.insert,table.sort;local cca,dca=table.remove,table.concat
-local _da,ada,bda=math.randomseed,math.random,math.huge;local cda,dda,__b=math.floor,math.max,math.min;local a_b=rawget
-local b_b=table.unpack or unpack;local c_b,d_b=pairs,ipairs;local _ab={}local function aab(bcb,ccb)return bcb>ccb end
-local function bab(bcb,ccb)return bcb<ccb end;local function cab(bcb,ccb,dcb)
-return(bcb<ccb)and ccb or(bcb>dcb and dcb or bcb)end
-local function dab(bcb,ccb)return ccb and true end;local function _bb(bcb)return not bcb end;local function abb(bcb)local ccb=0
-for dcb,_db in c_b(bcb)do ccb=ccb+1 end;return ccb end
-local function bbb(bcb,ccb,dcb,...)local _db
-local adb=dcb or _ab.identity;for bdb,cdb in c_b(bcb)do
-if not _db then _db=adb(cdb,...)else local ddb=adb(cdb,...)_db=
-ccb(_db,ddb)and _db or ddb end end;return _db end
-local function cbb(bcb,ccb,dcb,_db)for i=0,#bcb,ccb do local adb=_ab.slice(bcb,i+1,i+ccb)
-if#adb>0 then while
-(#adb<ccb and _db)do adb[#adb+1]=_db end;dcb(adb)end end end
-local function dbb(bcb,ccb,dcb,_db)
-for i=0,#bcb,ccb-1 do local adb=_ab.slice(bcb,i+1,i+ccb)if
-#adb>0 and i+1 <#bcb then while(#adb<ccb and _db)do adb[#adb+1]=_db end
-dcb(adb)end end end
-local function _cb(bcb,ccb,dcb)if ccb==0 then dcb(bcb)end
-for i=1,ccb do bcb[ccb],bcb[i]=bcb[i],bcb[ccb]_cb(bcb,ccb-
-1,dcb)bcb[ccb],bcb[i]=bcb[i],bcb[ccb]end end;local acb=-1
-function _ab.clear(bcb)for ccb in c_b(bcb)do bcb[ccb]=nil end;return bcb end
-function _ab.each(bcb,ccb,...)for dcb,_db in c_b(bcb)do ccb(dcb,_db,...)end end
-function _ab.eachi(bcb,ccb,...)
-local dcb=_ab.sort(_ab.select(_ab.keys(bcb),function(_db,adb)return _ab.isInteger(adb)end))for _db,adb in d_b(dcb)do ccb(adb,bcb[adb],...)end end
-function _ab.at(bcb,...)local ccb={}for dcb,_db in d_b({...})do
-if _ab.has(bcb,_db)then ccb[#ccb+1]=bcb[_db]end end;return ccb end
-function _ab.count(bcb,ccb)if _ab.isNil(ccb)then return _ab.size(bcb)end;local dcb=0
-_ab.each(bcb,function(_db,adb)if
-_ab.isEqual(adb,ccb)then dcb=dcb+1 end end)return dcb end
-function _ab.countf(bcb,ccb,...)return _ab.count(_ab.map(bcb,ccb,...),true)end
-function _ab.cycle(bcb,ccb)ccb=ccb or 1;if ccb<=0 then return _ab.noop end;local dcb,_db;local adb=0
+local _ba='1.6.1'local aba,bba,cba,dba=next,type,select,pcall;local _ca,aca=setmetatable,getmetatable
+local bca,cca=table.insert,table.sort;local dca,_da=table.remove,table.concat
+local ada,bda,cda=math.randomseed,math.random,math.huge;local dda,__b,a_b=math.floor,math.max,math.min;local b_b=rawget
+local c_b=table.unpack or unpack;local d_b,_ab=pairs,ipairs;local aab=os.clock;local bab={}
+local function cab(dcb,_db)return dcb>_db end;local function dab(dcb,_db)return dcb<_db end
+local function _bb(dcb,_db,adb)return(dcb<_db)and _db or
+(dcb>adb and adb or dcb)end;local function abb(dcb,_db)return _db and true end
+local function bbb(dcb)return not dcb end
+local function cbb(dcb)local _db=0;for adb,bdb in d_b(dcb)do _db=_db+1 end;return _db end
+local function dbb(dcb,_db,adb,...)local bdb;local cdb=adb or bab.identity;for ddb,__c in d_b(dcb)do
+if not bdb then bdb=cdb(__c,...)else
+local a_c=cdb(__c,...)bdb=_db(bdb,a_c)and bdb or a_c end end;return bdb end
+local function _cb(dcb,_db,adb,bdb)for i=0,#dcb,_db do local cdb=bab.slice(dcb,i+1,i+_db)
+if#cdb>0 then while
+(#cdb<_db and bdb)do cdb[#cdb+1]=bdb end;adb(cdb)end end end
+local function acb(dcb,_db,adb,bdb)
+for i=0,#dcb,_db-1 do local cdb=bab.slice(dcb,i+1,i+_db)if
+#cdb>0 and i+1 <#dcb then while(#cdb<_db and bdb)do cdb[#cdb+1]=bdb end
+adb(cdb)end end end
+local function bcb(dcb,_db,adb)if _db==0 then adb(dcb)end
+for i=1,_db do dcb[_db],dcb[i]=dcb[i],dcb[_db]bcb(dcb,_db-
+1,adb)dcb[_db],dcb[i]=dcb[i],dcb[_db]end end;local ccb=-1
+function bab.clear(dcb)for _db in d_b(dcb)do dcb[_db]=nil end;return dcb end
+function bab.each(dcb,_db,...)for adb,bdb in d_b(dcb)do _db(adb,bdb,...)end end
+function bab.eachi(dcb,_db,...)
+local adb=bab.sort(bab.select(bab.keys(dcb),function(bdb,cdb)return bab.isInteger(cdb)end))for bdb,cdb in _ab(adb)do _db(cdb,dcb[cdb],...)end end
+function bab.at(dcb,...)local _db={}for adb,bdb in _ab({...})do
+if bab.has(dcb,bdb)then _db[#_db+1]=dcb[bdb]end end;return _db end
+function bab.count(dcb,_db)if bab.isNil(_db)then return bab.size(dcb)end;local adb=0
+bab.each(dcb,function(bdb,cdb)if
+bab.isEqual(cdb,_db)then adb=adb+1 end end)return adb end
+function bab.countf(dcb,_db,...)return bab.count(bab.map(dcb,_db,...),true)end
+function bab.cycle(dcb,_db)_db=_db or 1;if _db<=0 then return bab.noop end;local adb,bdb;local cdb=0
 while true do
 return
-function()dcb=dcb and
-_ba(bcb,dcb)or _ba(bcb)
-_db=not _db and dcb or _db;if ccb then adb=(dcb==_db)and adb+1 or adb
-if adb>ccb then return end end;return dcb,bcb[dcb]end end end
-function _ab.map(bcb,ccb,...)local dcb={}
-for _db,adb in c_b(bcb)do local bdb,cdb,ddb=_db,ccb(_db,adb,...)dcb[ddb and cdb or bdb]=
-ddb or cdb end;return dcb end;function _ab.reduce(bcb,ccb,dcb)
-for _db,adb in c_b(bcb)do if dcb==nil then dcb=adb else dcb=ccb(dcb,adb)end end;return dcb end;function _ab.reduceby(bcb,ccb,dcb,_db,...)return
-_ab.reduce(_ab.select(bcb,_db,...),ccb,dcb)end;function _ab.reduceRight(bcb,ccb,dcb)return
-_ab.reduce(_ab.reverse(bcb),ccb,dcb)end
-function _ab.mapReduce(bcb,ccb,dcb)
-local _db={}for adb,bdb in c_b(bcb)do _db[adb]=not dcb and bdb or ccb(dcb,bdb)
-dcb=_db[adb]end;return _db end;function _ab.mapReduceRight(bcb,ccb,dcb)
-return _ab.mapReduce(_ab.reverse(bcb),ccb,dcb)end
-function _ab.include(bcb,ccb)local dcb=
-_ab.isFunction(ccb)and ccb or _ab.isEqual;for _db,adb in c_b(bcb)do if dcb(adb,ccb)then
+function()adb=adb and
+aba(dcb,adb)or aba(dcb)
+bdb=not bdb and adb or bdb;if _db then cdb=(adb==bdb)and cdb+1 or cdb
+if cdb>_db then return end end;return adb,dcb[adb]end end end
+function bab.map(dcb,_db,...)local adb={}
+for bdb,cdb in d_b(dcb)do local ddb,__c,a_c=bdb,_db(bdb,cdb,...)adb[a_c and __c or ddb]=
+a_c or __c end;return adb end;function bab.reduce(dcb,_db,adb)
+for bdb,cdb in d_b(dcb)do if adb==nil then adb=cdb else adb=_db(adb,cdb)end end;return adb end;function bab.reduceby(dcb,_db,adb,bdb,...)return
+bab.reduce(bab.select(dcb,bdb,...),_db,adb)end;function bab.reduceRight(dcb,_db,adb)return
+bab.reduce(bab.reverse(dcb),_db,adb)end
+function bab.mapReduce(dcb,_db,adb)
+local bdb={}for cdb,ddb in d_b(dcb)do bdb[cdb]=not adb and ddb or _db(adb,ddb)
+adb=bdb[cdb]end;return bdb end;function bab.mapReduceRight(dcb,_db,adb)
+return bab.mapReduce(bab.reverse(dcb),_db,adb)end
+function bab.include(dcb,_db)local adb=
+bab.isFunction(_db)and _db or bab.isEqual;for bdb,cdb in d_b(dcb)do if adb(cdb,_db)then
 return true end end;return false end
-function _ab.detect(bcb,ccb)
-local dcb=_ab.isFunction(ccb)and ccb or _ab.isEqual;for _db,adb in c_b(bcb)do if dcb(adb,ccb)then return _db end end end
-function _ab.where(bcb,ccb)
-local dcb=_ab.select(bcb,function(_db,adb)
-for bdb in c_b(ccb)do if adb[bdb]~=ccb[bdb]then return false end end;return true end)return#dcb>0 and dcb or nil end
-function _ab.findWhere(bcb,ccb)
-local dcb=_ab.detect(bcb,function(_db)for adb in c_b(ccb)do
-if ccb[adb]~=_db[adb]then return false end end;return true end)return dcb and bcb[dcb]end
-function _ab.select(bcb,ccb,...)local dcb={}for _db,adb in c_b(bcb)do
-if ccb(_db,adb,...)then dcb[#dcb+1]=adb end end;return dcb end
-function _ab.reject(bcb,ccb,...)local dcb=_ab.map(bcb,ccb,...)local _db={}for adb,bdb in c_b(dcb)do if not bdb then
-_db[#_db+1]=bcb[adb]end end;return _db end
-function _ab.all(bcb,ccb,...)return( (#_ab.select(_ab.map(bcb,ccb,...),dab))==
-abb(bcb))end
-function _ab.invoke(bcb,ccb,...)local dcb={...}
+function bab.detect(dcb,_db)
+local adb=bab.isFunction(_db)and _db or bab.isEqual;for bdb,cdb in d_b(dcb)do if adb(cdb,_db)then return bdb end end end
+function bab.where(dcb,_db)
+local adb=bab.select(dcb,function(bdb,cdb)
+for ddb in d_b(_db)do if cdb[ddb]~=_db[ddb]then return false end end;return true end)return#adb>0 and adb or nil end
+function bab.findWhere(dcb,_db)
+local adb=bab.detect(dcb,function(bdb)for cdb in d_b(_db)do
+if _db[cdb]~=bdb[cdb]then return false end end;return true end)return adb and dcb[adb]end
+function bab.select(dcb,_db,...)local adb={}for bdb,cdb in d_b(dcb)do
+if _db(bdb,cdb,...)then adb[#adb+1]=cdb end end;return adb end
+function bab.reject(dcb,_db,...)local adb=bab.map(dcb,_db,...)local bdb={}for cdb,ddb in d_b(adb)do if not ddb then
+bdb[#bdb+1]=dcb[cdb]end end;return bdb end
+function bab.all(dcb,_db,...)return( (#bab.select(bab.map(dcb,_db,...),abb))==
+cbb(dcb))end
+function bab.invoke(dcb,_db,...)local adb={...}
 return
-_ab.map(bcb,function(_db,adb)
-if _ab.isTable(adb)then
-if _ab.has(adb,ccb)then
+bab.map(dcb,function(bdb,cdb)
+if bab.isTable(cdb)then
+if bab.has(cdb,_db)then
 if
-_ab.isCallable(adb[ccb])then return adb[ccb](adb,b_b(dcb))else return adb[ccb]end else
-if _ab.isCallable(ccb)then return ccb(adb,b_b(dcb))end end elseif _ab.isCallable(ccb)then return ccb(adb,b_b(dcb))end end)end
-function _ab.pluck(bcb,ccb)return
-_ab.reject(_ab.map(bcb,function(dcb,_db)return _db[ccb]end),_bb)end;function _ab.max(bcb,ccb,...)return bbb(bcb,aab,ccb,...)end;function _ab.min(bcb,ccb,...)return
-bbb(bcb,bab,ccb,...)end
-function _ab.shuffle(bcb,ccb)if ccb then _da(ccb)end
-local dcb={}
-_ab.each(bcb,function(_db,adb)local bdb=cda(ada()*_db)+1;dcb[_db]=dcb[bdb]
-dcb[bdb]=adb end)return dcb end
-function _ab.same(bcb,ccb)
+bab.isCallable(cdb[_db])then return cdb[_db](cdb,c_b(adb))else return cdb[_db]end else
+if bab.isCallable(_db)then return _db(cdb,c_b(adb))end end elseif bab.isCallable(_db)then return _db(cdb,c_b(adb))end end)end
+function bab.pluck(dcb,_db)return
+bab.reject(bab.map(dcb,function(adb,bdb)return bdb[_db]end),bbb)end;function bab.max(dcb,_db,...)return dbb(dcb,cab,_db,...)end;function bab.min(dcb,_db,...)return
+dbb(dcb,dab,_db,...)end
+function bab.shuffle(dcb,_db)if _db then ada(_db)end
+local adb={}
+bab.each(dcb,function(bdb,cdb)local ddb=dda(bda()*bdb)+1;adb[bdb]=adb[ddb]
+adb[ddb]=cdb end)return adb end
+function bab.same(dcb,_db)
 return
-_ab.all(bcb,function(dcb,_db)return _ab.include(ccb,_db)end)and
-_ab.all(ccb,function(dcb,_db)return _ab.include(bcb,_db)end)end;function _ab.sort(bcb,ccb)bca(bcb,ccb)return bcb end
-function _ab.sortBy(bcb,ccb,dcb)
-local _db=ccb or _ab.identity
-if _ab.isString(ccb)then _db=function(bdb)return bdb[ccb]end end;dcb=dcb or bab;local adb={}
-_ab.each(bcb,function(bdb,cdb)
-adb[#adb+1]={value=cdb,transform=_db(cdb)}end)
-bca(adb,function(bdb,cdb)return dcb(bdb.transform,cdb.transform)end)return _ab.pluck(adb,'value')end
-function _ab.groupBy(bcb,ccb,...)local dcb={...}local _db={}
-_ab.each(bcb,function(adb,bdb)local cdb=ccb(adb,bdb,b_b(dcb))
+bab.all(dcb,function(adb,bdb)return bab.include(_db,bdb)end)and
+bab.all(_db,function(adb,bdb)return bab.include(dcb,bdb)end)end;function bab.sort(dcb,_db)cca(dcb,_db)return dcb end
+function bab.sortBy(dcb,_db,adb)
+local bdb=_db or bab.identity
+if bab.isString(_db)then bdb=function(ddb)return ddb[_db]end end;adb=adb or dab;local cdb={}
+bab.each(dcb,function(ddb,__c)
+cdb[#cdb+1]={value=__c,transform=bdb(__c)}end)
+cca(cdb,function(ddb,__c)return adb(ddb.transform,__c.transform)end)return bab.pluck(cdb,'value')end
+function bab.groupBy(dcb,_db,...)local adb={...}local bdb={}
+bab.each(dcb,function(cdb,ddb)local __c=_db(cdb,ddb,c_b(adb))
 if
-_db[cdb]then _db[cdb][#_db[cdb]+1]=bdb else _db[cdb]={bdb}end end)return _db end
-function _ab.countBy(bcb,ccb,...)local dcb={...}local _db={}
-_ab.each(bcb,function(adb,bdb)local cdb=ccb(adb,bdb,b_b(dcb))_db[cdb]=(
-_db[cdb]or 0)+1 end)return _db end
-function _ab.size(...)local bcb={...}local ccb=bcb[1]if _ab.isTable(ccb)then return abb(bcb[1])else
-return abb(bcb)end end;function _ab.containsKeys(bcb,ccb)
-for dcb in c_b(ccb)do if not bcb[dcb]then return false end end;return true end
-function _ab.sameKeys(bcb,ccb)for dcb in
-c_b(bcb)do if not ccb[dcb]then return false end end;for dcb in
-c_b(ccb)do if not bcb[dcb]then return false end end
+bdb[__c]then bdb[__c][#bdb[__c]+1]=ddb else bdb[__c]={ddb}end end)return bdb end
+function bab.countBy(dcb,_db,...)local adb={...}local bdb={}
+bab.each(dcb,function(cdb,ddb)local __c=_db(cdb,ddb,c_b(adb))bdb[__c]=(
+bdb[__c]or 0)+1 end)return bdb end
+function bab.size(...)local dcb={...}local _db=dcb[1]if bab.isTable(_db)then return cbb(dcb[1])else
+return cbb(dcb)end end;function bab.containsKeys(dcb,_db)
+for adb in d_b(_db)do if not dcb[adb]then return false end end;return true end
+function bab.sameKeys(dcb,_db)for adb in
+d_b(dcb)do if not _db[adb]then return false end end;for adb in
+d_b(_db)do if not dcb[adb]then return false end end
 return true end
-function _ab.sample(bcb,ccb,dcb)ccb=ccb or 1;if ccb<1 then return end;if ccb==1 then if dcb then _da(dcb)end;return
-bcb[ada(1,#bcb)]end;return
-_ab.slice(_ab.shuffle(bcb,dcb),1,ccb)end
-function _ab.sampleProb(bcb,ccb,dcb)if dcb then _da(dcb)end;return
-_ab.select(bcb,function(_db,adb)return ada()<ccb end)end;function _ab.toArray(...)return{...}end
-function _ab.find(bcb,ccb,dcb)for i=dcb or 1,#bcb do if
-_ab.isEqual(bcb[i],ccb)then return i end end end
-function _ab.reverse(bcb)local ccb={}for i=#bcb,1,-1 do ccb[#ccb+1]=bcb[i]end;return ccb end;function _ab.fill(bcb,ccb,dcb,_db)_db=_db or _ab.size(bcb)
-for i=dcb or 1,_db do bcb[i]=ccb end;return bcb end
-function _ab.selectWhile(bcb,ccb,...)
-local dcb={}
-for _db,adb in d_b(bcb)do if ccb(_db,adb,...)then dcb[_db]=adb else break end end;return dcb end
-function _ab.dropWhile(bcb,ccb,...)local dcb
-for _db,adb in d_b(bcb)do if not ccb(_db,adb,...)then dcb=_db;break end end;if _ab.isNil(dcb)then return{}end;return _ab.rest(bcb,dcb)end
-function _ab.sortedIndex(bcb,ccb,dcb,_db)local adb=dcb or bab;if _db then _ab.sort(bcb,adb)end;for i=1,#bcb do if not
-adb(bcb[i],ccb)then return i end end
-return#bcb+1 end
-function _ab.indexOf(bcb,ccb)for k=1,#bcb do if bcb[k]==ccb then return k end end end
-function _ab.lastIndexOf(bcb,ccb)local dcb=_ab.indexOf(_ab.reverse(bcb),ccb)if dcb then return
-#bcb-dcb+1 end end;function _ab.findIndex(bcb,ccb,...)
-for k=1,#bcb do if ccb(k,bcb[k],...)then return k end end end
-function _ab.findLastIndex(bcb,ccb,...)
-local dcb=_ab.findIndex(_ab.reverse(bcb),ccb,...)if dcb then return#bcb-dcb+1 end end;function _ab.addTop(bcb,...)
-_ab.each({...},function(ccb,dcb)aca(bcb,1,dcb)end)return bcb end;function _ab.push(bcb,...)_ab.each({...},function(ccb,dcb)
-bcb[#bcb+1]=dcb end)
-return bcb end
-function _ab.pop(bcb,ccb)
-ccb=__b(ccb or 1,#bcb)local dcb={}
-for i=1,ccb do local _db=bcb[1]dcb[#dcb+1]=_db;cca(bcb,1)end;return b_b(dcb)end
-function _ab.unshift(bcb,ccb)ccb=__b(ccb or 1,#bcb)local dcb={}for i=1,ccb do local _db=bcb[#bcb]
-dcb[#dcb+1]=_db;cca(bcb)end;return b_b(dcb)end
-function _ab.pull(bcb,...)
-for ccb,dcb in d_b({...})do for i=#bcb,1,-1 do
-if _ab.isEqual(bcb[i],dcb)then cca(bcb,i)end end end;return bcb end
-function _ab.removeRange(bcb,ccb,dcb)local _db=_ab.clone(bcb)local adb,bdb=(_ba(_db)),#_db
-if bdb<1 then return _db end;ccb=cab(ccb or adb,adb,bdb)
-dcb=cab(dcb or bdb,adb,bdb)if dcb<ccb then return _db end;local cdb=dcb-ccb+1;local ddb=ccb;while cdb>0 do
-cca(_db,ddb)cdb=cdb-1 end;return _db end
-function _ab.chunk(bcb,ccb,...)if not _ab.isArray(bcb)then return bcb end;local dcb,_db,adb={},0
-local bdb=_ab.map(bcb,ccb,...)
-_ab.each(bdb,function(cdb,ddb)adb=(adb==nil)and ddb or adb;_db=(
-(ddb~=adb)and(_db+1)or _db)
-if not dcb[_db]then dcb[_db]={bcb[cdb]}else dcb[_db][
-#dcb[_db]+1]=bcb[cdb]end;adb=ddb end)return dcb end
-function _ab.slice(bcb,ccb,dcb)return
-_ab.select(bcb,function(_db)return
-(_db>= (ccb or _ba(bcb))and _db<= (dcb or#bcb))end)end;function _ab.first(bcb,ccb)local dcb=ccb or 1
-return _ab.slice(bcb,1,__b(dcb,#bcb))end
-function _ab.initial(bcb,ccb)
-if ccb and ccb<0 then return end;return
-_ab.slice(bcb,1,ccb and#bcb- (__b(ccb,#bcb))or#bcb-1)end;function _ab.last(bcb,ccb)if ccb and ccb<=0 then return end
-return _ab.slice(bcb,ccb and
-#bcb-__b(ccb-1,#bcb-1)or 2,#bcb)end;function _ab.rest(bcb,ccb)if ccb and
-ccb>#bcb then return{}end
-return _ab.slice(bcb,
-ccb and dda(1,__b(ccb,#bcb))or 1,#bcb)end;function _ab.nth(bcb,ccb)
-return bcb[ccb]end;function _ab.compact(bcb)return
-_ab.reject(bcb,function(ccb,dcb)return not dcb end)end
-function _ab.flatten(bcb,ccb)local dcb=
-ccb or false;local _db;local adb={}
-for bdb,cdb in c_b(bcb)do
-if _ab.isTable(cdb)then _db=dcb and cdb or
-_ab.flatten(cdb)
-_ab.each(_db,function(ddb,__c)adb[#adb+1]=__c end)else adb[#adb+1]=cdb end end;return adb end
-function _ab.difference(bcb,ccb)if not ccb then return _ab.clone(bcb)end;return
-_ab.select(bcb,function(dcb,_db)return not
-_ab.include(ccb,_db)end)end
-function _ab.union(...)return _ab.uniq(_ab.flatten({...}))end
-function _ab.intersection(bcb,...)local ccb={...}local dcb={}
-for _db,adb in d_b(bcb)do if
-_ab.all(ccb,function(bdb,cdb)return _ab.include(cdb,adb)end)then aca(dcb,adb)end end;return dcb end
-function _ab.symmetricDifference(bcb,ccb)return
-_ab.difference(_ab.union(bcb,ccb),_ab.intersection(bcb,ccb))end
-function _ab.unique(bcb)local ccb={}for i=1,#bcb do if not _ab.find(ccb,bcb[i])then
-ccb[#ccb+1]=bcb[i]end end;return ccb end
-function _ab.isunique(bcb)return _ab.isEqual(bcb,_ab.unique(bcb))end
-function _ab.zip(...)local bcb={...}
-local ccb=_ab.max(_ab.map(bcb,function(_db,adb)return#adb end))local dcb={}for i=1,ccb do dcb[i]=_ab.pluck(bcb,i)end;return dcb end
-function _ab.append(bcb,ccb)local dcb={}for _db,adb in d_b(bcb)do dcb[_db]=adb end;for _db,adb in d_b(ccb)do
-dcb[#dcb+1]=adb end;return dcb end
-function _ab.interleave(...)return _ab.flatten(_ab.zip(...))end;function _ab.interpose(bcb,ccb)return
-_ab.flatten(_ab.zip(ccb,_ab.rep(bcb,#ccb-1)))end
-function _ab.range(...)
-local bcb={...}local ccb,dcb,_db
-if#bcb==0 then return{}elseif#bcb==1 then dcb,ccb,_db=bcb[1],0,1 elseif#bcb==2 then
-ccb,dcb,_db=bcb[1],bcb[2],1 elseif#bcb==3 then ccb,dcb,_db=bcb[1],bcb[2],bcb[3]end;if(_db and _db==0)then return{}end;local adb={}
-local bdb=dda(cda((dcb-ccb)/_db),0)for i=1,bdb do adb[#adb+1]=ccb+_db*i end;if#adb>0 then
-aca(adb,1,ccb)end;return adb end
-function _ab.rep(bcb,ccb)local dcb={}for i=1,ccb do dcb[#dcb+1]=bcb end;return dcb end;function _ab.partition(bcb,ccb,dcb)if ccb<=0 then return end
+function bab.sample(dcb,_db,adb)_db=_db or 1;if _db<1 then return end;if _db==1 then if adb then ada(adb)end;return
+dcb[bda(1,#dcb)]end;return
+bab.slice(bab.shuffle(dcb,adb),1,_db)end
+function bab.sampleProb(dcb,_db,adb)if adb then ada(adb)end;return
+bab.select(dcb,function(bdb,cdb)return bda()<_db end)end;function bab.toArray(...)return{...}end
+function bab.find(dcb,_db,adb)for i=adb or 1,#dcb do if
+bab.isEqual(dcb[i],_db)then return i end end end
+function bab.reverse(dcb)local _db={}for i=#dcb,1,-1 do _db[#_db+1]=dcb[i]end;return _db end;function bab.fill(dcb,_db,adb,bdb)bdb=bdb or bab.size(dcb)
+for i=adb or 1,bdb do dcb[i]=_db end;return dcb end
+function bab.selectWhile(dcb,_db,...)
+local adb={}
+for bdb,cdb in _ab(dcb)do if _db(bdb,cdb,...)then adb[bdb]=cdb else break end end;return adb end
+function bab.dropWhile(dcb,_db,...)local adb
+for bdb,cdb in _ab(dcb)do if not _db(bdb,cdb,...)then adb=bdb;break end end;if bab.isNil(adb)then return{}end;return bab.rest(dcb,adb)end
+function bab.sortedIndex(dcb,_db,adb,bdb)local cdb=adb or dab;if bdb then bab.sort(dcb,cdb)end;for i=1,#dcb do if not
+cdb(dcb[i],_db)then return i end end
+return#dcb+1 end
+function bab.indexOf(dcb,_db)for k=1,#dcb do if dcb[k]==_db then return k end end end
+function bab.lastIndexOf(dcb,_db)local adb=bab.indexOf(bab.reverse(dcb),_db)if adb then return
+#dcb-adb+1 end end;function bab.findIndex(dcb,_db,...)
+for k=1,#dcb do if _db(k,dcb[k],...)then return k end end end
+function bab.findLastIndex(dcb,_db,...)
+local adb=bab.findIndex(bab.reverse(dcb),_db,...)if adb then return#dcb-adb+1 end end;function bab.addTop(dcb,...)
+bab.each({...},function(_db,adb)bca(dcb,1,adb)end)return dcb end;function bab.push(dcb,...)bab.each({...},function(_db,adb)
+dcb[#dcb+1]=adb end)
+return dcb end
+function bab.pop(dcb,_db)
+_db=a_b(_db or 1,#dcb)local adb={}
+for i=1,_db do local bdb=dcb[1]adb[#adb+1]=bdb;dca(dcb,1)end;return c_b(adb)end
+function bab.unshift(dcb,_db)_db=a_b(_db or 1,#dcb)local adb={}for i=1,_db do local bdb=dcb[#dcb]
+adb[#adb+1]=bdb;dca(dcb)end;return c_b(adb)end
+function bab.pull(dcb,...)
+for _db,adb in _ab({...})do for i=#dcb,1,-1 do
+if bab.isEqual(dcb[i],adb)then dca(dcb,i)end end end;return dcb end
+function bab.removeRange(dcb,_db,adb)local bdb=bab.clone(dcb)local cdb,ddb=(aba(bdb)),#bdb
+if ddb<1 then return bdb end;_db=_bb(_db or cdb,cdb,ddb)
+adb=_bb(adb or ddb,cdb,ddb)if adb<_db then return bdb end;local __c=adb-_db+1;local a_c=_db;while __c>0 do
+dca(bdb,a_c)__c=__c-1 end;return bdb end
+function bab.chunk(dcb,_db,...)if not bab.isArray(dcb)then return dcb end;local adb,bdb,cdb={},0
+local ddb=bab.map(dcb,_db,...)
+bab.each(ddb,function(__c,a_c)cdb=(cdb==nil)and a_c or cdb;bdb=(
+(a_c~=cdb)and(bdb+1)or bdb)
+if not adb[bdb]then adb[bdb]={dcb[__c]}else adb[bdb][
+#adb[bdb]+1]=dcb[__c]end;cdb=a_c end)return adb end
+function bab.slice(dcb,_db,adb)return
+bab.select(dcb,function(bdb)return
+(bdb>= (_db or aba(dcb))and bdb<= (adb or#dcb))end)end;function bab.first(dcb,_db)local adb=_db or 1
+return bab.slice(dcb,1,a_b(adb,#dcb))end
+function bab.initial(dcb,_db)
+if _db and _db<0 then return end;return
+bab.slice(dcb,1,_db and#dcb- (a_b(_db,#dcb))or#dcb-1)end;function bab.last(dcb,_db)if _db and _db<=0 then return end
+return bab.slice(dcb,_db and
+#dcb-a_b(_db-1,#dcb-1)or 2,#dcb)end;function bab.rest(dcb,_db)if _db and
+_db>#dcb then return{}end
+return bab.slice(dcb,
+_db and __b(1,a_b(_db,#dcb))or 1,#dcb)end;function bab.nth(dcb,_db)
+return dcb[_db]end;function bab.compact(dcb)return
+bab.reject(dcb,function(_db,adb)return not adb end)end
+function bab.flatten(dcb,_db)local adb=
+_db or false;local bdb;local cdb={}
+for ddb,__c in d_b(dcb)do
+if bab.isTable(__c)then bdb=adb and __c or
+bab.flatten(__c)
+bab.each(bdb,function(a_c,b_c)cdb[#cdb+1]=b_c end)else cdb[#cdb+1]=__c end end;return cdb end
+function bab.difference(dcb,_db)if not _db then return bab.clone(dcb)end;return
+bab.select(dcb,function(adb,bdb)return not
+bab.include(_db,bdb)end)end
+function bab.union(...)return bab.uniq(bab.flatten({...}))end
+function bab.intersection(dcb,...)local _db={...}local adb={}
+for bdb,cdb in _ab(dcb)do if
+bab.all(_db,function(ddb,__c)return bab.include(__c,cdb)end)then bca(adb,cdb)end end;return adb end
+function bab.symmetricDifference(dcb,_db)return
+bab.difference(bab.union(dcb,_db),bab.intersection(dcb,_db))end
+function bab.unique(dcb)local _db={}for i=1,#dcb do if not bab.find(_db,dcb[i])then
+_db[#_db+1]=dcb[i]end end;return _db end
+function bab.isunique(dcb)return bab.isEqual(dcb,bab.unique(dcb))end
+function bab.zip(...)local dcb={...}
+local _db=bab.max(bab.map(dcb,function(bdb,cdb)return#cdb end))local adb={}for i=1,_db do adb[i]=bab.pluck(dcb,i)end;return adb end
+function bab.append(dcb,_db)local adb={}for bdb,cdb in _ab(dcb)do adb[bdb]=cdb end;for bdb,cdb in _ab(_db)do
+adb[#adb+1]=cdb end;return adb end
+function bab.interleave(...)return bab.flatten(bab.zip(...))end;function bab.interpose(dcb,_db)return
+bab.flatten(bab.zip(_db,bab.rep(dcb,#_db-1)))end
+function bab.range(...)
+local dcb={...}local _db,adb,bdb
+if#dcb==0 then return{}elseif#dcb==1 then adb,_db,bdb=dcb[1],0,1 elseif#dcb==2 then
+_db,adb,bdb=dcb[1],dcb[2],1 elseif#dcb==3 then _db,adb,bdb=dcb[1],dcb[2],dcb[3]end;if(bdb and bdb==0)then return{}end;local cdb={}
+local ddb=__b(dda((adb-_db)/bdb),0)for i=1,ddb do cdb[#cdb+1]=_db+bdb*i end;if#cdb>0 then
+bca(cdb,1,_db)end;return cdb end
+function bab.rep(dcb,_db)local adb={}for i=1,_db do adb[#adb+1]=dcb end;return adb end;function bab.partition(dcb,_db,adb)if _db<=0 then return end
 return coroutine.wrap(function()
-cbb(bcb,ccb or 1,coroutine.yield,dcb)end)end;function _ab.sliding(bcb,ccb,dcb)if
-ccb<=1 then return end
+_cb(dcb,_db or 1,coroutine.yield,adb)end)end;function bab.sliding(dcb,_db,adb)if
+_db<=1 then return end
 return coroutine.wrap(function()
-dbb(bcb,ccb or 2,coroutine.yield,dcb)end)end
-function _ab.permutation(bcb)return
-coroutine.wrap(function()_cb(bcb,
-#bcb,coroutine.yield)end)end;function _ab.invert(bcb)local ccb={}
-_ab.each(bcb,function(dcb,_db)ccb[_db]=dcb end)return ccb end
-function _ab.concat(bcb,ccb,dcb,_db)
-local adb=_ab.map(bcb,function(bdb,cdb)return
-tostring(cdb)end)return dca(adb,ccb,dcb or 1,_db or#bcb)end;function _ab.noop()return end;function _ab.identity(bcb)return bcb end;function _ab.constant(bcb)return
-function()return bcb end end
-function _ab.once(bcb)local ccb=0;local dcb={}return
-function(...)ccb=ccb+1;if
-ccb<=1 then dcb={...}end;return bcb(b_b(dcb))end end
-function _ab.memoize(bcb,ccb)local dcb=dba({},{__mode='kv'})
-local _db=ccb or _ab.identity
-return function(...)local adb=_db(...)local bdb=dcb[adb]
-if not bdb then dcb[adb]=bcb(...)end;return dcb[adb]end end
-function _ab.after(bcb,ccb)local dcb,_db=ccb,0;return
-function(...)_db=_db+1;if _db>=dcb then return bcb(...)end end end
-function _ab.compose(...)local bcb=_ab.reverse{...}
-return function(...)local ccb,dcb=true
-for _db,adb in d_b(bcb)do if ccb then ccb=false
-dcb=adb(...)else dcb=adb(dcb)end end;return dcb end end
-function _ab.pipe(bcb,...)return _ab.compose(...)(bcb)end
-function _ab.complement(bcb)return function(...)return not bcb(...)end end;function _ab.juxtapose(bcb,...)local ccb={}
-_ab.each({...},function(dcb,_db)ccb[#ccb+1]=_db(bcb)end)return b_b(ccb)end
-function _ab.wrap(bcb,ccb)return function(...)return
-ccb(bcb,...)end end
-function _ab.times(bcb,ccb,...)local dcb={}for i=1,bcb do dcb[i]=ccb(i,...)end;return dcb end
-function _ab.bind(bcb,ccb)return function(...)return bcb(ccb,...)end end;function _ab.bind2(bcb,ccb)
-return function(dcb,...)return bcb(dcb,ccb,...)end end;function _ab.bindn(bcb,...)local ccb={...}
+acb(dcb,_db or 2,coroutine.yield,adb)end)end
+function bab.permutation(dcb)return
+coroutine.wrap(function()bcb(dcb,
+#dcb,coroutine.yield)end)end;function bab.invert(dcb)local _db={}
+bab.each(dcb,function(adb,bdb)_db[bdb]=adb end)return _db end
+function bab.concat(dcb,_db,adb,bdb)
+local cdb=bab.map(dcb,function(ddb,__c)return
+tostring(__c)end)return _da(cdb,_db,adb or 1,bdb or#dcb)end;function bab.noop()return end;function bab.identity(dcb)return dcb end;function bab.constant(dcb)return
+function()return dcb end end
+function bab.once(dcb)local _db=0;local adb={}return
+function(...)_db=_db+1;if
+_db<=1 then adb={...}end;return dcb(c_b(adb))end end
+function bab.memoize(dcb,_db)local adb=_ca({},{__mode='kv'})
+local bdb=_db or bab.identity
+return function(...)local cdb=bdb(...)local ddb=adb[cdb]
+if not ddb then adb[cdb]=dcb(...)end;return adb[cdb]end end
+function bab.after(dcb,_db)local adb,bdb=_db,0;return
+function(...)bdb=bdb+1;if bdb>=adb then return dcb(...)end end end
+function bab.compose(...)local dcb=bab.reverse{...}
+return function(...)local _db,adb=true
+for bdb,cdb in _ab(dcb)do if _db then _db=false
+adb=cdb(...)else adb=cdb(adb)end end;return adb end end
+function bab.pipe(dcb,...)return bab.compose(...)(dcb)end
+function bab.complement(dcb)return function(...)return not dcb(...)end end;function bab.juxtapose(dcb,...)local _db={}
+bab.each({...},function(adb,bdb)_db[#_db+1]=bdb(dcb)end)return c_b(_db)end
+function bab.wrap(dcb,_db)return function(...)return
+_db(dcb,...)end end
+function bab.times(dcb,_db,...)local adb={}for i=1,dcb do adb[i]=_db(i,...)end;return adb end
+function bab.bind(dcb,_db)return function(...)return dcb(_db,...)end end;function bab.bind2(dcb,_db)
+return function(adb,...)return dcb(adb,_db,...)end end;function bab.bindn(dcb,...)local _db={...}
 return function(...)return
-bcb(b_b(_ab.append(ccb,{...})))end end
-function _ab.bindAll(bcb,...)local ccb={...}
-for dcb,_db in
-d_b(ccb)do local adb=bcb[_db]if adb then bcb[_db]=_ab.bind(adb,bcb)end end;return bcb end
-function _ab.uniqueId(bcb,...)acb=acb+1
-if bcb then if _ab.isString(bcb)then return bcb:format(acb)elseif
-_ab.isFunction(bcb)then return bcb(acb,...)end end;return acb end
-function _ab.iterator(bcb,ccb)return function()ccb=bcb(ccb)return ccb end end
-function _ab.array(...)local bcb={}for ccb in...do bcb[#bcb+1]=ccb end;return bcb end;function _ab.flip(bcb)return
-function(...)return bcb(b_b(_ab.reverse({...})))end end;function _ab.over(...)
-local bcb={...}
-return function(...)local ccb={}for dcb,_db in d_b(bcb)do ccb[#ccb+1]=_db(...)end
-return ccb end end;function _ab.overEvery(...)
-local bcb=_ab.over(...)
+dcb(c_b(bab.append(_db,{...})))end end
+function bab.bindAll(dcb,...)local _db={...}
+for adb,bdb in
+_ab(_db)do local cdb=dcb[bdb]if cdb then dcb[bdb]=bab.bind(cdb,dcb)end end;return dcb end
+function bab.uniqueId(dcb,...)ccb=ccb+1
+if dcb then if bab.isString(dcb)then return dcb:format(ccb)elseif
+bab.isFunction(dcb)then return dcb(ccb,...)end end;return ccb end
+function bab.iterator(dcb,_db)return function()_db=dcb(_db)return _db end end
+function bab.array(...)local dcb={}for _db in...do dcb[#dcb+1]=_db end;return dcb end;function bab.flip(dcb)return
+function(...)return dcb(c_b(bab.reverse({...})))end end;function bab.over(...)
+local dcb={...}
+return function(...)local _db={}for adb,bdb in _ab(dcb)do _db[#_db+1]=bdb(...)end
+return _db end end;function bab.overEvery(...)
+local dcb=bab.over(...)
 return function(...)return
-_ab.reduce(bcb(...),function(ccb,dcb)return ccb and dcb end)end end;function _ab.overSome(...)
-local bcb=_ab.over(...)
+bab.reduce(dcb(...),function(_db,adb)return _db and adb end)end end;function bab.overSome(...)
+local dcb=bab.over(...)
 return function(...)return
-_ab.reduce(bcb(...),function(ccb,dcb)return ccb or dcb end)end end
-function _ab.overArgs(bcb,...)
-local ccb={...}return
-function(...)local dcb={...}for i=1,#ccb do local _db=ccb[i]
-if dcb[i]then dcb[i]=_db(dcb[i])end end;return bcb(b_b(dcb))end end
-function _ab.partial(bcb,...)local ccb={...}
+bab.reduce(dcb(...),function(_db,adb)return _db or adb end)end end
+function bab.overArgs(dcb,...)
+local _db={...}return
+function(...)local adb={...}for i=1,#_db do local bdb=_db[i]
+if adb[i]then adb[i]=bdb(adb[i])end end;return dcb(c_b(adb))end end
+function bab.partial(dcb,...)local _db={...}
 return
-function(...)local dcb={...}local _db={}for adb,bdb in d_b(ccb)do _db[adb]=
-(bdb=='_')and _ab.pop(dcb)or bdb end;return
-bcb(b_b(_ab.append(_db,dcb)))end end
-function _ab.partialRight(bcb,...)local ccb={...}
+function(...)local adb={...}local bdb={}for cdb,ddb in _ab(_db)do bdb[cdb]=
+(ddb=='_')and bab.pop(adb)or ddb end;return
+dcb(c_b(bab.append(bdb,adb)))end end
+function bab.partialRight(dcb,...)local _db={...}
 return
-function(...)local dcb={...}local _db={}
-for k=1,#ccb do _db[k]=
-(ccb[k]=='_')and _ab.pop(dcb)or ccb[k]end;return bcb(b_b(_ab.append(dcb,_db)))end end
-function _ab.curry(bcb,ccb)ccb=ccb or 2;local dcb={}
-local function _db(adb)if ccb==1 then return bcb(adb)end;if adb~=nil then
-dcb[#dcb+1]=adb end;if#dcb<ccb then return _db else local bdb={bcb(b_b(dcb))}dcb={}return
-b_b(bdb)end end;return _db end;function _ab.keys(bcb)local ccb={}
-_ab.each(bcb,function(dcb)ccb[#ccb+1]=dcb end)return ccb end;function _ab.values(bcb)local ccb={}
-_ab.each(bcb,function(dcb,_db)ccb[
-#ccb+1]=_db end)return ccb end;function _ab.kvpairs(bcb)local ccb={}
-_ab.each(bcb,function(dcb,_db)ccb[
-#ccb+1]={dcb,_db}end)return ccb end
-function _ab.toObj(bcb)local ccb={}for dcb,_db in
-d_b(bcb)do ccb[_db[1]]=_db[2]end;return ccb end
-function _ab.property(bcb)return function(ccb)return ccb[bcb]end end
-function _ab.propertyOf(bcb)return function(ccb)return bcb[ccb]end end;function _ab.toBoolean(bcb)return not not bcb end
-function _ab.extend(bcb,...)local ccb={...}
-_ab.each(ccb,function(dcb,_db)if
-_ab.isTable(_db)then
-_ab.each(_db,function(adb,bdb)bcb[adb]=bdb end)end end)return bcb end
-function _ab.functions(bcb,ccb)bcb=bcb or _ab;local dcb={}
-_ab.each(bcb,function(adb,bdb)if _ab.isFunction(bdb)then
-dcb[#dcb+1]=adb end end)if not ccb then return _ab.sort(dcb)end;local _db=_ca(bcb)
+function(...)local adb={...}local bdb={}
+for k=1,#_db do bdb[k]=
+(_db[k]=='_')and bab.pop(adb)or _db[k]end;return dcb(c_b(bab.append(adb,bdb)))end end
+function bab.curry(dcb,_db)_db=_db or 2;local adb={}
+local function bdb(cdb)if _db==1 then return dcb(cdb)end;if cdb~=nil then
+adb[#adb+1]=cdb end;if#adb<_db then return bdb else local ddb={dcb(c_b(adb))}adb={}return
+c_b(ddb)end end;return bdb end
+function bab.time(dcb,...)local _db=aab()local adb={dcb(...)}return aab()-_db,c_b(adb)end;function bab.keys(dcb)local _db={}
+bab.each(dcb,function(adb)_db[#_db+1]=adb end)return _db end;function bab.values(dcb)local _db={}
+bab.each(dcb,function(adb,bdb)_db[
+#_db+1]=bdb end)return _db end;function bab.kvpairs(dcb)local _db={}
+bab.each(dcb,function(adb,bdb)_db[
+#_db+1]={adb,bdb}end)return _db end
+function bab.toObj(dcb)local _db={}for adb,bdb in
+_ab(dcb)do _db[bdb[1]]=bdb[2]end;return _db end
+function bab.property(dcb)return function(_db)return _db[dcb]end end
+function bab.propertyOf(dcb)return function(_db)return dcb[_db]end end;function bab.toBoolean(dcb)return not not dcb end
+function bab.extend(dcb,...)local _db={...}
+bab.each(_db,function(adb,bdb)if
+bab.isTable(bdb)then
+bab.each(bdb,function(cdb,ddb)dcb[cdb]=ddb end)end end)return dcb end
+function bab.functions(dcb,_db)dcb=dcb or bab;local adb={}
+bab.each(dcb,function(cdb,ddb)if bab.isFunction(ddb)then
+adb[#adb+1]=cdb end end)if not _db then return bab.sort(adb)end;local bdb=aca(dcb)
 if
-_db and _db.__index then local adb=_ab.functions(_db.__index)_ab.each(adb,function(bdb,cdb)
-dcb[#dcb+1]=cdb end)end;return _ab.sort(dcb)end
-function _ab.clone(bcb,ccb)if not _ab.isTable(bcb)then return bcb end;local dcb={}
-_ab.each(bcb,function(_db,adb)if
-_ab.isTable(adb)then
-if not ccb then dcb[_db]=_ab.clone(adb,ccb)else dcb[_db]=adb end else dcb[_db]=adb end end)return dcb end;function _ab.tap(bcb,ccb,...)ccb(bcb,...)return bcb end;function _ab.has(bcb,ccb)return
-bcb[ccb]~=nil end
-function _ab.pick(bcb,...)local ccb=_ab.flatten{...}
-local dcb={}
-_ab.each(ccb,function(_db,adb)
-if not _ab.isNil(bcb[adb])then dcb[adb]=bcb[adb]end end)return dcb end
-function _ab.omit(bcb,...)local ccb=_ab.flatten{...}local dcb={}
-_ab.each(bcb,function(_db,adb)if
-not _ab.include(ccb,_db)then dcb[_db]=adb end end)return dcb end;function _ab.template(bcb,ccb)
-_ab.each(ccb or{},function(dcb,_db)if not bcb[dcb]then bcb[dcb]=_db end end)return bcb end
-function _ab.isEqual(bcb,ccb,dcb)
-local _db=aba(bcb)local adb=aba(ccb)if _db~=adb then return false end
-if _db~='table'then return(bcb==ccb)end;local bdb=_ca(bcb)local cdb=_ca(ccb)if dcb then
+bdb and bdb.__index then local cdb=bab.functions(bdb.__index)bab.each(cdb,function(ddb,__c)
+adb[#adb+1]=__c end)end;return bab.sort(adb)end
+function bab.clone(dcb,_db)if not bab.isTable(dcb)then return dcb end;local adb={}
+bab.each(dcb,function(bdb,cdb)if
+bab.isTable(cdb)then
+if not _db then adb[bdb]=bab.clone(cdb,_db)else adb[bdb]=cdb end else adb[bdb]=cdb end end)return adb end;function bab.tap(dcb,_db,...)_db(dcb,...)return dcb end;function bab.has(dcb,_db)return
+dcb[_db]~=nil end
+function bab.pick(dcb,...)local _db=bab.flatten{...}
+local adb={}
+bab.each(_db,function(bdb,cdb)
+if not bab.isNil(dcb[cdb])then adb[cdb]=dcb[cdb]end end)return adb end
+function bab.omit(dcb,...)local _db=bab.flatten{...}local adb={}
+bab.each(dcb,function(bdb,cdb)if
+not bab.include(_db,bdb)then adb[bdb]=cdb end end)return adb end;function bab.template(dcb,_db)
+bab.each(_db or{},function(adb,bdb)if not dcb[adb]then dcb[adb]=bdb end end)return dcb end
+function bab.isEqual(dcb,_db,adb)
+local bdb=bba(dcb)local cdb=bba(_db)if bdb~=cdb then return false end
+if bdb~='table'then return(dcb==_db)end;local ddb=aca(dcb)local __c=aca(_db)if adb then
 if
-(bdb or cdb)and(bdb.__eq or cdb.__eq)then return
-bdb.__eq(bcb,ccb)or cdb.__eq(ccb,bcb)or(bcb==ccb)end end;if _ab.size(bcb)~=
-_ab.size(ccb)then return false end;for ddb,__c in c_b(bcb)do local a_c=ccb[ddb]
+(ddb or __c)and(ddb.__eq or __c.__eq)then return
+ddb.__eq(dcb,_db)or __c.__eq(_db,dcb)or(dcb==_db)end end;if bab.size(dcb)~=
+bab.size(_db)then return false end;for a_c,b_c in d_b(dcb)do local c_c=_db[a_c]
 if
-_ab.isNil(a_c)or not _ab.isEqual(__c,a_c,dcb)then return false end end
-for ddb,__c in c_b(ccb)do
-local a_c=bcb[ddb]if _ab.isNil(a_c)then return false end end;return true end
-function _ab.result(bcb,ccb,...)
-if bcb[ccb]then if _ab.isCallable(bcb[ccb])then return bcb[ccb](bcb,...)else return
-bcb[ccb]end end;if _ab.isCallable(ccb)then return ccb(bcb,...)end end;function _ab.isTable(bcb)return aba(bcb)=='table'end
-function _ab.isCallable(bcb)return
+bab.isNil(c_c)or not bab.isEqual(b_c,c_c,adb)then return false end end
+for a_c,b_c in d_b(_db)do
+local c_c=dcb[a_c]if bab.isNil(c_c)then return false end end;return true end
+function bab.result(dcb,_db,...)
+if dcb[_db]then if bab.isCallable(dcb[_db])then return dcb[_db](dcb,...)else return
+dcb[_db]end end;if bab.isCallable(_db)then return _db(dcb,...)end end;function bab.isTable(dcb)return bba(dcb)=='table'end
+function bab.isCallable(dcb)return
 (
-_ab.isFunction(bcb)or
-(_ab.isTable(bcb)and _ca(bcb)and _ca(bcb).__call~=nil)or false)end
-function _ab.isArray(bcb)if not _ab.isTable(bcb)then return false end;local ccb=0
-for dcb in
-c_b(bcb)do ccb=ccb+1;if _ab.isNil(bcb[ccb])then return false end end;return true end
-function _ab.isIterable(bcb)return _ab.toBoolean((cba(c_b,bcb)))end
-function _ab.isEmpty(bcb)if _ab.isNil(bcb)then return true end;if _ab.isString(bcb)then
-return#bcb==0 end
-if _ab.isTable(bcb)then return _ba(bcb)==nil end;return true end;function _ab.isString(bcb)return aba(bcb)=='string'end;function _ab.isFunction(bcb)return
-aba(bcb)=='function'end;function _ab.isNil(bcb)
-return bcb==nil end
-function _ab.isNumber(bcb)return aba(bcb)=='number'end
-function _ab.isNaN(bcb)return _ab.isNumber(bcb)and bcb~=bcb end
-function _ab.isFinite(bcb)if not _ab.isNumber(bcb)then return false end;return
-bcb>-bda and bcb<bda end;function _ab.isBoolean(bcb)return aba(bcb)=='boolean'end
-function _ab.isInteger(bcb)return
-_ab.isNumber(bcb)and cda(bcb)==bcb end
-do _ab.forEach=_ab.each;_ab.forEachi=_ab.eachi;_ab.loop=_ab.cycle
-_ab.collect=_ab.map;_ab.inject=_ab.reduce;_ab.foldl=_ab.reduce
-_ab.injectr=_ab.reduceRight;_ab.foldr=_ab.reduceRight;_ab.mapr=_ab.mapReduce
-_ab.maprr=_ab.mapReduceRight;_ab.any=_ab.include;_ab.some=_ab.include;_ab.contains=_ab.include
-_ab.filter=_ab.select;_ab.discard=_ab.reject;_ab.every=_ab.all
-_ab.takeWhile=_ab.selectWhile;_ab.rejectWhile=_ab.dropWhile;_ab.shift=_ab.pop;_ab.remove=_ab.pull
-_ab.rmRange=_ab.removeRange;_ab.chop=_ab.removeRange;_ab.sub=_ab.slice;_ab.head=_ab.first
-_ab.take=_ab.first;_ab.tail=_ab.rest;_ab.skip=_ab.last;_ab.without=_ab.difference
-_ab.diff=_ab.difference;_ab.symdiff=_ab.symmetricDifference;_ab.xor=_ab.symmetricDifference
-_ab.uniq=_ab.unique;_ab.isuniq=_ab.isunique;_ab.transpose=_ab.zip;_ab.part=_ab.partition
-_ab.perm=_ab.permutation;_ab.mirror=_ab.invert;_ab.join=_ab.concat;_ab.cache=_ab.memoize
-_ab.juxt=_ab.juxtapose;_ab.uid=_ab.uniqueId;_ab.iter=_ab.iterator;_ab.methods=_ab.functions
-_ab.choose=_ab.pick;_ab.drop=_ab.omit;_ab.defaults=_ab.template;_ab.compare=_ab.isEqual end
-do local bcb={}local ccb={}ccb.__index=bcb;local function dcb(_db)local adb={_value=_db,_wrapped=true}
-return dba(adb,ccb)end
-dba(ccb,{__call=function(_db,adb)return dcb(adb)end,__index=function(_db,adb,...)return
-bcb[adb]end})function ccb.chain(_db)return dcb(_db)end
-function ccb:value()return self._value end;bcb.chain,bcb.value=ccb.chain,ccb.value
-for _db,adb in c_b(_ab)do
-bcb[_db]=function(bdb,...)local cdb=_ab.isTable(bdb)and
-bdb._wrapped or false
-if cdb then
-local ddb=bdb._value;local __c=adb(ddb,...)return dcb(__c)else return adb(bdb,...)end end end
-bcb.import=function(_db,adb)_db=_db or _ENV or _G;local bdb=_ab.functions()
-_ab.each(bdb,function(cdb,ddb)
+bab.isFunction(dcb)or
+(bab.isTable(dcb)and aca(dcb)and aca(dcb).__call~=nil)or false)end
+function bab.isArray(dcb)if not bab.isTable(dcb)then return false end;local _db=0
+for adb in
+d_b(dcb)do _db=_db+1;if bab.isNil(dcb[_db])then return false end end;return true end
+function bab.isIterable(dcb)return bab.toBoolean((dba(d_b,dcb)))end
+function bab.isEmpty(dcb)if bab.isNil(dcb)then return true end;if bab.isString(dcb)then
+return#dcb==0 end
+if bab.isTable(dcb)then return aba(dcb)==nil end;return true end;function bab.isString(dcb)return bba(dcb)=='string'end;function bab.isFunction(dcb)return
+bba(dcb)=='function'end;function bab.isNil(dcb)
+return dcb==nil end
+function bab.isNumber(dcb)return bba(dcb)=='number'end
+function bab.isNaN(dcb)return bab.isNumber(dcb)and dcb~=dcb end
+function bab.isFinite(dcb)if not bab.isNumber(dcb)then return false end;return
+dcb>-cda and dcb<cda end;function bab.isBoolean(dcb)return bba(dcb)=='boolean'end
+function bab.isInteger(dcb)return
+bab.isNumber(dcb)and dda(dcb)==dcb end
+do bab.forEach=bab.each;bab.forEachi=bab.eachi;bab.loop=bab.cycle
+bab.collect=bab.map;bab.inject=bab.reduce;bab.foldl=bab.reduce
+bab.injectr=bab.reduceRight;bab.foldr=bab.reduceRight;bab.mapr=bab.mapReduce
+bab.maprr=bab.mapReduceRight;bab.any=bab.include;bab.some=bab.include;bab.contains=bab.include
+bab.filter=bab.select;bab.discard=bab.reject;bab.every=bab.all
+bab.takeWhile=bab.selectWhile;bab.rejectWhile=bab.dropWhile;bab.shift=bab.pop;bab.remove=bab.pull
+bab.rmRange=bab.removeRange;bab.chop=bab.removeRange;bab.sub=bab.slice;bab.head=bab.first
+bab.take=bab.first;bab.tail=bab.rest;bab.skip=bab.last;bab.without=bab.difference
+bab.diff=bab.difference;bab.symdiff=bab.symmetricDifference;bab.xor=bab.symmetricDifference
+bab.uniq=bab.unique;bab.isuniq=bab.isunique;bab.transpose=bab.zip;bab.part=bab.partition
+bab.perm=bab.permutation;bab.mirror=bab.invert;bab.join=bab.concat;bab.cache=bab.memoize
+bab.juxt=bab.juxtapose;bab.uid=bab.uniqueId;bab.iter=bab.iterator;bab.methods=bab.functions
+bab.choose=bab.pick;bab.drop=bab.omit;bab.defaults=bab.template;bab.compare=bab.isEqual end
+do local dcb={}local _db={}_db.__index=dcb;local function adb(bdb)local cdb={_value=bdb,_wrapped=true}
+return _ca(cdb,_db)end
+_ca(_db,{__call=function(bdb,cdb)return adb(cdb)end,__index=function(bdb,cdb,...)return
+dcb[cdb]end})function _db.chain(bdb)return adb(bdb)end
+function _db:value()return self._value end;dcb.chain,dcb.value=_db.chain,_db.value
+for bdb,cdb in d_b(bab)do
+dcb[bdb]=function(ddb,...)local __c=bab.isTable(ddb)and
+ddb._wrapped or false
+if __c then
+local a_c=ddb._value;local b_c=cdb(a_c,...)return adb(b_c)else return cdb(ddb,...)end end end
+dcb.import=function(bdb,cdb)bdb=bdb or _ENV or _G;local ddb=bab.functions()
+bab.each(ddb,function(__c,a_c)
 if
-a_b(_db,ddb)then if not adb then _db[ddb]=_ab[ddb]end else _db[ddb]=_ab[ddb]end end)return _db end;ccb._VERSION='Moses v'..daa
-ccb._URL='http://github.com/Yonaba/Moses'
-ccb._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'ccb._DESCRIPTION='utility-belt library for functional programming in Lua'return
-ccb end
+b_b(bdb,a_c)then if not cdb then bdb[a_c]=bab[a_c]end else bdb[a_c]=bab[a_c]end end)return bdb end;_db._VERSION='Moses v'.._ba
+_db._URL='http://github.com/Yonaba/Moses'
+_db._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'_db._DESCRIPTION='utility-belt library for functional programming in Lua'return
+_db end

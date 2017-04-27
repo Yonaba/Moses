@@ -1612,6 +1612,21 @@ curried_product(3)(-5) -- => -15
 curried_product(0)(1) -- => 0
 ````
 
+### time (f, ...)
+
+Returns the execution time of `f (...)` in seconds and its results.
+
+```lua
+local function wait_count(n) 
+	local i = 0
+	while i < n do i = i + 1 end
+	return i
+end
+
+local time, i = _.time(wait_count, 1e6) -- => 0.002 1000000
+local time, i = _.time(wait_count, 1e7) -- => 0.018 10000000
+````
+
 **[[⬆]](#TOC)**
 
 ## <a name='object'>Object functions</a>

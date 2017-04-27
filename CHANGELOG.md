@@ -4,6 +4,7 @@
 
 * Added `_.array`
 * Added `_.clear`
+* Added `_.time`
 
 ## 1.6.0 (14/04/17)
 

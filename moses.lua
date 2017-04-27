@@ -8,16 +8,17 @@
 local _MODULEVERSION = '1.6.1'
 
 -- Internalisation
-local next, type, select, pcall = next, type, select, pcall
+local next, type, select, pcall  = next, type, select, pcall
 local setmetatable, getmetatable = setmetatable, getmetatable
-local t_insert, t_sort = table.insert, table.sort
-local t_remove,t_concat = table.remove, table.concat
-local randomseed, random, huge = math.randomseed, math.random, math.huge
-local floor, max, min = math.floor, math.max, math.min
-local rawget = rawget
-local unpack = table.unpack or unpack
-local pairs,ipairs = pairs,ipairs
-local _ = {}
+local t_insert, t_sort           = table.insert, table.sort
+local t_remove,t_concat          = table.remove, table.concat
+local randomseed, random, huge   = math.randomseed, math.random, math.huge
+local floor, max, min            = math.floor, math.max, math.min
+local rawget                     = rawget
+local unpack                     = table.unpack or unpack
+local pairs,ipairs               = pairs,ipairs
+local clock                      = os.clock
+local _                          = {}
 
 
 -- ======== Private helpers
@@ -1671,6 +1672,17 @@ function _.curry(f, n_args)
 		end
 	end
 	return scurry
+end
+
+--- Returns the execution time of `f (...)` and its returned values.
+-- @name time
+-- @param f a function
+-- @param[opt] ... optional args to `f`
+-- @return the execution time and the results of `f (...)`
+function _.time(f, ...)
+	local stime = clock()
+	local r = {f(...)}
+	return clock() - stime, unpack(r)
 end
 
 --- Object functions
