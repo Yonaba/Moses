@@ -1290,23 +1290,6 @@ function _.identity(value) return value end
 -- @return a constant function
 function _.constant(value) return function() return value end end
 
---- Returns a version of `f` that runs only once. Successive calls to `f`
--- will keep yielding the same output, no matter what the passed-in arguments are. 
--- It can be used to initialize variables.
--- @name once
--- @param f a function
--- @return a new function
--- @see after
-function _.once(f)
-  local _internal = 0
-  local _args = {}
-  return function(...)
-      _internal = _internal+1
-      if _internal<=1 then _args = {...} end
-      return f(unpack(_args))
-    end
-end
-
 --- Memoizes a given function by caching the computed result.
 -- Useful for speeding-up slow-running functions. If a `hash` function is passed,
 -- it will be used to compute hash keys for a set of input values for caching.
@@ -1326,6 +1309,42 @@ function _.memoize(f, hash)
     end
 end
 
+--- Returns a version of `f` that runs only once. Successive calls to `f`
+-- will keep yielding the same output, no matter what the passed-in arguments are. 
+-- It can be used to initialize variables.
+-- @name once
+-- @param f a function
+-- @return a new function
+-- @see before
+-- @see after
+function _.once(f)
+  local _internal = 0
+  local _args = {}
+  return function(...)
+		_internal = _internal+1
+		if _internal <= 1 then _args = {...} end
+		return f(unpack(_args))
+  end
+end
+
+--- Returns a version of `f` that will run no more than `count` times. Next calls will
+-- keep yielding the results of the count-th call.
+-- @name before
+-- @param f a function
+-- @param count a count
+-- @return a new function
+-- @see once
+-- @see after
+function _.before(f, count)
+  local _internal = 0
+  local _args = {}
+  return function(...)
+		_internal = _internal+1
+		if _internal <= count then _args = {...} end
+		return f(unpack(_args))
+  end
+end
+
 --- Returns a version of `f` that runs on the `count-th` call.
 -- Useful when dealing with asynchronous tasks.
 -- @name after
@@ -1333,12 +1352,13 @@ end
 -- @param count the number of calls before `f` will start running.
 -- @return a new function
 -- @see once
+-- @see before
 function _.after(f, count)
   local _limit,_internal = count, 0
   return function(...)
-      _internal = _internal+1
-      if _internal >= _limit then return f(...) end
-    end
+		_internal = _internal+1
+		if _internal >= _limit then return f(...) end
+  end
 end
 
 --- Composes functions. Each passed-in function consumes the return value of the function that follows.

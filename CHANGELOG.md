@@ -5,6 +5,7 @@
 * Added `_.array`
 * Added `_.clear`
 * Added `_.time`
+* Added `_.before`
 
 ## 1.6.0 (14/04/17)
 

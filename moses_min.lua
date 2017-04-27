@@ -205,13 +205,15 @@ function bab.concat(dcb,_db,adb,bdb)
 local cdb=bab.map(dcb,function(ddb,__c)return
 tostring(__c)end)return _da(cdb,_db,adb or 1,bdb or#dcb)end;function bab.noop()return end;function bab.identity(dcb)return dcb end;function bab.constant(dcb)return
 function()return dcb end end
-function bab.once(dcb)local _db=0;local adb={}return
-function(...)_db=_db+1;if
-_db<=1 then adb={...}end;return dcb(c_b(adb))end end
-function bab.memoize(dcb,_db)local adb=_ca({},{__mode='kv'})
-local bdb=_db or bab.identity
-return function(...)local cdb=bdb(...)local ddb=adb[cdb]
-if not ddb then adb[cdb]=dcb(...)end;return adb[cdb]end end
+function bab.memoize(dcb,_db)
+local adb=_ca({},{__mode='kv'})local bdb=_db or bab.identity;return
+function(...)local cdb=bdb(...)local ddb=adb[cdb]if not ddb then
+adb[cdb]=dcb(...)end;return adb[cdb]end end;function bab.once(dcb)local _db=0;local adb={}
+return function(...)_db=_db+1;if _db<=1 then adb={...}end
+return dcb(c_b(adb))end end
+function bab.before(dcb,_db)
+local adb=0;local bdb={}return
+function(...)adb=adb+1;if adb<=_db then bdb={...}end;return dcb(c_b(bdb))end end
 function bab.after(dcb,_db)local adb,bdb=_db,0;return
 function(...)bdb=bdb+1;if bdb>=adb then return dcb(...)end end end
 function bab.compose(...)local dcb=bab.reverse{...}

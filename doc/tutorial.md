@@ -1240,6 +1240,20 @@ pi(2) -- => 3.1415926535898
 pi(math.pi) -- => 3.1415926535898
 ````
 
+### memoize (f, hash)
+*Aliases: `_.cache`*.
+
+Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.
+
+```lua
+local function fibonacci(n)
+  return n < 2 and n or fibonacci(n-1)+fibonacci(n-2)
+end  
+local mem_fibonacci = _.memoize(fibonacci)
+fibonacci(20) -- => 6765 (but takes some time)
+mem_fibonacci(20) -- => 6765 (takes less time)
+````
+
 ### once (f)
 
 Produces a function that runs only once. Successive calls to this function will still yield the same input.
@@ -1253,18 +1267,18 @@ sq(4) -- => 1
 sq(5) -- => 1
 ````
 
-### memoize (f, hash)
-*Aliases: `_.cache`*.
+### before (f, count)
 
-Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.
+Returns a version of `f` that will run no more than `count` times. Next calls will keep yielding the results of the (n-th)-1 call.
 
 ```lua
-local function fibonacci(n)
-  return n < 2 and n or fibonacci(n-1)+fibonacci(n-2)
-end  
-local mem_fibonacci = _.memoize(fibonacci)
-fibonacci(20) -- => 6765 (but takes some time)
-mem_fibonacci(20) -- => 6765 (takes less time)
+local function greet(someone) return 'hello '..someone end
+local greetOnly3people = _.before(greet, 3)
+greetOnly3people('John') -- => 'hello John'
+greetOnly3people('Moe') -- => 'hello Moe'
+greetOnly3people('James') -- => 'hello James'
+greetOnly3people('Joseph') -- => 'hello James'
+greetOnly3people('Allan') -- => 'hello James'
 ````
 
 ### after (f, count)

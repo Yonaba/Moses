@@ -38,6 +38,60 @@ context('Utility functions specs', function()
     
   end)	
   
+	context('memoize', function()
+
+	local fib_time, fib_value, mfib_time, mfib_value
+	local fib, mfib
+	
+		before(function()
+			local function fib(n)
+				return n < 2 and n or fib(n-1)+fib(n-2)
+			end      
+			local times = 10
+			local mfib = _.memoize(fib)
+			fib_time = os.clock()
+				for i = 1, times do fib_value = (fib_value or 0)+fib(20) end
+			fib_time = (os.clock()-fib_time)*1000
+			
+			mfib_time = os.clock()
+				for i = 1, times do mfib_value = (mfib_value or 0)+mfib(20) end
+			mfib_time = (os.clock()-mfib_time  )*1000    
+		end)
+	
+		test('memoizes an expensive function by caching its results',function()
+			assert_true(mfib_time<=fib_time)
+		end)
+	
+		test('can take a hash function to compute an unique output for multiple args',function()
+		
+			local function hash(a,b) return (a^13+b^19) end
+			local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
+			local diffFact = function(a,b) return fact(a)-fact(b) end
+			local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
+			local times, rep = 100, 10
+			
+			local time = os.clock()
+			for j = 1,times do 
+				for ai = 1,rep do
+					for aj = 1,rep do diffFact(ai,aj) end
+				end
+			end
+			time = (os.clock()-time)*1000
+
+			local mtime = os.clock()
+			for j = 1,times do 
+				for ai = 1,rep do
+					for aj = 1,rep do mdiffFact(ai,aj) end
+				end
+			end
+			mtime = (os.clock()-mtime)*1000
+
+			assert_true(mtime<=time)
+
+		end)
+	
+	end)  
+
   context('once', function()
   
     test('returns a version of a function that runs once',function()
@@ -53,61 +107,23 @@ context('Utility functions specs', function()
     end)    
     
   end)
+	
+  context('before', function()
   
-  context('memoize', function()
-  
-    local fib_time, fib_value, mfib_time, mfib_value
-    local fib, mfib
-    
-    before(function()
-      local function fib(n)
-        return n < 2 and n or fib(n-1)+fib(n-2)
-      end      
-      local times = 10
-      local mfib = _.memoize(fib)
-      fib_time = os.clock()
-        for i = 1, times do fib_value = (fib_value or 0)+fib(20) end
-      fib_time = (os.clock()-fib_time)*1000
-      
-      mfib_time = os.clock()
-        for i = 1, times do mfib_value = (mfib_value or 0)+mfib(20) end
-      mfib_time = (os.clock()-mfib_time  )*1000    
+    test('returns a version of a function that runs no more than count-th calls',function()
+      local function say(something) return something end
+			local speak3times = _.before(say, 3)
+      assert_equal(speak3times('a'), 'a')
+      assert_equal(speak3times('b'), 'b')
+      assert_equal(speak3times('c'), 'c')
+      assert_equal(speak3times('d'), 'c')
+      assert_equal(speak3times('e'), 'c')
+      assert_equal(speak3times('f'), 'c')
     end)
     
-    test('memoizes an expensive function by caching its results',function()
-      assert_true(mfib_time<=fib_time)
-    end)
-    
-    test('can take a hash function to compute an unique output for multiple args',function()
-    
-      local function hash(a,b) return (a^13+b^19) end
-      local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
-      local diffFact = function(a,b) return fact(a)-fact(b) end
-      local mdiffFact = _.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-      local times, rep = 100, 10
-      
-      local time = os.clock()
-      for j = 1,times do 
-        for ai = 1,rep do
-          for aj = 1,rep do diffFact(ai,aj) end
-        end
-      end
-      time = (os.clock()-time)*1000
-
-      local mtime = os.clock()
-      for j = 1,times do 
-        for ai = 1,rep do
-          for aj = 1,rep do mdiffFact(ai,aj) end
-        end
-      end
-      mtime = (os.clock()-mtime)*1000
-
-      assert_true(mtime<=time)
-
-    end)
-    
-  end)  
-  
+  end)	
+	
+   
   context('after', function()
   
     test('returns a function that will respond on its count-th call',function()
