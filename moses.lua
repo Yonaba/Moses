@@ -82,6 +82,15 @@ local unique_id_counter = -1
 --- Table functions
 -- @section Table functions
 
+--- Clears a table. All its values become nil.
+-- @name clear
+-- @param t a table
+-- @return the given table, cleared.
+function _.clear(t)
+	for k in pairs(t) do t[k] = nil end
+	return t
+end
+
 --- Iterates on key-value pairs, calling `f (k, v)` at every step.
 -- <br/><em>Aliased as `forEach`</em>.
 -- @name each
@@ -1258,7 +1267,6 @@ function _.concat(array, sep, i, j)
   return t_concat(_array,sep,i or 1,j or #array)
 
 end
-
 
 --- Utility functions
 -- @section Utility functions

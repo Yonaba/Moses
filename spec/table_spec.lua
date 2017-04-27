@@ -3,7 +3,17 @@ local _ = require 'moses'
 
 context('Table functions specs', function()
 
-  context('each', function()
+  context('clear', function()
+	
+		test('', function()
+			local t = _.clear({'a', true, 'hello'})
+			assert_true(_.isEqual(t,{}))
+			assert_nil(next(t))
+		end)
+	
+	end)
+	
+	context('each', function()
   
     test('provides values and iteration count ', function()
       local t = {1,2,3}

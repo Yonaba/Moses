@@ -36,6 +36,13 @@ local _ = require ("moses")
 
 ## <a name='table'>Table functions</a>
 
+### clear (t)
+
+Clears a table. All its values becomes nil. It returns the passed-in table.
+
+```lua
+local t = _.clear({1,2,'hello',true}) -- => {}
+````
 
 ### each (t, f, ...)
 *Aliases: `_.forEach`*.

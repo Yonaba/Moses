@@ -20,6 +20,7 @@ dcb(adb)end end end
 local function _cb(bcb,ccb,dcb)if ccb==0 then dcb(bcb)end
 for i=1,ccb do bcb[ccb],bcb[i]=bcb[i],bcb[ccb]_cb(bcb,ccb-
 1,dcb)bcb[ccb],bcb[i]=bcb[i],bcb[ccb]end end;local acb=-1
+function _ab.clear(bcb)for ccb in c_b(bcb)do bcb[ccb]=nil end;return bcb end
 function _ab.each(bcb,ccb,...)for dcb,_db in c_b(bcb)do ccb(dcb,_db,...)end end
 function _ab.eachi(bcb,ccb,...)
 local dcb=_ab.sort(_ab.select(_ab.keys(bcb),function(_db,adb)return _ab.isInteger(adb)end))for _db,adb in d_b(dcb)do ccb(adb,bcb[adb],...)end end
