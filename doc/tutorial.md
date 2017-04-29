@@ -1964,7 +1964,7 @@ _.isInteger(-1) -- => true
 *Method chaining* (also known as *name parameter idiom*), is a technique for invoking consecutively method calls in object-oriented style.
 Each method returns an object, and methods calls are chained together.
 Moses offers chaining for your perusal. <br/>
-Let's use chaining to get the count of evey single word in some lyrics (case won't matter here).
+Let's use chaining to get the count of every single word in some lyrics (case will not matter here).
 
 
 ```lua
