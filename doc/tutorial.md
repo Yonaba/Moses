@@ -437,7 +437,7 @@ _.invoke({a,b,c,d},'call') -- => "{'a','a','a','a'}"
 
 ### pluck (t, property)
 
-Fetches all values indxed with specific key in a table of objects.
+Fetches all values indexed with specific key in a table of objects.
 
 ```lua
 local peoples = {
@@ -1231,7 +1231,7 @@ _.identity('hello!') -- => 'hello!'
 
 ### constant (value)
 
-Creates a constant function. This function will constinuously yield the same output.
+Creates a constant function. This function will continuously yield the same output.
 
 ```lua
 local pi = _.constant(math.pi)
