@@ -97,6 +97,15 @@ It complements built-in Lua functions, making easier common operations on tables
 
 <h2><a name='table'>Table functions</a></h2>
 
+<h3>clear (t)</h3>
+
+<p>Clears a table. All its values becomes nil. It returns the passed-in table.</p>
+
+<pre>
+<span class="keyword">local</span> t = _.clear({<span class="number">1</span>,<span class="number">2</span>,<span class="string">'hello'</span>,<span class="keyword">true</span>}) <span class="comment">-- =&gt; {}</span>
+</pre>
+
+
 <h3>each (t, f, &hellip;)</h3>
 
 <p><em>Aliases: <code>_.forEach</code></em>.</p>
@@ -537,7 +546,7 @@ _.invoke({a,b,c,d},<span class="string">'call'</span>) <span class="comment">-- 
 
 <h3>pluck (t, property)</h3>
 
-<p>Fetches all values indxed with specific key in a table of objects.</p>
+<p>Fetches all values indexed with specific key in a table of objects.</p>
 
 <pre>
 <span class="keyword">local</span> peoples = {
@@ -1430,13 +1439,29 @@ _.identity(<span class="number">1</span>)<span class="comment">-- =&gt; 1
 
 <h3>constant (value)</h3>
 
-<p>Creates a constant function. This function will constinuously yield the same output.</p>
+<p>Creates a constant function. This function will continuously yield the same output.</p>
 
 <pre>
 <span class="keyword">local</span> pi = _.constant(<span class="global">math</span>.pi)
 pi(<span class="number">1</span>) <span class="comment">-- =&gt; 3.1415926535898
 </span>pi(<span class="number">2</span>) <span class="comment">-- =&gt; 3.1415926535898
 </span>pi(<span class="global">math</span>.pi) <span class="comment">-- =&gt; 3.1415926535898</span>
+</pre>
+
+
+<h3>memoize (f, hash)</h3>
+
+<p><em>Aliases: <code>_.cache</code></em>.</p>
+
+<p>Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.</p>
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> fibonacci(n)
+  <span class="keyword">return</span> n &lt; <span class="number">2</span> <span class="keyword">and</span> n <span class="keyword">or</span> fibonacci(n-<span class="number">1</span>)+fibonacci(n-<span class="number">2</span>)
+<span class="keyword">end</span>
+<span class="keyword">local</span> mem_fibonacci = _.memoize(fibonacci)
+fibonacci(<span class="number">20</span>) <span class="comment">-- =&gt; 6765 (but takes some time)
+</span>mem_fibonacci(<span class="number">20</span>) <span class="comment">-- =&gt; 6765 (takes less time)</span>
 </pre>
 
 
@@ -1454,19 +1479,18 @@ sq(<span class="number">1</span>) <span class="comment">-- =&gt; 1
 </pre>
 
 
-<h3>memoize (f, hash)</h3>
+<h3>before (f, count)</h3>
 
-<p><em>Aliases: <code>_.cache</code></em>.</p>
-
-<p>Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.</p>
+<p>Returns a version of <code>f</code> that will run no more than <a href="../index.html#count">count</a> times. Next calls will keep yielding the results of the (n-th)-1 call.</p>
 
 <pre>
-<span class="keyword">local</span> <span class="keyword">function</span> fibonacci(n)
-  <span class="keyword">return</span> n &lt; <span class="number">2</span> <span class="keyword">and</span> n <span class="keyword">or</span> fibonacci(n-<span class="number">1</span>)+fibonacci(n-<span class="number">2</span>)
-<span class="keyword">end</span>
-<span class="keyword">local</span> mem_fibonacci = _.memoize(fibonacci)
-fibonacci(<span class="number">20</span>) <span class="comment">-- =&gt; 6765 (but takes some time)
-</span>mem_fibonacci(<span class="number">20</span>) <span class="comment">-- =&gt; 6765 (takes less time)</span>
+<span class="keyword">local</span> <span class="keyword">function</span> greet(someone) <span class="keyword">return</span> <span class="string">'hello '</span>..someone <span class="keyword">end</span>
+<span class="keyword">local</span> greetOnly3people = _.before(greet, <span class="number">3</span>)
+greetOnly3people(<span class="string">'John'</span>) <span class="comment">-- =&gt; 'hello John'
+</span>greetOnly3people(<span class="string">'Moe'</span>) <span class="comment">-- =&gt; 'hello Moe'
+</span>greetOnly3people(<span class="string">'James'</span>) <span class="comment">-- =&gt; 'hello James'
+</span>greetOnly3people(<span class="string">'Joseph'</span>) <span class="comment">-- =&gt; 'hello James'
+</span>greetOnly3people(<span class="string">'Allan'</span>) <span class="comment">-- =&gt; 'hello James'</span>
 </pre>
 
 
@@ -1654,6 +1678,17 @@ iter_po2() <span class="comment">-- =&gt; 2
 </pre>
 
 
+<h3>array (&hellip;)</h3>
+
+<p>Iterates a given iterator function and returns its values packed in an array.</p>
+
+<pre>
+<span class="keyword">local</span> text = <span class="string">'letters'</span>
+<span class="keyword">local</span> chars = <span class="global">string</span>.gmatch(text, <span class="string">'.'</span>)
+<span class="keyword">local</span> letters = _.array(chars) <span class="comment">-- =&gt; {'l','e','t','t','e','r','s'}</span>
+</pre>
+
+
 <h3>flip (f)</h3>
 
 <p>Creates a function of <code>f</code> with arguments flipped in reverse order.</p>
@@ -1819,8 +1854,8 @@ concat_right(<span class="string">'b'</span>,<span class="string">'c'</span>,<sp
 <pre>
 <span class="keyword">local</span> <span class="keyword">function</span> sumOf3args(x,y,z) <span class="keyword">return</span> x + y + z <span class="keyword">end</span>
 <span class="keyword">local</span> curried_sumOf3args = _.curry(sumOf3args, <span class="number">3</span>)
-sumOf3args(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)) <span class="comment">-- =&gt; 6
-</span>sumOf3args(<span class="number">0</span>)(<span class="number">6</span>)(<span class="number">9</span>)) <span class="comment">-- =&gt; 15</span>
+sumOf3args(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>) <span class="comment">-- =&gt; 6
+</span>sumOf3args(<span class="number">0</span>)(<span class="number">6</span>)(<span class="number">9</span>) <span class="comment">-- =&gt; 15</span>
 </pre>
 
 
@@ -1832,6 +1867,22 @@ sumOf3args(<span class="number">1</span>)(<span class="number">2</span>)(<span c
 curried_product(<span class="number">5</span>)(<span class="number">4</span>) <span class="comment">-- =&gt; 20
 </span>curried_product(<span class="number">3</span>)(-<span class="number">5</span>) <span class="comment">-- =&gt; -15
 </span>curried_product(<span class="number">0</span>)(<span class="number">1</span>) <span class="comment">-- =&gt; 0</span>
+</pre>
+
+
+<h3>time (f, &hellip;)</h3>
+
+<p>Returns the execution time of <code>f (&hellip;)</code> in seconds and its results.</p>
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> wait_count(n)
+    <span class="keyword">local</span> i = <span class="number">0</span>
+    <span class="keyword">while</span> i &lt; n <span class="keyword">do</span> i = i + <span class="number">1</span> <span class="keyword">end</span>
+    <span class="keyword">return</span> i
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> time, i = _.time(wait_count, <span class="number">1e6</span>) <span class="comment">-- =&gt; 0.002 1000000
+</span><span class="keyword">local</span> time, i = _.time(wait_count, <span class="number">1e7</span>) <span class="comment">-- =&gt; 0.018 10000000</span>
 </pre>
 
 
@@ -2197,7 +2248,7 @@ _.isInteger(<span class="global">math</span>.pi) <span class="comment">-- =&gt; 
 <p><em>Method chaining</em> (also known as <em>name parameter idiom</em>), is a technique for invoking consecutively method calls in object-oriented style.
 Each method returns an object, and methods calls are chained together.
 Moses offers chaining for your perusal. <br/>
-Let&rsquo;s use chaining to get the count of evey single word in some lyrics (case won&rsquo;t matter here).</p>
+Let&rsquo;s use chaining to get the count of every single word in some lyrics (case will not matter here).</p>
 
 <pre>
 <span class="keyword">local</span> lyrics = {
@@ -2291,7 +2342,7 @@ _.import(context, <span class="keyword">true</span>)
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-04-14 15:33:56 </i>
+<i style="float:right;">Last updated 2017-04-29 09:39:57 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

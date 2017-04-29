@@ -56,7 +56,7 @@
     <h3>Info:</h3>
     <ul>
         <li><strong>Copyright</strong>: 2012-2017</li>
-        <li><strong>Release</strong>: 1.6.0</li>
+        <li><strong>Release</strong>: 1.6.1</li>
         <li><strong>License</strong>: <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a></li>
         <li><strong>Author</strong>: <a href="http://github.com/Yonaba">Roland Yonaba</a></li>
     </ul>
@@ -64,6 +64,10 @@
 
 <h2><a href="#Table_functions">Table functions </a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#clear">clear (t)</a></td>
+	<td class="summary">Clears a table.</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#each">each (t, f[, ...])</a></td>
 	<td class="summary">Iterates on key-value pairs, calling <code>f (k, v)</code> at every step.</td>
@@ -337,7 +341,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#append">append (array, other)</a></td>
-	<td class="summary">Clones <code>array</code> and appends <code>other</code> values.</td>
+	<td class="summary">Clones <a href="index.html#array">array</a> and appends <code>other</code> values.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#interleave">interleave (...)</a></td>
@@ -345,7 +349,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#interpose">interpose (value, array)</a></td>
-	<td class="summary">Interposes value in-between consecutive pair of values in <code>array</code>.</td>
+	<td class="summary">Interposes value in-between consecutive pair of values in <a href="index.html#array">array</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#range">range ([from[, to[, step]]])</a></td>
@@ -391,12 +395,16 @@
 	<td class="summary">Creates a constant function which returns the same output on every call.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#memoize">memoize (f[, hash])</a></td>
+	<td class="summary">Memoizes a given function by caching the computed result.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#once">once (f)</a></td>
 	<td class="summary">Returns a version of <code>f</code> that runs only once.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#memoize">memoize (f[, hash])</a></td>
-	<td class="summary">Memoizes a given function by caching the computed result.</td>
+	<td class="name" nowrap><a href="#before">before (f, count)</a></td>
+	<td class="summary">Returns a version of <code>f</code> that will run no more than <a href="index.html#count">count</a> times.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#after">after (f, count)</a></td>
@@ -447,8 +455,12 @@
 	<td class="summary">Generates an unique ID for the current session.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#iterate">iterate (f, x)</a></td>
+	<td class="name" nowrap><a href="#iterator">iterator (f, x)</a></td>
 	<td class="summary">Produces an iterator which repeatedly apply a function <code>f</code> onto an input.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#array">array (...)</a></td>
+	<td class="summary">Iterates an iterator and returns its values in an array.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#flip">flip (f)</a></td>
@@ -481,6 +493,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#curry">curry (f[, n_args])</a></td>
 	<td class="summary">Curries a function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#time">time (f[, ...])</a></td>
+	<td class="summary">Returns the execution time of <code>f (&hellip;)</code> and its returned values.</td>
 	</tr>
 </table>
 <h2><a href="#Object_functions">Object functions </a></h2>
@@ -626,6 +642,31 @@
     <h2 class="section-header "><a name="Table_functions"></a>Table functions </h2>
 
     <dl class="function">
+    <dt>
+    <a name = "clear"></a>
+    <strong>clear (t)</strong>
+    </dt>
+    <dd>
+    Clears a table.  All its values become nil.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the given table, cleared.
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "each"></a>
     <strong>each (t, f[, ...])</strong>
@@ -2773,8 +2814,8 @@
     <strong>symmetricDifference (array, array2)</strong>
     </dt>
     <dd>
-    Performs a symmetric difference.  Returns values from <code>array</code> not present in <code>array2</code> and also values
- from <code>array2</code> not present in <code>array</code>.
+    Performs a symmetric difference.  Returns values from <a href="index.html#array">array</a> not present in <code>array2</code> and also values
+ from <code>array2</code> not present in <a href="index.html#array">array</a>.
  <br/><em>Aliased as <code>symdiff</code></em>
 
 
@@ -2897,7 +2938,7 @@
     <strong>append (array, other)</strong>
     </dt>
     <dd>
-    Clones <code>array</code> and appends <code>other</code> values.
+    Clones <a href="index.html#array">array</a> and appends <code>other</code> values.
 
 
     <h3>Parameters:</h3>
@@ -2955,7 +2996,7 @@
     <strong>interpose (value, array)</strong>
     </dt>
     <dd>
-    Interposes value in-between consecutive pair of values in <code>array</code>.
+    Interposes value in-between consecutive pair of values in <a href="index.html#array">array</a>.
 
 
     <h3>Parameters:</h3>
@@ -3284,37 +3325,6 @@
 
 </dd>
     <dt>
-    <a name = "once"></a>
-    <strong>once (f)</strong>
-    </dt>
-    <dd>
-    Returns a version of <code>f</code> that runs only once.  Successive calls to <code>f</code>
- will keep yielding the same output, no matter what the passed-in arguments are.
- It can be used to initialize variables.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">f</span>
-         a function
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        a new function
-    </ol>
-
-
-    <h3>See also:</h3>
-    <ul>
-         <a href="index.html#after">after</a>
-    </ul>
-
-
-</dd>
-    <dt>
     <a name = "memoize"></a>
     <strong>memoize (f[, hash])</strong>
     </dt>
@@ -3347,6 +3357,72 @@
 
 </dd>
     <dt>
+    <a name = "once"></a>
+    <strong>once (f)</strong>
+    </dt>
+    <dd>
+    Returns a version of <code>f</code> that runs only once.  Successive calls to <code>f</code>
+ will keep yielding the same output, no matter what the passed-in arguments are.
+ It can be used to initialize variables.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         a function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a new function
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#before">before</a></li>
+         <li><a href="index.html#after">after</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "before"></a>
+    <strong>before (f, count)</strong>
+    </dt>
+    <dd>
+    Returns a version of <code>f</code> that will run no more than <a href="index.html#count">count</a> times.  Next calls will
+ keep yielding the results of the count-th call.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         a function
+        </li>
+        <li><span class="parameter">count</span>
+         a count
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a new function
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#once">once</a></li>
+         <li><a href="index.html#after">after</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "after"></a>
     <strong>after (f, count)</strong>
     </dt>
@@ -3374,7 +3450,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#once">once</a>
+         <li><a href="index.html#once">once</a></li>
+         <li><a href="index.html#before">before</a></li>
     </ul>
 
 
@@ -3732,8 +3809,8 @@
 
 </dd>
     <dt>
-    <a name = "iterate"></a>
-    <strong>iterate (f, x)</strong>
+    <a name = "iterator"></a>
+    <strong>iterator (f, x)</strong>
     </dt>
     <dd>
     Produces an iterator which repeatedly apply a function <code>f</code> onto an input.<br/>
@@ -3755,6 +3832,31 @@
 
         an iterator fnction
  <br/><em>Aliased as <code>iter</code></em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "array"></a>
+    <strong>array (...)</strong>
+    </dt>
+    <dd>
+    Iterates an iterator and returns its values in an array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an iterator (a function, a table and a value)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array of results
     </ol>
 
 
@@ -4017,6 +4119,35 @@
          <li><a href="index.html#partial">partial</a></li>
          <li><a href="index.html#partialRight">partialRight</a></li>
     </ul>
+
+
+</dd>
+    <dt>
+    <a name = "time"></a>
+    <strong>time (f[, ...])</strong>
+    </dt>
+    <dd>
+    Returns the execution time of <code>f (&hellip;)</code> and its returned values.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         a function
+        </li>
+        <li><span class="parameter">...</span>
+         optional args to <code>f</code>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the execution time and the results of <code>f (&hellip;)</code>
+    </ol>
+
+
 
 
 </dd>
@@ -4944,7 +5075,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-04-14 15:33:56 </i>
+<i style="float:right;">Last updated 2017-04-29 09:39:57 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
