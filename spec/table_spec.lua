@@ -442,7 +442,7 @@ context('Table functions specs', function()
         {name = 'John', age = 23},{name = 'Peter', age = 17},
         {name = 'Steve', age = 15},{age = 33}}        
       assert_equal(_.max(_.pluck(peoples,'age')),33)
-      assert_equal(_.max(peoples,function(people) return people.age end),33)        
+      assert_equal(_.max(peoples,function(people) return people.age end),peoples[4])        
     end)
     
     test('directly compares items when given no iterator', function()
@@ -458,7 +458,7 @@ context('Table functions specs', function()
         {name = 'John', age = 23},{name = 'Peter', age = 17},
         {name = 'Steve', age = 15},{age = 33}}        
       assert_equal(_.min(_.pluck(peoples,'age')),15)
-      assert_equal(_.min(peoples,function(people) return people.age end),15)        
+      assert_equal(_.min(peoples,function(people) return people.age end),peoples[3])        
     end)
     
     test('directly compares items when given no iterator', function()
