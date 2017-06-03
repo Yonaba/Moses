@@ -36,13 +36,18 @@ local function count(t)  -- raw count of items in an map-table
 end
 
 local function extract(list,comp,transform,...) -- extracts value from a list
-  local _ans
+  local _ans, prev, curr
   local transform = transform or _.identity
-  for index,value in pairs(list) do
-    if not _ans then _ans = transform(value,...)
+  for index, value in pairs(list) do
+    if not _ans then 
+      _ans = value
+      prev = transform(value,...)
     else
-      local value = transform(value,...)
-      _ans = comp(_ans,value) and _ans or value
+      curr = transform(value,...)
+      if comp(curr, prev) then
+        _ans = value
+        prev = curr
+      end
     end
   end
   return _ans
