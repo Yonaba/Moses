@@ -44,8 +44,10 @@ local function extract(list,comp,transform,...) -- extracts value from a list
       prev = transform(value,...)
     else
       curr = transform(value,...)
-      _ans = comp(prev, curr) and _ans or value
-      prev = curr
+      if comp(curr, prev) then
+        _ans = value
+        prev = curr
+      end
     end
   end
   return _ans
