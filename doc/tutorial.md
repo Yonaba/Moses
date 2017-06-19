@@ -41,7 +41,7 @@ local _ = require ("moses")
 Clears a table. All its values becomes nil. It returns the passed-in table.
 
 ```lua
-local t = _.clear({1,2,'hello',true}) -- => {}
+local t = _.clear({1, 2, 'hello', true}) -- => {}
 ````
 
 ### each (t, f, ...)
@@ -50,7 +50,7 @@ local t = _.clear({1,2,'hello',true}) -- => {}
 Iterates over each key-value pair in table.
 
 ```lua
-_.each({1,2,3},print)
+_.each({ 1, 2, 3 }, print)
 
 -- => 1 1
 -- => 2 2
@@ -60,7 +60,7 @@ _.each({1,2,3},print)
 The table can be map-like (array part and hash-part).
 
 ```lua
-_.each({one = 1, two = 2, three = 3},print)
+_.each({ one=1, two=2, three=3 }, print)
 
 -- => one 1
 -- => two 2
@@ -70,8 +70,8 @@ _.each({one = 1, two = 2, three = 3},print)
 Can index and assign in an outer table or in the passed-in table:
 
 ```lua
-t = {'a','b','c'}
-_.each(t,function(i,v)
+t = {'a', 'b', 'c'}
+_.each(t, function(i, v)
   t[i] = v:rep(2)
   print(t[i])
 end)
@@ -87,7 +87,7 @@ end)
 Iterates only on integer keys in a sparse array table.
 
 ```lua
-_.eachi({1,2,3},print)
+_.eachi({1, 2, 3}, print)
 
 -- => 1 1
 -- => 2 2
@@ -97,9 +97,9 @@ _.eachi({1,2,3},print)
 The given array can be sparse, or even have a hash-like part.
 
 ```lua
-local t = {a = 1, b = 2, [0] = 1, [-1] = 6, 3, x = 4, 5}
-_.eachi(t,function(i,v)
-  print(i,v)
+local t = { a=1, b=2, [0]=1, [-1]=6, 3, x=4, 5 }
+_.eachi(t, function(i, v)
+  print(i, v)
 end)
 
 -- => -1 6
@@ -113,11 +113,11 @@ end)
 Collects all values at some specific keys and returns them in an array.
 
 ```lua
-local t = {4,5,6}
-_.at(t,1,3) -- => "{4,6}"
+local t = { 4, 5, 6 }
+_.at(t, 1, 3) -- => "{4,6}"
 
-local t = {a = 4, bb = true, ccc = false}
-_.at(t,'a', 'ccc') -- => "{4, false}"
+local t = { a=4, bb=true, ccc=false }
+_.at(t, 'a', 'ccc') -- => "{4, false}"
 ````
 
 ### count (t, value)
@@ -125,17 +125,17 @@ _.at(t,'a', 'ccc') -- => "{4, false}"
 Counts the number of occurences of a given value in a table.
 
 ```lua
-_.count({1,1,2,3,3,3,2,4,3,2},1) -- => 2
-_.count({1,1,2,3,3,3,2,4,3,2},2) -- => 2
-_.count({1,1,2,3,3,3,2,4,3,2},3) -- => 4
-_.count({false, false, true},false) -- => 2
-_.count({false, false, true},true) -- => 1
+_.count({ 1, 1, 2, 3, 3, 3, 2, 4, 3, 2 }, 1) -- => 2
+_.count({ 1, 1, 2, 3, 3, 3, 2, 4, 3, 2 }, 2) -- => 2
+_.count({ 1, 1, 2, 3, 3, 3, 2, 4, 3, 2 }, 3) -- => 4
+_.count({ false, false, true }, false) -- => 2
+_.count({ false, false, true }, true) -- => 1
 ````
 
 Returns the size of the list in case no value was provided.
 
 ```lua
-_.count({1,1,2,3,3}) -- => 5
+_.count({ 1, 1, 2, 3, 3 }) -- => 5
 ````
 
 ### countf (t, f, ...)
@@ -143,12 +143,12 @@ _.count({1,1,2,3,3}) -- => 5
 Count the number of occurences of all values passing an iterator test.
 
 ```lua
-_.countf({1,2,3,4,5,6}, function(i,v)
-  return v%2==0
+_.countf({ 1, 2, 3, 4, 5, 6}, function(i,v)
+  return v % 2 == 0
 end) -- => 3
 
-_.countf({print, pairs, os, assert, ipairs}, function(i,v)
-  return type(v)=='function'
+_.countf({ print, pairs, os, assert, ipairs }, function(i, v)
+  return type(v) == 'function'
 end) -- => 4
 ````
 
@@ -159,9 +159,9 @@ Returns a function which iterates on each key-value pair in a given table (simil
 If `n` is not provided, it defaults to 1.
 
 ```lua
-local t = {'a','b','c'}
+local t = { 'a', 'b', 'c' }
 for k,v in _.cycle(t, 2) do
-  print(k,v)
+  print(k, v)
 end
 
 -- => 1 'a'
@@ -175,9 +175,9 @@ end
 Supports array-like tables and map-like tables.
 
 ```lua
-local t = {x = 1, y = 2, z = 3}
+local t = { x=1, y=2, z=3 }
 for k,v in _.cycle(t) do
-  print(k,v)
+  print(k, v)
 end
 
 -- => y	2
@@ -191,22 +191,22 @@ end
 Executes a function on each key-value pairs.
 
 ```lua
-_.map({1,2,3},function(i,v) 
-  return v+10 
+_.map({ 1, 2, 3 },function(i, v) 
+  return v + 10
 end) -- => "{11,12,13}"
 ````
 
 ```lua
-_.map({a = 1, b = 2},function(k,v) 
-  return k..v 
+_.map({ a=1, b=2 },function(k, v) 
+  return k .. v 
 end) -- => "{a = 'a1', b = 'b2'}"
 ````
 
 It also maps key-value pairs to key-value pairs
 
 ```lua
-_.map({a = 1, b = 2},function(k,v) 
-  return k..k, v*2 
+_.map({ a=1, b=2 }, function(k, v) 
+  return k .. k, v * 2 
 end) -- => "{aa = 2, bb = 4}"
 ````
 
@@ -216,17 +216,17 @@ end) -- => "{aa = 2, bb = 4}"
 Can sums all values in a table.
 
 ```lua
-_.reduce({1,2,3,4},function(memo,v)
-  return memo+v 
+_.reduce({ 1, 2, 3, 4 }, function(memo, v)
+  return memo + v
 end) -- => 10
 ````
 
 Or concatenates all values.
 
 ```lua	
-_.reduce({'a','b','c','d'},function(memo,v) 
-  return memo..v 
-end) -- => abcd	 
+_.reduce({ 'a', 'b', 'c', 'd' }, function(memo, v) 
+  return memo .. v
+end) -- => abcd
 ````
 
 ### reduceby (t, f, state, pred, ...)
@@ -235,8 +235,8 @@ Reduces a table considering only values matching a predicate.
 For example,let us define a set of values.
 
 ```lua
-local val = {-1, 8, 0, -6, 3, -1, 7, 1, -9}
-````
+local val = { -1, 8, 0, -6, 3, -1, 7, 1, -9 }
+```
 We can also define some predicate functions.
 
 ```lua
@@ -245,21 +245,21 @@ local function neg(_, v) return v<=0 end
 
 -- predicate for positive values
 local function pos(_, v) return v>=0 end
-````
+```
 
 Then we can perform reduction considering only negative values :
 
 ```lua
-_.reduceby(val, function(memo,v)
-  return memo+v
+_.reduceby(val, function(memo, v)
+  return memo + v
 end, 0, neg) -- => -17
 ````
 
 Or only positive values :
 
 ```lua
-_.reduceby(val, function(memo,v)
-  return memo+v
+_.reduceby(val, function(memo, v)
+  return memo + v
 end, 0, pos) -- => 19
 ````
 
@@ -270,8 +270,8 @@ Similar to `_.reduce`, but performs from right to left.
 
 ```lua
 local initial_state = 256
-_.reduceRight({1,2,4,16},function(memo,v) 
-  return memo/v 
+_.reduceRight({ 1, 2, 4, 16 }, function(memo, v) 
+  return memo / v 
 end,initial_state) -- => 2
 ````
 
@@ -281,8 +281,8 @@ end,initial_state) -- => 2
 Reduces while saving intermediate states.
 
 ```lua
-_.mapReduce({'a','b','c'},function(memo,v) 
-  return memo..v 
+_.mapReduce({ 'a', 'b', 'c' }, function(memo, v) 
+  return memo .. v
 end) -- => "{'a', 'ab', 'abc'}"
 ````
 
@@ -2035,11 +2035,11 @@ each({1,2,3},print)
 Passing `noConflict` argument leaves untouched conflicting keys while importing into the context.
 
 ```lua
-local context = {each = 1}
+local context = { each=1 }
 _.import(context, true)
 
 print(context.each) -- => 1
-context.eachi({1,2,3},print)
+context.eachi({ 1, 2, 3 }, print)
 
 -- => 1 1
 -- => 2 2
