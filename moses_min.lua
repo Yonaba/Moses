@@ -7,9 +7,9 @@ local function _bb(dcb,_db,adb)return(dcb<_db)and _db or
 (dcb>adb and adb or dcb)end;local function abb(dcb,_db)return _db and true end
 local function bbb(dcb)return not dcb end
 local function cbb(dcb)local _db=0;for adb,bdb in d_b(dcb)do _db=_db+1 end;return _db end
-local function dbb(dcb,_db,adb,...)local bdb;local cdb=adb or bab.identity;for ddb,__c in d_b(dcb)do
-if not bdb then bdb=cdb(__c,...)else
-local a_c=cdb(__c,...)bdb=_db(bdb,a_c)and bdb or a_c end end;return bdb end
+local function dbb(dcb,_db,adb,...)local bdb,cdb,ddb;local __c=adb or bab.identity;for a_c,b_c in d_b(dcb)do
+if not bdb then bdb=b_c
+cdb=__c(b_c,...)else ddb=__c(b_c,...)if _db(ddb,cdb)then bdb=b_c;cdb=ddb end end end;return bdb end
 local function _cb(dcb,_db,adb,bdb)for i=0,#dcb,_db do local cdb=bab.slice(dcb,i+1,i+_db)
 if#cdb>0 then while
 (#cdb<_db and bdb)do cdb[#cdb+1]=bdb end;adb(cdb)end end end
@@ -188,9 +188,10 @@ bab.flatten(bab.zip(_db,bab.rep(dcb,#_db-1)))end
 function bab.range(...)
 local dcb={...}local _db,adb,bdb
 if#dcb==0 then return{}elseif#dcb==1 then adb,_db,bdb=dcb[1],0,1 elseif#dcb==2 then
-_db,adb,bdb=dcb[1],dcb[2],1 elseif#dcb==3 then _db,adb,bdb=dcb[1],dcb[2],dcb[3]end;if(bdb and bdb==0)then return{}end;local cdb={}
-local ddb=__b(dda((adb-_db)/bdb),0)for i=1,ddb do cdb[#cdb+1]=_db+bdb*i end;if#cdb>0 then
-bca(cdb,1,_db)end;return cdb end
+_db,adb,bdb=dcb[1],dcb[2],1 elseif#dcb==3 then _db,adb,bdb=dcb[1],dcb[2],dcb[3]end;if _db==adb then return{_db,adb}end;if(bdb==0)then return{}end;local cdb={}local ddb=__b(dda((adb-
+_db)/bdb),0)for i=1,ddb do cdb[#cdb+1]=_db+
+bdb*i end
+if#cdb>0 then bca(cdb,1,_db)end;return cdb end
 function bab.rep(dcb,_db)local adb={}for i=1,_db do adb[#adb+1]=dcb end;return adb end;function bab.partition(dcb,_db,adb)if _db<=0 then return end
 return coroutine.wrap(function()
 _cb(dcb,_db or 1,coroutine.yield,adb)end)end;function bab.sliding(dcb,_db,adb)if

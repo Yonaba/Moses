@@ -1184,7 +1184,8 @@ function _.range(...)
   elseif #arg==2 then _start,_stop,_step = arg[1],arg[2],1
   elseif #arg == 3 then _start,_stop,_step = arg[1],arg[2],arg[3]
   end
-  if (_step and _step==0) then return {} end
+  if _start == _stop then return {_start,_stop} end   
+  if (_step == 0) then return {} end 
   local _ranged = {}
   local _steps = max(floor((_stop-_start)/_step),0)
   for i=1,_steps do _ranged[#_ranged+1] = _start+_step*i end
