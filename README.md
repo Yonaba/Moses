@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/Yonaba/Moses.png)](https://travis-ci.org/Yonaba/Moses)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
-[![git-brag-stats](https://labs.turbo.run/git-brag?user=Yonaba&repo=Moses)](https://github.com/turbo/git-brag)
 
 A Lua utility-belt library for [functional programming](http://en.wikipedia.org/wiki/Functional_programming).<br/>
 
