@@ -615,6 +615,15 @@ end
 --- Array functions
 -- @section Array functions
 
+--- Returns the elements from the given array. It is actually a simple binding to the 
+-- built-in Lua function <code>unpack</code> (or `table.unpack` since Lua 5.3).
+-- @name unpack
+-- @param array a given array list of elements
+-- @param[opt] i the index at which to start returning values. Defaults to 1.
+-- @param[optchain] j the index at which to stop returning values. Defaults to `#array`.
+-- @return a list of elements
+_.unpack = unpack
+
 --- Samples `n` random values from an array. If `n` is not specified, returns a single element.
 -- It uses internally @{shuffle} to shuffle the array before sampling values. If `seed` is passed,
 -- it will be used for shuffling.

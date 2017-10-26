@@ -102,7 +102,7 @@ It complements built-in Lua functions, making easier common operations on tables
 <p>Clears a table. All its values becomes nil. It returns the passed-in table.</p>
 
 <pre>
-<span class="keyword">local</span> t = _.clear({<span class="number">1</span>,<span class="number">2</span>,<span class="string">'hello'</span>,<span class="keyword">true</span>}) <span class="comment">-- =&gt; {}</span>
+<span class="keyword">local</span> t = _.clear({<span class="number">1</span>, <span class="number">2</span>, <span class="string">'hello'</span>, <span class="keyword">true</span>}) <span class="comment">-- =&gt; {}</span>
 </pre>
 
 
@@ -113,7 +113,7 @@ It complements built-in Lua functions, making easier common operations on tables
 <p>Iterates over each key-value pair in table.</p>
 
 <pre>
-_.each({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>},<span class="global">print</span>)
+_.each({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> }, <span class="global">print</span>)
 
 <span class="comment">-- =&gt; 1 1
 </span><span class="comment">-- =&gt; 2 2
@@ -124,7 +124,7 @@ _.each({<span class="number">1</span>,<span class="number">2</span>,<span class=
 <p>The table can be map-like (array part and hash-part).</p>
 
 <pre>
-_.each({one = <span class="number">1</span>, two = <span class="number">2</span>, three = <span class="number">3</span>},<span class="global">print</span>)
+_.each({ one=<span class="number">1</span>, two=<span class="number">2</span>, three=<span class="number">3</span> }, <span class="global">print</span>)
 
 <span class="comment">-- =&gt; one 1
 </span><span class="comment">-- =&gt; two 2
@@ -135,8 +135,8 @@ _.each({one = <span class="number">1</span>, two = <span class="number">2</span>
 <p>Can index and assign in an outer table or in the passed-in table:</p>
 
 <pre>
-t = {<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>}
-_.each(t,<span class="keyword">function</span>(i,v)
+t = {<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>}
+_.each(t, <span class="keyword">function</span>(i, v)
   t[i] = v:rep(<span class="number">2</span>)
   <span class="global">print</span>(t[i])
 <span class="keyword">end</span>)
@@ -154,7 +154,7 @@ _.each(t,<span class="keyword">function</span>(i,v)
 <p>Iterates only on integer keys in a sparse array table.</p>
 
 <pre>
-_.eachi({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>},<span class="global">print</span>)
+_.eachi({<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}, <span class="global">print</span>)
 
 <span class="comment">-- =&gt; 1 1
 </span><span class="comment">-- =&gt; 2 2
@@ -165,9 +165,9 @@ _.eachi({<span class="number">1</span>,<span class="number">2</span>,<span class
 <p>The given array can be sparse, or even have a hash-like part.</p>
 
 <pre>
-<span class="keyword">local</span> t = {a = <span class="number">1</span>, b = <span class="number">2</span>, [<span class="number">0</span>] = <span class="number">1</span>, [-<span class="number">1</span>] = <span class="number">6</span>, <span class="number">3</span>, x = <span class="number">4</span>, <span class="number">5</span>}
-_.eachi(t,<span class="keyword">function</span>(i,v)
-  <span class="global">print</span>(i,v)
+<span class="keyword">local</span> t = { a=<span class="number">1</span>, b=<span class="number">2</span>, [<span class="number">0</span>]=<span class="number">1</span>, [-<span class="number">1</span>]=<span class="number">6</span>, <span class="number">3</span>, x=<span class="number">4</span>, <span class="number">5</span> }
+_.eachi(t, <span class="keyword">function</span>(i, v)
+  <span class="global">print</span>(i, v)
 <span class="keyword">end</span>)
 
 <span class="comment">-- =&gt; -1 6
@@ -182,11 +182,11 @@ _.eachi(t,<span class="keyword">function</span>(i,v)
 <p>Collects all values at some specific keys and returns them in an array.</p>
 
 <pre>
-<span class="keyword">local</span> t = {<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>}
-_.at(t,<span class="number">1</span>,<span class="number">3</span>) <span class="comment">-- =&gt; "{4,6}"
+<span class="keyword">local</span> t = { <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> }
+_.at(t, <span class="number">1</span>, <span class="number">3</span>) <span class="comment">-- =&gt; "{4,6}"
 </span>
-<span class="keyword">local</span> t = {a = <span class="number">4</span>, bb = <span class="keyword">true</span>, ccc = <span class="keyword">false</span>}
-_.at(t,<span class="string">'a'</span>, <span class="string">'ccc'</span>) <span class="comment">-- =&gt; "{4, false}"</span>
+<span class="keyword">local</span> t = { a=<span class="number">4</span>, bb=<span class="keyword">true</span>, ccc=<span class="keyword">false</span> }
+_.at(t, <span class="string">'a'</span>, <span class="string">'ccc'</span>) <span class="comment">-- =&gt; "{4, false}"</span>
 </pre>
 
 
@@ -195,18 +195,18 @@ _.at(t,<span class="string">'a'</span>, <span class="string">'ccc'</span>) <span
 <p>Counts the number of occurences of a given value in a table.</p>
 
 <pre>
-_.count({<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>},<span class="number">1</span>) <span class="comment">-- =&gt; 2
-</span>_.count({<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>},<span class="number">2</span>) <span class="comment">-- =&gt; 2
-</span>_.count({<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>},<span class="number">3</span>) <span class="comment">-- =&gt; 4
-</span>_.count({<span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>},<span class="keyword">false</span>) <span class="comment">-- =&gt; 2
-</span>_.count({<span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span>},<span class="keyword">true</span>) <span class="comment">-- =&gt; 1</span>
+_.count({ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span> }, <span class="number">1</span>) <span class="comment">-- =&gt; 2
+</span>_.count({ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span> }, <span class="number">2</span>) <span class="comment">-- =&gt; 2
+</span>_.count({ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span> }, <span class="number">3</span>) <span class="comment">-- =&gt; 4
+</span>_.count({ <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span> }, <span class="keyword">false</span>) <span class="comment">-- =&gt; 2
+</span>_.count({ <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">true</span> }, <span class="keyword">true</span>) <span class="comment">-- =&gt; 1</span>
 </pre>
 
 
 <p>Returns the size of the list in case no value was provided.</p>
 
 <pre>
-_.count({<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>}) <span class="comment">-- =&gt; 5</span>
+_.count({ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span> }) <span class="comment">-- =&gt; 5</span>
 </pre>
 
 
@@ -215,12 +215,12 @@ _.count({<span class="number">1</span>,<span class="number">1</span>,<span class
 <p>Count the number of occurences of all values passing an iterator test.</p>
 
 <pre>
-_.countf({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>}, <span class="keyword">function</span>(i,v)
-  <span class="keyword">return</span> v%<span class="number">2</span>==<span class="number">0</span>
+_.countf({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>}, <span class="keyword">function</span>(i,v)
+  <span class="keyword">return</span> v % <span class="number">2</span> == <span class="number">0</span>
 <span class="keyword">end</span>) <span class="comment">-- =&gt; 3
 </span>
-_.countf({<span class="global">print</span>, <span class="global">pairs</span>, <span class="global">os</span>, <span class="global">assert</span>, <span class="global">ipairs</span>}, <span class="keyword">function</span>(i,v)
-  <span class="keyword">return</span> <span class="global">type</span>(v)==<span class="string">'function'</span>
+_.countf({ <span class="global">print</span>, <span class="global">pairs</span>, <span class="global">os</span>, <span class="global">assert</span>, <span class="global">ipairs</span> }, <span class="keyword">function</span>(i, v)
+  <span class="keyword">return</span> <span class="global">type</span>(v) == <span class="string">'function'</span>
 <span class="keyword">end</span>) <span class="comment">-- =&gt; 4</span>
 </pre>
 
@@ -233,9 +233,9 @@ _.countf({<span class="global">print</span>, <span class="global">pairs</span>, 
 If <code>n</code> is not provided, it defaults to 1.</p>
 
 <pre>
-<span class="keyword">local</span> t = {<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>}
+<span class="keyword">local</span> t = { <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> }
 <span class="keyword">for</span> k,v <span class="keyword">in</span> _.cycle(t, <span class="number">2</span>) <span class="keyword">do</span>
-  <span class="global">print</span>(k,v)
+  <span class="global">print</span>(k, v)
 <span class="keyword">end</span>
 
 <span class="comment">-- =&gt; 1 'a'
@@ -250,9 +250,9 @@ If <code>n</code> is not provided, it defaults to 1.</p>
 <p>Supports array-like tables and map-like tables.</p>
 
 <pre>
-<span class="keyword">local</span> t = {x = <span class="number">1</span>, y = <span class="number">2</span>, z = <span class="number">3</span>}
+<span class="keyword">local</span> t = { x=<span class="number">1</span>, y=<span class="number">2</span>, z=<span class="number">3</span> }
 <span class="keyword">for</span> k,v <span class="keyword">in</span> _.cycle(t) <span class="keyword">do</span>
-  <span class="global">print</span>(k,v)
+  <span class="global">print</span>(k, v)
 <span class="keyword">end</span>
 
 <span class="comment">-- =&gt; y    2
@@ -268,15 +268,15 @@ If <code>n</code> is not provided, it defaults to 1.</p>
 <p>Executes a function on each key-value pairs.</p>
 
 <pre>
-_.map({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>},<span class="keyword">function</span>(i,v)
-  <span class="keyword">return</span> v+<span class="number">10</span>
+_.map({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> },<span class="keyword">function</span>(i, v)
+  <span class="keyword">return</span> v + <span class="number">10</span>
 <span class="keyword">end</span>) <span class="comment">-- =&gt; "{11,12,13}"</span>
 </pre>
 
 
 <pre>
-_.map({a = <span class="number">1</span>, b = <span class="number">2</span>},<span class="keyword">function</span>(k,v)
-  <span class="keyword">return</span> k..v
+_.map({ a=<span class="number">1</span>, b=<span class="number">2</span> },<span class="keyword">function</span>(k, v)
+  <span class="keyword">return</span> k .. v
 <span class="keyword">end</span>) <span class="comment">-- =&gt; "{a = 'a1', b = 'b2'}"</span>
 </pre>
 
@@ -284,8 +284,8 @@ _.map({a = <span class="number">1</span>, b = <span class="number">2</span>},<sp
 <p>It also maps key-value pairs to key-value pairs</p>
 
 <pre>
-_.map({a = <span class="number">1</span>, b = <span class="number">2</span>},<span class="keyword">function</span>(k,v)
-  <span class="keyword">return</span> k..k, v*<span class="number">2</span>
+_.map({ a=<span class="number">1</span>, b=<span class="number">2</span> }, <span class="keyword">function</span>(k, v)
+  <span class="keyword">return</span> k .. k, v * <span class="number">2</span>
 <span class="keyword">end</span>) <span class="comment">-- =&gt; "{aa = 2, bb = 4}"</span>
 </pre>
 
@@ -297,8 +297,8 @@ _.map({a = <span class="number">1</span>, b = <span class="number">2</span>},<sp
 <p>Can sums all values in a table.</p>
 
 <pre>
-_.reduce({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>},<span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo+v
+_.reduce({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> }, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo + v
 <span class="keyword">end</span>) <span class="comment">-- =&gt; 10</span>
 </pre>
 
@@ -306,9 +306,9 @@ _.reduce({<span class="number">1</span>,<span class="number">2</span>,<span clas
 <p>Or concatenates all values.</p>
 
 <pre>
-_.reduce({<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>},<span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo..v
-<span class="keyword">end</span>) <span class="comment">-- =&gt; abcd    </span>
+_.reduce({ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span> }, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo .. v
+<span class="keyword">end</span>) <span class="comment">-- =&gt; abcd</span>
 </pre>
 
 
@@ -318,7 +318,7 @@ _.reduce({<span class="string">'a'</span>,<span class="string">'b'</span>,<span 
 For example,let us define a set of values.</p>
 
 <pre>
-<span class="keyword">local</span> val = {-<span class="number">1</span>, <span class="number">8</span>, <span class="number">0</span>, -<span class="number">6</span>, <span class="number">3</span>, -<span class="number">1</span>, <span class="number">7</span>, <span class="number">1</span>, -<span class="number">9</span>}
+<span class="keyword">local</span> val = { -<span class="number">1</span>, <span class="number">8</span>, <span class="number">0</span>, -<span class="number">6</span>, <span class="number">3</span>, -<span class="number">1</span>, <span class="number">7</span>, <span class="number">1</span>, -<span class="number">9</span> }
 </pre>
 
 
@@ -336,8 +336,8 @@ For example,let us define a set of values.</p>
 <p>Then we can perform reduction considering only negative values :</p>
 
 <pre>
-_.reduceby(val, <span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo+v
+_.reduceby(val, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo + v
 <span class="keyword">end</span>, <span class="number">0</span>, neg) <span class="comment">-- =&gt; -17</span>
 </pre>
 
@@ -345,8 +345,8 @@ _.reduceby(val, <span class="keyword">function</span>(memo,v)
 <p>Or only positive values :</p>
 
 <pre>
-_.reduceby(val, <span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo+v
+_.reduceby(val, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo + v
 <span class="keyword">end</span>, <span class="number">0</span>, pos) <span class="comment">-- =&gt; 19</span>
 </pre>
 
@@ -359,8 +359,8 @@ _.reduceby(val, <span class="keyword">function</span>(memo,v)
 
 <pre>
 <span class="keyword">local</span> initial_state = <span class="number">256</span>
-_.reduceRight({<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">16</span>},<span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo/v
+_.reduceRight({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">16</span> }, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo / v
 <span class="keyword">end</span>,initial_state) <span class="comment">-- =&gt; 2</span>
 </pre>
 
@@ -372,8 +372,8 @@ _.reduceRight({<span class="number">1</span>,<span class="number">2</span>,<span
 <p>Reduces while saving intermediate states.</p>
 
 <pre>
-_.mapReduce({<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>},<span class="keyword">function</span>(memo,v)
-  <span class="keyword">return</span> memo..v
+_.mapReduce({ <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span> }, <span class="keyword">function</span>(memo, v)
+  <span class="keyword">return</span> memo .. v
 <span class="keyword">end</span>) <span class="comment">-- =&gt; "{'a', 'ab', 'abc'}"</span>
 </pre>
 
@@ -772,6 +772,18 @@ _.sameKeys({<span class="number">1</span>,<span class="number">2</span>,<span cl
 <p><a name="_a_name__array__Array_functions__a_"></a></p>
 
 <h2><a name='array'>Array functions</a></h2>
+
+<h3>unpack (array, i, j)</h3>
+
+<p>Returns elements in a given array. Binding to Lua&rsquo;s built-in <code>unpack</code> (or <code>table.unpack</code> since Lua 5.3).</p>
+
+<pre>
+<span class="keyword">local</span> t = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="global">print</span>(_.<span class="global">unpack</span>(t))
+
+<span class="comment">-- =&gt; 1, 2, 3</span>
+</pre>
+
 
 <h3>sample (array, n, seed)</h3>
 
@@ -2324,11 +2336,11 @@ each({<span class="number">1</span>,<span class="number">2</span>,<span class="n
 <p>Passing <code>noConflict</code> argument leaves untouched conflicting keys while importing into the context.</p>
 
 <pre>
-<span class="keyword">local</span> context = {each = <span class="number">1</span>}
+<span class="keyword">local</span> context = { each=<span class="number">1</span> }
 _.import(context, <span class="keyword">true</span>)
 
 <span class="global">print</span>(context.each) <span class="comment">-- =&gt; 1
-</span>context.eachi({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>},<span class="global">print</span>)
+</span>context.eachi({ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> }, <span class="global">print</span>)
 
 <span class="comment">-- =&gt; 1 1
 </span><span class="comment">-- =&gt; 2 2
@@ -2342,7 +2354,7 @@ _.import(context, <span class="keyword">true</span>)
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-05-03 14:08:34 </i>
+<i style="float:right;">Last updated 2017-10-26 13:58:27 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

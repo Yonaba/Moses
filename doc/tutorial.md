@@ -643,6 +643,17 @@ _.sameKeys({x = 1, y = 2, z = 3},{x = 1, y = 2}) -- => false
 
 ## <a name='array'>Array functions</a>
 
+### unpack (array, i, j)
+
+Returns elements in a given array. Binding to Lua's built-in <code>unpack</code> (or `table.unpack` since Lua 5.3).
+
+```lua
+local t = {1, 2, 3}
+print(_.unpack(t))
+
+-- => 1, 2, 3
+````
+
 ### sample (array, n, seed)
 
 Samples `n` values from array.

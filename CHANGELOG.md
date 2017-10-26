@@ -1,5 +1,11 @@
 # Version history
 
+## 1.7.0
+
+* Added `unpack`
+* Fixed `sortBy` to ensure inplace-sort
+* Fixed `range` to handle ranges without values in-between endpoints
+
 ## 1.6.1 (04/27/17)
 
 * Added `_.array`

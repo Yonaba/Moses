@@ -3,6 +3,31 @@ local _ = require 'moses'
 
 context('Array functions specs', function()
 
+  context('unpack', function()
+  
+    test('returns elements from a given array', function()
+         local x, y, z = _.unpack(_.range(1, 3))
+         assert_equal(x, 1)
+         assert_equal(y, 2)
+         assert_equal(z, 3)
+    end)
+    
+    test('a lower index from where to start returning values can be specified', function()
+         local x, y, z = _.unpack(_.range(1, 20), 18)
+         assert_equal(x, 18)
+         assert_equal(y, 19)
+         assert_equal(z, 20)
+    end)
+    
+    test('limits can also be specified', function()
+         local x, y, z = _.unpack(_.range(1, 20), 15,17)
+         assert_equal(x, 15)
+         assert_equal(y, 16)
+         assert_equal(z, 17)
+    end)
+		
+  end)
+  
   context('sample', function()
   
     test('samples n values from array', function()
