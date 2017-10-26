@@ -88,7 +88,8 @@ local bdb=_db or bab.identity
 if bab.isString(_db)then bdb=function(ddb)return ddb[_db]end end;adb=adb or dab;local cdb={}
 bab.each(dcb,function(ddb,__c)
 cdb[#cdb+1]={value=__c,transform=bdb(__c)}end)
-cca(cdb,function(ddb,__c)return adb(ddb.transform,__c.transform)end)return bab.pluck(cdb,'value')end
+cca(cdb,function(ddb,__c)return adb(ddb.transform,__c.transform)end)
+bab.each(dcb,function(ddb)dcb[ddb]=cdb[ddb].value end)return dcb end
 function bab.groupBy(dcb,_db,...)local adb={...}local bdb={}
 bab.each(dcb,function(cdb,ddb)local __c=_db(cdb,ddb,c_b(adb))
 if

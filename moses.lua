@@ -510,7 +510,7 @@ end
 -- @name sortBy
 -- @param t a table
 -- @param[opt] transform a `transform` function to sort elements prototyped as `transform (v)`. Defaults to @{identity}
--- @param[optchain] comp a comparision function, defaults to the `<` operator
+-- @param[optchain] comp a comparison function, defaults to the `<` operator
 -- @return a new array of sorted values
 -- @see sort
 function _.sortBy(t, transform, comp)
@@ -524,7 +524,10 @@ function _.sortBy(t, transform, comp)
 		_t[#_t+1] = {value = v, transform = f(v)}
 	end)
 	t_sort(_t, function(a,b) return comp(a.transform, b.transform) end)
-	return _.pluck(_t, 'value')
+   _.each(t, function(i)
+      t[i] = _t[i].value
+   end)
+   return t
 end
 
 --- Splits a table into subsets groups.
