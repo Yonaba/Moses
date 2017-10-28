@@ -1308,6 +1308,12 @@ function _.identity(value) return value end
 -- @return a constant function
 function _.constant(value) return function() return value end end
 
+--- Returns the successor of a given Integral value.
+-- @name succ
+-- @param value an Integer
+-- @return value + 1.
+function _.succ(value) return value+1 end
+
 --- Memoizes a given function by caching the computed result.
 -- Useful for speeding-up slow-running functions. If a `hash` function is passed,
 -- it will be used to compute hash keys for a set of input values for caching.
