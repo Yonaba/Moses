@@ -181,9 +181,10 @@ function bab.unique(dcb)local _db={}for i=1,#dcb do if not bab.find(_db,dcb[i])t
 _db[#_db+1]=dcb[i]end end;return _db end
 function bab.isunique(dcb)return bab.isEqual(dcb,bab.unique(dcb))end
 function bab.zip(...)local dcb={...}
-local _db=bab.max(bab.map(dcb,function(bdb,cdb)return#cdb end))local adb={}for i=1,_db do adb[i]=bab.pluck(dcb,i)end;return adb end
-function bab.append(dcb,_db)local adb={}for bdb,cdb in _ab(dcb)do adb[bdb]=cdb end;for bdb,cdb in _ab(_db)do
-adb[#adb+1]=cdb end;return adb end
+local _db=bab.max(bab.map(dcb,function(bdb,cdb)return#cdb end))local adb={}for i=1,_db do adb[i]=bab.pluck(dcb,i)end;return adb end;function bab.unzip(dcb)return bab.zip(c_b(dcb))end
+function bab.append(dcb,_db)
+local adb={}for bdb,cdb in _ab(dcb)do adb[bdb]=cdb end
+for bdb,cdb in _ab(_db)do adb[#adb+1]=cdb end;return adb end
 function bab.interleave(...)return bab.flatten(bab.zip(...))end;function bab.interpose(dcb,_db)return
 bab.flatten(bab.zip(_db,bab.rep(dcb,#_db-1)))end
 function bab.range(...)
@@ -217,14 +218,13 @@ function bab.before(dcb,_db)
 local adb=0;local bdb={}return
 function(...)adb=adb+1;if adb<=_db then bdb={...}end;return dcb(c_b(bdb))end end
 function bab.after(dcb,_db)local adb,bdb=_db,0;return
-function(...)bdb=bdb+1;if bdb>=adb then return dcb(...)end end end
-function bab.compose(...)local dcb=bab.reverse{...}
-return function(...)local _db,adb=true
-for bdb,cdb in _ab(dcb)do if _db then _db=false
-adb=cdb(...)else adb=cdb(adb)end end;return adb end end
-function bab.pipe(dcb,...)return bab.compose(...)(dcb)end
-function bab.complement(dcb)return function(...)return not dcb(...)end end;function bab.juxtapose(dcb,...)local _db={}
-bab.each({...},function(adb,bdb)_db[#_db+1]=bdb(dcb)end)return c_b(_db)end
+function(...)bdb=bdb+1;if bdb>=adb then return dcb(...)end end end;function bab.compose(...)local dcb={...}
+return function(...)local _db=dcb[#dcb](...)for i=#dcb-1,1,-1 do
+_db=dcb[i](_db)end;return _db end end;function bab.pipe(dcb,...)return
+bab.compose(...)(dcb)end;function bab.complement(dcb)return
+function(...)return not dcb(...)end end;function bab.juxtapose(dcb,...)local _db={}
+bab.each({...},function(adb,bdb)_db[
+#_db+1]=bdb(dcb)end)return c_b(_db)end
 function bab.wrap(dcb,_db)return function(...)return
 _db(dcb,...)end end
 function bab.times(dcb,_db,...)local adb={}for i=1,dcb do adb[i]=_db(i,...)end;return adb end

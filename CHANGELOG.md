@@ -2,6 +2,7 @@
 
 ## 1.7.0
 
+* Added `unzip`
 * Added `unpack`
 * Fixed `sortBy` to ensure inplace-sort
 * Fixed `range` to handle ranges without values in-between endpoints

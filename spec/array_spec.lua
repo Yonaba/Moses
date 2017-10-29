@@ -554,6 +554,15 @@ context('Array functions specs', function()
     end)     
   end)  
   
+  context('unzip',function()  
+    test('unzips a zipped object', function()   
+      local names = {'Bob','Alice'}; local ages = {22, 23}
+      local unzipped = _.unzip(_.zip(names, ages))
+      assert_true(_.isEqual(unzipped[1], names))
+      assert_true(_.isEqual(unzipped[2], ages))
+    end)
+  end) 
+  
   context('append',function()  
     
     test('appends two arrays together', function()

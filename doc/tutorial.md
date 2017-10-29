@@ -1049,6 +1049,17 @@ local ages = {22, 23}
 _.zip(names,ages) -- => "{{'Bob',22},{'Alice',23},{'James'}}"
 ````
 
+### unzip (t)
+
+Unzips a zipped array. Returns an array of elements similar to their pre-zipped configuration.
+
+```lua
+local names = {'Bob','Alice'}
+local ages = {22, 43}
+local zipped = _.zip(names, ages)
+_.unzip(zipped) -- => "{{'Bob','Alice'},{22, 43}}"
+````
+
 ### append (array, other)
 
 Appends two arrays.

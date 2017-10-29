@@ -1138,6 +1138,7 @@ end
 -- @name zip
 -- @param ... a variable number of array arguments
 -- @return a new array
+-- @see unzip
 function _.zip(...)
   local arg = {...}
   local _len = _.max(_.map(arg,function(i,v)
@@ -1150,7 +1151,16 @@ function _.zip(...)
   return _ans
 end
 
---- Clones `array` and appends `other` values.
+--- Unzips a zipped object. It takes an array of grouped elements and creates -- an array regrouping the elements to their pre-zipped configuration.
+-- @name unzip
+-- @param t an array of elements, zipped
+-- @return a new array
+-- @see zip
+function _.unzip(t)
+   return _.zip(unpack(t))
+end
+
+--- Clones a given array and appends values from other array.
 -- @name append
 -- @param array an array
 -- @param other an array
