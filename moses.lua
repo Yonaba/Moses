@@ -1387,16 +1387,11 @@ end
 -- @see pipe
 function _.compose(...)
 	-- See: https://github.com/Yonaba/Moses/pull/15#issuecomment-139038895
-  local f = _.reverse {...}
+  local f = {...} -- table of functions
   return function (...)
-		local first, _temp = true
-		for i, func in ipairs(f) do
-			if first then
-				first = false
-				_temp = func(...)
-			else
-				_temp = func(_temp)
-			end
+		local _temp = f[#f](...) -- compute initial value by applying args to last function in table 
+		for i = #f-1, 1, -1 do -- call functions in reverse order, skipping last one
+			_temp = f[i](_temp)
 		end
 		return _temp
 	end
