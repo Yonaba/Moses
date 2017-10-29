@@ -1387,10 +1387,10 @@ end
 -- @see pipe
 function _.compose(...)
 	-- See: https://github.com/Yonaba/Moses/pull/15#issuecomment-139038895
-  local f = {...} -- table of functions
+  local f = {...}
   return function (...)
-		local _temp = f[#f](...) -- compute initial value by applying args to last function in table 
-		for i = #f-1, 1, -1 do -- call functions in reverse order, skipping last one
+		local _temp = f[#f](...)
+		for i = #f-1, 1, -1 do
 			_temp = f[i](_temp)
 		end
 		return _temp
