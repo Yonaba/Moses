@@ -631,14 +631,14 @@ _.unpack = unpack
 -- @param array an array
 -- @param[opt] n a number of elements to be sampled. Defaults to 1.
 -- @param[optchain] seed an optional seed for shuffling 
--- @return an array of selected values or a single value when `n` == 1
+-- @return an array of selected values
 -- @see sampleProb
 function _.sample(array, n, seed)
 	n = n or 1
 	if n < 1 then return end
 	if n == 1 then
 		if seed then randomseed(seed) end
-		return array[random(1, #array)]
+		return {array[random(1, #array)]}
 	end
 	return _.slice(_.shuffle(array, seed), 1, n)
 end

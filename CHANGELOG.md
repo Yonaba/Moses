@@ -6,6 +6,7 @@
 * Added `unpack`
 * Fixed `sortBy` to ensure inplace-sort
 * Fixed `range` to handle ranges without values in-between endpoints
+* Changed `sample` behavior to produce consistent output datatype
 
 ## 1.6.1 (04/27/17)
 

@@ -666,14 +666,14 @@ print(table.concat(sample,','))
 -- => {12,11,15}
 ````
 
-`n` defaults to 1. In that case, a single value will be returned.
+`n` defaults to 1.
 
 ```lua
 local array = _.range(1,20)
 local sample = _.sample(array)
-print(sample)
+print(table.concat(sample,','))
 
--- => 12
+-- => {12,}
 ````
 
 An optional 3rd argument `seed` can be passed for deterministic random sampling.
