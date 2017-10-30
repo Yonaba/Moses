@@ -673,7 +673,7 @@ local array = _.range(1,20)
 local sample = _.sample(array)
 print(table.concat(sample,','))
 
--- => {12,}
+-- => {12}
 ````
 
 An optional 3rd argument `seed` can be passed for deterministic random sampling.
