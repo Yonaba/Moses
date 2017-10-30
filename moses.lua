@@ -634,13 +634,7 @@ _.unpack = unpack
 -- @return an array of selected values
 -- @see sampleProb
 function _.sample(array, n, seed)
-	n = n or 1
-	if n < 1 then return end
-	if n == 1 then
-		if seed then randomseed(seed) end
-		return {array[random(1, #array)]}
-	end
-	return _.slice(_.shuffle(array, seed), 1, n)
+	return _.slice(_.shuffle(array, seed), 1, n or 1)
 end
 
 --- Return elements from a sequence with a given probability. It considers each value independently. 

@@ -103,14 +103,13 @@ for adb in d_b(_db)do if not dcb[adb]then return false end end;return true end
 function bab.sameKeys(dcb,_db)for adb in
 d_b(dcb)do if not _db[adb]then return false end end;for adb in
 d_b(_db)do if not dcb[adb]then return false end end
-return true end;bab.unpack=c_b
-function bab.sample(dcb,_db,adb)_db=_db or 1;if _db<1 then return end;if _db==1 then
-if adb then ada(adb)end;return{dcb[bda(1,#dcb)]}end;return
-bab.slice(bab.shuffle(dcb,adb),1,_db)end
-function bab.sampleProb(dcb,_db,adb)if adb then ada(adb)end;return
-bab.select(dcb,function(bdb,cdb)return bda()<_db end)end;function bab.toArray(...)return{...}end
-function bab.find(dcb,_db,adb)for i=adb or 1,#dcb do if
-bab.isEqual(dcb[i],_db)then return i end end end
+return true end;bab.unpack=c_b;function bab.sample(dcb,_db,adb)
+return bab.slice(bab.shuffle(dcb,adb),1,_db or 1)end;function bab.sampleProb(dcb,_db,adb)if adb then ada(adb)end
+return bab.select(dcb,function(bdb,cdb)return
+bda()<_db end)end;function bab.toArray(...)
+return{...}end
+function bab.find(dcb,_db,adb)for i=adb or 1,#dcb do
+if bab.isEqual(dcb[i],_db)then return i end end end
 function bab.reverse(dcb)local _db={}for i=#dcb,1,-1 do _db[#_db+1]=dcb[i]end;return _db end;function bab.fill(dcb,_db,adb,bdb)bdb=bdb or bab.size(dcb)
 for i=adb or 1,bdb do dcb[i]=_db end;return dcb end
 function bab.selectWhile(dcb,_db,...)
