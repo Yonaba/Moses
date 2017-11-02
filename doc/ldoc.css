@@ -121,7 +121,7 @@ body {
 	margin-right: 1em;
 	font-family: arial, helvetica, geneva, sans-serif;
 	background-color: #ffffff;
-	margin: 0px;
+	margin: 0;
 }
 
 code, tt {
@@ -151,7 +151,7 @@ body, p, td, th {
 }
 
 p, ul {
-	margin: 10px 0 0 0px;
+	margin: 10px 0 0 0;
 }
 
 strong {
@@ -282,11 +282,11 @@ table.index td {
 #navigation li {
 	text-indent: -1em;
 	display: block;
-	margin: 3px 0px 0px 22px;
+	margin: 3px 0 0 22px;
 }
 
 #navigation li li a {
-	margin: 0px 3px 0px -1em;
+	margin: 0 3px 0 -1em;
 }
 
 #content {
@@ -317,7 +317,7 @@ table.index td {
 
 	#main {
 		background-color: #ffffff;
-		border-left: 0px;
+		border-left: 0;
 	}
 
 	#container {
@@ -401,16 +401,16 @@ dl.table h3, dl.function h3 {
 
 /* stop sublists from having initial vertical space */
 ul ul {
-	margin-top: 0px;
+	margin-top: 0;
 }
 ol ul {
-	margin-top: 0px;
+	margin-top: 0;
 }
 ol ol {
-	margin-top: 0px;
+	margin-top: 0;
 }
 ul ol {
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 /* make the target distinct; helps when we're navigating to a function */
