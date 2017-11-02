@@ -6,8 +6,8 @@ http://developer.yahoo.com/yui/license.html
 version: 2.8.2r1
 */
 html {
-	color: #000;
 	background: #FFF;
+	color: #000;
 }
 body,
 div,
@@ -117,11 +117,11 @@ select {
 /* END RESET */
 
 body {
+	background-color: #fff;
+	font-family: 'arial', 'helvetica', 'geneva', sans-serif;
+	margin: 0;
 	margin-left: 1em;
 	margin-right: 1em;
-	font-family: 'arial', 'helvetica', 'geneva', sans-serif;
-	background-color: #fff;
-	margin: 0;
 }
 
 code, tt {
@@ -141,8 +141,8 @@ span.types:after {
 	content: ')';
 }
 .type {
-	font-weight: bold;
 	font-style: italic;
+	font-weight: bold;
 }
 
 body, p, td, th {
@@ -180,13 +180,13 @@ h4 {
 }
 
 a:link {
-	font-weight: bold;
 	color: #004080;
+	font-weight: bold;
 	text-decoration: none;
 }
 a:visited {
-	font-weight: bold;
 	color: #069;
+	font-weight: bold;
 	text-decoration: none;
 }
 a:link:hover {
@@ -194,8 +194,8 @@ a:link:hover {
 }
 
 hr {
-	color: #ccc;
 	background: #00007f;
+	color: #ccc;
 	height: 1px;
 }
 
@@ -215,10 +215,10 @@ p.name {
 pre {
 	background-color: rgb(245, 245, 245);
 	border: 1px solid #c0c0c0; /* silver */
-	padding: 10px;
+	font-family: 'Andale Mono', monospace;
 	margin: 10px 0 10px 0;
 	overflow: auto;
-	font-family: 'Andale Mono', monospace;
+	padding: 10px;
 }
 
 pre.example {
@@ -234,15 +234,15 @@ table.index td {
 }
 
 #container {
+	background-color: #f0f0f0;
 	margin-left: 1em;
 	margin-right: 1em;
-	background-color: #f0f0f0;
 }
 
 #product {
-	text-align: center;
-	border-bottom: 1px solid #ccc;
 	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	text-align: center;
 }
 
 #product big {
@@ -255,21 +255,21 @@ table.index td {
 }
 
 #navigation {
-	float: left;
-	width: 14em;
-	vertical-align: top;
 	background-color: #f0f0f0;
+	float: left;
 	overflow: visible;
+	vertical-align: top;
+	width: 14em;
 }
 
 #navigation h2 {
 	background-color: #e7e7e7;
-	font-size: 1.1em;
-	color: #000;
-	text-align: left;
-	padding: 0.2em;
-	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	color: #000;
+	font-size: 1.1em;
+	padding: 0.2em;
+	text-align: left;
 }
 
 #navigation ul
@@ -280,9 +280,9 @@ table.index td {
 }
 
 #navigation li {
-	text-indent: -1em;
 	display: block;
 	margin: 3px 0 0 22px;
+	text-indent: -1em;
 }
 
 #navigation li li a {
@@ -290,19 +290,19 @@ table.index td {
 }
 
 #content {
+	background-color: #fff;
+	border-left: 2px solid #ccc;
+	border-right: 2px solid #ccc;
 	margin-left: 14em;
 	padding: 1em;
 	width: 700px;
-	border-left: 2px solid #ccc;
-	border-right: 2px solid #ccc;
-	background-color: #fff;
 }
 
 #about {
+	background-color: #fff;
+	border-top: 2px solid #ccc;
 	clear: both;
 	padding: 5px;
-	border-top: 2px solid #ccc;
-	background-color: #fff;
 }
 
 @media print {
@@ -310,8 +310,8 @@ table.index td {
 		font: 12pt 'Times New Roman', 'TimeNR', 'Times', serif;
 	}
 	a {
-		font-weight: bold;
 		color: #004080;
+		font-weight: bold;
 		text-decoration: underline;
 	}
 
@@ -321,14 +321,14 @@ table.index td {
 	}
 
 	#container {
+		background-color: #fff;
 		margin-left: 2%;
 		margin-right: 2%;
-		background-color: #fff;
 	}
 
 	#content {
-		padding: 1em;
 		background-color: #fff;
+		padding: 1em;
 	}
 
 	#navigation {
@@ -342,16 +342,16 @@ table.index td {
 }
 
 table.module_list {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ccc;
 	border-collapse: collapse;
+	border-color: #ccc;
+	border-style: solid;
+	border-width: 1px;
 }
 table.module_list td {
+	border-color: #ccc;
+	border-style: solid;
 	border-width: 1px;
 	padding: 3px;
-	border-style: solid;
-	border-color: #ccc;
 }
 table.module_list td.name {
 	background-color: #f0f0f0;
@@ -363,16 +363,16 @@ table.module_list td.summary {
 
 
 table.function_list {
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ccc;
 	border-collapse: collapse;
+	border-color: #ccc;
+	border-style: solid;
+	border-width: 1px;
 }
 table.function_list td {
+	border-color: #ccc;
+	border-style: solid;
 	border-width: 1px;
 	padding: 3px;
-	border-style: solid;
-	border-color: #ccc;
 }
 table.function_list td.name {
 	background-color: #f0f0f0;
@@ -392,8 +392,8 @@ dl.table dt, dl.function dt {
 	padding-top: 1em;
 }
 dl.table dd, dl.function dd {
-	padding-bottom: 1em;
 	margin: 10px 0 0 20px;
+	padding-bottom: 1em;
 }
 dl.table h3, dl.function h3 {
 	font-size: .95em;
@@ -437,8 +437,8 @@ pre .library {
 	color: #0e7c6b;
 }
 pre .marker {
-	color: #512b1e;
 	background: #fedc56;
+	color: #512b1e;
 	font-weight: bold;
 }
 pre .string {
