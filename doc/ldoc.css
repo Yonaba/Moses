@@ -153,7 +153,7 @@ body,
 p,
 td,
 th {
-	font-size: .95em;
+	font-size: 0.95em;
 	line-height: 1.2em;
 }
 
@@ -232,7 +232,7 @@ pre {
 }
 
 pre.example {
-	font-size: .85em;
+	font-size: 0.85em;
 }
 
 table.index {
@@ -409,7 +409,7 @@ dl.function dd {
 }
 dl.table h3,
 dl.function h3 {
-	font-size: .95em;
+	font-size: 0.95em;
 }
 
 /* stop sublists from having initial vertical space */
