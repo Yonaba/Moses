@@ -123,9 +123,7 @@ select {
 body {
 	background-color: #fff;
 	font-family: 'arial', 'helvetica', 'geneva', sans-serif;
-	margin: 0;
-	margin-left: 1em;
-	margin-right: 1em;
+	margin: 0 1em 0 1em;
 }
 
 code, tt {
