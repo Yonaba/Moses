@@ -120,7 +120,7 @@ body {
 	margin-left: 1em;
 	margin-right: 1em;
 	font-family: 'arial', 'helvetica', 'geneva', sans-serif;
-	background-color: #ffffff;
+	background-color: #fff;
 	margin: 0;
 }
 
@@ -186,7 +186,7 @@ a:link {
 }
 a:visited {
 	font-weight: bold;
-	color: #006699;
+	color: #069;
 	text-decoration: none;
 }
 a:link:hover {
@@ -194,7 +194,7 @@ a:link:hover {
 }
 
 hr {
-	color: #cccccc;
+	color: #ccc;
 	background: #00007f;
 	height: 1px;
 }
@@ -214,7 +214,7 @@ p.name {
 
 pre {
 	background-color: rgb(245, 245, 245);
-	border: 1px solid #C0C0C0; /* silver */
+	border: 1px solid #c0c0c0; /* silver */
 	padding: 10px;
 	margin: 10px 0 10px 0;
 	overflow: auto;
@@ -241,8 +241,8 @@ table.index td {
 
 #product {
 	text-align: center;
-	border-bottom: 1px solid #cccccc;
-	background-color: #ffffff;
+	border-bottom: 1px solid #ccc;
+	background-color: #fff;
 }
 
 #product big {
@@ -251,7 +251,7 @@ table.index td {
 
 #main {
 	background-color: #f0f0f0;
-	border-left: 2px solid #cccccc;
+	border-left: 2px solid #ccc;
 }
 
 #navigation {
@@ -265,11 +265,11 @@ table.index td {
 #navigation h2 {
 	background-color: #e7e7e7;
 	font-size: 1.1em;
-	color: #000000;
+	color: #000;
 	text-align: left;
 	padding: 0.2em;
-	border-top: 1px solid #dddddd;
-	border-bottom: 1px solid #dddddd;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 #navigation ul
@@ -293,16 +293,16 @@ table.index td {
 	margin-left: 14em;
 	padding: 1em;
 	width: 700px;
-	border-left: 2px solid #cccccc;
-	border-right: 2px solid #cccccc;
-	background-color: #ffffff;
+	border-left: 2px solid #ccc;
+	border-right: 2px solid #ccc;
+	background-color: #fff;
 }
 
 #about {
 	clear: both;
 	padding: 5px;
-	border-top: 2px solid #cccccc;
-	background-color: #ffffff;
+	border-top: 2px solid #ccc;
+	background-color: #fff;
 }
 
 @media print {
@@ -316,19 +316,19 @@ table.index td {
 	}
 
 	#main {
-		background-color: #ffffff;
+		background-color: #fff;
 		border-left: 0;
 	}
 
 	#container {
 		margin-left: 2%;
 		margin-right: 2%;
-		background-color: #ffffff;
+		background-color: #fff;
 	}
 
 	#content {
 		padding: 1em;
-		background-color: #ffffff;
+		background-color: #fff;
 	}
 
 	#navigation {
@@ -344,14 +344,14 @@ table.index td {
 table.module_list {
 	border-width: 1px;
 	border-style: solid;
-	border-color: #cccccc;
+	border-color: #ccc;
 	border-collapse: collapse;
 }
 table.module_list td {
 	border-width: 1px;
 	padding: 3px;
 	border-style: solid;
-	border-color: #cccccc;
+	border-color: #ccc;
 }
 table.module_list td.name {
 	background-color: #f0f0f0;
@@ -365,14 +365,14 @@ table.module_list td.summary {
 table.function_list {
 	border-width: 1px;
 	border-style: solid;
-	border-color: #cccccc;
+	border-color: #ccc;
 	border-collapse: collapse;
 }
 table.function_list td {
 	border-width: 1px;
 	padding: 3px;
 	border-style: solid;
-	border-color: #cccccc;
+	border-color: #ccc;
 }
 table.function_list td.name {
 	background-color: #f0f0f0;
@@ -415,7 +415,7 @@ ul ol {
 
 /* make the target distinct; helps when we're navigating to a function */
 a:target + * {
-	background-color: #FF9;
+	background-color: #ff9;
 }
 
 
