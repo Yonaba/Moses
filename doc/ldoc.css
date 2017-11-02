@@ -149,12 +149,16 @@ span.types:after {
 	font-weight: bold;
 }
 
-body, p, td, th {
+body,
+p,
+td,
+th {
 	font-size: .95em;
 	line-height: 1.2em;
 }
 
-p, ul {
+p,
+ul {
 	margin: 10px 0 0 0;
 }
 
@@ -170,7 +174,9 @@ h1 {
 	font-size: 1.5em;
 	margin: 20px 0 20px 0;
 }
-h2, h3, h4 {
+h2,
+h3,
+h4 {
 	margin: 15px 0 10px 0;
 }
 h2 {
@@ -391,15 +397,18 @@ ul.nowrap {
 	white-space: nowrap;
 }
 
-dl.table dt, dl.function dt {
+dl.table dt,
+dl.function dt {
 	border-top: 1px solid #ccc;
 	padding-top: 1em;
 }
-dl.table dd, dl.function dd {
+dl.table dd,
+dl.function dd {
 	margin: 10px 0 0 20px;
 	padding-bottom: 1em;
 }
-dl.table h3, dl.function h3 {
+dl.table h3,
+dl.function h3 {
 	font-size: .95em;
 }
 
@@ -455,7 +464,8 @@ pre .operator {
 	color: #2239a8;
 	font-weight: bold;
 }
-pre .preprocessor, pre .prepro {
+pre .preprocessor,
+pre .prepro {
 	color: #a33243;
 }
 pre .global {
