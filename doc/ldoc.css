@@ -132,13 +132,13 @@ span.parameter {
 	font-family: monospace;
 }
 span.parameter:after {
-	content: ":";
+	content: ':';
 }
 span.types:before {
-	content: "(";
+	content: '(';
 }
 span.types:after {
-	content: ")";
+	content: ')';
 }
 .type {
 	font-weight: bold;
@@ -208,7 +208,7 @@ ul {
 }
 
 p.name {
-	font-family: "Andale Mono", monospace;
+	font-family: 'Andale Mono', monospace;
 	padding-top: 1em;
 }
 
@@ -218,7 +218,7 @@ pre {
 	padding: 10px;
 	margin: 10px 0 10px 0;
 	overflow: auto;
-	font-family: "Andale Mono", monospace;
+	font-family: 'Andale Mono', monospace;
 }
 
 pre.example {
@@ -307,7 +307,7 @@ table.index td {
 
 @media print {
 	body {
-		font: 12pt "Times New Roman", "TimeNR", Times, serif;
+		font: 12pt 'Times New Roman', 'TimeNR', 'Times', serif;
 	}
 	a {
 		font-weight: bold;
@@ -335,7 +335,7 @@ table.index td {
 		display: none;
 	}
 	pre.example {
-		font-family: "Andale Mono", monospace;
+		font-family: 'Andale Mono', monospace;
 		font-size: 10pt;
 		page-break-inside: avoid;
 	}
