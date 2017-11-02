@@ -126,7 +126,8 @@ body {
 	margin: 0 1em 0 1em;
 }
 
-code, tt {
+code,
+tt {
 	font-family: monospace;
 	font-size: 1.1em;
 }
@@ -221,7 +222,7 @@ p.name {
 }
 
 pre {
-	background-color: rgb(245, 245, 245);
+	background-color: rgb( 245, 245, 245 );
 	border: 1px solid #c0c0c0; /* silver */
 	font-family: 'Andale Mono', monospace;
 	margin: 10px 0 10px 0;
