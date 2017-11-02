@@ -369,7 +369,6 @@ table.module_list td.summary {
 	width: 100%;
 }
 
-
 table.function_list {
 	border-collapse: collapse;
 	border-color: #ccc;
@@ -428,7 +427,6 @@ ul ol {
 a:target + * {
 	background-color: #ff9;
 }
-
 
 /* styles for prettification of source */
 pre .comment {
