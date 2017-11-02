@@ -119,7 +119,7 @@ select {
 body {
 	margin-left: 1em;
 	margin-right: 1em;
-	font-family: arial, helvetica, geneva, sans-serif;
+	font-family: 'arial', 'helvetica', 'geneva', sans-serif;
 	background-color: #ffffff;
 	margin: 0;
 }
