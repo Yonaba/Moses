@@ -111,7 +111,7 @@ option {
 input,
 button,
 textarea,
-select {*font-size:100%;
+select {*font-size: 100%;
 }
 /* END RESET */
 
@@ -123,11 +123,11 @@ body {
 }
 
 code, tt { font-family: monospace; font-size: 1.1em; }
-span.parameter { font-family:monospace; }
-span.parameter:after { content:":"; }
-span.types:before { content:"("; }
-span.types:after { content:")"; }
-.type { font-weight: bold; font-style:italic }
+span.parameter { font-family: monospace; }
+span.parameter:after { content: ":"; }
+span.types:before { content: "("; }
+span.types:after { content: ")"; }
+.type { font-weight: bold; font-style: italic }
 
 body, p, td, th { font-size: .95em; line-height: 1.2em;}
 
@@ -151,7 +151,7 @@ a:visited { font-weight: bold; color: #006699; text-decoration: none; }
 a:link:hover { text-decoration: underline; }
 
 hr {
-	color:#cccccc;
+	color: #cccccc;
 	background: #00007f;
 	height: 1px;
 }
@@ -211,18 +211,18 @@ table.index td { text-align: left; vertical-align: top; }
 }
 
 #navigation h2 {
-	background-color:#e7e7e7;
-	font-size:1.1em;
-	color:#000000;
+	background-color: #e7e7e7;
+	font-size: 1.1em;
+	color: #000000;
 	text-align: left;
-	padding:0.2em;
-	border-top:1px solid #dddddd;
-	border-bottom:1px solid #dddddd;
+	padding: 0.2em;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
 }
 
 #navigation ul
 {
-	font-size:1em;
+	font-size: 1em;
 	list-style-type: none;
 	margin: 1px 1px 10px 1px;
 }
@@ -317,8 +317,8 @@ table.function_list td.name { background-color: #f0f0f0; min-width: 200px; }
 table.function_list td.summary { width: 100%; }
 
 ul.nowrap {
-	overflow:auto;
-	white-space:nowrap;
+	overflow: auto;
+	white-space: nowrap;
 }
 
 dl.table dt, dl.function dt {border-top: 1px solid #ccc; padding-top: 1em;}
