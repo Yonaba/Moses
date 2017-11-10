@@ -1773,7 +1773,7 @@ print(_.isEqual(obj2, obj)) -- => true
 ### tap (obj, f, ...)
 
 Invokes a given interceptor function on some object, and then returns the object itself. Useful to tap into method chaining to hook intermediate results.
-The pased-interceptor is prototyped as `f(obj,...)`.
+The passed-interceptor is prototyped as `f(obj,...)`.
 
 ```lua
 local v = _.chain({1,2,3,4,5,6,7,8,9,10)
