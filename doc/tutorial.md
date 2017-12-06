@@ -73,7 +73,7 @@ Can index and assign in an outer table or in the passed-in table:
 t = {'a', 'b', 'c'}
 _.each(t, function(i, v)
   t[i] = v:rep(2)
-  print(t[i])
+  print(i, t[i])
 end)
 
 -- => 1 aa
