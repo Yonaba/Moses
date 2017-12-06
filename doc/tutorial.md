@@ -973,7 +973,7 @@ _.flatten({1,{2,3},{4,5,{6,7}}}) -- => "{1,2,3,4,5,6,7}"
 When given arg "shallow", flatten only at the first level.
 
 ```lua
-_.flatten({1,{2},{{3}}},true) -- => "{1,{2},{{3}}}"
+_.flatten({1,{2},{{3}}},true) -- => "{1,2,{3}}"
 ````
 
 ### difference (array, array2)
