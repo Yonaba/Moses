@@ -73,7 +73,7 @@ Can index and assign in an outer table or in the passed-in table:
 t = {'a', 'b', 'c'}
 _.each(t, function(i, v)
   t[i] = v:rep(2)
-  print(t[i])
+  print(i, t[i])
 end)
 
 -- => 1 aa
@@ -973,7 +973,7 @@ _.flatten({1,{2,3},{4,5,{6,7}}}) -- => "{1,2,3,4,5,6,7}"
 When given arg "shallow", flatten only at the first level.
 
 ```lua
-_.flatten({1,{2},{{3}}},true) -- => "{1,{2},{{3}}}"
+_.flatten({1,{2},{{3}}},true) -- => "{1,2,{3}}"
 ````
 
 ### difference (array, array2)
