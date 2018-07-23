@@ -742,7 +742,7 @@ function _.sortedIndex(array, value, comp, sort)
   return #array+1
 end
 
---- Returns the index of the first occurence of value in an array.
+--- Returns the index of the first occurrence of value in an array.
 -- @name indexOf
 -- @param array an array
 -- @param value the value to search for
