@@ -672,7 +672,7 @@ function _.reverse(array)
 end
 
 --- Replaces elements in a given array with a given value. In case `i` and `j` are given
--- it will only replaces values at indexes between `[i,j]`. In case `j` is greather than the array
+-- it will only replaces values at indexes between `[i,j]`. In case `j` is greater than the array
 -- size, it will append new values, increasing the array.
 -- @name fill
 -- @param array an array
