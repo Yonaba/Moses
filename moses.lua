@@ -1530,7 +1530,7 @@ end
 -- @name iterator
 -- @param f a function 
 -- @param x an initial input to `f`
--- @return an iterator fnction
+-- @return an iterator function
 -- <br/><em>Aliased as `iter`</em>.
 function _.iterator(f, x)
 	return function()
