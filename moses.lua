@@ -505,7 +505,7 @@ end
 -- @name sortBy
 -- @param t a table
 -- @param[opt] transform a `transform` function to sort elements prototyped as `transform (v)`. Defaults to @{identity}
--- @param[optchain] comp a comparision function, defaults to the `<` operator
+-- @param[optchain] comp a comparison function, defaults to the `<` operator
 -- @return a new array of sorted values
 -- @see sort
 function _.sortBy(t, transform, comp)
