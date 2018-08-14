@@ -2208,7 +2208,7 @@ do
   -- Register all functions into the wrapper
   for fname,fct in pairs(_) do
     f[fname] = function(v, ...)
-      local wrapped = _.isTable(v) and v._wrapped or false
+      local wrapped = _.isTable(v) and rawget(v,'_wrapped') or false
       if wrapped then
         local _arg = v._value
         local _rslt = fct(_arg,...)
