@@ -47,9 +47,10 @@ Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/
 ## Credits and Acknowledgement
 
 * [Jeremy Ashkenas](https://github.com/jashkenas), for the amazing [Underscore.js](http://documentcloud.github.com/underscore/)
-* [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JTArchie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this
+* [Marcus Irven](http://mirven.github.com/underscore.lua/)'s and [JT Archie](https://github.com/jtarchie/underscore-lua)'s 1-to-1 ports that also inspired this
 * [Matthew Rocklin](https://github.com/mrocklin)'s [Toolz](https://github.com/pytoolz/toolz/) from which I borrowed some ideas
-* [LDoc](https://github.com/stevedonovan/ldoc/) used to generate the current HTML documentation.
+* [Steve Donovan](https://github.com/stevedonovan)'s [LDoc](https://github.com/stevedonovan/ldoc/), used to generate the current HTML documentation.
+* [Mark Langen](https://github.com/stravant)'s [LuaMinify](https://github.com/stravant/LuaMinify/), used to generate a minified version of this library.
 
 ## Specification
 
