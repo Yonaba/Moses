@@ -1,4 +1,4 @@
---require 'luacov'
+require 'luacov'
 local M = require 'moses'
 
 context('Array functions specs', function()
@@ -350,10 +350,6 @@ context('Array functions specs', function()
     test('arg "start" defaults to the initial index when not given ', function()
         assert_true(M.isEqual(M.removeRange({1,2,3,4,5,6}),{}))
     end)
-    
-    test('args "start" and "finish" are be clamped to the array bound ', function()
-        assert_true(M.isEqual(M.removeRange({1,2,3,4,5,6},0,100),{}))
-    end) 
 
     test('throws an error when "finish" < "start"', function()
         assert_error(function()M.removeRange({1,2,3,4,5,6},4,2) end)

@@ -1,4 +1,4 @@
---require 'luacov'
+require 'luacov'
 local M = require 'moses'
 
 context('Utility functions specs', function()
@@ -50,6 +50,7 @@ context('Utility functions specs', function()
         local mn, mx = math.random(1,10), math.random(11,20)
         local t = M.range(mn, mx)
         table.sort(t)
+        local unpack = unpack or table.unpack
         local r = stats(unpack(t))
         assert_equal(r.min, t[1])
         assert_equal(r.max, t[#t])

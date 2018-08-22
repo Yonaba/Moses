@@ -1,4 +1,4 @@
---require 'luacov'
+require 'luacov'
 local _ = require 'moses'
 
 context('Import specs', function()

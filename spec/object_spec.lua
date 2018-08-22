@@ -1,4 +1,4 @@
---require 'luacov'
+require 'luacov'
 local M = require 'moses'
 
 context('Object functions specs', function()
