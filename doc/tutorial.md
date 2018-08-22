@@ -2315,7 +2315,7 @@ local stats = M.chain(lyrics)
 -- =>  }"
 ````
 
-For convenience, you can also use `_(value)` to start chaining methods, instead of `M.chain(value)`.
+For convenience, you can also use `M(value)` to start chaining methods, instead of `M.chain(value)`.
 
 Note that one can use `:value()` to unwrap a chained object.
 
