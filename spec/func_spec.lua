@@ -72,22 +72,6 @@ context('Utility functions specs', function()
         assert_equal(fib(13), mfib(13))
 		end)
 	
-		test('can take a hash function to compute an unique output for multiple args',function()
-			local function hash(a,b) return (a^13+b^19) end
-			local function fact(a) return a <= 1 and 1 or a*fact(a-1) end
-			local diffFact = function(a,b) return fact(a)-fact(b) end
-			local mdiffFact = M.memoize(function(a,b) return fact(a)-fact(b) end,hash)
-			local times, rep = 100, 10
-			
-			for j = 1,times do 
-				for ai = 1,rep do
-					for aj = 1,rep do
-            assert_equal(diffFact(ai,aj), mdiffFact(ai,aj))
-          end
-				end
-			end
-		end)
-	
 	end) 
   
   context('unfold', function()

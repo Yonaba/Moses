@@ -1401,7 +1401,7 @@ local stats = M.applySpec({
 stats(5,4,10,1,8) -- => {min = 1, max = 10}
 ````
 
-### memoize (f [, hash])
+### memoize (f)
 *Aliases: `cache`*.
 
 Memoizes a slow-running function. It caches the result for a specific input, so that the next time the function is called with the same input, it will lookup the result in its cache, instead of running again the function body.
@@ -1413,17 +1413,6 @@ end
 local mem_fibonacci = M.memoize(fibonacci)
 fibonacci(20) -- => 6765 (but takes some time)
 mem_fibonacci(20) -- => 6765 (takes less time)
-````
-
-Can take a `hash` function as an optional arg to evaluate unique keys depending on the inputs when caching intermediate results.
-
-```lua
-local function hash(a) return (a^13) end
-local function fact(a) 
-  return a <= 1 and 1 or a*fact(a-1) 
-end
-local mfact = M.memoize(fact,hash)
-mfact(20) -- => 6765
 ````
 
 ### unfold (f, seed)

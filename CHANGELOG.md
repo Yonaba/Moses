@@ -13,8 +13,9 @@ Library functions affected with this breaking change are :
 * `functions` no longer accept optional `sort` third arguments
 * `sliding` was renamed to `overlapping`
 * Improved `range` to handle negative progressions and start the count from 1.
+* `memoize` no longer takes a `hash` function.
 
-###Other changes
+### Other changes
 * Made `shift` a default library function, and `pop` its alias.
 * Moved `shuffle` from table function to array functions
 * Made `iterator` to accept an extra optional arg `n`

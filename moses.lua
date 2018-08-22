@@ -1682,21 +1682,18 @@ function M.applySpec(specs)
 end
 
 --- Memoizes a given function by caching the computed result.
--- Useful for speeding-up slow-running functions. If a `hash` function is passed,
--- it will be used to compute hash keys for a set of input values for caching.
+-- Useful for speeding-up slow-running functions.
 -- <br/><em>Aliased as `cache`</em>
 -- @name memoize
 -- @param f a function
--- @param[opt] hash a hash function, defaults to @{identity}
 -- @return a new function
-function M.memoize(f, hash)
+function M.memoize(f)
   local _cache = setmetatable({},{__mode = 'kv'})
-  local _hasher = hash or M.identity
-  return function (...)
-      local _hashKey = _hasher(...)
-      local _result = _cache[_hashKey]
-      if not _result then _cache[_hashKey] = f(...) end
-      return _cache[_hashKey]
+  return function (key)
+      if (_cache[key] == nil) then
+        _cache[key] = f(key)
+      end
+      return _cache[key]
     end
 end
 
