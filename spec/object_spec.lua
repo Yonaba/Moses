@@ -146,7 +146,7 @@ describe('Object functions specs', function()
     it('collects function names within an object',function()
       local x = {}
       function x.a() return end; function x.b() return end    
-      assert.is_true(M.isEqual(M.functions(x),{'a','b'}))
+      assert.is_true(M.same(M.functions(x),{'a','b'}))
     end)
     
     it('collects metatable functions if "recurseMt" arg is supplied',function()
