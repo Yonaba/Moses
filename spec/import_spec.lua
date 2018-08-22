@@ -1,20 +1,20 @@
 require 'luacov'
-local _ = require 'moses'
+local M = require 'moses'
 
-context('Import specs', function()
+describe('Import specs', function()
   
-  test('imports all library function to a given context', function()
-    local funcs = _.functions()
-    local context = _.import({})
-    assert_true(_.all(funcs, function(n) return _.has(context, n) end))
+  it('imports all library function to a given context', function()
+    local funcs = M.functions()
+    local context = M.import({})
+    assert.is_true(M.all(funcs, function(n) return M.has(context, n) end))
   end)
 
-  test('passing "noConflict" will preserve already existing keys', function()
-    local funcs = _.functions()
-    local context = _.import({each = 1, all = 2}, true)
-    assert_true(_.all(funcs, function(n) return _.has(context, n) end))
-    assert_equal(context.each, 1)
-    assert_equal(context.all, 2)
+  it('passing "noConflict" will preserve already existing keys', function()
+    local funcs = M.functions()
+    local context = M.import({each = 1, all = 2}, true)
+    assert.is_true(M.all(funcs, function(n) return M.has(context, n) end))
+    assert.equal(context.each, 1)
+    assert.equal(context.all, 2)
   end)
   
 end)

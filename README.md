@@ -94,10 +94,10 @@ Find a complete set of code examples in [tutorial.md](https://github.com/Yonaba/
 
 ## Specification
 
-Run [spec tests](https://github.com/Yonaba/Moses/blob/master/spec) from Lua using [Telescope](https://github.com/norman/telescope) with the following command from the root folder:
+Run [spec tests](https://github.com/Yonaba/Moses/blob/master/spec) from Lua using [busted](https://github.com/Olivine-Labs/busted/) with the following command from the root folder:
 
 ````
-lua tsc -f spec/*
+busted
 ````
 
 ## License
