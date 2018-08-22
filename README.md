@@ -33,7 +33,7 @@ moonrocks install moses
 local _ = require "moses"
 ````
 
-*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~70 kiB). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~22 kiB).
+*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~80 kiB, 2611 LOC). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~30 kiB, 475 LOC).
 
 ## Tutorial
 

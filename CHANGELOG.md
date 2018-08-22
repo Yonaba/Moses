@@ -1,5 +1,70 @@
 # Version history
 
+## 2.0.0 (08/22/2018)
+### Breaking changes
+* library functions now accept iterators prototyped as `f(v, k, ...)` instead of `f(k, v, ...)`.
+It improves the benefits of chaning and helps writting a clear functional-style code.
+Library functions affected with this breaking change are : 
+`each`, `eachi`,`countf`, `map`, `reduceby`, `select`, `reject`, `all`, `groupBy`, `countBy`, 
+`selectWhile`, `dropWhile`, `findIndex`, `findLastIndex`, `chunk`.
+* `reduceby` is now prototyped as `reduceby(t, f, pred, state)` instead of `reduceby(t, f, state, pred)`.
+* `times` is now prototyped as `times(iter, n, ...)` instead of `times(iter, n, ...)`.
+* `bindAll` was renamed to `bindall`
+* `functions` no longer accept optional `sort` third arguments
+* `sliding` was renamed to `overlapping`
+* Improved `range` to handle negative progressions and start the count from 1.
+
+###Other changes
+* Made `shift` a default library function, and `pop` its alias.
+* Moved `shuffle` from table function to array functions
+* Made `iterator` to accept an extra optional arg `n`
+
+### Additions
+
+#### Added support for operators
+* Arithmetic operators : `add`, `sub`, `mul`, `div`, `mod`, `exp`, `pow` (alias to `exp`), `unm`, `neg` (alias to `unm`), `floordiv`, `intdiv`
+* Relational operators : `eq`, `neq`, `lt`, `gt`, `le`, `ge`
+* Logical operators : `land`, `lor`, `lnot`
+* Concatenation operator : `concat`
+* Length operator : `length`, `len` (alias to `length`)
+
+#### Added functions
+* Added `adjust` in table functions
+* Added `xprod` in array functions
+* Added `prepend` in array functions
+* Added `zeros` in array functions
+* Added `ones` in array functions
+* Added `vector` in array functions
+* Added `aperture` in array functions
+* Added `sum` in array functions
+* Added `product` in array functions
+* Added `mean` in array functions
+* Added `median` in array functions
+* Added `powerset` in array functions
+* Added `zipWith` in array functions
+* Added `pairwise` in array functions
+* Added `applySpec` in utility functions
+* Added `nthArg` in utility functions
+* Added `cond` in utility functions
+* Added `castArray` in utility functions
+* Added `unary` in utility functions
+* Added `ary` in utility functions
+* Added `rearg` in utility functions
+* Added `unfold` in utility functions
+* Added `converge` in utility functions
+* Added `path` in object functions
+
+#### Added function aliases
+* Added `update` as alias to `adjust`
+* Added `always` as alias to `constant`
+* Added `intersperse` as alias to `interpose`
+* Added `sliding` as alias to `aperture`
+* Added `tabulate` as alias to `array`
+* Added `matches` as alias to `isEqual`
+* Added `average` as alias to `mean`
+* Added `nAry` as alias to `ary`
+* Added `transposeWith` as alias to `zipWith`
+
 ## 1.6.1 (04/27/17)
 
 * Added `_.array`
