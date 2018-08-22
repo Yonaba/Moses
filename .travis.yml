@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - LUAROCKS=2.3.0
+    - LUAROCKS=3.0.1
   matrix:
     - LUA=lua5.1
     - LUA=lua5.2
