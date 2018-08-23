@@ -441,7 +441,6 @@ describe('Object functions specs', function()
   
     it('checks if the given object is iterable with pairs',function()
       assert.is_true(M.isIterable({}))
-      assert.is_false(M.isIterable(function() end))
       assert.is_false(M.isIterable(false))
       assert.is_false(M.isIterable(1))
     end)
