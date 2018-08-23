@@ -1,6 +1,6 @@
 # Version history
 
-## 2.0.0 (08/22/2018)
+## 2.0.0 (08/23/2018)
 ### Breaking changes
 * library functions now accept iterators prototyped as `f(v, k, ...)` instead of `f(k, v, ...)`.
 It improves the benefits of chaning and helps writting a clear functional-style code.
