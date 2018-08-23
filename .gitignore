@@ -1,10 +1,10 @@
 *.bat
 tsc*
 ldoc*
-telescope*
-LuaMin*
+LuaMinify*
 *.ld
 luacov*
 *.exe
 *.dll
 test*
+bust*
