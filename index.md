@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/Yonaba/Moses.png)](https://travis-ci.org/Yonaba/Moses)
-[![Coverage Status](https://coveralls.io/repos/github/Yonaba/Moses/badge.svg?branch=master)](https://coveralls.io/github/Yonaba/Moses?branch=master)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
 
