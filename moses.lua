@@ -9,7 +9,7 @@
 local _MODULEVERSION = '2.0.0'
 
 -- Internalisation
-local next, type, select, pcall  = next, type, select, pcall
+local next, type, pcall          = next, type, pcall
 local setmetatable, getmetatable = setmetatable, getmetatable
 local t_insert, t_sort           = table.insert, table.sort
 local t_remove,t_concat          = table.remove, table.concat
@@ -1958,10 +1958,10 @@ end
 -- @param[opt] n the number of times the iterator should run
 -- @return an iterator function
 function M.iterator(f, value, n)
-  local count = 0
+  local cnt = 0
 	return function()
-    count = count + 1
-    if n and count > n then return end
+    cnt = cnt + 1
+    if n and cnt > n then return end
 		value = f(value)
 		return value
 	end
@@ -2114,8 +2114,8 @@ function M.overArgs(f,...)
 	return function(...)
 		local _args = {...}
 		for i = 1,#_argf do
-			local f = _argf[i]
-			if _args[i] then _args[i] = f(_args[i]) end
+			local func = _argf[i]
+			if _args[i] then _args[i] = func(_args[i]) end
 		end
 		return f(unpack(_args))
 	end
@@ -2507,7 +2507,7 @@ end
 function M.isCallable(obj)
   return 
     ((type(obj) == 'function') or
-    ((type(obj) == 'table') and getmetatable(obj) and getmetatable(obj).__call~=nil) or 
+    ((type(obj) == 'table') and getmetatable(obj) and getmetatable(obj).__call~=nil) or
     false)
 end
 
@@ -2756,7 +2756,7 @@ do
   f.import = function(context, noConflict)
     context = context or _ENV or _G
     local funcs = M.functions()
-    for k, fname in ipairs(funcs) do  
+    for k, fname in ipairs(funcs) do
       if rawget(context, fname)~= nil then
         if not noConflict then
           rawset(context, fname, M[fname])
@@ -2775,5 +2775,5 @@ do
   Moses._DESCRIPTION = 'utility-belt library for functional programming in Lua'
   
   return Moses
-  
+
 end
