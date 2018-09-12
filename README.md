@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Yonaba/Moses.png)](https://travis-ci.org/Yonaba/Moses)
-[![Latest Stable](https://img.shields.io/badge/Latest_Stable-2.1.0-blue.svg)
+[![Latest Stable](https://img.shields.io/badge/Latest_Stable-2.1.0-blue.svg)](https://github.com/Yonaba/Moses/releases/tag/Moses-2.1.0-1)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
 
