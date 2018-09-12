@@ -30,6 +30,7 @@
 * Changed prototype : `template(id, ...)` is now `template(id)`
 * Changed prototype : `tap(obj, f, ...)` is now `tap(obj, f)`
 * Changed prototype : `result(obj, method, ...)` is now `result(obj, method)`
+* Changed prototype : `intersection(array, ...)` is now `intersection(array)`
 
 ### Other changes
 
@@ -60,10 +61,6 @@
 * Added `neither` in utility functions
 * Added `dispatch` in utility functions
 * Added `noarg` in utility functions
-
-### Changes
-
-* Changed `intersection` prototype : `intersection(array,...)` becomes `intersection(...)` 
 
 ## 2.0.0 (08/23/2018)
 ### Breaking changes
