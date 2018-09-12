@@ -27,13 +27,12 @@ describe('Utility functions specs', function()
     
   end)
 	
-  describe('constant', function()
+  describe('call', function()
   
-    it('creates a constant function',function()
-			local gravity = M.constant(9.81)
-			assert.equal(gravity(),9.81)
-			assert.equal(gravity(10), 9.81)
-			assert.equal(gravity(nil), 9.81)
+    it('calls f(...) and returns the results',function()
+      assert.equal(M.call(math.pow, 2, 3), 8)
+      assert.equal(M.call(string.len, 'hello' ), 5)
+      assert.equal(M.call(table.concat, {1,2,3,4,5}, ',', 2, 4),"2,3,4")
     end)
     
   end)	
@@ -58,6 +57,64 @@ describe('Utility functions specs', function()
     end)
     
   end)
+  
+  describe('thread', function()
+  
+    it('threads a value through functions',function()
+      local function inc(x) return x + 1 end
+      local function double(x) return 2 * x end
+      local function square(x) return x * x end
+      assert.equal(M.thread(2, inc, double, square), 36)
+      assert.equal(M.thread(3, double, inc, square), 49)
+      assert.equal(M.thread(4, square, double, inc), 33)
+      assert.equal(M.thread(5, square, inc, double), 52)
+    end)
+    
+    it('accepts funcs taking more than one arg',function()
+      local function inc(x) return x + 1 end
+      local function add(x, y) return x + y end
+      local function pow(x, y) return x ^ y end
+      assert.equal(M.thread(2, inc, {add, 3}, {pow, 2}), 36)
+      assert.equal(M.thread(2, {add, 4}, inc, {pow, 2}), 49)
+    end)
+    
+  end)
+  
+  describe('threadRight', function()
+  
+    it('threads a value through functions',function()
+      local function inc(x) return x + 1 end
+      local function double(x) return 2 * x end
+      local function square(x) return x * x end
+      assert.equal(M.threadRight(2, inc, double, square), 36)
+      assert.equal(M.threadRight(3, double, inc, square), 49)
+      assert.equal(M.threadRight(4, square, double, inc), 33)
+      assert.equal(M.threadRight(5, square, inc, double), 52)
+    end)
+    
+    it('accepts funcs taking more than one arg',function()
+      local function inc(x) return x + 1 end
+      local function add(x, y) return x + y end
+      local function pow(x, y) return x ^ y end
+      assert.equal(M.threadRight(2, inc, {add, 3}, {pow, 2}), 64)
+      assert.equal(M.threadRight(2, {add, 4}, inc, {pow, 2}), 128)
+    end)
+    
+  end)  
+  
+	describe('dispatch', function()
+	
+		it('produces a dispatch function',function()
+      local f = M.dispatch(
+        function() return nil end,
+        function (v) return v+1 end, 
+        function (v) return 2*v end
+      )
+      assert.equal(f(5),6)
+      assert.equal(f(7),8)
+		end)
+	
+	end) 
   
 	describe('memoize', function()
 
@@ -301,6 +358,48 @@ describe('Utility functions specs', function()
     
   end)
 	
+  describe('both', function()
+  
+    it('returns a truthy func when all funcs returns true',function()
+      local f = M.both(
+        function(x) return x > 0 end,
+        function(x) return x < 10 end,
+        function(x) return x % 2 == 0 end
+      )
+      assert.is_true(f(2))
+      assert.is_true(f(8))
+      assert.is_false(f(9))
+    end)
+    
+  end)
+  
+  describe('either', function()
+  
+    it('returns a truthy func when at least one of its funcs returns true',function()
+      local f = M.either(
+        function(x) return x > 0 end,
+        function(x) return x % 2 == 0 end
+      )
+      assert.is_true(f(0))
+      assert.is_false(f(-3))
+    end)
+    
+  end)
+  
+  describe('neither', function()
+  
+    it('returns a truthy func when neither of its funcs returns true',function()
+      local f = M.neither(
+        function(x) return x > 10 end,
+        function(x) return x % 2 == 0 end
+      )
+      assert.is_false(f(12))
+      assert.is_false(f(8))
+      assert.is_true(f(7))
+    end)
+    
+  end)
+  
   describe('uniqueId', function()
   
     it('returns an unique (for the current session) integer Id',function()
@@ -355,18 +454,55 @@ describe('Utility functions specs', function()
 		end)    
 		
 	end)
+  
+	describe('skip', function()
+
+		it('consumes the first n values of an iterator',function()
+      local w = "hello"
+      local char = string.gmatch(w,'.')
+      local iter = M.skip(char, 3)
+      assert.equal(iter(), 'l')
+      assert.equal(iter(), 'o')
+		end)
+    
+		it('consumes the first n values of an iterator',function()
+      local w = "lua"
+      local char = string.gmatch(w,'.')
+      local iter = M.skip(char)
+      assert.equal(iter(), 'u')
+      assert.equal(iter(), 'a')
+		end)    
+		
+	end)
 	
-	describe('array', function()
+	describe('tabulate', function()
 
 		it('iterates a given iterator and returns its values in an array',function()
-			local letters = M.array(('Lua'):gmatch('.'))
+			local letters = M.tabulate(('Lua'):gmatch('.'))
 			assert.is_true(M.isEqual(letters,{'L','u','a'}))
 			
-			local numbers = M.array(pairs(M.range(1,10)))
+			local numbers = M.tabulate(pairs(M.range(1,10)))
 			assert.is_true(M.isEqual(numbers,M.range(1,10)))			
 		end)
 		
 	end)
+  
+	describe('iterlen', function()
+
+		it('returns the iterator length',function()
+      local text = 'letters'
+      local chars = string.gmatch(text, '.')
+      assert.equal(M.iterlen(chars),7)
+		end)
+    
+		it('it consumes the iterator',function()
+      local text = 'lua'
+      local chars = string.gmatch(text, '.')
+      assert.equal(M.iterlen(chars),3)
+      assert.is_nil(chars())
+		end)    
+		
+	end)  
   
 	describe('castArray', function()
 
@@ -439,7 +575,18 @@ describe('Utility functions specs', function()
     
 	end)  
   
-	describe('rearg', function()
+	describe('noarg', function()
+
+		it('returns a function with an arity of 0',function()
+      local f = M.noarg(function (x) return x or 'default' end)
+      assert.equal(f(1), 'default')
+      assert.equal(f(function() end, 3), 'default')
+      assert.equal(f(nil), 'default')
+		end)
+    
+	end) 
+  
+  describe('rearg', function()
 
 		it('creates a function with args reordered',function()
       local f = M.rearg(function(...) return ... end, {3,2,1})

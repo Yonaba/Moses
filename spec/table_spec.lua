@@ -27,9 +27,10 @@ describe('Table functions specs', function()
 	  
 		it('can reference the given table', function()
 		  local t = {1,2,3}
-		  M.each(t,function(v,i,mul)
+      local mul = 5
+		  M.each(t,function(v,i)
 			t[i] = v*mul
-		  end,5)
+		  end)
 		  assert.is_true(M.isEqual(t,{5,10,15}))
 		end)
 		
@@ -133,6 +134,35 @@ describe('Table functions specs', function()
     end)
   end)
   
+  describe('allEq', function()
+  
+    it('checks if all values are equal', function()
+      assert.is_true(M.allEqual({1,1,1,1,1}, comp))
+      assert.is_false(M.allEqual({1,1,2,1,1}, comp))
+
+      local t1 = {1, 2, {3}}
+      local t2 = {1, 2, {3}}
+      assert.is_true(M.allEqual({t1, t2}))
+    end)
+    
+    it('can use a custom comp function to compare values', function()
+      local t1 = {x = 1, y = 0}
+      local t2 = {x = 1, y = 0}
+      local t3 = {x = 1, y = 2}
+      local t4 = {x = 1, y = 2}
+      local function compx(a, b) return a.x == b.x end
+      local function compy(a, b) return a.y == b.y end
+
+      assert.is_true(M.allEqual({t1, t2}, compx))
+      assert.is_true(M.allEqual({t1, t2}, compy))
+      assert.is_true(M.allEqual({t3, t4}, compx))
+      assert.is_true(M.allEqual({t3, t4}, compy))
+      assert.is_true(M.allEqual({t1, t2, t3, t4}, compx))
+      assert.is_false(M.allEqual({t1, t2, t3, t4}, compy))
+    end)
+    
+  end)
+  
   describe('cycle', function()
     
     it('loops n times on a list', function()
@@ -230,14 +260,24 @@ describe('Table functions specs', function()
     end)
     
   end)
+  
+  describe('best', function()
+    
+    it('select the best candidate in a table', function()
+      local words = {'Lua', 'Programming', 'Language'}      
+      assert.equal(M.best(words, function(a,b) return #a > #b end), 'Programming')
+      assert.equal(M.best(words, function(a,b) return #a < #b end), 'Lua')
+    end)
+    
+  end)
 	
-  describe('reduceby', function()
+  describe('reduceBy', function()
   
     it('folds a collection (left to right) for specific values', function()
 			local function even(v) return v%2==0 end
 			local function odd(v) return v%2~=0 end
-      assert.equal(M.reduceby({1,2,3,4},function(memo,v) return memo+v end,even,0), 6)
-      assert.equal(M.reduceby({1,2,3,4},function(memo,v) return memo+v end,odd,0), 4)
+      assert.equal(M.reduceBy({1,2,3,4},function(memo,v) return memo+v end,even,0), 6)
+      assert.equal(M.reduceBy({1,2,3,4},function(memo,v) return memo+v end,odd,0), 4)
     end)
    
   end)	
@@ -421,7 +461,7 @@ describe('Table functions specs', function()
       assert.is_true(M.isEqual(M.invoke({'a','bea','cdhza'},string.len),
         {1,3,5}))
 
-      assert.is_true(M.isEqual(M.invoke({{2,3,2},{13,8,10},{0,-5}},M.sort),
+      assert.is_true(M.isEqual(M.invoke({{2,3,2},{13,8,10},{0,-5}},M.ary(M.sort,1)),
         {{2,2,3},{8,10,13},{-5,0}}))
         
       assert.is_true(M.isEqual(M.invoke({{x = 1, y = 2},{x = 3, y=4}},'x'), {1,3}))
@@ -511,6 +551,58 @@ describe('Table functions specs', function()
     end)     
   
   end)
+  
+  describe('sortedk', function()
+  
+    it('iterates on sorted keys', function()            
+      local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+      local ok_tbl = {12, 6, 5, 10, 8}
+      local sorted = {}
+      for k, v in M.sortedk(tbl) do sorted[k] = v end
+      for k in ipairs(sorted) do
+        assert.equal(sorted[k], ok_tbl[k])
+      end
+    end)
+    
+    it('can take a comparison function', function()            
+      local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+      local ok_tbl = {8, 10, 5, 6, 12}
+      local sorted = {}
+      for k, v in M.sortedk(tbl, function(a, b) return a > b end) do 
+        sorted[#sorted +1] = {k, v} 
+      end
+      for k, pr in ipairs(sorted) do
+        assert.equal(pr[2], ok_tbl[k])
+      end
+    end)    
+
+  end)
+  
+  describe('sortedv', function()
+  
+    it('iterates on sorted values', function()            
+      local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+      local ok_tbl = {5, 6, 8, 10, 12}
+      local sorted = {}
+      for k, v in M.sortedv(tbl) do sorted[#sorted + 1] = {k, v} end
+      for k, pr in ipairs(sorted) do
+        assert.equal(pr[2], ok_tbl[k])
+      end
+    end)
+    
+    it('can take a comparison function', function()            
+      local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+      local ok_tbl = {12, 10, 8, 6, 5}
+      local sorted = {}
+      for k, v in M.sortedv(tbl, function(a, b) return a > b end) do 
+        sorted[#sorted +1] = {k, v} 
+      end
+      for k, pr in ipairs(sorted) do
+        assert.equal(pr[2], ok_tbl[k])
+      end
+    end)   
+
+  end)   
 
 	describe('sortBy', function()
 	
@@ -544,18 +636,9 @@ describe('Table functions specs', function()
       assert.is_true(M.isEqual(M.groupBy({0,1,2,3,4,5,6},function(value) 
           return value%2==0 and 'even' or 'odd'
         end),{even = {0,2,4,6},odd = {1,3,5}}))
-        
       assert.is_true(M.isEqual(M.groupBy({0,'a',true, false,nil,b,0.5},type),{number = {0,0.5},string = {'a'},boolean = {true,false}}))
-        
       assert.is_true(M.isEqual(M.groupBy({'one','two','three','four','five'},string.len),{[3] = {'one','two'},[4] = {'four','five'},[5] = {'three'}}))
         
-    end)
-    
-    it('can takes extra-args', function()
-    
-      assert.is_true(M.isEqual(M.groupBy({3,9,10,12,15}, function(v,k,x) return v%x == 0 end,2), {[false] = {3,9,15}, [true] = {10,12}}))
-      assert.is_true(M.isEqual(M.groupBy({3,9,10,12,15}, function(v,k,x) return v%x == 0 end,3), {[false] = {10}, [true] = {3,9,12,15}}))
-      
     end)
   
   end)   

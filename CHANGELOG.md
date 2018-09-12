@@ -1,5 +1,70 @@
 # Version history
 
+## 2.1.0 (09/12/2018)
+
+### Breaking changes
+
+* Renamed `toArray` to `pack`
+* Renamed `reduceby` to `reduceBy`
+* Removed `skip` as alias to `last`
+* Changed prototype : `each(t, f, ...)` is now `each(t, f)`
+* Changed prototype : `eachi(t, f, ...)` is now `eachi(t, f)`
+* Changed prototype : `adjust(t, key, f, ...)` is now `adjust(t, key, f)`
+* Changed prototype : `countf(t, f, ...)` is now `countf(t, f)`
+* Changed prototype : `map(t, f, ...)` is now `map(t, f)`
+* Changed prototype : `reduceBy(t, f, pred, state, ...)` is now `reduceBy(t, f, pred, state)`
+* Changed prototype : `select(t, f, ...)` is now `select(t, f)`
+* Changed prototype : `reject(t, f, ...)` is now `reject(t, f)`
+* Changed prototype : `all(t, f, ...)` is now `all(t, f)`
+* Changed prototype : `invoke(t, method, ...)` is now `invoke(t, method)`
+* Changed prototype : `min(t, transform, ...)` is now `min(t, transform)`
+* Changed prototype : `max(t, transform, ...)` is now `max(t, transform)`
+* Changed prototype : `countBy(t, iter, ...)` is now `countBy(t, iter)`
+* Changed prototype : `groupBy(t, iter, ...)` is now `groupBy(t, iter)`
+* Changed prototype : `selectWhile(array, f, ...)` is now `selectWhile(array, f)`
+* Changed prototype : `dropWhile(array, f, ...)` is now `dropWhile(array, f)`
+* Changed prototype : `findIndex(array, pred, ...)` is now `findIndex(array, pred)`
+* Changed prototype : `findLastIndex(array, pred, ...)` is now `findLastIndex(array, pred)`
+* Changed prototype : `chunk(array, f, ...)` is now `chunk(array, f)`
+* Changed prototype : `times(iter, n, ...)` is now `times(iter, n)`
+* Changed prototype : `template(id, ...)` is now `template(id)`
+* Changed prototype : `tap(obj, f, ...)` is now `tap(obj, f)`
+* Changed prototype : `result(obj, method, ...)` is now `result(obj, method)`
+
+### Other changes
+
+* Renamed `array` to `tabulate`, with no alias
+* Moved `invert` to object functions
+
+### Additions
+
+* Added `best` in table functions
+* Added `allEqual` in table functions
+* Added `sortedk` iterator in array functions
+* Added `sortedv` iterator in array functions
+* Added `disjoint` in array functions
+* Added `nsorted` in array functions
+* Added `duplicates` in array functions
+* Added `xpairs` in array functions
+* Added `xpairsRight` in array functions
+* Added `call` in utility functions
+* Added `type` in object functions
+* Added `spreadPath` in object functions
+* Added `flattenPath` in object functions
+* Added `thread` in utility functions
+* Added `threadRight` in utility functions
+* Added `iterlen` in utility functions
+* Added `skip` in utility functions
+* Added `both` in utility functions
+* Added `either` in utility functions
+* Added `neither` in utility functions
+* Added `dispatch` in utility functions
+* Added `noarg` in utility functions
+
+### Changes
+
+* Changed `intersection` prototype : `intersection(array,...)` becomes `intersection(...)` 
+
 ## 2.0.0 (08/23/2018)
 ### Breaking changes
 * library functions now accept iterators prototyped as `f(v, k, ...)` instead of `f(k, v, ...)`.

@@ -2,11 +2,11 @@
 -- @author [Roland Yonaba](http://github.com/Yonaba)
 -- @copyright 2012-2018
 -- @license [MIT](http://www.opensource.org/licenses/mit-license.php)
--- @release 2.0.0
+-- @release 2.1.0
 -- @module moses
 -- @set sort=true
 
-local _MODULEVERSION = '2.0.0'
+local _MODULEVERSION = '2.1.0'
 
 -- Internalisation
 local next, type, pcall          = next, type, pcall
@@ -258,12 +258,11 @@ end
 -- <br/><em>Aliased as `forEach`</em>.
 -- @name each
 -- @param t a table
--- @param f a function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f a function, prototyped as `f (v, k)`
 -- @see eachi
-function M.each(t, f, ...)
+function M.each(t, f)
   for index,value in pairs(t) do
-    f(value, index, ...)
+    f(value, index)
   end
 end
 
@@ -273,13 +272,12 @@ end
 -- <br/><em>Aliased as `forEachi`</em>.
 -- @name eachi
 -- @param t a table
--- @param f a function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f a function, prototyped as `f (v, k)`
 -- @see each
-function M.eachi(t, f, ...)
+function M.eachi(t, f)
   local lkeys = M.sort(M.select(M.keys(t), M.isInteger))
   for k, key in ipairs(lkeys) do
-    f(t[key], key, ...)
+    f(t[key], key)
   end
 end
 
@@ -295,16 +293,15 @@ function M.at(t, ...)
 end
 
 --- Adjusts the value at a given key using a function or a value. In case `f` is a function, 
--- it should be prototyped `f(v, ...)`. It does not mutate the given table, but rather
+-- it should be prototyped `f(v)`. It does not mutate the given table, but rather
 -- returns a new array. In case the given `key` does not exist in `t`, it throws an error.
 -- @param t a table
 -- @param key a key
--- @param f a function, prototyped as `f(v, ...)` or a value
--- @param[opt] ... Optional args to be passed to `f`
-function M.adjust(t, key, f, ...)
+-- @param f a function, prototyped as `f(v)` or a value
+function M.adjust(t, key, f)
   if (t[key] == nil) then error("key not existing in table") end
   local _t = M.clone(t)
-  _t[key] = type(f) == 'function' and f(_t[key], ...) or f
+  _t[key] = type(f) == 'function' and f(_t[key]) or f
   return _t
 end
 
@@ -325,20 +322,39 @@ function M.count(t, val)
 end
 
 --- Counts the number of values passing a predicate test. Same as @{count}, but uses an iterator. 
--- Returns the count for values passing the test `f (v, k, ...)`
+-- Returns the count for values passing the test `f (v, k)`
 -- @name countf
 -- @param t a table
--- @param f an iterator function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function, prototyped as `f (v, k)`
 -- @return the count of values validating the predicate
 -- @see count
 -- @see size
-function M.countf(t, f, ...)
+function M.countf(t, f)
   local count = 0
   for k, v in pairs(t) do
-    if f(v, k, ...) then count = count + 1 end
+    if f(v, k) then count = count + 1 end
   end
   return count
+end
+
+--- Checks if all values in a collection are equal. Uses an optional `comp` function which is used
+-- to compare values and defaults to @{isEqual} when not given.
+-- <br/><em>Aliased as `alleq`</em>.
+-- @name allEqual
+-- @param t a table
+-- @param[opt] comp a comparison function. Defaults to `isEqual`
+-- @return `true` when all values in `t` are equal, `false` otherwise.
+-- @see isEqual
+function M.allEqual(t, comp)
+  local k, pivot = next(t)
+  for k, v in pairs(t) do
+    if comp then 
+      if not comp(pivot, v) then return false end
+    else
+      if not M.isEqual(pivot, v) then return false end
+    end
+  end
+  return true
 end
 
 --- Loops `n` times through a table. In case `n` is omitted, it will loop forever.
@@ -372,13 +388,12 @@ end
 -- <br/><em>Aliased as `collect`</em>.
 -- @name map
 -- @param t a table
--- @param f  an iterator function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f  an iterator function, prototyped as `f (v, k)`
 -- @return a table of results
-function M.map(t, f, ...)
+function M.map(t, f)
   local _t = {}
   for index,value in pairs(t) do
-    local k, kv, v = index, f(value, index, ...)
+    local k, kv, v = index, f(value, index)
     _t[v and kv or k] = v or kv
   end
   return _t
@@ -393,8 +408,9 @@ end
 -- @param f an iterator function, prototyped as `f (state, value)`
 -- @param[opt] state an initial state of reduction. Defaults to the first value in the table.
 -- @return the final state of reduction
+-- @see best
 -- @see reduceRight
--- @see reduceby
+-- @see reduceBy
 function M.reduce(t, f, state)
   for k,value in pairs(t) do
     if state == nil then state = value
@@ -404,18 +420,40 @@ function M.reduce(t, f, state)
   return state
 end
 
---- Reduces values in a table passing a given predicate. Folds the table left-to-right, considering
--- only values validating a given predicate.
--- @name reduceby
+--- Returns the best value passing a selector function. Acts as a special case of
+-- @{reduce}, using the first value in `t` as an initial state. It thens folds the given table,
+-- testing each of its values `v` and selecting the value passing the call `f(state,v)` every time.
+-- @name best
 -- @param t a table
 -- @param f an iterator function, prototyped as `f (state, value)`
--- @param pred a predicate function `pred (v, k, ...)` to select values to be considered for reduction
+-- @return the final state of reduction
+-- @see reduce
+-- @see reduceRight
+-- @see reduceBy
+function M.best(t, f)
+  local _, state = next(t)
+  for k,value in pairs(t) do
+    if state == nil then state = value
+    else state = f(state,value) and state or value
+    end
+  end
+  return state
+end
+
+--- Reduces values in a table passing a given predicate. Folds the table left-to-right, considering
+-- only values validating a given predicate.
+-- @name reduceBy
+-- @param t a table
+-- @param f an iterator function, prototyped as `f (state, value)`
+-- @param pred a predicate function `pred (v, k)` to select values to be considered for reduction
 -- @param[opt] state an initial state of reduction. Defaults to the first value in the table of selected values.
 -- @param[optchain] ... optional args to be passed to `pred`
 -- @return the final state of reduction
 -- @see reduce
-function M.reduceby(t, f, pred, state, ...)
-	return M.reduce(M.select(t, pred, ...), f, state)
+-- @see best
+-- @see reduceRight
+function M.reduceBy(t, f, pred, state)
+	return M.reduce(M.select(t, pred), f, state)
 end
 
 --- Reduces a table, right-to-left. Folds the table from the last element to the first element 
@@ -428,6 +466,8 @@ end
 -- @param[opt] state an initial state of reduction. Defaults to the last value in the table.
 -- @return the final state of reduction
 -- @see reduce
+-- @see best
+-- @see reduceBy
 function M.reduceRight(t, f, state)
   return M.reduce(M.reverse(t),f,state)
 end
@@ -535,14 +575,13 @@ end
 -- <br/><em>Aliased as `filter`</em>.
 -- @name select
 -- @param t a table
--- @param f an iterator function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function, prototyped as `f (v, k)`
 -- @return the selected values
 -- @see reject
-function M.select(t, f, ...)
+function M.select(t, f)
   local _t = {}
   for index,value in pairs(t) do
-    if f(value,index,...) then _t[#_t+1] = value end
+    if f(value,index) then _t[#_t+1] = value end
   end
   return _t
 end
@@ -551,14 +590,13 @@ end
 -- <br/><em>Aliased as `discard`</em>
 -- @name reject
 -- @param t a table
--- @param f an iterator function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function, prototyped as `f (v, k)`
 -- @return the remaining values
 -- @see select
-function M.reject(t, f, ...)
+function M.reject(t, f)
   local _t = {}
   for index,value in pairs (t) do
-    if not f(value,index,...) then _t[#_t+1] = value end
+    if not f(value,index) then _t[#_t+1] = value end
   end
   return _t
 end
@@ -567,12 +605,11 @@ end
 -- <br/><em>Aliased as `every`</em>
 -- @name all
 -- @param t a table
--- @param f an iterator function, prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function, prototyped as `f (v, k)`
 -- @return `true` if all values passes the predicate, `false` otherwise
-function M.all(t, f, ...)
+function M.all(t, f)
   for index,value in pairs(t) do
-    if not f(value,index,...) then return false end
+    if not f(value,index) then return false end
   end
   return true
 end
@@ -580,27 +617,25 @@ end
 --- Invokes a method on each value in a table.
 -- @name invoke
 -- @param t a table
--- @param method a function, prototyped as `f (v, ...)`
--- @param[opt] ... Optional args to be passed to `method`
--- @return the result of the call `f (v, ...)`
+-- @param method a function, prototyped as `f (v, k)`
+-- @return the result of the call `f (v, k)`
 -- @see pluck
-function M.invoke(t, method, ...)
-  local args = {...}
-  return M.map(t, function(v)
+function M.invoke(t, method)
+  return M.map(t, function(v, k)
     if (type(v) == 'table') then
       if v[method] then
         if M.isCallable(v[method]) then
-          return v[method](v,unpack(args))
+          return v[method](v,k)
         else
           return v[method]
         end
       else
         if M.isCallable(method) then
-          return method(v,unpack(args))
+          return method(v,k)
         end
       end
     elseif M.isCallable(method) then
-      return method(v,unpack(args))
+      return method(v,k)
     end
   end)
 end
@@ -622,24 +657,22 @@ end
 -- be used to evaluate values by which all objects will be sorted.
 -- @name max
 -- @param t a table
--- @param[opt] transform a transformation function, prototyped as `transform (v, ...)`, defaults to @{identity}
--- @param[optchain] ... Optional args to be passed to `transform`
+-- @param[opt] transform a transformation function, prototyped as `transform (v, k)`, defaults to @{identity}
 -- @return the max value found
 -- @see min
-function M.max(t, transform, ...)
-  return extract(t, f_max, transform, ...)
+function M.max(t, transform)
+  return extract(t, f_max, transform)
 end
 
 --- Returns the min value in a collection. If a `transform` function is passed, it will
 -- be used to evaluate values by which all objects will be sorted.
 -- @name min
 -- @param t a table
--- @param[opt] transform a transformation function, prototyped as `transform (v, ...)`, defaults to @{identity}
--- @param[optchain] ... Optional args to be passed to `transform`
+-- @param[opt] transform a transformation function, prototyped as `transform (v, k)`, defaults to @{identity}
 -- @return the min value found
 -- @see max
-function M.min(t, transform, ...)
-  return extract(t, f_min, transform, ...)
+function M.min(t, transform)
+  return extract(t, f_min, transform)
 end
 
 --- Checks if two tables are the same. It compares if both tables features the same values,
@@ -664,6 +697,41 @@ function M.sort(t, comp)
   return t
 end
 
+--- Iterates on values with respect to key order. Keys are sorted using `comp` function
+-- which defaults to `math.min`. It returns upon each call a `key, value` pair.
+-- @name sortedk
+-- @param t a table 
+-- @param[opt] comp a comparison function. Defaults to `<` operator
+-- @return an iterator function 
+-- @see sortedv 
+function M.sortedk(t, comp)
+  local keys = M.keys(t)
+  t_sort(keys, comp)
+  local i = 0
+  return function ()
+    i = i + 1
+    return keys[i], t[keys[i]]
+  end
+end
+
+--- Iterates on values with respect to values order. Values are sorted using `comp` function
+-- which defaults to `math.min`. It returns upon each call a `key, value` pair.
+-- @name sortedv
+-- @param t a table 
+-- @param[opt] comp a comparison function. Defaults to `<` operator
+-- @return an iterator function 
+-- @see sortedk
+function M.sortedv(t, comp)
+  local keys = M.keys(t)
+  comp = comp or f_min
+  t_sort(keys, function(a,b) return comp(t[a],t[b]) end)
+  local i = 0
+  return function ()
+    i = i + 1
+    return keys[i], t[keys[i]]
+  end
+end
+
 --- Sorts a table in-place using a transform. Values are ranked in a custom order of the results of
 -- running `transform (v)` on all values. `transform` may also be a string name property  sort by. 
 -- `comp` is a comparison function.
@@ -686,14 +754,12 @@ end
 --- Splits a table into subsets groups.
 -- @name groupBy
 -- @param t a table
--- @param iter an iterator function, prototyped as `iter (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `iter`
+-- @param iter an iterator function, prototyped as `iter (v, k)`
 -- @return a table of subsets groups
-function M.groupBy(t, iter, ...)
-  local vararg = {...}
+function M.groupBy(t, iter)
   local _t = {}
   for k,v in pairs(t) do
-    local _key = iter(v,k, unpack(vararg))
+    local _key = iter(v,k)
     if _t[_key] then _t[_key][#_t[_key]+1] = v
     else _t[_key] = {v}
     end
@@ -704,14 +770,13 @@ end
 --- Groups values in a collection and counts them.
 -- @name countBy
 -- @param t a table
--- @param iter an iterator function, prototyped as `iter (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `iter`
+-- @param iter an iterator function, prototyped as `iter (v, k)`
 -- @return a table of subsets groups names paired with their count
-function M.countBy(t, iter, ...)
+function M.countBy(t, iter)
   local stats = {}
   for i,v in pairs(t) do
-    local key = iter(v,i,...)
-    stats[key] = (stats[key] or 0) +1
+    local key = iter(v,i)
+    stats[key] = (stats[key] or 0)+1
   end
   return stats
 end
@@ -800,6 +865,26 @@ function M.sampleProb(array, prob, seed)
 	return t
 end
 
+--- Returns the n-top values satisfying a predicate. It takes a comparison function
+-- `comp` used to sort array values, and then picks the top n-values. It leaves the original array untouched.
+-- @name nsorted
+-- @param array an array
+-- @param[opt] n a number of values to retrieve. Defaults to 1.
+-- @param[optchain] comp a comparison function. Defaults to `<` operator.
+-- @return an array of top n values
+function M.nsorted(array, n, comp)
+  comp = comp or f_min
+  n = n or 1
+  local values, count = {}, 0
+  for k, v in M.sortedv(array, comp) do
+    if count < n then
+      count = count + 1
+      values[count] = v
+    end
+  end
+  return values
+end
+
 --- Returns a shuffled copy of a given array. If a seed is provided, it will
 -- be used to init the built-in pseudo random number generator (using `math.randomseed`).
 -- @name shuffle
@@ -818,10 +903,10 @@ function M.shuffle(array, seed)
 end
 
 --- Converts a list of arguments to an array.
--- @name toArray
+-- @name pack
 -- @param ... a list of arguments
 -- @return an array of all passed-in args
-function M.toArray(...) return {...} end
+function M.pack(...) return {...} end
 
 --- Looks for the first occurrence of a given value in an array. Returns the value index if found.
 -- Uses @{isEqual} to compare values.
@@ -894,14 +979,13 @@ function M.vector(value, n) return M.fill({}, value, 1, n) end
 -- <br/><em>Aliased as `takeWhile`</em>
 -- @name selectWhile
 -- @param array an array
--- @param f an iterator function prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function prototyped as `f (v, k)`
 -- @return a new table containing all values collected
 -- @see dropWhile
-function M.selectWhile(array, f, ...)
+function M.selectWhile(array, f)
   local t = {}
   for i,v in ipairs(array) do
-    if f(v,i,...) then t[i] = v else break end
+    if f(v,i) then t[i] = v else break end
   end
   return t
 end
@@ -911,14 +995,13 @@ end
 -- <br/><em>Aliased as `rejectWhile`</em>
 -- @name dropWhile
 -- @param array an array
--- @param f an iterator function prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function prototyped as `f (v, k)`
 -- @return a new table containing all values collected
 -- @see selectWhile
-function M.dropWhile(array, f, ...)
+function M.dropWhile(array, f)
   local _i
   for i,v in ipairs(array) do
-    if not f(v, i, ...) then
+    if not f(v, i) then
       _i = i
       break
     end
@@ -971,25 +1054,23 @@ end
 --- Returns the first index at which a predicate returns true.
 -- @name findIndex
 -- @param array an array
--- @param predicate a predicate function prototyped as `predicate (v, k, ...)`
--- @param[opt] ... optional arguments to `pred`
+-- @param pred a predicate function prototyped as `pred (v, k)`
 -- @return the index found or __nil__
 -- @see findLastIndex
-function M.findIndex(array, predicate, ...)
+function M.findIndex(array, pred)
 	for k = 1, #array do
-		if predicate(array[k],k,...) then return k end
+		if pred(array[k],k) then return k end
 	end
 end
 
 --- Returns the last index at which a predicate returns true.
 -- @name findLastIndex
 -- @param array an array
--- @param predicate a predicate function prototyped as `predicate (k, v, ...)`
--- @param[opt] ... optional arguments to `pred`
+-- @param pred a predicate function prototyped as `pred (k, v)`
 -- @return the index found or __nil__
 -- @see findIndex
-function M.findLastIndex(array, predicate, ...)
-  local key = M.findIndex(M.reverse(array),predicate,...)
+function M.findLastIndex(array, pred)
+  local key = M.findIndex(M.reverse(array),pred)
   if key then return #array-key+1 end
 end
 
@@ -1009,7 +1090,7 @@ function M.addTop(array, ...)
 end
 
 --- Adds all passed-in values at the top of an array. As opposed to @{addTop}, it preserves the order
--- of the passed in elements.
+-- of the passed-in elements.
 -- @name prepend
 -- @param array an array
 -- @param ... a variable number of arguments
@@ -1077,10 +1158,15 @@ end
 -- @param ... a variable number of values to be removed from the array
 -- @return the passed-in array with values removed
 function M.pull(array, ...)
-  for k, rmValue in ipairs({...}) do
-    for i = #array, 1, -1 do
-      if M.isEqual(array[i], rmValue) then
-        t_remove(array, i)
+  local values = {...}
+  for i = #array, 1, -1 do
+    local remval = false
+    for k, rmValue in ipairs(values) do
+      if (remval == false) then
+        if M.isEqual(array[i], rmValue) then
+          t_remove(array, i)
+          remval = true
+        end
       end
     end
   end
@@ -1107,18 +1193,17 @@ function M.removeRange(array, start, finish)
 end
 
 --- Chunks together consecutive values. Values are chunked on the basis of the return
--- value of a provided predicate `f (k, v, ...)`. Consecutive elements which return 
+-- value of a provided predicate `f (v, k)`. Consecutive elements which return 
 -- the same value are chunked together. Leaves the first argument untouched if it is not an array.
 -- @name chunk
 -- @param array an array
--- @param f an iterator function prototyped as `f (v, k, ...)`
--- @param[opt] ... Optional args to be passed to `f`
+-- @param f an iterator function prototyped as `f (v, k)`
 -- @return a table of chunks (arrays)
 -- @see zip
-function M.chunk(array, f, ...)
+function M.chunk(array, f)
   local ch, ck, prev, val = {}, 0
   for k,v in ipairs(array) do
-    val = f(v, k,...)
+    val = f(v, k)
     prev = (prev==nil) and val or prev
     ck = ((val~=prev) and (ck+1) or ck)
     if not ch[ck] then
@@ -1287,14 +1372,15 @@ end
 --- Returns the  intersection of all passed-in arrays.
 -- Each value in the result is present in each of the passed-in arrays.
 -- @name intersection
--- @param array an array
 -- @param ... a variable number of array arguments
 -- @return a new array
 -- @see difference
 -- @see union
 -- @see symmetricDifference
-function M.intersection(array, ...)
+function M.intersection(...)
   local arg = {...}
+  local array = arg[1]
+  t_remove(arg, 1)
   local _intersect = {}
   for i,value in ipairs(array) do
     if M.all(arg,function(v) return M.include(v,value) end) then
@@ -1302,6 +1388,15 @@ function M.intersection(array, ...)
     end
   end
   return _intersect
+end
+
+--- Checks if all passed in arrays are disjunct.
+-- @name disjoint
+-- @param ... a variable number of arrays
+-- @return `true` if the intersection of all arrays is not empty, `false` otherwise.
+-- @see intersection
+function M.disjoint(...)
+  return (#M.intersection(...) == 0)
 end
 
 --- Performs a symmetric difference. Returns values from `array` not present in `array2` and also values
@@ -1327,6 +1422,7 @@ end
 -- @param array an array
 -- @return a new array, duplicate-free
 -- @see isunique
+-- @see duplicates
 function M.unique(array)
   local ret = {}
   for i = 1, #array do
@@ -1344,8 +1440,25 @@ end
 -- @param array an array
 -- @return `true` if the given array is unique, `false` otherwise.
 -- @see unique
+-- @see duplicates
 function M.isunique(array)
   return #array == #(M.unique(array))
+end
+
+--- Returns an array list of all duplicates in array.
+-- @name duplicates
+-- @param array an array
+-- @return an array-list of duplicates
+-- @see unique
+function M.duplicates(array)
+  local dict = M.invert(array)
+  local dups = {}
+  for k, v in ipairs(array) do
+    if dict[v] ~= k and not M.find(dups, v) then
+      dups[#dups+1] = v
+    end
+  end
+  return dups
 end
 
 --- Merges values of each of the passed-in arrays in subsets.
@@ -1549,20 +1662,6 @@ function M.permutation(array)
   end)
 end
 
---- Swaps keys with values. Produces a new array where previous keys are now values, 
--- while previous values are now keys.
--- <br/><em>Aliased as `mirror`</em>
--- @name invert
--- @param array a given array
--- @return a new array
-function M.invert(array)
-  local _ret = {}
-  for k, v in ipairs(array) do
-    _ret[v] = k
-  end
-  return _ret
-end
-
 --- Concatenates values in a given array. Handles booleans as well. If `sep` string is
 -- passed, it will be used as a separator. Passing `i` and `j` will result in concatenating
 -- only values within `[i, j]` range.
@@ -1590,6 +1689,32 @@ function M.xprod(array, array2)
     end
   end
   return p
+end
+
+--- Creates pairs from value and array. Value is always prepended to the pair.
+-- @name xpairs
+-- @param valua a value
+-- @param array an array
+-- @return an array list of all pairs
+function M.xpairs(value, array)
+  local xpairs = {}
+  for k, v in ipairs(array) do
+    xpairs[k] = {value, v}
+  end
+  return xpairs
+end
+
+--- Creates pairs from value and array. Value is always appended as the last item to the pair.
+-- @name xpairsRight
+-- @param valua a value
+-- @param array an array
+-- @return an array list of all pairs
+function M.xpairsRight(value, array)
+  local xpairs = {}
+  for k, v in ipairs(array) do
+    xpairs[k] = {v, value}
+  end
+  return xpairs
 end
 
 --- Returns the sum of array values.
@@ -1658,6 +1783,15 @@ function M.noop() return end
 -- @return the passed-in value
 function M.identity(value) return value end
 
+--- Calls `f` with the supplied arguments. Returns the results of `f(...)`.
+-- @name call
+-- @param f a function
+-- @param[opt] ... a vararg list of args to `f`
+-- @return the result of `f(...)` call.
+function M.call(f, ...)
+  return f(...)
+end
+
 --- Creates a constant function which returns the same output on every call.
 -- <br/><em>Aliased as `always`</em>
 -- @name constant
@@ -1678,6 +1812,68 @@ function M.applySpec(specs)
     local spec = {}
     for i, f in pairs(specs) do spec[i] = f(...) end
     return spec
+  end
+end
+
+--- Threads `value` through a series of functions. If a function expects more than one args,
+-- it can be specified using an array list, where the first item is the function and the following
+-- are the remaining args neeeded. The value is used as the first input.
+-- @name thread
+-- @param value a value
+-- @param ... a vararg list of functions or arrays
+-- @return a value
+-- @see threadRight
+function M.thread(value, ...)
+  local state = value
+  local arg = {...}
+  for k, t in ipairs(arg) do
+    if type(t) == 'function' then
+      state = t(state)
+    elseif type(t) == 'table' then
+      local f = t[1]
+      t_remove(t, 1)
+      state = M.reduce(t, f, state)
+    end
+  end
+  return state
+end
+
+--- Threads `value` through a series of functions. If a function expects more than one args,
+-- it can be specified using an array list, where the first item is the function and the following
+-- are the remaining args neeeded. The value is used as the last input.
+-- @name threadRight
+-- @param value a value
+-- @param ... a vararg list of functions or arrays
+-- @return a value
+-- @see thread
+function M.threadRight(value, ...)
+  local state = value
+  local arg = {...}
+  for k, t in ipairs(arg) do
+    if type(t) == 'function' then
+      state = t(state)
+    elseif type(t) == 'table' then
+      local f = t[1]
+      t_remove(t, 1)
+      t_insert(t, state)
+      state = M.reduce(t, f)
+    end
+  end
+  return state
+end
+
+--- Returns a dispatching function. When called with arguments, this function invokes each of its functions
+-- in the passed-in order and returns the results of the first non-nil evaluation.
+-- @name dispatch
+-- @param ... a vararg list of functions
+-- @return a dispatch function
+function M.dispatch(...)
+  local funcs = {...}
+  return function (...)
+    for k, f in ipairs(funcs) do
+      local r = {f(...)}
+      if #r > 0 then return unpack(r) end
+    end
   end
 end
 
@@ -1839,14 +2035,13 @@ end
 
 --- Runs `iter` function `n` times. Collects the results of each run and returns them in an array.
 -- @name times
--- @param  iter an iterator function, prototyped as `iter (i, ...)`
+-- @param  iter an iterator function, prototyped as `iter (i)`
 -- @param[opt] n the number of times `iter` should be called. Defaults to 1.
--- @param[optchain] ... args to be passed to `iter` function
 -- @return table an array of results
-function M.times(iter, n, ...)
+function M.times(iter, n)
   local results = {}
   for i = 1, (n or 1) do
-    results[i] = iter(i,...)
+    results[i] = iter(i)
   end
   return results
 end
@@ -1929,21 +2124,65 @@ function M.cond(conds)
   end
 end
 
+--- Returns a validation function. Given a set of functions, the validation function evaluates
+-- to `true` only when all its funcs returns `true`.
+-- @name both
+-- @param ... an array list of functions
+-- @return `true` when all given funcs returns true with input, false otherwise
+function M.both(...)
+  local funcs = {...}
+  return function (...)
+    for k, f in ipairs(funcs) do
+      if not f(...) then return false end
+    end
+    return true
+  end
+end
+
+--- Returns a validation function. Given a set of functions, the validation function evaluates
+-- to `true` when at least one of its funcs returns `true`.
+-- @name either
+-- @param ... an array list of functions
+-- @return `true` when one of the given funcs returns `true` with input, `false` otherwise
+function M.either(...)
+  local funcs = {...}
+  return function (...)
+    for k, f in ipairs(funcs) do
+      if f(...) then return true end
+    end
+    return false
+  end
+end
+
+--- Returns a validation function. Given a set of functions, the validation function evaluates
+-- to `true` when neither of its func return `true`.
+-- @name neither
+-- @param ... an array list of functions
+-- @return `true` when neither of the given funcs returns `true` with input, `false` otherwise
+function M.neither(...)
+  local funcs = {...}
+  return function (...)
+    for k, f in ipairs(funcs) do
+      if f(...) then return false end
+    end
+    return true
+  end
+end
+
 --- Generates an unique ID for the current session. If given a string `template`, it
 -- will use this template for output formatting. Otherwise, if `template` is a function, it
--- will evaluate `template (id, ...)`.
+-- will evaluate `template (id)`.
 -- <br/><em>Aliased as `uid`</em>.
 -- @name uniqueId
 -- @param[opt] template either a string or a function template to format the ID
--- @param[optchain] ... a variable number of arguments to be passed to `template`, in case it is a function.
 -- @return value an ID
-function M.uniqueId(template, ...)
+function M.uniqueId(template)
   unique_id_counter = unique_id_counter + 1
   if template then
     if type(template) == 'string' then
       return template:format(unique_id_counter)
     elseif type(template) == 'function' then
-      return template(unique_id_counter,...)
+      return template(unique_id_counter)
     end
   end
   return unique_id_counter
@@ -1967,18 +2206,39 @@ function M.iterator(f, value, n)
 	end
 end
 
+--- Consumes the first `n` values of a iterator then returns it.
+-- @name skip
+-- @param iter an iterator function 
+-- @param[opt] n a number. Defaults to 1.
+-- @return the given iterator
+function M.skip(iter, n)
+  for i = 1, (n or 1) do
+    if iter() == nil then return end
+  end
+  return iter
+end
+
 --- Iterates over an iterator and returns its values in an array.
--- <br/><em>Aliased as `tabulate`</em>.
--- @name array
+-- @name tabulate
 -- @param ... an iterator function (returning a generator, a state and a value)
 -- @return an array of results
-function M.array(...)
+function M.tabulate(...)
 	local r = {}
 	for v in ... do r[#r+1] = v end
 	return r
 end
 
---- Casts vaue as an array if it is not one.
+--- Returns the length of an iterator. It consumes the iterator itself.
+-- @name iterlen
+-- @param ... an iterator function (returning a generator, a state and a value)
+-- @return the iterator length
+function M.iterlen(...)
+	local l = 0
+  for v in ... do l = l + 1 end
+  return l
+end
+
+--- Casts value as an array if it is not one.
 -- @name castArray
 -- @param value a value
 -- @return an array containing the given value
@@ -2034,6 +2294,16 @@ function M.ary(f, n)
     local fargs = {}
     for i = 1, n do fargs[i] = args[i] end
     return f(unpack(fargs))
+  end
+end
+
+--- Returns a function with an arity of 0. The new function ignores any arguments passed to it.
+-- @name noarg
+-- @param f a function
+-- @return a new function
+function M.noarg(f)
+  return function ()
+    return f()
   end
 end
 
@@ -2207,7 +2477,7 @@ function M.time(f, ...)
 end
 
 --- Object functions
---@section Object functions
+-- @section Object functions
 
 --- Returns the keys of the object properties.
 -- @name keys
@@ -2244,6 +2514,43 @@ function M.path(obj, ...)
   return value
 end
 
+--- Spreads object under property path onto provided object. 
+-- It is similar to @{flattenPath}, but removes object under the property path.
+-- @name spreadPath
+-- @param obj an object
+-- @param ... a property path given as a vararg list
+-- @return the passed-in object with changes
+-- @see flattenPath
+function M.spreadPath(obj, ...)
+  local path = {...}
+  for _, p in ipairs(path) do
+    if obj[p] then
+      for k, v in pairs(obj[p]) do 
+        obj[k] = v
+        obj[p][k] = nil
+      end
+    end
+  end
+  return obj
+end
+
+--- Flattens object under property path onto provided object. 
+-- It is similar to @{spreadPath}, but preserves object under the property path.
+-- @name flattenPath
+-- @param obj an object
+-- @param ... a property path given as a vararg list
+-- @return the passed-in object with changes
+-- @see spreadPath
+function M.flattenPath(obj, ...)
+  local path = {...}
+  for _, p in ipairs(path) do
+    if obj[p] then
+      for k, v in pairs(obj[p]) do obj[k] = v end
+    end
+  end
+  return obj
+end
+
 --- Converts key-value pairs to an array-list of `[k, v]` pairs.
 -- @name kvpairs
 -- @param obj an object
@@ -2268,6 +2575,20 @@ function M.toObj(kvpairs)
 		obj[v[1]] = v[2]
 	end
 	return obj
+end
+
+--- Swaps keys with values. Produces a new object where previous keys are now values, 
+-- while previous values are now keys.
+-- <br/><em>Aliased as `mirror`</em>
+-- @name invert
+-- @param obj a given object
+-- @return a new object
+function M.invert(obj)
+  local _ret = {}
+  for k, v in pairs(obj) do
+    _ret[v] = k
+  end
+  return _ret
 end
 
 --- Returns a function that will return the key property of any passed-in object.
@@ -2366,11 +2687,10 @@ end
 -- on intermediate results within the chain.
 -- @name tap
 -- @param obj an object
--- @param f an interceptor function, should be prototyped as `f (obj, ...)`
--- @param[opt] ... args to be passed to `f`
+-- @param f an interceptor function, should be prototyped as `f (obj)`
 -- @return the passed-in object
-function M.tap(obj, f, ...)
-  f(obj,...)
+function M.tap(obj, f)
+  f(obj)
   return obj
 end
 
@@ -2441,6 +2761,7 @@ end
 -- @param objB another object
 -- @param[opt] useMt whether or not `__eq` should be used, defaults to false.
 -- @return `true` or `false`
+-- @see allEqual
 function M.isEqual(objA, objB, useMt)
   local typeObjA = type(objA)
   local typeObjB = type(objB)
@@ -2477,17 +2798,16 @@ end
 -- @name result
 -- @param obj an object
 -- @param method a string key to index in object `obj`.
--- @param[opt] ... Optional args to be passed to `method`
--- @return the returned value of `method (obj, ...)` call
-function M.result(obj, method, ...)
+-- @return the returned value of `method (obj)` call
+function M.result(obj, method)
   if obj[method] then
     if M.isCallable(obj[method]) then
-      return obj[method](obj,...)
+      return obj[method](obj)
     else return obj[method]
     end
   end
   if M.isCallable(method) then
-    return method(obj,...)
+    return method(obj)
   end
 end
 
@@ -2534,6 +2854,22 @@ end
 -- @return `true` if the object can be iterated with `pairs` (or `ipairs`), `false` otherwise
 function M.isIterable(obj)
   return M.toBoolean((pcall(pairs, obj)))
+end
+
+--- Extends Lua's `type` function. It returns the type of the given object and also recognises
+-- file userdata
+-- @name type
+-- @param obj an object
+-- @return the given object type
+function M.type(obj)
+  local tp = type(obj)
+  if tp == 'userdata' then
+    local mt = getmetatable(obj)
+    if mt == getmetatable(io.stdout) then 
+      return 'file'
+    end
+  end
+  return tp
 end
 
 --- Checks if the given pbject is empty. If `obj` is a string, will return `true`
@@ -2624,6 +2960,7 @@ do
   M.forEach       = M.each
   M.forEachi      = M.eachi
   M.update        = M.adjust
+  M.alleq         = M.allEqual
   M.loop          = M.cycle
   M.collect       = M.map
   M.inject        = M.reduce
@@ -2650,7 +2987,6 @@ do
   M.head          = M.first
   M.take          = M.first
   M.tail          = M.rest
-  M.skip          = M.last
   M.without       = M.difference
   M.diff          = M.difference
   M.symdiff       = M.symmetricDifference
@@ -2673,7 +3009,6 @@ do
   M.juxt          = M.juxtapose
   M.uid           = M.uniqueid
   M.iter          = M.iterator
-	M.tabulate      = M.array
   M.nAry          = M.ary
   
   -- Object functions aliases

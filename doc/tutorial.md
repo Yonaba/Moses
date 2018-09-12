@@ -43,7 +43,7 @@ Clears a table. All its values becomes nil. Returns the passed-in table.
 M.clear({1,2,'hello',true}) -- => {}
 ````
 
-### each (t, f [, ...])
+### each (t, f)
 *Aliases: `forEach`*.
 
 Iterates over each value-key pair in the passed-in table.
@@ -80,7 +80,7 @@ end)
 -- => cc
 ````
 
-### eachi (t, f [, ...])
+### eachi (t, f)
 *Aliases: `forEachi`*.
 
 Iterates only on integer keys in an array table. It returns value-key pairs.
@@ -117,9 +117,10 @@ local t = {a = 4, bb = true, ccc = false}
 M.at(t,'a', 'ccc') -- => "{4, false}"
 ````
 
-### adjust (t, key, f [, ...])
+### adjust (t, key, f)
 
-Adjusts the value at a given key using a function or a value. In case `f` is a function, it should be prototyped `f(v, ...)`. It does not mutate the given table, but rather returns a new array.
+Adjusts the value at a given key using a function or a value. In case `f` is a function, it should be prototyped `f(v)`. 
+It does not mutate the given table, but rather returns a new array.
 
 ```lua
 local t = {1,2,3}
@@ -149,7 +150,7 @@ Returns the size of the list in case no value was provided.
 M.count({1,1,2,3,3}) -- => 5
 ````
 
-### countf (t, f [, ...])
+### countf (t, f)
 
 Counts the number of values passing an iterator test.
 
@@ -161,6 +162,38 @@ end) -- => 3
 M.countf({print, pairs, os, assert, ipairs}, function(v)
   return type(v)=='function'
 end) -- => 4
+````
+
+### allEqual (t [, comp])
+*Aliases: `alleq`*.
+
+Checks if all values in a collection are equal. Uses `M.isEqual` by default to compare values.
+
+```lua
+M.allEqual({1,1,1,1,1}, comp) -- => true
+M.allEqual({1,1,2,1,1}, comp) -- => false
+
+local t1 = {1, 2, {3}}
+local t2 = {1, 2, {3}}
+M.allEqual({t1, t2}) -- => true
+````
+
+Can take an optional `comp` function which will be used to compare values.
+
+```lua
+local t1 = {x = 1, y = 0}
+local t2 = {x = 1, y = 0}
+local t3 = {x = 1, y = 2}
+local t4 = {x = 1, y = 2}
+local function compx(a, b) return a.x == b.x end
+local function compy(a, b) return a.y == b.y end
+
+M.allEqual({t1, t2}, compx) -- => true
+M.allEqual({t1, t2}, compy) -- => true
+M.allEqual({t3, t4}, compx) -- => true
+M.allEqual({t3, t4}, compy) -- => true
+M.allEqual({t1, t2, t3, t4}, compx) -- => true
+M.allEqual({t1, t2, t3, t4}, compy) -- => false
 ````
 
 ### cycle (t [, n = 1])
@@ -196,7 +229,7 @@ end
 -- => 3
 ````
 
-### map (t, f [, ...])
+### map (t, f)
 *Aliases: `collect`*.
 
 Executes a function on each value in a given array.
@@ -238,7 +271,19 @@ local function concat(a,b) return a..b end
 M.reduce({'a','b','c','d'},concat) -- => abcd	 
 ````
 
-### reduceby (t, f, pred [, state = next(t) [, ...]])
+### best (t, f)
+
+Returns the best value passing a selector function. Acts as a special case of `reduce`, using the first value in `t` as 
+an initial state. It thens folds the given table, testing each of its values `v` and selecting the value passing the 
+call `f(state,v)` every time.
+
+```lua
+local words = {'Lua', 'Programming', 'Language'}
+M.best(words, function(a,b) return #a > #b end) -- => 'Programming'
+M.best(words, function(a,b) return #a < #b end) -- => 'Lua'
+````
+
+### reduceBy (t, f, pred [, state = next(t)])
 
 Reduces a table considering only values matching a predicate.
 For example,let us define a set of values.
@@ -266,15 +311,15 @@ local function pos(v) return v>=0 end
 Then we can perform reduction considering only negative or positive values :
 
 ```lua
-M.reduceby(val, add, neg) -- => -17
-M.reduceby(val, add, pos) -- => 19
+M.reduceBy(val, add, neg) -- => -17
+M.reduceBy(val, add, pos) -- => 19
 ````
 
 An initial state can be passed in.
 
 ```lua
-M.reduceby(val, add, neg, 17) -- => 0
-M.reduceby(val, add, pos, -19) -- => 0
+M.reduceBy(val, add, neg, 17) -- => 0
+M.reduceBy(val, add, pos, -19) -- => 0
 ````
 
 ### reduceRight (t, f [, state = next(t)])
@@ -379,7 +424,7 @@ local c = {a = 3, b = 4, e = 5}
 M.findWhere({a, b, c}, {a = 3, b = 4}) == c -- => true
 ````
 
-### select (t, f [, ...])
+### select (t, f)
 *Aliases: `filter`*.
 
 Collects values passing a validation test.
@@ -392,7 +437,7 @@ M.select({1,2,3,4,5,6,7}, isEven) -- => "{2,4,6}"
 M.select({1,2,3,4,5,6,7}, isOdd) -- => "{1,3,5,7}"
 ````
 
-### reject (t, f [, ...])
+### reject (t, f)
 *Aliases: `reject`*.
 
 Removes all values failing (returning false or nil) a validation test:
@@ -405,7 +450,7 @@ M.reject({1,2,3,4,5,6,7}, isEven) -- => "{1,3,5,7}"
 M.reject({1,2,3,4,5,6,7}, isOdd) -- => "{2,4,6}"
 ````
 
-### all (t, f [, ...])
+### all (t, f)
 *Aliases: `every`*.
 
 Checks whether or not all elements pass a validation test.
@@ -415,7 +460,7 @@ local function isEven(v) return v%2==0 end
 M.all({2,4,6}, isEven) -- => true
 ````
 
-### invoke (t, method [, ...])
+### invoke (t, method)
 
 Invokes a given function on each value in a table.
 
@@ -444,7 +489,7 @@ M.pluck(peoples,'age') -- => "{23,17,15,33}"
 M.pluck(peoples,'name') -- => "{'John', 'Peter', 'Steve'}"
 ````
 
-### max (t [, transform [, ...]])
+### max (t [, transform])
 
 Returns the maximum value in a collection.
 
@@ -462,7 +507,7 @@ local peoples = {
 M.max(peoples,function(people) return people.age end) -- => 33
 ````
 
-### min (t [, transform [, ...]])
+### min (t [, transform])
 
 Returns the minimum value in a collection.
 
@@ -507,6 +552,56 @@ Handles custom comparison functions.
 M.sort({'b','a','d','c'}, function(a,b) 
   return a:byte() > b:byte() 
 end) -- => "{'d','c','b','a'}"
+````
+
+### sortedk (t [, comp])
+
+Iterates on values with respect to key order. Keys are sorted using `comp` function which defaults to `math.min`. 
+It returns upon each call a `key, value` pair.
+
+```lua 
+local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+for k, v in M.sortedk(tbl) do print(k, v) end
+
+-- => 1	12
+-- => 2	6
+-- => 3	5
+-- => 4	10
+-- => 5	8
+
+local function comp(a,b) return a > b end
+for k, v in M.sortedk(tbl, comp) do print(k, v) end
+
+-- => 5	8
+-- => 4	10
+-- => 3	5
+-- => 2	6
+-- => 1	12
+````
+
+### sortedv (t [, comp])
+
+Iterates on values with respect to key order. Keys are sorted using `comp` function which defaults to `math.min`. 
+It returns upon each call a `key, value` pair.
+
+```lua 
+local tbl = {}; tbl[3] = 5 ; tbl[2] = 6; tbl[5] = 8; tbl[4] = 10; tbl[1] = 12
+for k, v in M.sortedv(tbl) do print(k, v) end
+
+-- => 3	5
+-- => 2	6
+-- => 5	8
+-- => 4	10
+-- => 1	12
+
+local function comp(a,b) return a > b end
+for k, v in M.sortedv(tbl, comp) do print(k, v) end
+
+-- => 1	12
+-- => 4	10
+-- => 5	8
+-- => 2	6
+-- => 3	5
 ````
 
 ### sortBy (t [, transform [, comp = math.min]])
@@ -565,7 +660,7 @@ print(table.concat(r,','))
 -- => {1,2,3,4,5}
 ````
 
-### groupBy (t, iter [, ...])
+### groupBy (t, iter)
 
 Groups values in a collection depending on their return value when passed to a predicate test.
 
@@ -579,7 +674,7 @@ M.groupBy({0,'a',true, false,nil,b,0.5},type)
 -- => "{number = {0,0.5}, string = {'a'}, boolean = {true, false}}"		
 ````
 
-### countBy (t [, iter [, ...]])
+### countBy (t, iter)
 
 Splits a table in subsets and provide the count for each subset.
 
@@ -671,6 +766,23 @@ print(table.concat(sample,','))
 -- => 1,6,10,12,15,20 (or similar)
 ````
 
+### nsorted (array [, n = 1[, comp]])
+
+Returns the n-top values satisfying a predicate. It takes a comparison function `comp` used to sort array values, 
+and then picks the top n-values. It leaves the original array untouched.
+
+```lua
+local function comp(a,b) return a > b end
+M.nsorted(array,5, comp) -- => {5,4,3,2,1}
+````
+
+`n` defaults to 1 and `comp` defaults to the `<` operator.
+
+```lua
+local array = M.range(1,20)
+M.nsorted(array) -- => {1}
+````
+
 ### shuffle (array [, seed])
 
 Shuffles a given array.
@@ -680,12 +792,12 @@ local list = M.shuffle {1,2,3,4,5,6} -- => "{3,2,6,4,1,5}"
 M.each(list,print)
 ````
 
-### toArray (...)
+### pack (...)
 
 Converts a vararg list of arguments to an array.
 
 ```lua
-M.toArray(1,2,8,'d','a',0) -- => "{1,2,8,'d','a',0}"
+M.pack(1,2,8,'d','a',0) -- => "{1,2,8,'d','a',0}"
 ````
 
 ### find (array, value [, from = 1])
@@ -819,7 +931,7 @@ Returns the index of the last occurence of a given value in an array.
 M.lastIndexOf({1,2,2,3},2) -- => 3
 ````
 
-### findIndex (array, predicate [, ...])
+### findIndex (array, pred)
 
 Returns the first index at which a predicate passes a truth test.
 
@@ -829,7 +941,7 @@ local function multipleOf3(v) return v%3==0 end
 M.findIndex(array, multipleOf3) -- => 3
 ````
 
-### findLastIndex (array, predicate [, ...])
+### findLastIndex (array, pred)
 
 Returns the last index at which a predicate passes a truthy test.
 
@@ -910,7 +1022,7 @@ local array = {1,2,3,4,5,6,7,8,9}
 M.removeRange(array, 3,8) -- => "{1,2,9}"
 ````
 
-### chunk (array, f [, ...])
+### chunk (array, f)
 
 Iterates over an array aggregating consecutive values in subsets tables, on the basis of the return value of `f(v, k, ...)`. Consecutive elements which return the same value are chunked together.
 
@@ -949,7 +1061,6 @@ M.initial(array,5) -- => "{1,2,3,4}"
 ````
 
 ### last (array [, n = #array])
-*Aliases: `skip`*.
 
 Returns the last N elements in an array.
 
@@ -1020,7 +1131,7 @@ local C = {2,10}
 M.union(A,B,C) -- => "{'a',1,2,3,10}"
 ````
 
-### intersection (array, ...)
+### intersection (...)
 
 Returns the intersection (common-part) of all passed-in arrays:
 
@@ -1028,7 +1139,21 @@ Returns the intersection (common-part) of all passed-in arrays:
 local A = {'a'}
 local B = {'a',1,2,3}
 local C = {2,10,1,'a'}
-M.intersection(A,B,C) -- => "{'a',2,1}"
+M.intersection(A,B,C) -- => "{'a'}"
+````
+
+### disjoint (...)
+
+Checks if all passed in arrays are disjoint.
+
+```lua
+local A = {'a'}
+local B = {'a',1,3}
+local C = {3,10,2}
+
+M.disjoint(A,B) -- => false
+M.disjoint(A,C) -- => true
+M.disjoint(B,C) -- => false
 ````
 
 ### symmetricDifference (array, array2)
@@ -1059,6 +1184,14 @@ Checks if a given array contains no duplicate value.
 ```lua
 M.isunique({1,2,3,4,5}) -- => true
 M.isunique({1,2,3,4,4}) -- => false
+````
+
+### duplicates (array)
+
+Returns an array list of all duplicates in array.
+
+```lua
+M.duplicates({1,2,3,3,8,8,3,2,4}) -- => {2,3,8}
 ````
 
 ### zip (...)
@@ -1294,15 +1427,6 @@ end
 -- => 'abc'
 ````
 
-### invert (array)
-*Aliases: `mirror`*.
-
-Switches <tt>key-value</tt> pairs:
-
-```lua
-M.invert {'a','b','c'} -- => "{a=1, b=2, c=3}"
-````
-
 ### concat (array [, sep = '' [, i = 1 [, j = #array]]])
 *Aliases: `join`*.
 
@@ -1319,6 +1443,24 @@ Returns all possible pairs built from given arrays.
 ```lua
 local t = M.xprod({1,2},{'a','b'})
 -- => {{1,'a'},{1,'b'},{2,'a'},{2,'b'}}
+````
+
+### xpairs (value, array)
+
+Creates pairs from value and array. Value is always prepended to the pair.
+
+```lua
+local t = M.xpairs(1, {1, 2, 3})
+-- => {{1,1},{1,2},{1,3}}
+````
+
+### xpairsRight (value, array)
+
+Creates pairs from value and array. Value is always appended as the last item to the pair.
+
+```lua
+local t = M.xpairsRight(1, {1, 2, 3})
+-- => {{1,1},{2,1},{3,1}}
 ````
 
 ### sum (array)
@@ -1377,6 +1519,16 @@ M.identity(false) -- => false
 M.identity('hello!') -- => 'hello!'
 ````
 
+### call (f [, ...])
+
+Calls `f` with the supplied arguments. Returns the results of `f(...)`.
+
+```lua
+M.call(math.pow, 2, 3) -- => 8
+M.call(string.len, 'hello' ) -- => 5
+M.call(table.concat, {1,2,3,4,5}, ',', 2, 4) -- => {2,3,4}
+````
+
 ### constant (value)
 
 Creates a constant function. This function will continuously yield the same output.
@@ -1390,7 +1542,8 @@ pi(math.pi) -- => 3.1415926535898
 
 ### applySpec (specs)
 
-Returns a function which applies `specs` on args. This function will produce an object having the same structure than `specs` by mapping each property to the result of calling its associated function with the supplied arguments.
+Returns a function which applies `specs` on args. This function will produce an object having the same structure than `specs` 
+by mapping each property to the result of calling its associated function with the supplied arguments.
 
 ```lua
 local stats = M.applySpec({
@@ -1399,6 +1552,60 @@ local stats = M.applySpec({
 })
 
 stats(5,4,10,1,8) -- => {min = 1, max = 10}
+````
+
+### thread (value [, ...])
+
+Threads `value` through a series of functions.
+
+```lua
+local function inc(x) return x + 1 end
+local function double(x) return 2 * x end
+local function square(x) return x * x end
+M.thread(2, inc, double, square) -- => 36
+M.thread(3, double, inc, square) -- => 49
+M.thread(4, square, double, inc) -- => 33
+M.thread(5, square, inc, double) -- => 52
+````
+
+If a function expects more than one args, it can be specified using an array list, 
+where the first item is the function and the following are the remaining args neeeded. 
+
+```lua
+local function inc(x) return x + 1 end
+local function add(x, y) return x * y end
+local function pow(x, y) return x ^ y end
+M.thread(2, inc, {add, 3}, {pow, 2}) -- => 36
+M.thread(2, {add, 4}, inc, {pow, 2}) -- => 49
+````
+
+### threadRight (value [, ...])
+
+Threads `value` through a series of functions. If a function expects more than one args, 
+it can be specified using an array list, where the first item is the function and the following are 
+the remaining args neeeded. The value is used as the last input.
+
+```lua
+local function inc(x) return x + 1 end
+local function add(x, y) return x * y end
+local function pow(x, y) return x ^ y end
+M.threadRight(2, inc, {add, 3}, {pow, 2}) -- => 64
+M.threadRight(2, {add, 4}, inc, {pow, 2}) -- => 128
+````
+
+### dispatch (...)
+
+Returns a dispatching function. When called with arguments, this function invokes each of its functions 
+in the passed-in order and returns the results of the first non-nil evaluation.
+
+```lua
+local f = M.dispatch(
+  function() return nil end,
+  function (v) return v+1 end, 
+  function (v) return 2*v end
+)
+f(5) -- => 6
+f(7) -- => 8
 ````
 
 ### memoize (f)
@@ -1525,7 +1732,7 @@ greet_backwards('John')
 -- => hi: nhoJ
 ````
 
-### times (iter [, n [, ...]])
+### times (iter [, n])
 
 Calls a given function `n` times.
 
@@ -1606,7 +1813,52 @@ end
 -- => 20 is multiple of 2
 ````
 
-### uniqueId ([template [, ...]])
+### both (...)
+
+Returns a validation function. Given a set of functions, the validation function 
+evaluates to `true` only when all its funcs returns `true`.
+
+```lua
+local f = M.both(
+	function(x) return x > 0 end,
+	function(x) return x < 10 end,
+	function(x) return x % 2 == 0 end
+)
+f(2) -- => true
+f(8) -- => true
+f(9) -- => false
+````
+
+### either (...)
+
+Returns a validation function. Given a set of functions, the validation function 
+evaluates to `true` when one of its funcs returns `true`.
+
+```lua
+local f = M.either(
+	function(x) return x > 0 end,
+	function(x) return x % 2 == 0 end
+)
+f(0) -- => true
+f(-3) -- => false
+````
+
+### neither (...)
+
+Returns a validation function. Given a set of functions, the validation function 
+evaluates to `true` when neither of its funcs returns `true`.
+
+```lua
+local f = M.neither(
+	function(x) return x > 10 end,
+	function(x) return x % 2 == 0 end
+)
+f(12) -- => false
+f(8) -- => false
+f(7) -- => true
+````
+
+### uniqueId ([template])
 *Aliases: `uid`*.
 
 Returns an unique integer ID.
@@ -1653,15 +1905,53 @@ iter_po2() -- => 8
 iter_po2() -- => nil
 ````
 
-### array (...)
-*Aliases: `tabulate`*.
+### skip (iter [, n = 1])
+
+Consumes the first `n` values of a iterator then returns it.
+
+```lua
+local w = "hello"
+local char = string.gmatch(w,'.')
+local iter = M.skip(char, 3)
+for w in iter do print(w) end -- => 'l', 'o'
+````
+
+`n` defaults to 1 when not given.
+
+```lua
+local w = "hello"
+local char = string.gmatch(w,'.')
+local iter = M.skip(char)
+for w in iter do print(w) end -- => 'e', 'l', 'l', 'o'
+````
+
+### tabulate (...)
 
 Iterates a given iterator function and returns its values packed in an array.
 
 ```lua
 local text = 'letters'
 local chars = string.gmatch(text, '.')
-local letters = M.array(chars) -- => {'l','e','t','t','e','r','s'}
+M.tabulate(chars) -- => {'l','e','t','t','e','r','s'}
+````
+
+### iterlen (...)
+
+Returns the length of an iterator.
+
+```lua
+local text = 'letters'
+local chars = string.gmatch(text, '.')
+M.iterlen(chars) -- => 7
+````
+
+It consumes the iterator itself.
+
+```lua
+local text = 'lua'
+local chars = string.gmatch(text, '.')
+M.iterlen(chars) -- => 3
+chars() -- => nil
 ````
 
 ### castArray (value)
@@ -1732,6 +2022,16 @@ If `n` is not given, it defaults to `1`.
 ```lua
 local f = M.unary(function (...) return ... end)
 f('a','b','c') -- => 'a'
+````
+
+### noarg (f)
+
+Returns a function with an arity of 0. The new function ignores any arguments passed to it.
+
+```lua
+local f = M.noarg(function (x) return x or 'default' end)
+f(1) -- => 'default'
+f(function() end, 3) -- => 'default'
 ````
 
 ### rearg (f, indexes)
@@ -1972,6 +2272,26 @@ M.path(entity,'engine','right','damage') -- => 10
 M.path(entity,'boost') -- => false
 ````
 
+### spreadPath (obj, ...)
+
+Spreads object under property path onto provided object. It is similar to `flattenPath`, but removes object under the property path.
+
+```lua
+local obj = {a = 1, b = 2, c = {d = 3, e = 4, f = {g = 5}}}
+M.spreadPath(obj, 'c', 'f')
+-- => {a = 1, b = 2, d = 3, e = 4, g = 5, c = {f = {}}}
+````
+
+### flattenPath (obj, ...)
+
+Flattens object under property path onto provided object. It is similar to `spreadPath`, but preserves object under the property path.
+
+```lua
+local obj = {a = 1, b = 2, c = {d = 3, e = 4, f = {g = 5}}}
+M.spreadPath(obj, 'c', 'f')
+-- => {a = 1, b = 2, d = 3, e = 4, g = 5, c = {d = 3, e = 4, f = {g = 5}}}
+````
+
 ### kvpairs (obj)
 
 Converts an object to an array-list of key-value pairs.
@@ -1996,6 +2316,16 @@ local list_pairs = {{'x',1},{'y',2},{'z',3}}
 obj = M.toObj(list_pairs)
 
 -- => {x = 1, y = 2, z = 3}
+````
+
+### invert (obj)
+*Aliases: `mirror`*.
+
+Switches <tt>key-value</tt> pairs:
+
+```lua
+M.invert {'a','b','c'} -- => "{a=1, b=2, c=3}"
+M.invert {x = 1, y = 2} -- => "{'x','y'}"
 ````
 
 ### property (key)
@@ -2067,7 +2397,7 @@ print(obj2 == obj) -- => false
 print(M.isEqual(obj2, obj)) -- => true
 ````
 
-### tap (obj, f [, ...])
+### tap (obj, f)
 
 Invokes a given interceptor function on some object, and then returns the object itself. Useful to tap into method chaining to hook intermediate results.
 The passed-in interceptor should be prototyped as `f(obj,...)`.
@@ -2132,7 +2462,7 @@ M.isEqual(3.14,math.pi) -- => false
 M.isEqual({3,4,5},{3,4,{5}}) -- => false
 ````
 
-### result (obj, method [, ...])
+### result (obj, method)
 
 Calls an object method, passing it as a first argument the object itself.
 
@@ -2181,6 +2511,17 @@ M.isIterable({}) -- => true
 M.isIterable(function() end) -- => false
 M.isIterable(false) -- => false
 M.isIterable(1) -- => false
+````
+
+### type (obj)
+
+Extends Lua's `type` function. It returns the type of the given object and also recognises 'file' userdata
+
+```lua
+M.type('string') -- => 'string'
+M.type(table) -- => 'table'
+M.type(function() end) -- => 'function'
+M.type(io.open('f','w')) -- => 'file'
 ````
 
 ### isEmpty ([obj])

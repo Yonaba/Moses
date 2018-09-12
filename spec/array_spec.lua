@@ -45,6 +45,18 @@ describe('Array functions specs', function()
     end)	
     
   end)
+
+  describe('nsorted', function()
+  
+    it('returns the top n-values from an array', function()
+      local array = M.range(1,20)
+      assert.is_true(M.isEqual(M.nsorted(array,5),{1,2,3,4,5}))
+
+      local function comp(a,b) return a > b end
+      assert.is_true(M.isEqual(M.nsorted(array,3,comp),{20,19,18}))
+    end)	
+    
+  end)  
 	
   describe('shuffle', function()
   
@@ -67,15 +79,15 @@ describe('Array functions specs', function()
   
   end)
   
-  describe('toArray', function()
+  describe('pack', function()
   
     it('converts a vararg list to an array', function()
-      assert.is_true(M.isArray(M.toArray(1,2,3,4)))
-      assert.is_true(M.isEqual(M.toArray(1,2,8,'d','a',0),{1,2,8,'d','a',0}))      
+      assert.is_true(M.isArray(M.pack(1,2,3,4)))
+      assert.is_true(M.isEqual(M.pack(1,2,8,'d','a',0),{1,2,8,'d','a',0}))      
     end)
 
     it('preserves input order', function()
-      local args = M.toArray(1,2,3,4,5)
+      local args = M.pack(1,2,3,4,5)
       for i = 1, 5 do assert.equal(args[i], i) end
     end)
     
@@ -533,6 +545,20 @@ describe('Array functions specs', function()
     
   end)
   
+  describe('disjoint',function() 
+  
+    it('checks if all passed-in arrays are disjoint', function()   
+      local A = {'a'}
+      local B = {'a',1,3}
+      local C = {3,10,2}
+
+      assert.is_false(M.disjoint(A,B))
+      assert.is_true(M.disjoint(A,C))
+      assert.is_false(M.disjoint(B,C))
+    end)
+    
+  end)
+  
   describe('symmetricDifference',function() 
   
     it('returns the symmetric difference from two arrays', function()   
@@ -560,6 +586,13 @@ describe('Array functions specs', function()
     end)
     
   end)
+  
+  describe('duplicates',function()  
+    it('returns a list of all duplicates in array', function()   
+      assert.is_true(M.isEqual(M.duplicates({1,2,3,3,8,8,3,2,4}),{2,3,8}))
+      assert.is_true(M.isEqual(M.duplicates({true, false, true, 1, '5', '1', '5'}),{true, '5'}))
+    end)     
+  end)  
   
   describe('zip',function()  
     it('zips together values from different arrays sharing the same index', function()   
@@ -786,16 +819,7 @@ describe('Array functions specs', function()
       assert.is_true(#perm == 0)
     end)   
     
-  end)  
- 
-  describe('invert',function()
-  
-    it('switches key-values pairs', function()
-      assert.is_true(M.isEqual(M.invert({1,2,3}),{1,2,3}))
-      assert.is_true(M.isEqual(M.invert({'a','b','c'}),{a = 1,b = 2,c = 3}))
-    end)     
-    
-  end) 
+  end)
 
   describe('concat',function()  
     
@@ -831,6 +855,28 @@ describe('Array functions specs', function()
       assert.is_true(M.isEqual(r[4],{2,'b'}))
       assert.is_true(M.isEqual(r[5],{3,'a'}))
       assert.is_true(M.isEqual(r[6],{3,'b'}))
+    end)     
+    
+  end)
+  
+  describe('xpairs',function()
+  
+    it('create pairs by prepending value to array values', function()
+      local r = M.xpairs(1,{1,2,3})
+      assert.is_true(M.isEqual(r[1],{1,1}))
+      assert.is_true(M.isEqual(r[2],{1,2}))
+      assert.is_true(M.isEqual(r[3],{1,3}))
+    end)     
+    
+  end)
+  
+  describe('xpairsRight',function()
+  
+    it('create pairs by appending value to array values', function()
+      local r = M.xpairsRight(1,{1,2,3})
+      assert.is_true(M.isEqual(r[1],{1,1}))
+      assert.is_true(M.isEqual(r[2],{2,1}))
+      assert.is_true(M.isEqual(r[3],{3,1}))
     end)     
     
   end)

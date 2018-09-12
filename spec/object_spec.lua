@@ -43,6 +43,41 @@ describe('Object functions specs', function()
    
   end)   
 	
+  describe('spreadPath', function()
+  
+    it('spreads objects under property path',function()
+      local obj = {a = 1, b = 2, c = {d = 3, e = 4, f = {g = 5}}}
+      M.spreadPath(obj, 'c', 'f')
+      assert.equal(obj.a, 1)
+      assert.equal(obj.b, 2)
+      assert.equal(obj.d, 3)
+      assert.equal(obj.e, 4)
+      assert.equal(obj.g, 5)
+      assert.is_true(M.isEmpty(obj.c))
+      assert.is_true(M.isEmpty(obj.c.f))
+    end)
+   
+  end)
+  
+  describe('flattenPath', function()
+  
+    it('flattens objects under property path',function()
+      local obj = {a = 1, b = 2, c = {d = 3, e = 4, f = {g = 5}}}
+      M.flattenPath(obj, 'c', 'f') -- => {a = 1, b = 2, d = 3, e = 4, g = 5, c = {d = 3, e = 4, f = {g = 5}}}
+      assert.equal(obj.a, 1)
+      assert.equal(obj.b, 2)
+      assert.equal(obj.d, 3)
+      assert.equal(obj.e, 4)
+      assert.equal(obj.g, 5)
+      assert.equal(M.size(obj.c), 3)
+      assert.equal(obj.c.d, 3)
+      assert.equal(obj.c.e, 4)
+      assert.equal(M.size(obj.c.f), 1)
+      assert.equal(obj.c.f.g, 5)
+    end)
+   
+  end)
+  
   describe('kvpairs', function()
   
     it('converts key-values pairs in object to array-list of k,v pairs',function()
@@ -65,6 +100,16 @@ describe('Object functions specs', function()
     end)
    
   end)  	
+  
+  describe('invert',function()
+  
+    it('switches key-values pairs', function()
+      assert.is_true(M.isEqual(M.invert({1,2,3}),{1,2,3}))
+      assert.is_true(M.isEqual(M.invert({'a','b','c'}),{a = 1,b = 2,c = 3}))
+      assert.is_true(M.isEqual(M.invert({x = 4, y = 2}),{[2]='y',[4]='x'}))
+    end)     
+    
+  end) 
   
   describe('property', function()
   
@@ -446,6 +491,17 @@ describe('Object functions specs', function()
     
   end)  
      
+  describe('type', function()
+  
+    it('returns the type of the passed-in object',function()
+      assert.equal(M.type('string'),'string')
+      assert.equal(M.type(table),'table')
+      assert.equal(M.type(1), 'number')
+      assert.equal(M.type(io.open('f','w')),'file')
+    end)
+    
+  end) 
+  
   describe('isEmpty', function()
   
     it('returns "true" if arg is an empty array',function()
