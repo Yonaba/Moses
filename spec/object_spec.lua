@@ -396,11 +396,6 @@ describe('Object functions specs', function()
      assert.equal(M.result({'a','b','c'},table.concat),'abc')
     end)
     
-    it('handles extra-args to be passed to the so-called method',function()
-     assert.equal(M.result('Hello','match','%u'),'H')
-     assert.equal(M.result({'a','b','c'},table.concat,' '),'a b c')
-    end)    
-    
     it('returns the property itself if not callable',function()
      assert.equal(M.result({size = 0},'size'),0)
     end)
