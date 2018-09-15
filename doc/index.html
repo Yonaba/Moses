@@ -58,7 +58,7 @@
     <h3>Info:</h3>
     <ul>
         <li><strong>Copyright</strong>: 2012-2018</li>
-        <li><strong>Release</strong>: 2.0.0</li>
+        <li><strong>Release</strong>: 2.1.0</li>
         <li><strong>License</strong>: <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a></li>
         <li><strong>Author</strong>: <a href="http://github.com/Yonaba">Roland Yonaba</a></li>
     </ul>
@@ -150,16 +150,24 @@
 <h2><a href="#Table_functions">Table functions </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#adjust">adjust (t, key, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#adjust">adjust (t, key, f)</a></td>
 	<td class="summary">Adjusts the value at a given key using a function or a value.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#all">all (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#all">all (t, f)</a></td>
 	<td class="summary">Checks if all values in a table are passing an iterator test.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#allEqual">allEqual (t[, comp])</a></td>
+	<td class="summary">Checks if all values in a collection are equal.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#at">at (t, ...)</a></td>
 	<td class="summary">Collects values at given keys and return them wrapped in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#best">best (t, f)</a></td>
+	<td class="summary">Returns the best value passing a selector function.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#clear">clear (t)</a></td>
@@ -174,11 +182,11 @@
 	<td class="summary">Counts occurrences of a given value in a table.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#countBy">countBy (t, iter[, ...])</a></td>
+	<td class="name" nowrap><a href="#countBy">countBy (t, iter)</a></td>
 	<td class="summary">Groups values in a collection and counts them.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#countf">countf (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#countf">countf (t, f)</a></td>
 	<td class="summary">Counts the number of values passing a predicate test.</td>
 	</tr>
 	<tr>
@@ -190,11 +198,11 @@
 	<td class="summary">Performs a linear search for a value in a table.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#each">each (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#each">each (t, f)</a></td>
 	<td class="summary">Iterates on key-value pairs, calling <code>f (v, k)</code> at every step.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#eachi">eachi (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#eachi">eachi (t, f)</a></td>
 	<td class="summary">Iterates on integer key-value pairs, calling <code>f(v, k)</code> every step.</td>
 	</tr>
 	<tr>
@@ -202,7 +210,7 @@
 	<td class="summary">Returns the first value having specified keys <code>props</code>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#groupBy">groupBy (t, iter[, ...])</a></td>
+	<td class="name" nowrap><a href="#groupBy">groupBy (t, iter)</a></td>
 	<td class="summary">Splits a table into subsets groups.</td>
 	</tr>
 	<tr>
@@ -210,11 +218,11 @@
 	<td class="summary">Performs a linear search for a value in a table.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#invoke">invoke (t, method[, ...])</a></td>
+	<td class="name" nowrap><a href="#invoke">invoke (t, method)</a></td>
 	<td class="summary">Invokes a method on each value in a table.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#map">map (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#map">map (t, f)</a></td>
 	<td class="summary">Maps <code>f (v, k)</code> on value-key pairs, collects and returns the results.</td>
 	</tr>
 	<tr>
@@ -226,11 +234,11 @@
 	<td class="summary">Reduces a table while saving intermediate states.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#max">max (t[, transform[, ...]])</a></td>
+	<td class="name" nowrap><a href="#max">max (t[, transform])</a></td>
 	<td class="summary">Returns the max value in a collection.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#min">min (t[, transform[, ...]])</a></td>
+	<td class="name" nowrap><a href="#min">min (t[, transform])</a></td>
 	<td class="summary">Returns the min value in a collection.</td>
 	</tr>
 	<tr>
@@ -242,15 +250,15 @@
 	<td class="summary">Reduces a table, left-to-right.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#reduceBy">reduceBy (t, f, pred[, state[, ...]])</a></td>
+	<td class="summary">Reduces values in a table passing a given predicate.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#reduceRight">reduceRight (t, f[, state])</a></td>
 	<td class="summary">Reduces a table, right-to-left.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#reduceby">reduceby (t, f, pred[, state[, ...]])</a></td>
-	<td class="summary">Reduces values in a table passing a given predicate.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#reject">reject (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#reject">reject (t, f)</a></td>
 	<td class="summary">Clones a table while dropping values passing an iterator test.</td>
 	</tr>
 	<tr>
@@ -262,7 +270,7 @@
 	<td class="summary">Checks if both given tables have the same keys.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#select">select (t, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#select">select (t, f)</a></td>
 	<td class="summary">Selects and returns values passing an iterator test.</td>
 	</tr>
 	<tr>
@@ -276,6 +284,14 @@
 	<tr>
 	<td class="name" nowrap><a href="#sortBy">sortBy (t[, transform[, comp]])</a></td>
 	<td class="summary">Sorts a table in-place using a transform.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sortedk">sortedk (t[, comp])</a></td>
+	<td class="summary">Iterates on values with respect to key order.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sortedv">sortedv (t[, comp])</a></td>
+	<td class="summary">Iterates on values with respect to values order.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#where">where (t, props)</a></td>
@@ -297,7 +313,7 @@
 	<td class="summary">Clones array and appends values from another array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#chunk">chunk (array, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#chunk">chunk (array, f)</a></td>
 	<td class="summary">Chunks together consecutive values.</td>
 	</tr>
 	<tr>
@@ -313,8 +329,16 @@
 	<td class="summary">Returns values from an array not present in all passed-in args.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#dropWhile">dropWhile (array, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#disjoint">disjoint (...)</a></td>
+	<td class="summary">Checks if all passed in arrays are disjunct.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dropWhile">dropWhile (array, f)</a></td>
 	<td class="summary">Collects values from a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#duplicates">duplicates (array)</a></td>
+	<td class="summary">Returns an array list of all duplicates in array.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fill">fill (array, value[, i[, j]])</a></td>
@@ -325,11 +349,11 @@
 	<td class="summary">Looks for the first occurrence of a given value in an array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#findIndex">findIndex (array, predicate[, ...])</a></td>
+	<td class="name" nowrap><a href="#findIndex">findIndex (array, pred)</a></td>
 	<td class="summary">Returns the first index at which a predicate returns true.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#findLastIndex">findLastIndex (array, predicate[, ...])</a></td>
+	<td class="name" nowrap><a href="#findLastIndex">findLastIndex (array, pred)</a></td>
 	<td class="summary">Returns the last index at which a predicate returns true.</td>
 	</tr>
 	<tr>
@@ -357,12 +381,8 @@
 	<td class="summary">Interposes value in-between consecutive pair of values in array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#intersection">intersection (array, ...)</a></td>
+	<td class="name" nowrap><a href="#intersection">intersection (...)</a></td>
 	<td class="summary">Returns the  intersection of all passed-in arrays.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#invert">invert (array)</a></td>
-	<td class="summary">Swaps keys with values.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isunique">isunique (array)</a></td>
@@ -385,6 +405,10 @@
 	<td class="summary">Returns the median of an array of numbers.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#nsorted">nsorted (array[, n[, comp]])</a></td>
+	<td class="summary">Returns the n-top values satisfying a predicate.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#nth">nth (array, index)</a></td>
 	<td class="summary">Returns the value at a given index.</td>
 	</tr>
@@ -395,6 +419,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#overlapping">overlapping (array[, n[, pads]])</a></td>
 	<td class="summary">Iterator returning overlapping partitions of an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pack">pack (...)</a></td>
+	<td class="summary">Converts a list of arguments to an array.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#pairwise">pairwise (array)</a></td>
@@ -457,7 +485,7 @@
 	<td class="summary">Return elements from a sequence with a given probability.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#selectWhile">selectWhile (array, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#selectWhile">selectWhile (array, f)</a></td>
 	<td class="summary">Collects values from a given array.</td>
 	</tr>
 	<tr>
@@ -485,10 +513,6 @@
 	<td class="summary">Performs a symmetric difference.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#toArray">toArray (...)</a></td>
-	<td class="summary">Converts a list of arguments to an array.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#union">union (...)</a></td>
 	<td class="summary">Returns the duplicate-free union of all passed in arrays.</td>
 	</tr>
@@ -503,6 +527,14 @@
 	<tr>
 	<td class="name" nowrap><a href="#vector">vector (value, n)</a></td>
 	<td class="summary">Returns an array of <code>n</code> times a given value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#xpairs">xpairs (valua, array)</a></td>
+	<td class="summary">Creates pairs from value and array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#xpairsRight">xpairsRight (valua, array)</a></td>
+	<td class="summary">Creates pairs from value and array.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#xprod">xprod (array, array2)</a></td>
@@ -532,10 +564,6 @@
 	<td class="summary">Returns a function which applies <code>specs</code> on args.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#array">array (...)</a></td>
-	<td class="summary">Iterates over an iterator and returns its values in an array.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#ary">ary (f[, n])</a></td>
 	<td class="summary">Returns a function which accepts up to <code>n</code> args.</td>
 	</tr>
@@ -560,8 +588,16 @@
 	<td class="summary">Binds <code>...</code> to be the N-first arguments to function <code>f</code>.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#both">both (...)</a></td>
+	<td class="summary">Returns a validation function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#call">call (f[, ...])</a></td>
+	<td class="summary">Calls <code>f</code> with the supplied arguments.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#castArray">castArray (value)</a></td>
-	<td class="summary">Casts vaue as an array if it is not one.</td>
+	<td class="summary">Casts value as an array if it is not one.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#complement">complement (f)</a></td>
@@ -588,6 +624,14 @@
 	<td class="summary">Curries a function.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#dispatch">dispatch (...)</a></td>
+	<td class="summary">Returns a dispatching function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#either">either (...)</a></td>
+	<td class="summary">Returns a validation function.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#flip">flip (f)</a></td>
 	<td class="summary">Creates a function of <code>f</code> with arguments flipped in reverse order.</td>
 	</tr>
@@ -600,12 +644,24 @@
 	<td class="summary">Produces an iterator which repeatedly apply a function <code>f</code> onto an input.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#iterlen">iterlen (...)</a></td>
+	<td class="summary">Returns the length of an iterator.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#juxtapose">juxtapose (value, ...)</a></td>
 	<td class="summary">Calls a sequence of passed-in functions with the same argument.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#memoize">memoize (f)</a></td>
 	<td class="summary">Memoizes a given function by caching the computed result.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#neither">neither (...)</a></td>
+	<td class="summary">Returns a validation function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#noarg">noarg (f)</a></td>
+	<td class="summary">Returns a function with an arity of 0.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#noop">noop ()</a></td>
@@ -652,11 +708,27 @@
 	<td class="summary">Returns a function which runs with arguments rearranged.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#skip">skip (iter[, n])</a></td>
+	<td class="summary">Consumes the first <code>n</code> values of a iterator then returns it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tabulate">tabulate (...)</a></td>
+	<td class="summary">Iterates over an iterator and returns its values in an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#thread">thread (value, ...)</a></td>
+	<td class="summary">Threads <a href="index.html#obj:value">value</a> through a series of functions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#threadRight">threadRight (value, ...)</a></td>
+	<td class="summary">Threads <a href="index.html#obj:value">value</a> through a series of functions.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#time">time (f[, ...])</a></td>
 	<td class="summary">Returns the execution time of <code>f (...)</code> and its returned values.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#times">times (iter[, n[, ...]])</a></td>
+	<td class="name" nowrap><a href="#times">times (iter[, n])</a></td>
 	<td class="summary">Runs <code>iter</code> function <code>n</code> times.</td>
 	</tr>
 	<tr>
@@ -668,7 +740,7 @@
 	<td class="summary">Builds a list from a seed value.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#uniqueId">uniqueId ([template[, ...]])</a></td>
+	<td class="name" nowrap><a href="#uniqueId">uniqueId ([template])</a></td>
 	<td class="summary">Generates an unique ID for the current session.</td>
 	</tr>
 	<tr>
@@ -691,6 +763,10 @@
 	<td class="summary">Extends an object properties.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#flattenPath">flattenPath (obj, ...)</a></td>
+	<td class="summary">Flattens object under property path onto provided object.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#functions">functions ([obj])</a></td>
 	<td class="summary">Returns a sorted list of all methods names found in an object.</td>
 	</tr>
@@ -701,6 +777,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#import">import ([context[, noConflict]])</a></td>
 	<td class="summary">Imports all library functions into a context.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#invert">invert (obj)</a></td>
+	<td class="summary">Swaps keys with values.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#isArray">isArray (obj)</a></td>
@@ -791,11 +871,15 @@
 	<td class="summary">Returns a function which will return the value of an object property.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#result">result (obj, method[, ...])</a></td>
+	<td class="name" nowrap><a href="#result">result (obj, method)</a></td>
 	<td class="summary">Invokes an object method.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tap">tap (obj, f[, ...])</a></td>
+	<td class="name" nowrap><a href="#spreadPath">spreadPath (obj, ...)</a></td>
+	<td class="summary">Spreads object under property path onto provided object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tap">tap (obj, f)</a></td>
 	<td class="summary">Invokes interceptor with the object, and then returns object.</td>
 	</tr>
 	<tr>
@@ -809,6 +893,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#toObj">toObj (kvpairs)</a></td>
 	<td class="summary">Converts an array list of <code>[k,v]</code> pairs to an object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#type">type (obj)</a></td>
+	<td class="summary">Extends Lua's <a href="index.html#type">type</a> function.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#values">values (obj)</a></td>
@@ -1383,11 +1471,11 @@
     <dl class="function">
     <dt>
     <a name = "adjust"></a>
-    <strong>adjust (t, key, f[, ...])</strong>
+    <strong>adjust (t, key, f)</strong>
     </dt>
     <dd>
     Adjusts the value at a given key using a function or a value.  In case <code>f</code> is a function,
- it should be prototyped <code>f(v, ...)</code>. It does not mutate the given table, but rather
+ it should be prototyped <code>f(v)</code>. It does not mutate the given table, but rather
  returns a new array. In case the given <code>key</code> does not exist in <code>t</code>, it throws an error.
 
 
@@ -1400,11 +1488,7 @@
          a key
         </li>
         <li><span class="parameter">f</span>
-         a function, prototyped as <code>f(v, ...)</code> or a value
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         a function, prototyped as <code>f(v)</code> or a value
         </li>
     </ul>
 
@@ -1415,7 +1499,7 @@
 </dd>
     <dt>
     <a name = "all"></a>
-    <strong>all (t, f[, ...])</strong>
+    <strong>all (t, f)</strong>
     </dt>
     <dd>
     Checks if all values in a table are passing an iterator test.
@@ -1428,11 +1512,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         an iterator function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -1443,6 +1523,41 @@
     </ol>
 
 
+
+
+</dd>
+    <dt>
+    <a name = "allEqual"></a>
+    <strong>allEqual (t[, comp])</strong>
+    </dt>
+    <dd>
+    Checks if all values in a collection are equal.  Uses an optional <code>comp</code> function which is used
+ to compare values and defaults to <a href="index.html#isEqual">isEqual</a> when not given.
+ <br/><em>Aliased as <code>alleq</code></em>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+        <li><span class="parameter">comp</span>
+         a comparison function. Defaults to <a href="index.html#isEqual">isEqual</a>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> when all values in <code>t</code> are equal, <code>false</code> otherwise.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#isEqual">isEqual</a>
+    </ul>
 
 
 </dd>
@@ -1471,6 +1586,42 @@
     </ol>
 
 
+
+
+</dd>
+    <dt>
+    <a name = "best"></a>
+    <strong>best (t, f)</strong>
+    </dt>
+    <dd>
+    Returns the best value passing a selector function.  Acts as a special case of
+ <a href="index.html#reduce">reduce</a>, using the first value in <code>t</code> as an initial state. It thens folds the given table,
+ testing each of its values <code>v</code> and selecting the value passing the call <code>f(state,v)</code> every time.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+        <li><span class="parameter">f</span>
+         an iterator function, prototyped as <code>f (state, value)</code>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the final state of reduction
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#reduce">reduce</a></li>
+         <li><a href="index.html#reduceRight">reduceRight</a></li>
+         <li><a href="index.html#reduceBy">reduceBy</a></li>
+    </ul>
 
 
 </dd>
@@ -1569,7 +1720,7 @@
 </dd>
     <dt>
     <a name = "countBy"></a>
-    <strong>countBy (t, iter[, ...])</strong>
+    <strong>countBy (t, iter)</strong>
     </dt>
     <dd>
     Groups values in a collection and counts them.
@@ -1581,11 +1732,7 @@
          a table
         </li>
         <li><span class="parameter">iter</span>
-         an iterator function, prototyped as <code>iter (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>iter</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>iter (v, k)</code>
         </li>
     </ul>
 
@@ -1601,11 +1748,11 @@
 </dd>
     <dt>
     <a name = "countf"></a>
-    <strong>countf (t, f[, ...])</strong>
+    <strong>countf (t, f)</strong>
     </dt>
     <dd>
     Counts the number of values passing a predicate test.  Same as <a href="index.html#count">count</a>, but uses an iterator.
- Returns the count for values passing the test <code>f (v, k, ...)</code>
+ Returns the count for values passing the test <code>f (v, k)</code>
 
 
     <h3>Parameters:</h3>
@@ -1614,11 +1761,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         an iterator function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -1706,7 +1849,7 @@
 </dd>
     <dt>
     <a name = "each"></a>
-    <strong>each (t, f[, ...])</strong>
+    <strong>each (t, f)</strong>
     </dt>
     <dd>
     Iterates on key-value pairs, calling <code>f (v, k)</code> at every step.
@@ -1719,11 +1862,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         a function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         a function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -1738,7 +1877,7 @@
 </dd>
     <dt>
     <a name = "eachi"></a>
-    <strong>eachi (t, f[, ...])</strong>
+    <strong>eachi (t, f)</strong>
     </dt>
     <dd>
     Iterates on integer key-value pairs, calling <code>f(v, k)</code> every step. <br/>
@@ -1753,11 +1892,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         a function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         a function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -1804,7 +1939,7 @@
 </dd>
     <dt>
     <a name = "groupBy"></a>
-    <strong>groupBy (t, iter[, ...])</strong>
+    <strong>groupBy (t, iter)</strong>
     </dt>
     <dd>
     Splits a table into subsets groups.
@@ -1816,11 +1951,7 @@
          a table
         </li>
         <li><span class="parameter">iter</span>
-         an iterator function, prototyped as <code>iter (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>iter</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>iter (v, k)</code>
         </li>
     </ul>
 
@@ -1871,7 +2002,7 @@
 </dd>
     <dt>
     <a name = "invoke"></a>
-    <strong>invoke (t, method[, ...])</strong>
+    <strong>invoke (t, method)</strong>
     </dt>
     <dd>
     Invokes a method on each value in a table.
@@ -1883,18 +2014,14 @@
          a table
         </li>
         <li><span class="parameter">method</span>
-         a function, prototyped as <code>f (v, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>method</code>
-         (<em>optional</em>)
+         a function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        the result of the call <code>f (v, ...)</code>
+        the result of the call <code>f (v, k)</code>
     </ol>
 
 
@@ -1907,7 +2034,7 @@
 </dd>
     <dt>
     <a name = "map"></a>
-    <strong>map (t, f[, ...])</strong>
+    <strong>map (t, f)</strong>
     </dt>
     <dd>
     Maps <code>f (v, k)</code> on value-key pairs, collects and returns the results.
@@ -1920,11 +2047,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-          an iterator function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+          an iterator function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -2018,7 +2141,7 @@
 </dd>
     <dt>
     <a name = "max"></a>
-    <strong>max (t[, transform[, ...]])</strong>
+    <strong>max (t[, transform])</strong>
     </dt>
     <dd>
     Returns the max value in a collection.  If a <code>transform</code> function is passed, it will
@@ -2031,11 +2154,7 @@
          a table
         </li>
         <li><span class="parameter">transform</span>
-         a transformation function, prototyped as <code>transform (v, ...)</code>, defaults to <a href="index.html#identity">identity</a>
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>transform</code>
+         a transformation function, prototyped as <code>transform (v, k)</code>, defaults to <a href="index.html#identity">identity</a>
          (<em>optional</em>)
         </li>
     </ul>
@@ -2056,7 +2175,7 @@
 </dd>
     <dt>
     <a name = "min"></a>
-    <strong>min (t[, transform[, ...]])</strong>
+    <strong>min (t[, transform])</strong>
     </dt>
     <dd>
     Returns the min value in a collection.  If a <code>transform</code> function is passed, it will
@@ -2069,11 +2188,7 @@
          a table
         </li>
         <li><span class="parameter">transform</span>
-         a transformation function, prototyped as <code>transform (v, ...)</code>, defaults to <a href="index.html#identity">identity</a>
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>transform</code>
+         a transformation function, prototyped as <code>transform (v, k)</code>, defaults to <a href="index.html#identity">identity</a>
          (<em>optional</em>)
         </li>
     </ul>
@@ -2154,8 +2269,55 @@
 
     <h3>See also:</h3>
     <ul>
+         <li><a href="index.html#best">best</a></li>
          <li><a href="index.html#reduceRight">reduceRight</a></li>
-         <li><a href="index.html#reduceby">reduceby</a></li>
+         <li><a href="index.html#reduceBy">reduceBy</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "reduceBy"></a>
+    <strong>reduceBy (t, f, pred[, state[, ...]])</strong>
+    </dt>
+    <dd>
+    Reduces values in a table passing a given predicate.  Folds the table left-to-right, considering
+ only values validating a given predicate.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+        <li><span class="parameter">f</span>
+         an iterator function, prototyped as <code>f (state, value)</code>
+        </li>
+        <li><span class="parameter">pred</span>
+         a predicate function <code>pred (v, k)</code> to select values to be considered for reduction
+        </li>
+        <li><span class="parameter">state</span>
+         an initial state of reduction. Defaults to the first value in the table of selected values.
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">...</span>
+         optional args to be passed to <code>pred</code>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the final state of reduction
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#reduce">reduce</a></li>
+         <li><a href="index.html#best">best</a></li>
+         <li><a href="index.html#reduceRight">reduceRight</a></li>
     </ul>
 
 
@@ -2194,58 +2356,16 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#reduce">reduce</a>
-    </ul>
-
-
-</dd>
-    <dt>
-    <a name = "reduceby"></a>
-    <strong>reduceby (t, f, pred[, state[, ...]])</strong>
-    </dt>
-    <dd>
-    Reduces values in a table passing a given predicate.  Folds the table left-to-right, considering
- only values validating a given predicate.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">t</span>
-         a table
-        </li>
-        <li><span class="parameter">f</span>
-         an iterator function, prototyped as <code>f (state, value)</code>
-        </li>
-        <li><span class="parameter">pred</span>
-         a predicate function <code>pred (v, k, ...)</code> to select values to be considered for reduction
-        </li>
-        <li><span class="parameter">state</span>
-         an initial state of reduction. Defaults to the first value in the table of selected values.
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">...</span>
-         optional args to be passed to <code>pred</code>
-         (<em>optional</em>)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        the final state of reduction
-    </ol>
-
-
-    <h3>See also:</h3>
-    <ul>
-         <a href="index.html#reduce">reduce</a>
+         <li><a href="index.html#reduce">reduce</a></li>
+         <li><a href="index.html#best">best</a></li>
+         <li><a href="index.html#reduceBy">reduceBy</a></li>
     </ul>
 
 
 </dd>
     <dt>
     <a name = "reject"></a>
-    <strong>reject (t, f[, ...])</strong>
+    <strong>reject (t, f)</strong>
     </dt>
     <dd>
     Clones a table while dropping values passing an iterator test.
@@ -2258,11 +2378,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         an iterator function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -2343,7 +2459,7 @@
 </dd>
     <dt>
     <a name = "select"></a>
-    <strong>select (t, f[, ...])</strong>
+    <strong>select (t, f)</strong>
     </dt>
     <dd>
     Selects and returns values passing an iterator test.
@@ -2356,11 +2472,7 @@
          a table
         </li>
         <li><span class="parameter">f</span>
-         an iterator function, prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function, prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -2478,6 +2590,74 @@
     <h3>See also:</h3>
     <ul>
          <a href="index.html#sort">sort</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "sortedk"></a>
+    <strong>sortedk (t[, comp])</strong>
+    </dt>
+    <dd>
+    Iterates on values with respect to key order.  Keys are sorted using <code>comp</code> function
+ which defaults to <a href="https://www.lua.org/manual/5.1/manual.html#pdf-math.min">math.min</a>. It returns upon each call a <code>key, value</code> pair.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+        <li><span class="parameter">comp</span>
+         a comparison function. Defaults to <code>&lt;</code> operator
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an iterator function
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#sortedv">sortedv</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "sortedv"></a>
+    <strong>sortedv (t[, comp])</strong>
+    </dt>
+    <dd>
+    Iterates on values with respect to values order.  Values are sorted using <code>comp</code> function
+ which defaults to <a href="https://www.lua.org/manual/5.1/manual.html#pdf-math.min">math.min</a>. It returns upon each call a <code>key, value</code> pair.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         a table
+        </li>
+        <li><span class="parameter">comp</span>
+         a comparison function. Defaults to <code>&lt;</code> operator
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an iterator function
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#sortedk">sortedk</a>
     </ul>
 
 
@@ -2618,11 +2798,11 @@
 </dd>
     <dt>
     <a name = "chunk"></a>
-    <strong>chunk (array, f[, ...])</strong>
+    <strong>chunk (array, f)</strong>
     </dt>
     <dd>
     Chunks together consecutive values.  Values are chunked on the basis of the return
- value of a provided predicate <code>f (k, v, ...)</code>. Consecutive elements which return
+ value of a provided predicate <code>f (v, k)</code>. Consecutive elements which return
  the same value are chunked together. Leaves the first argument untouched if it is not an array.
 
 
@@ -2632,11 +2812,7 @@
          an array
         </li>
         <li><span class="parameter">f</span>
-         an iterator function prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -2755,8 +2931,37 @@
 
 </dd>
     <dt>
+    <a name = "disjoint"></a>
+    <strong>disjoint (...)</strong>
+    </dt>
+    <dd>
+    Checks if all passed in arrays are disjunct.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         a variable number of arrays
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if the intersection of all arrays is not empty, <code>false</code> otherwise.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#intersection">intersection</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "dropWhile"></a>
-    <strong>dropWhile (array, f[, ...])</strong>
+    <strong>dropWhile (array, f)</strong>
     </dt>
     <dd>
     Collects values from a given array.  The passed-in array should not be sparse.
@@ -2770,11 +2975,7 @@
          an array
         </li>
         <li><span class="parameter">f</span>
-         an iterator function prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -2788,6 +2989,35 @@
     <h3>See also:</h3>
     <ul>
          <a href="index.html#selectWhile">selectWhile</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "duplicates"></a>
+    <strong>duplicates (array)</strong>
+    </dt>
+    <dd>
+    Returns an array list of all duplicates in array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array-list of duplicates
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#unique">unique</a>
     </ul>
 
 
@@ -2869,7 +3099,7 @@
 </dd>
     <dt>
     <a name = "findIndex"></a>
-    <strong>findIndex (array, predicate[, ...])</strong>
+    <strong>findIndex (array, pred)</strong>
     </dt>
     <dd>
     Returns the first index at which a predicate returns true.
@@ -2880,12 +3110,8 @@
         <li><span class="parameter">array</span>
          an array
         </li>
-        <li><span class="parameter">predicate</span>
-         a predicate function prototyped as <code>predicate (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         optional arguments to <code>pred</code>
-         (<em>optional</em>)
+        <li><span class="parameter">pred</span>
+         a predicate function prototyped as <code>pred (v, k)</code>
         </li>
     </ul>
 
@@ -2905,7 +3131,7 @@
 </dd>
     <dt>
     <a name = "findLastIndex"></a>
-    <strong>findLastIndex (array, predicate[, ...])</strong>
+    <strong>findLastIndex (array, pred)</strong>
     </dt>
     <dd>
     Returns the last index at which a predicate returns true.
@@ -2916,12 +3142,8 @@
         <li><span class="parameter">array</span>
          an array
         </li>
-        <li><span class="parameter">predicate</span>
-         a predicate function prototyped as <code>predicate (k, v, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         optional arguments to <code>pred</code>
-         (<em>optional</em>)
+        <li><span class="parameter">pred</span>
+         a predicate function prototyped as <code>pred (k, v)</code>
         </li>
     </ul>
 
@@ -3136,7 +3358,7 @@
 </dd>
     <dt>
     <a name = "intersection"></a>
-    <strong>intersection (array, ...)</strong>
+    <strong>intersection (...)</strong>
     </dt>
     <dd>
     Returns the  intersection of all passed-in arrays.
@@ -3145,9 +3367,6 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">array</span>
-         an array
-        </li>
         <li><span class="parameter">...</span>
          a variable number of array arguments
         </li>
@@ -3166,33 +3385,6 @@
          <li><a href="index.html#union">union</a></li>
          <li><a href="index.html#symmetricDifference">symmetricDifference</a></li>
     </ul>
-
-
-</dd>
-    <dt>
-    <a name = "invert"></a>
-    <strong>invert (array)</strong>
-    </dt>
-    <dd>
-    Swaps keys with values.  Produces a new array where previous keys are now values,
- while previous values are now keys.
- <br/><em>Aliased as <code>mirror</code></em>
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">array</span>
-         a given array
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        a new array
-    </ol>
-
-
 
 
 </dd>
@@ -3222,7 +3414,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#unique">unique</a>
+         <li><a href="index.html#unique">unique</a></li>
+         <li><a href="index.html#duplicates">duplicates</a></li>
     </ul>
 
 
@@ -3358,6 +3551,40 @@
 
 </dd>
     <dt>
+    <a name = "nsorted"></a>
+    <strong>nsorted (array[, n[, comp]])</strong>
+    </dt>
+    <dd>
+    Returns the n-top values satisfying a predicate.  It takes a comparison function
+ <code>comp</code> used to sort array values, and then picks the top n-values. It leaves the original array untouched.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+        <li><span class="parameter">n</span>
+         a number of values to retrieve. Defaults to 1.
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">comp</span>
+         a comparison function. Defaults to <code>&lt;</code> operator.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array of top n values
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "nth"></a>
     <strong>nth (array, index)</strong>
     </dt>
@@ -3452,6 +3679,31 @@
          <li><a href="index.html#partition">partition</a></li>
          <li><a href="index.html#aperture">aperture</a></li>
     </ul>
+
+
+</dd>
+    <dt>
+    <a name = "pack"></a>
+    <strong>pack (...)</strong>
+    </dt>
+    <dd>
+    Converts a list of arguments to an array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         a list of arguments
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array of all passed-in args
+    </ol>
+
+
 
 
 </dd>
@@ -3582,7 +3834,7 @@
     </dt>
     <dd>
     Adds all passed-in values at the top of an array.  As opposed to <a href="index.html#addTop">addTop</a>, it preserves the order
- of the passed in elements.
+ of the passed-in elements.
 
 
     <h3>Parameters:</h3>
@@ -3935,7 +4187,7 @@
 </dd>
     <dt>
     <a name = "selectWhile"></a>
-    <strong>selectWhile (array, f[, ...])</strong>
+    <strong>selectWhile (array, f)</strong>
     </dt>
     <dd>
     Collects values from a given array.  The passed-in array should not be sparse.
@@ -3949,11 +4201,7 @@
          an array
         </li>
         <li><span class="parameter">f</span>
-         an iterator function prototyped as <code>f (v, k, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an iterator function prototyped as <code>f (v, k)</code>
         </li>
     </ul>
 
@@ -4137,8 +4385,8 @@
     <strong>symmetricDifference (array, array2)</strong>
     </dt>
     <dd>
-    Performs a symmetric difference.  Returns values from <a href="index.html#array">array</a> not present in <code>array2</code> and also values
- from <code>array2</code> not present in <a href="index.html#array">array</a>.
+    Performs a symmetric difference.  Returns values from <code>array</code> not present in <code>array2</code> and also values
+ from <code>array2</code> not present in <code>array</code>.
  <br/><em>Aliased as <code>symdiff</code></em>
 
 
@@ -4165,31 +4413,6 @@
          <li><a href="index.html#union">union</a></li>
          <li><a href="index.html#intersection">intersection</a></li>
     </ul>
-
-
-</dd>
-    <dt>
-    <a name = "toArray"></a>
-    <strong>toArray (...)</strong>
-    </dt>
-    <dd>
-    Converts a list of arguments to an array.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">...</span>
-         a list of arguments
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        an array of all passed-in args
-    </ol>
-
-
 
 
 </dd>
@@ -4249,7 +4472,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#isunique">isunique</a>
+         <li><a href="index.html#isunique">isunique</a></li>
+         <li><a href="index.html#duplicates">duplicates</a></li>
     </ul>
 
 
@@ -4317,6 +4541,62 @@
          <li><a href="index.html#zeros">zeros</a></li>
          <li><a href="index.html#ones">ones</a></li>
     </ul>
+
+
+</dd>
+    <dt>
+    <a name = "xpairs"></a>
+    <strong>xpairs (valua, array)</strong>
+    </dt>
+    <dd>
+    Creates pairs from value and array.  Value is always prepended to the pair.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">valua</span>
+         a value
+        </li>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array list of all pairs
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "xpairsRight"></a>
+    <strong>xpairsRight (valua, array)</strong>
+    </dt>
+    <dd>
+    Creates pairs from value and array.  Value is always appended as the last item to the pair.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">valua</span>
+         a value
+        </li>
+        <li><span class="parameter">array</span>
+         an array
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array list of all pairs
+    </ol>
+
+
 
 
 </dd>
@@ -4503,32 +4783,6 @@
     <ol>
 
         a function
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "array"></a>
-    <strong>array (...)</strong>
-    </dt>
-    <dd>
-    Iterates over an iterator and returns its values in an array.
- <br/><em>Aliased as <code>tabulate</code></em>.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">...</span>
-         an iterator function (returning a generator, a state and a value)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        an array of results
     </ol>
 
 
@@ -4742,11 +4996,66 @@
 
 </dd>
     <dt>
+    <a name = "both"></a>
+    <strong>both (...)</strong>
+    </dt>
+    <dd>
+    Returns a validation function.  Given a set of functions, the validation function evaluates
+ to <code>true</code> only when all its funcs returns <code>true</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an array list of functions
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> when all given funcs returns true with input, false otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "call"></a>
+    <strong>call (f[, ...])</strong>
+    </dt>
+    <dd>
+    Calls <code>f</code> with the supplied arguments.  Returns the results of <code>f(...)</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         a function
+        </li>
+        <li><span class="parameter">...</span>
+         a vararg list of args to <code>f</code>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the result of <code>f(...)</code> call.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "castArray"></a>
     <strong>castArray (value)</strong>
     </dt>
     <dd>
-    Casts vaue as an array if it is not one.
+    Casts value as an array if it is not one.
 
 
     <h3>Parameters:</h3>
@@ -4944,6 +5253,58 @@
 
 </dd>
     <dt>
+    <a name = "dispatch"></a>
+    <strong>dispatch (...)</strong>
+    </dt>
+    <dd>
+    Returns a dispatching function.  When called with arguments, this function invokes each of its functions
+ in the passed-in order and returns the results of the first non-nil evaluation.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         a vararg list of functions
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a dispatch function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "either"></a>
+    <strong>either (...)</strong>
+    </dt>
+    <dd>
+    Returns a validation function.  Given a set of functions, the validation function evaluates
+ to <code>true</code> when at least one of its funcs returns <code>true</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an array list of functions
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> when one of the given funcs returns <code>true</code> with input, <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "flip"></a>
     <strong>flip (f)</strong>
     </dt>
@@ -5029,6 +5390,31 @@
 
 </dd>
     <dt>
+    <a name = "iterlen"></a>
+    <strong>iterlen (...)</strong>
+    </dt>
+    <dd>
+    Returns the length of an iterator.  It consumes the iterator itself.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an iterator function (returning a generator, a state and a value)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the iterator length
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "juxtapose"></a>
     <strong>juxtapose (value, ...)</strong>
     </dt>
@@ -5066,6 +5452,57 @@
     Memoizes a given function by caching the computed result.
  Useful for speeding-up slow-running functions.
  <br/><em>Aliased as <code>cache</code></em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+         a function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a new function
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "neither"></a>
+    <strong>neither (...)</strong>
+    </dt>
+    <dd>
+    Returns a validation function.  Given a set of functions, the validation function evaluates
+ to <code>true</code> when neither of its func return <code>true</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an array list of functions
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> when neither of the given funcs returns <code>true</code> with input, <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "noarg"></a>
+    <strong>noarg (f)</strong>
+    </dt>
+    <dd>
+    Returns a function with an arity of 0.  The new function ignores any arguments passed to it.
 
 
     <h3>Parameters:</h3>
@@ -5423,6 +5860,128 @@
 
 </dd>
     <dt>
+    <a name = "skip"></a>
+    <strong>skip (iter[, n])</strong>
+    </dt>
+    <dd>
+    Consumes the first <code>n</code> values of a iterator then returns it.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">iter</span>
+         an iterator function
+        </li>
+        <li><span class="parameter">n</span>
+         a number. Defaults to 1.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the given iterator
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tabulate"></a>
+    <strong>tabulate (...)</strong>
+    </dt>
+    <dd>
+    Iterates over an iterator and returns its values in an array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         an iterator function (returning a generator, a state and a value)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        an array of results
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "thread"></a>
+    <strong>thread (value, ...)</strong>
+    </dt>
+    <dd>
+    Threads <a href="index.html#obj:value">value</a> through a series of functions.  If a function expects more than one args,
+ it can be specified using an array list, where the first item is the function and the following
+ are the remaining args neeeded. The value is used as the first input.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         a value
+        </li>
+        <li><span class="parameter">...</span>
+         a vararg list of functions or arrays
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a value
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#threadRight">threadRight</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "threadRight"></a>
+    <strong>threadRight (value, ...)</strong>
+    </dt>
+    <dd>
+    Threads <a href="index.html#obj:value">value</a> through a series of functions.  If a function expects more than one args,
+ it can be specified using an array list, where the first item is the function and the following
+ are the remaining args neeeded. The value is used as the last input.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         a value
+        </li>
+        <li><span class="parameter">...</span>
+         a vararg list of functions or arrays
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a value
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#thread">thread</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "time"></a>
     <strong>time (f[, ...])</strong>
     </dt>
@@ -5453,7 +6012,7 @@
 </dd>
     <dt>
     <a name = "times"></a>
-    <strong>times (iter[, n[, ...]])</strong>
+    <strong>times (iter[, n])</strong>
     </dt>
     <dd>
     Runs <code>iter</code> function <code>n</code> times.  Collects the results of each run and returns them in an array.
@@ -5462,14 +6021,10 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">iter</span>
-         an iterator function, prototyped as <code>iter (i, ...)</code>
+         an iterator function, prototyped as <code>iter (i)</code>
         </li>
         <li><span class="parameter">n</span>
          the number of times <code>iter</code> should be called. Defaults to 1.
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">...</span>
-         args to be passed to <code>iter</code> function
          (<em>optional</em>)
         </li>
     </ul>
@@ -5545,12 +6100,12 @@
 </dd>
     <dt>
     <a name = "uniqueId"></a>
-    <strong>uniqueId ([template[, ...]])</strong>
+    <strong>uniqueId ([template])</strong>
     </dt>
     <dd>
     Generates an unique ID for the current session.  If given a string <a href="index.html#template">template</a>, it
  will use this template for output formatting. Otherwise, if <a href="index.html#template">template</a> is a function, it
- will evaluate <code>template (id, ...)</code>.
+ will evaluate <code>template (id)</code>.
  <br/><em>Aliased as <code>uid</code></em>.
 
 
@@ -5558,10 +6113,6 @@
     <ul>
         <li><span class="parameter">template</span>
          either a string or a function template to format the ID
-         (<em>optional</em>)
-        </li>
-        <li><span class="parameter">...</span>
-         a variable number of arguments to be passed to <a href="index.html#template">template</a>, in case it is a function.
          (<em>optional</em>)
         </li>
     </ul>
@@ -5696,6 +6247,39 @@
 
 </dd>
     <dt>
+    <a name = "flattenPath"></a>
+    <strong>flattenPath (obj, ...)</strong>
+    </dt>
+    <dd>
+    Flattens object under property path onto provided object. <br/>
+ It is similar to <a href="index.html#spreadPath">spreadPath</a>, but preserves object under the property path.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         an object
+        </li>
+        <li><span class="parameter">...</span>
+         a property path given as a vararg list
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the passed-in object with changes
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#spreadPath">spreadPath</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "functions"></a>
     <strong>functions ([obj])</strong>
     </dt>
@@ -5776,6 +6360,33 @@
     <ol>
 
         the passed-in context
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "invert"></a>
+    <strong>invert (obj)</strong>
+    </dt>
+    <dd>
+    Swaps keys with values.  Produces a new object where previous keys are now values,
+ while previous values are now keys.
+ <br/><em>Aliased as <code>mirror</code></em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         a given object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a new object
     </ol>
 
 
@@ -5920,6 +6531,10 @@
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#allEqual">allEqual</a>
+    </ul>
 
 
 </dd>
@@ -6376,7 +6991,7 @@
 </dd>
     <dt>
     <a name = "result"></a>
-    <strong>result (obj, method[, ...])</strong>
+    <strong>result (obj, method)</strong>
     </dt>
     <dd>
     Invokes an object method.  It passes the object itself as the first argument. if <code>method</code> is not
@@ -6391,16 +7006,12 @@
         <li><span class="parameter">method</span>
          a string key to index in object <code>obj</code>.
         </li>
-        <li><span class="parameter">...</span>
-         Optional args to be passed to <code>method</code>
-         (<em>optional</em>)
-        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        the returned value of <code>method (obj, ...)</code> call
+        the returned value of <code>method (obj)</code> call
     </ol>
 
 
@@ -6408,8 +7019,41 @@
 
 </dd>
     <dt>
+    <a name = "spreadPath"></a>
+    <strong>spreadPath (obj, ...)</strong>
+    </dt>
+    <dd>
+    Spreads object under property path onto provided object. <br/>
+ It is similar to <a href="index.html#flattenPath">flattenPath</a>, but removes object under the property path.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         an object
+        </li>
+        <li><span class="parameter">...</span>
+         a property path given as a vararg list
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the passed-in object with changes
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#flattenPath">flattenPath</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "tap"></a>
-    <strong>tap (obj, f[, ...])</strong>
+    <strong>tap (obj, f)</strong>
     </dt>
     <dd>
     Invokes interceptor with the object, and then returns object.
@@ -6423,11 +7067,7 @@
          an object
         </li>
         <li><span class="parameter">f</span>
-         an interceptor function, should be prototyped as <code>f (obj, ...)</code>
-        </li>
-        <li><span class="parameter">...</span>
-         args to be passed to <code>f</code>
-         (<em>optional</em>)
+         an interceptor function, should be prototyped as <code>f (obj)</code>
         </li>
     </ul>
 
@@ -6528,6 +7168,32 @@
 
 </dd>
     <dt>
+    <a name = "type"></a>
+    <strong>type (obj)</strong>
+    </dt>
+    <dd>
+    Extends Lua's <a href="index.html#type">type</a> function.  It returns the type of the given object and also recognises
+ file userdata
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         an object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the given object type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "values"></a>
     <strong>values (obj)</strong>
     </dt>
@@ -6559,7 +7225,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-08-23 10:16:23 </i>
+<i style="float:right;">Last updated 2018-09-12 11:33:43 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

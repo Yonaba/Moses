@@ -105,7 +105,7 @@ M.clear({<span class="number">1</span>,<span class="number">2</span>,<span class
 </pre>
 
 
-<h3>each (t, f [, ...])</h3>
+<h3>each (t, f)</h3>
 <p>*Aliases: <code>forEach</code>*.</p>
 
 <p>Iterates over each value-key pair in the passed-in table.</p>
@@ -148,7 +148,7 @@ M.each(t,<span class="keyword">function</span>(v,i)
 </pre>
 
 
-<h3>eachi (t, f [, ...])</h3>
+<h3>eachi (t, f)</h3>
 <p>*Aliases: <code>forEachi</code>*.</p>
 
 <p>Iterates only on integer keys in an array table. It returns value-key pairs.</p>
@@ -191,9 +191,10 @@ M.at(t,<span class="string">'a'</span>, <span class="string">'ccc'</span>) <span
 </pre>
 
 
-<h3>adjust (t, key, f [, ...])</h3>
+<h3>adjust (t, key, f)</h3>
 
-<p>Adjusts the value at a given key using a function or a value. In case <code>f</code> is a function, it should be prototyped <code>f(v, ...)</code>. It does not mutate the given table, but rather returns a new array.</p>
+<p>Adjusts the value at a given key using a function or a value. In case <code>f</code> is a function, it should be prototyped <code>f(v)</code>.
+It does not mutate the given table, but rather returns a new array.</p>
 
 
 <pre>
@@ -229,7 +230,7 @@ M.count({<span class="number">1</span>,<span class="number">1</span>,<span class
 </pre>
 
 
-<h3>countf (t, f [, ...])</h3>
+<h3>countf (t, f)</h3>
 
 <p>Counts the number of values passing an iterator test.</p>
 
@@ -242,6 +243,42 @@ M.countf({<span class="number">1</span>,<span class="number">2</span>,<span clas
 M.countf({<span class="global">print</span>, <span class="global">pairs</span>, <span class="global">os</span>, <span class="global">assert</span>, <span class="global">ipairs</span>}, <span class="keyword">function</span>(v)
   <span class="keyword">return</span> <span class="global">type</span>(v)==<span class="string">'function'</span>
 <span class="keyword">end</span>) <span class="comment">-- =&gt; 4</span>
+</pre>
+
+
+<h3>allEqual (t [, comp])</h3>
+<p>*Aliases: <code>alleq</code>*.</p>
+
+<p>Checks if all values in a collection are equal. Uses <code>M.isEqual</code> by default to compare values.</p>
+
+
+<pre>
+M.allEqual({<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>}, comp) <span class="comment">-- =&gt; true
+</span>M.allEqual({<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>}, comp) <span class="comment">-- =&gt; false
+</span>
+<span class="keyword">local</span> t1 = {<span class="number">1</span>, <span class="number">2</span>, {<span class="number">3</span>}}
+<span class="keyword">local</span> t2 = {<span class="number">1</span>, <span class="number">2</span>, {<span class="number">3</span>}}
+M.allEqual({t1, t2}) <span class="comment">-- =&gt; true</span>
+</pre>
+
+
+<p>Can take an optional <code>comp</code> function which will be used to compare values.</p>
+
+
+<pre>
+<span class="keyword">local</span> t1 = {x = <span class="number">1</span>, y = <span class="number">0</span>}
+<span class="keyword">local</span> t2 = {x = <span class="number">1</span>, y = <span class="number">0</span>}
+<span class="keyword">local</span> t3 = {x = <span class="number">1</span>, y = <span class="number">2</span>}
+<span class="keyword">local</span> t4 = {x = <span class="number">1</span>, y = <span class="number">2</span>}
+<span class="keyword">local</span> <span class="keyword">function</span> compx(a, b) <span class="keyword">return</span> a.x == b.x <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> compy(a, b) <span class="keyword">return</span> a.y == b.y <span class="keyword">end</span>
+
+M.allEqual({t1, t2}, compx) <span class="comment">-- =&gt; true
+</span>M.allEqual({t1, t2}, compy) <span class="comment">-- =&gt; true
+</span>M.allEqual({t3, t4}, compx) <span class="comment">-- =&gt; true
+</span>M.allEqual({t3, t4}, compy) <span class="comment">-- =&gt; true
+</span>M.allEqual({t1, t2, t3, t4}, compx) <span class="comment">-- =&gt; true
+</span>M.allEqual({t1, t2, t3, t4}, compy) <span class="comment">-- =&gt; false</span>
 </pre>
 
 
@@ -282,7 +319,7 @@ If <code>n</code> is not provided, it defaults to 1.</p>
 </pre>
 
 
-<h3>map (t, f [, ...])</h3>
+<h3>map (t, f)</h3>
 <p>*Aliases: <code>collect</code>*.</p>
 
 <p>Executes a function on each value in a given array.</p>
@@ -334,7 +371,21 @@ M.reduce({<span class="string">'a'</span>,<span class="string">'b'</span>,<span 
 </pre>
 
 
-<h3>reduceby (t, f, pred [, state = next(t) [, ...]])</h3>
+<h3>best (t, f)</h3>
+
+<p>Returns the best value passing a selector function. Acts as a special case of <a href="index.html#reduce">reduce</a>, using the first value in <code>t</code> as
+an initial state. It thens folds the given table, testing each of its values <code>v</code> and selecting the value passing the
+call <code>f(state,v)</code> every time.</p>
+
+
+<pre>
+<span class="keyword">local</span> words = {<span class="string">'Lua'</span>, <span class="string">'Programming'</span>, <span class="string">'Language'</span>}
+M.best(words, <span class="keyword">function</span>(a,b) <span class="keyword">return</span> #a &gt; #b <span class="keyword">end</span>) <span class="comment">-- =&gt; 'Programming'
+</span>M.best(words, <span class="keyword">function</span>(a,b) <span class="keyword">return</span> #a &lt; #b <span class="keyword">end</span>) <span class="comment">-- =&gt; 'Lua'</span>
+</pre>
+
+
+<h3>reduceBy (t, f, pred [, state = next(t)])</h3>
 
 <p>Reduces a table considering only values matching a predicate.
 For example,let us define a set of values.</p>
@@ -369,8 +420,8 @@ For example,let us define a set of values.</p>
 
 
 <pre>
-M.reduceby(val, add, neg) <span class="comment">-- =&gt; -17
-</span>M.reduceby(val, add, pos) <span class="comment">-- =&gt; 19</span>
+M.reduceBy(val, add, neg) <span class="comment">-- =&gt; -17
+</span>M.reduceBy(val, add, pos) <span class="comment">-- =&gt; 19</span>
 </pre>
 
 
@@ -378,8 +429,8 @@ M.reduceby(val, add, neg) <span class="comment">-- =&gt; -17
 
 
 <pre>
-M.reduceby(val, add, neg, <span class="number">17</span>) <span class="comment">-- =&gt; 0
-</span>M.reduceby(val, add, pos, -<span class="number">19</span>) <span class="comment">-- =&gt; 0</span>
+M.reduceBy(val, add, neg, <span class="number">17</span>) <span class="comment">-- =&gt; 0
+</span>M.reduceBy(val, add, pos, -<span class="number">19</span>) <span class="comment">-- =&gt; 0</span>
 </pre>
 
 
@@ -503,7 +554,7 @@ M.findWhere({a, b, c}, {a = <span class="number">3</span>, b = <span class="numb
 </pre>
 
 
-<h3>select (t, f [, ...])</h3>
+<h3>select (t, f)</h3>
 <p>*Aliases: <code>filter</code>*.</p>
 
 <p>Collects values passing a validation test.</p>
@@ -518,7 +569,7 @@ M.<span class="global">select</span>({<span class="number">1</span>,<span class=
 </pre>
 
 
-<h3>reject (t, f [, ...])</h3>
+<h3>reject (t, f)</h3>
 <p>*Aliases: <a href="index.html#reject">reject</a>*.</p>
 
 <p>Removes all values failing (returning false or nil) a validation test:</p>
@@ -533,7 +584,7 @@ M.reject({<span class="number">1</span>,<span class="number">2</span>,<span clas
 </pre>
 
 
-<h3>all (t, f [, ...])</h3>
+<h3>all (t, f)</h3>
 <p>*Aliases: <code>every</code>*.</p>
 
 <p>Checks whether or not all elements pass a validation test.</p>
@@ -545,7 +596,7 @@ M.all({<span class="number">2</span>,<span class="number">4</span>,<span class="
 </pre>
 
 
-<h3>invoke (t, method [, ...])</h3>
+<h3>invoke (t, method)</h3>
 
 <p>Invokes a given function on each value in a table.</p>
 
@@ -580,7 +631,7 @@ M.pluck(peoples,<span class="string">'age'</span>) <span class="comment">-- =&gt
 </pre>
 
 
-<h3>max (t [, transform [, ...]])</h3>
+<h3>max (t [, transform])</h3>
 
 <p>Returns the maximum value in a collection.</p>
 
@@ -602,7 +653,7 @@ M.max(peoples,<span class="keyword">function</span>(people) <span class="keyword
 </pre>
 
 
-<h3>min (t [, transform [, ...]])</h3>
+<h3>min (t [, transform])</h3>
 
 <p>Returns the minimum value in a collection.</p>
 
@@ -656,6 +707,60 @@ M.sort({<span class="string">'b'</span>,<span class="string">'a'</span>,<span cl
 M.sort({<span class="string">'b'</span>,<span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'c'</span>}, <span class="keyword">function</span>(a,b)
   <span class="keyword">return</span> a:byte() &gt; b:byte()
 <span class="keyword">end</span>) <span class="comment">-- =&gt; "{'d','c','b','a'}"</span>
+</pre>
+
+
+<h3>sortedk (t [, comp])</h3>
+
+<p>Iterates on values with respect to key order. Keys are sorted using <code>comp</code> function which defaults to <a href="https://www.lua.org/manual/5.1/manual.html#pdf-math.min">math.min</a>.
+It returns upon each call a <code>key, value</code> pair.</p>
+
+
+<pre>
+<span class="keyword">local</span> tbl = {}; tbl[<span class="number">3</span>] = <span class="number">5</span> ; tbl[<span class="number">2</span>] = <span class="number">6</span>; tbl[<span class="number">5</span>] = <span class="number">8</span>; tbl[<span class="number">4</span>] = <span class="number">10</span>; tbl[<span class="number">1</span>] = <span class="number">12</span>
+<span class="keyword">for</span> k, v <span class="keyword">in</span> M.sortedk(tbl) <span class="keyword">do</span> <span class="global">print</span>(k, v) <span class="keyword">end</span>
+
+<span class="comment">-- =&gt; 1    12
+</span><span class="comment">-- =&gt; 2 6
+</span><span class="comment">-- =&gt; 3 5
+</span><span class="comment">-- =&gt; 4 10
+</span><span class="comment">-- =&gt; 5 8
+</span>
+<span class="keyword">local</span> <span class="keyword">function</span> comp(a,b) <span class="keyword">return</span> a &gt; b <span class="keyword">end</span>
+<span class="keyword">for</span> k, v <span class="keyword">in</span> M.sortedk(tbl, comp) <span class="keyword">do</span> <span class="global">print</span>(k, v) <span class="keyword">end</span>
+
+<span class="comment">-- =&gt; 5    8
+</span><span class="comment">-- =&gt; 4 10
+</span><span class="comment">-- =&gt; 3 5
+</span><span class="comment">-- =&gt; 2 6
+</span><span class="comment">-- =&gt; 1 12</span>
+</pre>
+
+
+<h3>sortedv (t [, comp])</h3>
+
+<p>Iterates on values with respect to key order. Keys are sorted using <code>comp</code> function which defaults to <a href="https://www.lua.org/manual/5.1/manual.html#pdf-math.min">math.min</a>.
+It returns upon each call a <code>key, value</code> pair.</p>
+
+
+<pre>
+<span class="keyword">local</span> tbl = {}; tbl[<span class="number">3</span>] = <span class="number">5</span> ; tbl[<span class="number">2</span>] = <span class="number">6</span>; tbl[<span class="number">5</span>] = <span class="number">8</span>; tbl[<span class="number">4</span>] = <span class="number">10</span>; tbl[<span class="number">1</span>] = <span class="number">12</span>
+<span class="keyword">for</span> k, v <span class="keyword">in</span> M.sortedv(tbl) <span class="keyword">do</span> <span class="global">print</span>(k, v) <span class="keyword">end</span>
+
+<span class="comment">-- =&gt; 3    5
+</span><span class="comment">-- =&gt; 2 6
+</span><span class="comment">-- =&gt; 5 8
+</span><span class="comment">-- =&gt; 4 10
+</span><span class="comment">-- =&gt; 1 12
+</span>
+<span class="keyword">local</span> <span class="keyword">function</span> comp(a,b) <span class="keyword">return</span> a &gt; b <span class="keyword">end</span>
+<span class="keyword">for</span> k, v <span class="keyword">in</span> M.sortedv(tbl, comp) <span class="keyword">do</span> <span class="global">print</span>(k, v) <span class="keyword">end</span>
+
+<span class="comment">-- =&gt; 1    12
+</span><span class="comment">-- =&gt; 4 10
+</span><span class="comment">-- =&gt; 5 8
+</span><span class="comment">-- =&gt; 2 6
+</span><span class="comment">-- =&gt; 3 5</span>
 </pre>
 
 
@@ -723,7 +828,7 @@ M.each(r, <span class="keyword">function</span>(v) <span class="global">print</s
 </pre>
 
 
-<h3>groupBy (t, iter [, ...])</h3>
+<h3>groupBy (t, iter)</h3>
 
 <p>Groups values in a collection depending on their return value when passed to a predicate test.</p>
 
@@ -739,7 +844,7 @@ M.groupBy({<span class="number">0</span>,<span class="string">'a'</span>,<span c
 </pre>
 
 
-<h3>countBy (t [, iter [, ...]])</h3>
+<h3>countBy (t, iter)</h3>
 
 <p>Splits a table in subsets and provide the count for each subset.</p>
 
@@ -848,6 +953,27 @@ sample = M.sampleProb(array, <span class="number">0.2</span>, <span class="globa
 </pre>
 
 
+<h3>nsorted (array [, n = 1[, comp]])</h3>
+
+<p>Returns the n-top values satisfying a predicate. It takes a comparison function <code>comp</code> used to sort array values,
+and then picks the top n-values. It leaves the original array untouched.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> comp(a,b) <span class="keyword">return</span> a &gt; b <span class="keyword">end</span>
+M.nsorted(array,<span class="number">5</span>, comp) <span class="comment">-- =&gt; {5,4,3,2,1}</span>
+</pre>
+
+
+<p><code>n</code> defaults to 1 and <code>comp</code> defaults to the <code>&lt;</code> operator.</p>
+
+
+<pre>
+<span class="keyword">local</span> array = M.range(<span class="number">1</span>,<span class="number">20</span>)
+M.nsorted(array) <span class="comment">-- =&gt; {1}</span>
+</pre>
+
+
 <h3>shuffle (array [, seed])</h3>
 
 <p>Shuffles a given array.</p>
@@ -859,13 +985,13 @@ sample = M.sampleProb(array, <span class="number">0.2</span>, <span class="globa
 </pre>
 
 
-<h3>toArray (...)</h3>
+<h3>pack (...)</h3>
 
 <p>Converts a vararg list of arguments to an array.</p>
 
 
 <pre>
-M.toArray(<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="string">'d'</span>,<span class="string">'a'</span>,<span class="number">0</span>) <span class="comment">-- =&gt; "{1,2,8,'d','a',0}"</span>
+M.pack(<span class="number">1</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="string">'d'</span>,<span class="string">'a'</span>,<span class="number">0</span>) <span class="comment">-- =&gt; "{1,2,8,'d','a',0}"</span>
 </pre>
 
 
@@ -1032,7 +1158,7 @@ M.lastIndexOf({<span class="number">1</span>,<span class="number">2</span>,<span
 </pre>
 
 
-<h3>findIndex (array, predicate [, ...])</h3>
+<h3>findIndex (array, pred)</h3>
 
 <p>Returns the first index at which a predicate passes a truth test.</p>
 
@@ -1044,7 +1170,7 @@ M.findIndex(array, multipleOf3) <span class="comment">-- =&gt; 3</span>
 </pre>
 
 
-<h3>findLastIndex (array, predicate [, ...])</h3>
+<h3>findLastIndex (array, pred)</h3>
 
 <p>Returns the last index at which a predicate passes a truthy test.</p>
 
@@ -1143,7 +1269,7 @@ M.removeRange(array, <span class="number">3</span>,<span class="number">8</span>
 </pre>
 
 
-<h3>chunk (array, f [, ...])</h3>
+<h3>chunk (array, f)</h3>
 
 <p>Iterates over an array aggregating consecutive values in subsets tables, on the basis of the return value of <code>f(v, k, ...)</code>. Consecutive elements which return the same value are chunked together.</p>
 
@@ -1190,7 +1316,6 @@ M.initial(array,<span class="number">5</span>) <span class="comment">-- =&gt; "{
 
 
 <h3>last (array [, n = #array])</h3>
-<p>*Aliases: <code>skip</code>*.</p>
 
 <p>Returns the last N elements in an array.</p>
 
@@ -1277,7 +1402,7 @@ M.union(A,B,C) <span class="comment">-- =&gt; "{'a',1,2,3,10}"</span>
 </pre>
 
 
-<h3>intersection (array, ...)</h3>
+<h3>intersection (...)</h3>
 
 <p>Returns the intersection (common-part) of all passed-in arrays:</p>
 
@@ -1286,7 +1411,23 @@ M.union(A,B,C) <span class="comment">-- =&gt; "{'a',1,2,3,10}"</span>
 <span class="keyword">local</span> A = {<span class="string">'a'</span>}
 <span class="keyword">local</span> B = {<span class="string">'a'</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>}
 <span class="keyword">local</span> C = {<span class="number">2</span>,<span class="number">10</span>,<span class="number">1</span>,<span class="string">'a'</span>}
-M.intersection(A,B,C) <span class="comment">-- =&gt; "{'a',2,1}"</span>
+M.intersection(A,B,C) <span class="comment">-- =&gt; "{'a'}"</span>
+</pre>
+
+
+<h3>disjoint (...)</h3>
+
+<p>Checks if all passed in arrays are disjoint.</p>
+
+
+<pre>
+<span class="keyword">local</span> A = {<span class="string">'a'</span>}
+<span class="keyword">local</span> B = {<span class="string">'a'</span>,<span class="number">1</span>,<span class="number">3</span>}
+<span class="keyword">local</span> C = {<span class="number">3</span>,<span class="number">10</span>,<span class="number">2</span>}
+
+M.disjoint(A,B) <span class="comment">-- =&gt; false
+</span>M.disjoint(A,C) <span class="comment">-- =&gt; true
+</span>M.disjoint(B,C) <span class="comment">-- =&gt; false</span>
 </pre>
 
 
@@ -1323,6 +1464,16 @@ M.unique {<span class="number">1</span>,<span class="number">1</span>,<span clas
 <pre>
 M.isunique({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>}) <span class="comment">-- =&gt; true
 </span>M.isunique({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>}) <span class="comment">-- =&gt; false</span>
+</pre>
+
+
+<h3>duplicates (array)</h3>
+
+<p>Returns an array list of all duplicates in array.</p>
+
+
+<pre>
+M.duplicates({<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">8</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>}) <span class="comment">-- =&gt; {2,3,8}</span>
 </pre>
 
 
@@ -1595,17 +1746,6 @@ t = {<span class="string">'a'</span>,<span class="string">'b'</span>,<span class
 </pre>
 
 
-<h3>invert (array)</h3>
-<p>*Aliases: <code>mirror</code>*.</p>
-
-<p>Switches <tt>key-value</tt> pairs:</p>
-
-
-<pre>
-M.invert {<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>} <span class="comment">-- =&gt; "{a=1, b=2, c=3}"</span>
-</pre>
-
-
 <h3>concat (array [, sep = '' [, i = 1 [, j = #array]]])</h3>
 <p>*Aliases: <code>join</code>*.</p>
 
@@ -1625,6 +1765,28 @@ M.concat({<span class="string">'a'</span>,<span class="number">1</span>,<span cl
 <pre>
 <span class="keyword">local</span> t = M.xprod({<span class="number">1</span>,<span class="number">2</span>},{<span class="string">'a'</span>,<span class="string">'b'</span>})
 <span class="comment">-- =&gt; {{1,'a'},{1,'b'},{2,'a'},{2,'b'}}</span>
+</pre>
+
+
+<h3>xpairs (value, array)</h3>
+
+<p>Creates pairs from value and array. Value is always prepended to the pair.</p>
+
+
+<pre>
+<span class="keyword">local</span> t = M.xpairs(<span class="number">1</span>, {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>})
+<span class="comment">-- =&gt; {{1,1},{1,2},{1,3}}</span>
+</pre>
+
+
+<h3>xpairsRight (value, array)</h3>
+
+<p>Creates pairs from value and array. Value is always appended as the last item to the pair.</p>
+
+
+<pre>
+<span class="keyword">local</span> t = M.xpairsRight(<span class="number">1</span>, {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>})
+<span class="comment">-- =&gt; {{1,1},{2,1},{3,1}}</span>
 </pre>
 
 
@@ -1697,6 +1859,18 @@ M.identity(<span class="number">1</span>)<span class="comment">-- =&gt; 1
 </pre>
 
 
+<h3>call (f [, ...])</h3>
+
+<p>Calls <code>f</code> with the supplied arguments. Returns the results of <code>f(...)</code>.</p>
+
+
+<pre>
+M.call(<span class="global">math</span>.pow, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">-- =&gt; 8
+</span>M.call(<span class="global">string</span>.len, <span class="string">'hello'</span> ) <span class="comment">-- =&gt; 5
+</span>M.call(<span class="global">table</span>.concat, {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>}, <span class="string">','</span>, <span class="number">2</span>, <span class="number">4</span>) <span class="comment">-- =&gt; {2,3,4}</span>
+</pre>
+
+
 <h3>constant (value)</h3>
 
 <p>Creates a constant function. This function will continuously yield the same output.</p>
@@ -1712,7 +1886,8 @@ pi(<span class="number">1</span>) <span class="comment">-- =&gt; 3.1415926535898
 
 <h3>applySpec (specs)</h3>
 
-<p>Returns a function which applies <code>specs</code> on args. This function will produce an object having the same structure than <code>specs</code> by mapping each property to the result of calling its associated function with the supplied arguments.</p>
+<p>Returns a function which applies <code>specs</code> on args. This function will produce an object having the same structure than <code>specs</code>
+by mapping each property to the result of calling its associated function with the supplied arguments.</p>
 
 
 <pre>
@@ -1722,6 +1897,68 @@ pi(<span class="number">1</span>) <span class="comment">-- =&gt; 3.1415926535898
 })
 
 stats(<span class="number">5</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">1</span>,<span class="number">8</span>) <span class="comment">-- =&gt; {min = 1, max = 10}</span>
+</pre>
+
+
+<h3>thread (value [, ...])</h3>
+
+<p>Threads <a href="index.html#obj:value">value</a> through a series of functions.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> inc(x) <span class="keyword">return</span> x + <span class="number">1</span> <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> double(x) <span class="keyword">return</span> <span class="number">2</span> * x <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> square(x) <span class="keyword">return</span> x * x <span class="keyword">end</span>
+M.thread(<span class="number">2</span>, inc, double, square) <span class="comment">-- =&gt; 36
+</span>M.thread(<span class="number">3</span>, double, inc, square) <span class="comment">-- =&gt; 49
+</span>M.thread(<span class="number">4</span>, square, double, inc) <span class="comment">-- =&gt; 33
+</span>M.thread(<span class="number">5</span>, square, inc, double) <span class="comment">-- =&gt; 52</span>
+</pre>
+
+
+<p>If a function expects more than one args, it can be specified using an array list,
+where the first item is the function and the following are the remaining args neeeded. </p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> inc(x) <span class="keyword">return</span> x + <span class="number">1</span> <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> add(x, y) <span class="keyword">return</span> x * y <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> pow(x, y) <span class="keyword">return</span> x ^ y <span class="keyword">end</span>
+M.thread(<span class="number">2</span>, inc, {add, <span class="number">3</span>}, {pow, <span class="number">2</span>}) <span class="comment">-- =&gt; 36
+</span>M.thread(<span class="number">2</span>, {add, <span class="number">4</span>}, inc, {pow, <span class="number">2</span>}) <span class="comment">-- =&gt; 49</span>
+</pre>
+
+
+<h3>threadRight (value [, ...])</h3>
+
+<p>Threads <a href="index.html#obj:value">value</a> through a series of functions. If a function expects more than one args,
+it can be specified using an array list, where the first item is the function and the following are
+the remaining args neeeded. The value is used as the last input.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> inc(x) <span class="keyword">return</span> x + <span class="number">1</span> <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> add(x, y) <span class="keyword">return</span> x * y <span class="keyword">end</span>
+<span class="keyword">local</span> <span class="keyword">function</span> pow(x, y) <span class="keyword">return</span> x ^ y <span class="keyword">end</span>
+M.threadRight(<span class="number">2</span>, inc, {add, <span class="number">3</span>}, {pow, <span class="number">2</span>}) <span class="comment">-- =&gt; 64
+</span>M.threadRight(<span class="number">2</span>, {add, <span class="number">4</span>}, inc, {pow, <span class="number">2</span>}) <span class="comment">-- =&gt; 128</span>
+</pre>
+
+
+<h3>dispatch (...)</h3>
+
+<p>Returns a dispatching function. When called with arguments, this function invokes each of its functions
+in the passed-in order and returns the results of the first non-nil evaluation.</p>
+
+
+<pre>
+<span class="keyword">local</span> f = M.dispatch(
+  <span class="keyword">function</span>() <span class="keyword">return</span> <span class="keyword">nil</span> <span class="keyword">end</span>,
+  <span class="keyword">function</span> (v) <span class="keyword">return</span> v+<span class="number">1</span> <span class="keyword">end</span>,
+  <span class="keyword">function</span> (v) <span class="keyword">return</span> <span class="number">2</span>*v <span class="keyword">end</span>
+)
+f(<span class="number">5</span>) <span class="comment">-- =&gt; 6
+</span>f(<span class="number">7</span>) <span class="comment">-- =&gt; 8</span>
 </pre>
 
 
@@ -1869,7 +2106,7 @@ greet_backwards(<span class="string">'John'</span>)
 </pre>
 
 
-<h3>times (iter [, n [, ...]])</h3>
+<h3>times (iter [, n])</h3>
 
 <p>Calls a given function <code>n</code> times.</p>
 
@@ -1962,7 +2199,58 @@ window.setName(<span class="string">'fooApp'</span>)
 </pre>
 
 
-<h3>uniqueId ([template [, ...]])</h3>
+<h3>both (...)</h3>
+
+<p>Returns a validation function. Given a set of functions, the validation function
+evaluates to <code>true</code> only when all its funcs returns <code>true</code>.</p>
+
+
+<pre>
+<span class="keyword">local</span> f = M.both(
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x &gt; <span class="number">0</span> <span class="keyword">end</span>,
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x &lt; <span class="number">10</span> <span class="keyword">end</span>,
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>
+)
+f(<span class="number">2</span>) <span class="comment">-- =&gt; true
+</span>f(<span class="number">8</span>) <span class="comment">-- =&gt; true
+</span>f(<span class="number">9</span>) <span class="comment">-- =&gt; false</span>
+</pre>
+
+
+<h3>either (...)</h3>
+
+<p>Returns a validation function. Given a set of functions, the validation function
+evaluates to <code>true</code> when one of its funcs returns <code>true</code>.</p>
+
+
+<pre>
+<span class="keyword">local</span> f = M.either(
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x &gt; <span class="number">0</span> <span class="keyword">end</span>,
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>
+)
+f(<span class="number">0</span>) <span class="comment">-- =&gt; true
+</span>f(-<span class="number">3</span>) <span class="comment">-- =&gt; false</span>
+</pre>
+
+
+<h3>neither (...)</h3>
+
+<p>Returns a validation function. Given a set of functions, the validation function
+evaluates to <code>true</code> when neither of its funcs returns <code>true</code>.</p>
+
+
+<pre>
+<span class="keyword">local</span> f = M.neither(
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x &gt; <span class="number">10</span> <span class="keyword">end</span>,
+    <span class="keyword">function</span>(x) <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">end</span>
+)
+f(<span class="number">12</span>) <span class="comment">-- =&gt; false
+</span>f(<span class="number">8</span>) <span class="comment">-- =&gt; false
+</span>f(<span class="number">7</span>) <span class="comment">-- =&gt; true</span>
+</pre>
+
+
+<h3>uniqueId ([template])</h3>
 <p>*Aliases: <code>uid</code>*.</p>
 
 <p>Returns an unique integer ID.</p>
@@ -2019,8 +2307,31 @@ iter_po2() <span class="comment">-- =&gt; 2
 </pre>
 
 
-<h3>array (...)</h3>
-<p>*Aliases: <code>tabulate</code>*.</p>
+<h3>skip (iter [, n = 1])</h3>
+
+<p>Consumes the first <code>n</code> values of a iterator then returns it.</p>
+
+
+<pre>
+<span class="keyword">local</span> w = <span class="string">"hello"</span>
+<span class="keyword">local</span> char = <span class="global">string</span>.gmatch(w,<span class="string">'.'</span>)
+<span class="keyword">local</span> iter = M.skip(char, <span class="number">3</span>)
+<span class="keyword">for</span> w <span class="keyword">in</span> iter <span class="keyword">do</span> <span class="global">print</span>(w) <span class="keyword">end</span> <span class="comment">-- =&gt; 'l', 'o'</span>
+</pre>
+
+
+<p><code>n</code> defaults to 1 when not given.</p>
+
+
+<pre>
+<span class="keyword">local</span> w = <span class="string">"hello"</span>
+<span class="keyword">local</span> char = <span class="global">string</span>.gmatch(w,<span class="string">'.'</span>)
+<span class="keyword">local</span> iter = M.skip(char)
+<span class="keyword">for</span> w <span class="keyword">in</span> iter <span class="keyword">do</span> <span class="global">print</span>(w) <span class="keyword">end</span> <span class="comment">-- =&gt; 'e', 'l', 'l', 'o'</span>
+</pre>
+
+
+<h3>tabulate (...)</h3>
 
 <p>Iterates a given iterator function and returns its values packed in an array.</p>
 
@@ -2028,7 +2339,30 @@ iter_po2() <span class="comment">-- =&gt; 2
 <pre>
 <span class="keyword">local</span> text = <span class="string">'letters'</span>
 <span class="keyword">local</span> chars = <span class="global">string</span>.gmatch(text, <span class="string">'.'</span>)
-<span class="keyword">local</span> letters = M.array(chars) <span class="comment">-- =&gt; {'l','e','t','t','e','r','s'}</span>
+M.tabulate(chars) <span class="comment">-- =&gt; {'l','e','t','t','e','r','s'}</span>
+</pre>
+
+
+<h3>iterlen (...)</h3>
+
+<p>Returns the length of an iterator.</p>
+
+
+<pre>
+<span class="keyword">local</span> text = <span class="string">'letters'</span>
+<span class="keyword">local</span> chars = <span class="global">string</span>.gmatch(text, <span class="string">'.'</span>)
+M.iterlen(chars) <span class="comment">-- =&gt; 7</span>
+</pre>
+
+
+<p>It consumes the iterator itself.</p>
+
+
+<pre>
+<span class="keyword">local</span> text = <span class="string">'lua'</span>
+<span class="keyword">local</span> chars = <span class="global">string</span>.gmatch(text, <span class="string">'.'</span>)
+M.iterlen(chars) <span class="comment">-- =&gt; 3
+</span>chars() <span class="comment">-- =&gt; nil</span>
 </pre>
 
 
@@ -2115,6 +2449,18 @@ f(<span class="number">1</span>,<span class="number">2</span>,<span class="numbe
 <pre>
 <span class="keyword">local</span> f = M.unary(<span class="keyword">function</span> (...) <span class="keyword">return</span> ... <span class="keyword">end</span>)
 f(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>) <span class="comment">-- =&gt; 'a'</span>
+</pre>
+
+
+<h3>noarg (f)</h3>
+
+<p>Returns a function with an arity of 0. The new function ignores any arguments passed to it.</p>
+
+
+<pre>
+<span class="keyword">local</span> f = M.noarg(<span class="keyword">function</span> (x) <span class="keyword">return</span> x <span class="keyword">or</span> <span class="string">'default'</span> <span class="keyword">end</span>)
+f(<span class="number">1</span>) <span class="comment">-- =&gt; 'default'
+</span>f(<span class="keyword">function</span>() <span class="keyword">end</span>, <span class="number">3</span>) <span class="comment">-- =&gt; 'default'</span>
 </pre>
 
 
@@ -2391,6 +2737,30 @@ M.path(entity,<span class="string">'pos'</span>,<span class="string">'x'</span>)
 </pre>
 
 
+<h3>spreadPath (obj, ...)</h3>
+
+<p>Spreads object under property path onto provided object. It is similar to <a href="index.html#flattenPath">flattenPath</a>, but removes object under the property path.</p>
+
+
+<pre>
+<span class="keyword">local</span> obj = {a = <span class="number">1</span>, b = <span class="number">2</span>, c = {d = <span class="number">3</span>, e = <span class="number">4</span>, f = {g = <span class="number">5</span>}}}
+M.spreadPath(obj, <span class="string">'c'</span>, <span class="string">'f'</span>)
+<span class="comment">-- =&gt; {a = 1, b = 2, d = 3, e = 4, g = 5, c = {f = {}}}</span>
+</pre>
+
+
+<h3>flattenPath (obj, ...)</h3>
+
+<p>Flattens object under property path onto provided object. It is similar to <a href="index.html#spreadPath">spreadPath</a>, but preserves object under the property path.</p>
+
+
+<pre>
+<span class="keyword">local</span> obj = {a = <span class="number">1</span>, b = <span class="number">2</span>, c = {d = <span class="number">3</span>, e = <span class="number">4</span>, f = {g = <span class="number">5</span>}}}
+M.spreadPath(obj, <span class="string">'c'</span>, <span class="string">'f'</span>)
+<span class="comment">-- =&gt; {a = 1, b = 2, d = 3, e = 4, g = 5, c = {d = 3, e = 4, f = {g = 5}}}</span>
+</pre>
+
+
 <h3>kvpairs (obj)</h3>
 
 <p>Converts an object to an array-list of key-value pairs.</p>
@@ -2418,6 +2788,18 @@ M.each(M.kvpairs(obj), <span class="keyword">function</span>(v,k)
 obj = M.toObj(list_pairs)
 
 <span class="comment">-- =&gt; {x = 1, y = 2, z = 3}</span>
+</pre>
+
+
+<h3>invert (obj)</h3>
+<p>*Aliases: <code>mirror</code>*.</p>
+
+<p>Switches <tt>key-value</tt> pairs:</p>
+
+
+<pre>
+M.invert {<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>} <span class="comment">-- =&gt; "{a=1, b=2, c=3}"
+</span>M.invert {x = <span class="number">1</span>, y = <span class="number">2</span>} <span class="comment">-- =&gt; "{'x','y'}"</span>
 </pre>
 
 
@@ -2504,7 +2886,7 @@ M.functions(t, <span class="keyword">true</span>) <span class="comment">-- =&gt;
 </pre>
 
 
-<h3>tap (obj, f [, ...])</h3>
+<h3>tap (obj, f)</h3>
 
 <p>Invokes a given interceptor function on some object, and then returns the object itself. Useful to tap into method chaining to hook intermediate results.
 The passed-in interceptor should be prototyped as <code>f(obj,...)</code>.</p>
@@ -2581,7 +2963,7 @@ M.isEqual(<span class="number">1</span>,<span class="number">1</span>) <span cla
 </pre>
 
 
-<h3>result (obj, method [, ...])</h3>
+<h3>result (obj, method)</h3>
 
 <p>Calls an object method, passing it as a first argument the object itself.</p>
 
@@ -2639,6 +3021,19 @@ M.isIterable({}) <span class="comment">-- =&gt; true
 </span>M.isIterable(<span class="keyword">function</span>() <span class="keyword">end</span>) <span class="comment">-- =&gt; false
 </span>M.isIterable(<span class="keyword">false</span>) <span class="comment">-- =&gt; false
 </span>M.isIterable(<span class="number">1</span>) <span class="comment">-- =&gt; false</span>
+</pre>
+
+
+<h3>type (obj)</h3>
+
+<p>Extends Lua's <a href="index.html#type">type</a> function. It returns the type of the given object and also recognises 'file' userdata</p>
+
+
+<pre>
+M.<span class="global">type</span>(<span class="string">'string'</span>) <span class="comment">-- =&gt; 'string'
+</span>M.<span class="global">type</span>(<span class="global">table</span>) <span class="comment">-- =&gt; 'table'
+</span>M.<span class="global">type</span>(<span class="keyword">function</span>() <span class="keyword">end</span>) <span class="comment">-- =&gt; 'function'
+</span>M.<span class="global">type</span>(<span class="global">io</span>.open(<span class="string">'f'</span>,<span class="string">'w'</span>)) <span class="comment">-- =&gt; 'file'</span>
 </pre>
 
 
@@ -2862,7 +3257,7 @@ M.import(context, <span class="keyword">true</span>)
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-08-23 10:16:23 </i>
+<i style="float:right;">Last updated 2018-09-12 11:33:43 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
