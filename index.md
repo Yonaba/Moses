@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Yonaba/Moses.png)](https://travis-ci.org/Yonaba/Moses)
+[![Latest Stable](https://img.shields.io/badge/Latest_Stable-2.1.0-blue.svg)](https://github.com/Yonaba/Moses/releases/tag/Moses-2.1.0-1)
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 [![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
 
@@ -47,7 +48,7 @@ Feel free to download and try it on your own!
 ## Download
 
 ### Archive
-* __2.0.0__ *(latest stable)*: [zip](http://github.com/Yonaba/Moses/archive/Moses-2.0.0-1.zip) | [tar.gz](http://github.com/Yonaba/Moses/archive/Moses-2.0.0-1.tar.gz) 
+* __2.1.0__ *(latest stable)*: [zip](http://github.com/Yonaba/Moses/archive/Moses-2.1.0-1.zip) | [tar.gz](http://github.com/Yonaba/Moses/archive/Moses-2.1.0-1.tar.gz) 
 * __Previous versions__ : [tags](http://github.com/Yonaba/Moses/tags)
 
 ### Bash
@@ -74,7 +75,7 @@ moonrocks install moses
 local M = require "moses"
 ````
 
-*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~83 kiB, 2780 LOC). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~32 kiB, 521 LOC).
+*Note:* the full source [moses.lua](https://github.com/Yonaba/Moses/blob/master/moses.lua) is quite heavy (~92 kiB, 3115 LOC). You can alternatively use the [minified version](https://github.com/Yonaba/Moses/blob/master/moses_min.lua) (~35 kiB, 561 LOC).
 
 ## Tutorial
 
