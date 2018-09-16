@@ -258,7 +258,7 @@ function S1wg_DG.zip(...)local cdxFVpZw={...}
 local Y=S1wg_DG.max(cdxFVpZw,function(BuX1r)return#BuX1r end)local o9Uh={}
 for Wyf83f2=1,Y do if not o9Uh[Wyf83f2]then o9Uh[Wyf83f2]={}end
 for P0olj,z in
-kyWtqIf0(cdxFVpZw)do if z[Wyf83f2]then
+kyWtqIf0(cdxFVpZw)do if(z[Wyf83f2]~=nil)then
 o9Uh[Wyf83f2][#o9Uh[Wyf83f2]+1]=z[Wyf83f2]end end end;return o9Uh end
 function S1wg_DG.zipWith(EHCCkt,...)local x={...}
 local xNWVmS=S1wg_DG.max(x,function(Pkis6H28)return#Pkis6H28 end)local kGWnkgDu={}for tSE=1,xNWVmS do

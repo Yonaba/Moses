@@ -598,6 +598,7 @@ describe('Array functions specs', function()
     it('zips together values from different arrays sharing the same index', function()   
       local names = {'Bob','Alice','James'}; local ages = {22, 23}
       assert.is_true(M.isEqual(M.zip(names,ages),{{'Bob',22},{'Alice',23},{'James'}}))
+      assert.is_true(M.isEqual(M.zip({false},{false}),{{false,false}}))
     end)     
   end)  
   

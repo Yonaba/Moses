@@ -1475,7 +1475,7 @@ function M.zip(...)
   for i = 1,n do
     if not _ans[i] then _ans[i] = {} end    
     for k, array in ipairs(args) do
-      if array[i] then _ans[i][#_ans[i]+1] = array[i] end
+      if (array[i]~= nil) then _ans[i][#_ans[i]+1] = array[i] end
     end
   end
   return _ans
