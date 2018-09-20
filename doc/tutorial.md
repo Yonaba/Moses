@@ -1880,7 +1880,7 @@ local formatter = function(ID) return '$'..ID..'$' end
 M.uniqueId(formatter) -- => '$ID1$'
 ````
 
-### iterator(f, value [, n])
+### iterator (f, value [, n])
 *Aliases: `iter`*.
 
 Returns an iterator function which constinuously applies a function `f` onto an input `value`.
@@ -1980,7 +1980,7 @@ local flipped = M.flip(f)
 flipped('a','b','c') -- => 'cba'
 ````
 
-### nthArg(n)
+### nthArg (n)
 
 Returns a function that gets the nth argument. 
 
