@@ -207,7 +207,7 @@ M.operator.le = function(a,b) return a <= b end
 M.operator.ge = function(a,b) return a >= b end
 
 --- Returns logical a and b. <em>Aliased as `op.land`</em>.
--- @name operator.ge
+-- @name operator.land
 -- @param a a value
 -- @param b a value
 -- @return a and b
