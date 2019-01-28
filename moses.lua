@@ -1578,13 +1578,13 @@ function M.rep(value, n)
 end
 
 --- Returns the powerset of array values. For instance, when given the set {1,2,3},
--- returns `{{},{1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}}`.
+-- returns `{{1},{2},{1,2},{3},{1,3},{2,3},{1,2,3},{}}`.
 -- @name powerset
 -- @param array an array
 -- @return an array
 function M.powerset(array)
    local n = #array
-   local t = {{}}
+   local t = {}
    for i = 1,1<<n do
       local temp = {}
       for j = 1,n do
