@@ -1586,7 +1586,7 @@ function M.powerset(array)
    local n = #array
    local t = {{}}
    for i = 1,1<<n do
-      temp = {}
+      local temp = {}
       for j = 1,n do
          if i & 1<<(j-1) ~= 0 then
             temp[#temp+1] = array[j]
