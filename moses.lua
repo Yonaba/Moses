@@ -3007,7 +3007,7 @@ do
   M.always        = M.constant
   M.cache         = M.memoize
   M.juxt          = M.juxtapose
-  M.uid           = M.uniqueid
+  M.uid           = M.uniqueId
   M.iter          = M.iterator
   M.nAry          = M.ary
   

@@ -534,7 +534,7 @@ S1wg_DG.transpose=S1wg_DG.zip;S1wg_DG.part=S1wg_DG.partition;S1wg_DG.perm=S1wg_D
 S1wg_DG.transposeWith=S1wg_DG.zipWith;S1wg_DG.intersperse=S1wg_DG.interpose
 S1wg_DG.sliding=S1wg_DG.aperture;S1wg_DG.mirror=S1wg_DG.invert;S1wg_DG.join=S1wg_DG.concat
 S1wg_DG.average=S1wg_DG.mean;S1wg_DG.always=S1wg_DG.constant;S1wg_DG.cache=S1wg_DG.memoize
-S1wg_DG.juxt=S1wg_DG.juxtapose;S1wg_DG.uid=S1wg_DG.uniqueid;S1wg_DG.iter=S1wg_DG.iterator
+S1wg_DG.juxt=S1wg_DG.juxtapose;S1wg_DG.uid=S1wg_DG.uniqueId;S1wg_DG.iter=S1wg_DG.iterator
 S1wg_DG.nAry=S1wg_DG.ary;S1wg_DG.methods=S1wg_DG.functions;S1wg_DG.choose=S1wg_DG.pick
 S1wg_DG.drop=S1wg_DG.omit;S1wg_DG.defaults=S1wg_DG.template
 S1wg_DG.compare=S1wg_DG.isEqual;S1wg_DG.matches=S1wg_DG.isEqual end
