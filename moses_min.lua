@@ -280,242 +280,252 @@ lI==nil)and(iMSMP5Lp==nil)and(WoARZdZ3 ==nil)then return{}elseif
 WoARZdZ3=Ub(iMSMP5Lp-lI)end;local n={lI}
 local Uj=BCf7(pS78Y((iMSMP5Lp-lI)/WoARZdZ3),0)for HpN_N=1,Uj do n[#n+1]=lI+WoARZdZ3*HpN_N end;return n end
 function S1wg_DG.rep(yP3QEJ,pwi)local QP={}for Iy=1,pwi do QP[Iy]=yP3QEJ end;return QP end
-function S1wg_DG.powerset(O9P0mj)local eFGwPxi=#O9P0mj;if eFGwPxi==0 then return{{}}end;local m4x8ZsD4={}for _witc0Pe=1,eFGwPxi do
-for Y8E=1,
-eFGwPxi-_witc0Pe+1 do m4x8ZsD4[#m4x8ZsD4+1]=S1wg_DG.slice(O9P0mj,Y8E,
-Y8E+_witc0Pe-1)end end
-return m4x8ZsD4 end;function S1wg_DG.partition(h,EnMMG,HzO7UpZ)if EnMMG<=0 then return end
+function S1wg_DG.powerset(O9P0mj)local eFGwPxi=#O9P0mj;local m4x8ZsD4={}
+for _witc0Pe,Y8E in kyWtqIf0(O9P0mj)do for h=1,#m4x8ZsD4 do
+local EnMMG=m4x8ZsD4[h]
+odpE(m4x8ZsD4,S1wg_DG.push(S1wg_DG.slice(EnMMG),Y8E))end
+odpE(m4x8ZsD4,{Y8E})end;odpE(m4x8ZsD4,{})return m4x8ZsD4 end;function S1wg_DG.partition(HzO7UpZ,B,RNTu)if B<=0 then return end
 return OV7(function()
-MGSnnzOI(h,EnMMG or 1,X83a,HzO7UpZ)end)end
-function S1wg_DG.overlapping(B,RNTu,Q_)if
-RNTu<=1 then return end;return
-OV7(function()B0o5xpg7(B,RNTu or 2,X83a,Q_)end)end
-function S1wg_DG.aperture(S8GB,W7yjGm)if W7yjGm<=1 then return end;return OV7(function()
-VQT(S8GB,W7yjGm or 2,X83a)end)end
-function S1wg_DG.pairwise(X)return S1wg_DG.aperture(X,2)end;function S1wg_DG.permutation(Y)
-return OV7(function()Id(Y,#Y,X83a)end)end
-function S1wg_DG.concat(qqvEf3,Wriu,I0Pxr5F,ukGf_)return
-JdUtcU(S1wg_DG.map(qqvEf3,tostring),Wriu,I0Pxr5F,ukGf_)end
-function S1wg_DG.xprod(uZpt01P,hJk0n8bR)local o9DTTJig={}
-for v4,Uaq2_Xzk in kyWtqIf0(uZpt01P)do for S0DM,GHasi5 in kyWtqIf0(hJk0n8bR)do
-o9DTTJig[#o9DTTJig+1]={Uaq2_Xzk,GHasi5}end end;return o9DTTJig end;function S1wg_DG.xpairs(QeX_U9tm,Dp9m)local sJjNM={}
-for GnSs,XP in kyWtqIf0(Dp9m)do sJjNM[GnSs]={QeX_U9tm,XP}end;return sJjNM end
-function S1wg_DG.xpairsRight(Sj,yKj1)
-local F9WZ={}for A5,nY_O in kyWtqIf0(yKj1)do F9WZ[A5]={nY_O,Sj}end;return F9WZ end
-function S1wg_DG.sum(QAJAyj5)local EZ=0;for n,M in kyWtqIf0(QAJAyj5)do EZ=EZ+M end;return EZ end;function S1wg_DG.product(AADiL1)local Arw=1
-for b,_ZM1Yj3 in kyWtqIf0(AADiL1)do Arw=Arw*_ZM1Yj3 end;return Arw end;function S1wg_DG.mean(rmSU)return
-S1wg_DG.sum(rmSU)/ (#rmSU)end
-function S1wg_DG.median(L2RHrI)
-local XW7Y5Rz=S1wg_DG.sort(S1wg_DG.clone(L2RHrI))local C=#XW7Y5Rz;if C==0 then return elseif C==1 then return XW7Y5Rz[1]end
-local NhwEkTd=VCD(C/2)return
-C%2 ==0 and
-(XW7Y5Rz[NhwEkTd]+XW7Y5Rz[NhwEkTd+1])/2 or XW7Y5Rz[NhwEkTd]end;function S1wg_DG.noop()return end;function S1wg_DG.identity(XGz)return XGz end;function S1wg_DG.call(Tf4P2eIf,...)return
-Tf4P2eIf(...)end;function S1wg_DG.constant(TF3Htu)
-return function()return TF3Htu end end
-function S1wg_DG.applySpec(K5yUw1t)return
-function(...)local Mi={}for WWyrqnSL,gVTyP in l(K5yUw1t)do
-Mi[WWyrqnSL]=gVTyP(...)end;return Mi end end
-function S1wg_DG.thread(Ck,...)local CRG=Ck;local dkz={...}
-for zrCq,azXMvVdM in kyWtqIf0(dkz)do
-if v(azXMvVdM)=='function'then
-CRG=azXMvVdM(CRG)elseif v(azXMvVdM)=='table'then local CBgxHfbq=azXMvVdM[1]lIpFkbLI(azXMvVdM,1)
-CRG=S1wg_DG.reduce(azXMvVdM,CBgxHfbq,CRG)end end;return CRG end
-function S1wg_DG.threadRight(WO,...)local H=WO;local C28NuJ3={...}
-for sz,qH in kyWtqIf0(C28NuJ3)do if v(qH)=='function'then H=qH(H)elseif
-v(qH)=='table'then local u=qH[1]lIpFkbLI(qH,1)odpE(qH,H)
-H=S1wg_DG.reduce(qH,u)end end;return H end
-function S1wg_DG.dispatch(...)local u={...}return
-function(...)for J1Vn4uYP,Z in kyWtqIf0(u)do local pJ={Z(...)}
-if#pJ>0 then return hUL(pJ)end end end end;function S1wg_DG.memoize(NAjg)local con=oUA({},{__mode='kv'})
-return function(I)if(con[I]==nil)then
-con[I]=NAjg(I)end;return con[I]end end
-function S1wg_DG.unfold(TxmZR6UE,I1b4o)
-local nAt,pNJ={}while true do pNJ,I1b4o=TxmZR6UE(I1b4o)
-if pNJ~=nil then nAt[#nAt+1]=pNJ else break end end;return nAt end
-function S1wg_DG.once(RQ)local wnZcHKf=0;local Lv_8={}
-return function(...)wnZcHKf=wnZcHKf+1
-if wnZcHKf<=1 then Lv_8={...}end;return RQ(hUL(Lv_8))end end
-function S1wg_DG.before(UQ,hgW2H5)local FG=0;local vLzqjJw={}
-return function(...)FG=FG+1;if FG<=hgW2H5 then vLzqjJw={...}end;return
+MGSnnzOI(HzO7UpZ,B or 1,X83a,RNTu)end)end
+function S1wg_DG.overlapping(Q_,S8GB,W7yjGm)if
+S8GB<=1 then return end;return
+OV7(function()B0o5xpg7(Q_,S8GB or 2,X83a,W7yjGm)end)end;function S1wg_DG.aperture(X,Y)if Y<=1 then return end;return
+OV7(function()VQT(X,Y or 2,X83a)end)end;function S1wg_DG.pairwise(qqvEf3)return
+S1wg_DG.aperture(qqvEf3,2)end
+function S1wg_DG.permutation(Wriu)return OV7(function()
+Id(Wriu,#Wriu,X83a)end)end
+function S1wg_DG.concat(I0Pxr5F,ukGf_,uZpt01P,hJk0n8bR)return
+JdUtcU(S1wg_DG.map(I0Pxr5F,tostring),ukGf_,uZpt01P,hJk0n8bR)end
+function S1wg_DG.xprod(o9DTTJig,v4)local Uaq2_Xzk={}
+for S0DM,GHasi5 in kyWtqIf0(o9DTTJig)do for QeX_U9tm,Dp9m in kyWtqIf0(v4)do
+Uaq2_Xzk[#Uaq2_Xzk+1]={GHasi5,Dp9m}end end;return Uaq2_Xzk end;function S1wg_DG.xpairs(sJjNM,GnSs)local XP={}
+for Sj,yKj1 in kyWtqIf0(GnSs)do XP[Sj]={sJjNM,yKj1}end;return XP end;function S1wg_DG.xpairsRight(F9WZ,A5)
+local nY_O={}for QAJAyj5,EZ in kyWtqIf0(A5)do nY_O[QAJAyj5]={EZ,F9WZ}end
+return nY_O end
+function S1wg_DG.sum(n)
+local M=0;for AADiL1,Arw in kyWtqIf0(n)do M=M+Arw end;return M end;function S1wg_DG.product(b)local _ZM1Yj3=1
+for rmSU,L2RHrI in kyWtqIf0(b)do _ZM1Yj3=_ZM1Yj3*L2RHrI end;return _ZM1Yj3 end
+function S1wg_DG.mean(XW7Y5Rz)return
+S1wg_DG.sum(XW7Y5Rz)/ (#XW7Y5Rz)end
+function S1wg_DG.median(C)
+local NhwEkTd=S1wg_DG.sort(S1wg_DG.clone(C))local XGz=#NhwEkTd
+if XGz==0 then return elseif XGz==1 then return NhwEkTd[1]end;local Tf4P2eIf=VCD(XGz/2)return
+XGz%2 ==0 and
+(NhwEkTd[Tf4P2eIf]+NhwEkTd[Tf4P2eIf+1])/2 or NhwEkTd[Tf4P2eIf]end;function S1wg_DG.noop()return end;function S1wg_DG.identity(TF3Htu)return TF3Htu end;function S1wg_DG.call(K5yUw1t,...)return
+K5yUw1t(...)end;function S1wg_DG.constant(Mi)
+return function()return Mi end end
+function S1wg_DG.applySpec(WWyrqnSL)return
+function(...)local gVTyP={}for Ck,CRG in l(WWyrqnSL)do
+gVTyP[Ck]=CRG(...)end;return gVTyP end end
+function S1wg_DG.thread(dkz,...)local zrCq=dkz;local azXMvVdM={...}
+for CBgxHfbq,WO in kyWtqIf0(azXMvVdM)do if v(WO)=='function'then
+zrCq=WO(zrCq)elseif v(WO)=='table'then local H=WO[1]lIpFkbLI(WO,1)
+zrCq=S1wg_DG.reduce(WO,H,zrCq)end end;return zrCq end
+function S1wg_DG.threadRight(C28NuJ3,...)local sz=C28NuJ3;local qH={...}
+for u,uJ1Vn4uYP in kyWtqIf0(qH)do
+if v(uJ1Vn4uYP)=='function'then
+sz=uJ1Vn4uYP(sz)elseif v(uJ1Vn4uYP)=='table'then local Z=uJ1Vn4uYP[1]
+lIpFkbLI(uJ1Vn4uYP,1)odpE(uJ1Vn4uYP,sz)sz=S1wg_DG.reduce(uJ1Vn4uYP,Z)end end;return sz end
+function S1wg_DG.dispatch(...)local pJ={...}return
+function(...)for NAjg,con in kyWtqIf0(pJ)do local I={con(...)}
+if#I>0 then return hUL(I)end end end end
+function S1wg_DG.memoize(TxmZR6UE)local I1b4o=oUA({},{__mode='kv'})
+return function(nAt)if
+(I1b4o[nAt]==nil)then I1b4o[nAt]=TxmZR6UE(nAt)end
+return I1b4o[nAt]end end
+function S1wg_DG.unfold(pNJ,RQ)local wnZcHKf,Lv_8={}
+while true do Lv_8,RQ=pNJ(RQ)if Lv_8 ~=nil then
+wnZcHKf[#wnZcHKf+1]=Lv_8 else break end end;return wnZcHKf end;function S1wg_DG.once(UQ)local FG=0;local vLzqjJw={}
+return function(...)FG=FG+1;if FG<=1 then vLzqjJw={...}end;return
 UQ(hUL(vLzqjJw))end end
-function S1wg_DG.after(v2dsC21,hgW2H5)local O,wx=hgW2H5,0;return
-function(...)wx=wx+1;if wx>=O then return v2dsC21(...)end end end
-function S1wg_DG.compose(...)local u=S1wg_DG.reverse{...}
+function S1wg_DG.before(v2dsC21,hgW2H5)
+local O=0;local wx={}return
+function(...)O=O+1;if O<=hgW2H5 then wx={...}end;return v2dsC21(hUL(wx))end end
+function S1wg_DG.after(u,hgW2H5)local V_84V,qF=hgW2H5,0;return
+function(...)qF=qF+1;if qF>=V_84V then return u(...)end end end
+function S1wg_DG.compose(...)local IZbOX7TW=S1wg_DG.reverse{...}
 return
-function(...)local V_84V,qF=true
-for IZbOX7TW,Dd6ZLpU in kyWtqIf0(u)do if V_84V then
-V_84V=false;qF=Dd6ZLpU(...)else qF=Dd6ZLpU(qF)end end;return qF end end
-function S1wg_DG.pipe(MP,...)return S1wg_DG.compose(...)(MP)end
-function S1wg_DG.complement(w4c)return function(...)return not w4c(...)end end
-function S1wg_DG.juxtapose(C58,...)local Jk6Nh={}
-for s1Ws,desLYv in kyWtqIf0({...})do Jk6Nh[s1Ws]=desLYv(C58)end;return hUL(Jk6Nh)end;function S1wg_DG.wrap(COq2NY9I,aoBEg65S)
-return function(...)return aoBEg65S(COq2NY9I,...)end end
-function S1wg_DG.times(x6,t3cNa2l)local Ik={}for SeHOs=1,(t3cNa2l or 1)
-do Ik[SeHOs]=x6(SeHOs)end;return Ik end
-function S1wg_DG.bind(P2rGsUx,c)return function(...)return P2rGsUx(c,...)end end;function S1wg_DG.bind2(v12AhMm,F2uxGC)
-return function(Xs0,...)return v12AhMm(Xs0,F2uxGC,...)end end;function S1wg_DG.bindn(QK8ibF,...)local TEio7k0z={...}
+function(...)local Dd6ZLpU,MP=true
+for w4c,C58 in
+kyWtqIf0(IZbOX7TW)do if Dd6ZLpU then Dd6ZLpU=false;MP=C58(...)else MP=C58(MP)end end;return MP end end
+function S1wg_DG.pipe(Jk6Nh,...)return S1wg_DG.compose(...)(Jk6Nh)end;function S1wg_DG.complement(s1Ws)
+return function(...)return not s1Ws(...)end end
+function S1wg_DG.juxtapose(desLYv,...)local COq2NY9I={}for aoBEg65S,x6 in
+kyWtqIf0({...})do COq2NY9I[aoBEg65S]=x6(desLYv)end;return
+hUL(COq2NY9I)end;function S1wg_DG.wrap(t3cNa2l,Ik)
+return function(...)return Ik(t3cNa2l,...)end end
+function S1wg_DG.times(SeHOs,P2rGsUx)local c={}for v12AhMm=1,(P2rGsUx or 1)do
+c[v12AhMm]=SeHOs(v12AhMm)end;return c end;function S1wg_DG.bind(F2uxGC,Xs0)
+return function(...)return F2uxGC(Xs0,...)end end
+function S1wg_DG.bind2(QK8ibF,TEio7k0z)return function(u,...)
+return QK8ibF(u,TEio7k0z,...)end end;function S1wg_DG.bindn(N,...)local O2YgxDc={...}
 return function(...)return
-QK8ibF(hUL(S1wg_DG.append(TEio7k0z,{...})))end end
-function S1wg_DG.bindall(u,...)
-local N={...}for O2YgxDc,VLsC67 in kyWtqIf0(N)do local OHw4=u[VLsC67]
-if OHw4 then u[VLsC67]=S1wg_DG.bind(OHw4,u)end end;return u end
-function S1wg_DG.cond(FKZ)return
-function(...)for Fl,QhS8FvKI in kyWtqIf0(FKZ)do
-if QhS8FvKI[1](...)then return QhS8FvKI[2](...)end end end end
-function S1wg_DG.both(...)local FaZIJL={...}
+N(hUL(S1wg_DG.append(O2YgxDc,{...})))end end
+function S1wg_DG.bindall(VLsC67,...)
+local OHw4={...}
+for FKZ,Fl in kyWtqIf0(OHw4)do local QhS8FvKI=VLsC67[Fl]if QhS8FvKI then
+VLsC67[Fl]=S1wg_DG.bind(QhS8FvKI,VLsC67)end end;return VLsC67 end;function S1wg_DG.cond(FaZIJL)
 return function(...)
-for sOT2O5,x in kyWtqIf0(FaZIJL)do if not x(...)then return false end end;return true end end
-function S1wg_DG.either(...)local Wswd_OC={...}
+for sOT2O5,x in kyWtqIf0(FaZIJL)do if x[1](...)then return x[2](...)end end end end
+function S1wg_DG.both(...)
+local Wswd_OC={...}
 return function(...)
-for E,A0Un in kyWtqIf0(Wswd_OC)do if A0Un(...)then return true end end;return false end end
-function S1wg_DG.neither(...)local nRHrI={...}
+for E,A0Un in kyWtqIf0(Wswd_OC)do if not A0Un(...)then return false end end;return true end end
+function S1wg_DG.either(...)local nRHrI={...}
 return function(...)
-for kZp,A in kyWtqIf0(nRHrI)do if A(...)then return false end end;return true end end
-function S1wg_DG.uniqueId(_L_)qJExeUn2=qJExeUn2+1;if _L_ then
-if v(_L_)=='string'then
-return _L_:format(qJExeUn2)elseif v(_L_)=='function'then return _L_(qJExeUn2)end end;return qJExeUn2 end
-function S1wg_DG.iterator(WHpm,g,HiR3yiw)local KeKbiDqN=0;return
-function()KeKbiDqN=KeKbiDqN+1;if
-HiR3yiw and KeKbiDqN>HiR3yiw then return end;g=WHpm(g)return g end end;function S1wg_DG.skip(WfrZqHH8,YX9s9O)
-for y64dF=1,(YX9s9O or 1)do if WfrZqHH8()==nil then return end end;return WfrZqHH8 end
+for kZp,A in kyWtqIf0(nRHrI)do if A(...)then return true end end;return false end end;function S1wg_DG.neither(...)local _L_={...}
+return function(...)
+for WHpm,g in kyWtqIf0(_L_)do if g(...)then return false end end;return true end end
+function S1wg_DG.uniqueId(HiR3yiw)qJExeUn2=
+qJExeUn2+1;if HiR3yiw then
+if v(HiR3yiw)=='string'then
+return HiR3yiw:format(qJExeUn2)elseif v(HiR3yiw)=='function'then return HiR3yiw(qJExeUn2)end end
+return qJExeUn2 end
+function S1wg_DG.iterator(KeKbiDqN,WfrZqHH8,YX9s9O)local y64dF=0;return
+function()y64dF=y64dF+1
+if YX9s9O and y64dF>YX9s9O then return end;WfrZqHH8=KeKbiDqN(WfrZqHH8)return WfrZqHH8 end end;function S1wg_DG.skip(sNSsH,K)
+for o8T=1,(K or 1)do if sNSsH()==nil then return end end;return sNSsH end
 function S1wg_DG.tabulate(...)
-local sNSsH={}for K in...do sNSsH[#sNSsH+1]=K end;return sNSsH end
-function S1wg_DG.iterlen(...)local o8T=0;for xeP in...do o8T=o8T+1 end;return o8T end
-function S1wg_DG.castArray(Tv_3VlmX)return(v(Tv_3VlmX)~='table')and{Tv_3VlmX}or
-Tv_3VlmX end
-function S1wg_DG.flip(BT)return function(...)
-return BT(hUL(S1wg_DG.reverse({...})))end end;function S1wg_DG.nthArg(_y3z)
-return function(...)local rdl={...}return
-rdl[(_y3z<0)and(#rdl+_y3z+1)or _y3z]end end;function S1wg_DG.unary(NAP_5jYs)
+local xeP={}for Tv_3VlmX in...do xeP[#xeP+1]=Tv_3VlmX end;return xeP end
+function S1wg_DG.iterlen(...)local BT=0;for _y3z in...do BT=BT+1 end;return BT end;function S1wg_DG.castArray(rdl)
+return(v(rdl)~='table')and{rdl}or rdl end;function S1wg_DG.flip(NAP_5jYs)
+return function(...)return
+NAP_5jYs(hUL(S1wg_DG.reverse({...})))end end;function S1wg_DG.nthArg(BZnlpW)
+return function(...)local isN={...}return
+isN[(
+BZnlpW<0)and(#isN+BZnlpW+1)or BZnlpW]end end;function S1wg_DG.unary(yRADzw1v)
 return function(...)
-local BZnlpW={...}return NAP_5jYs(BZnlpW[1])end end
-function S1wg_DG.ary(isN,yRADzw1v)
-yRADzw1v=yRADzw1v or 1;return
-function(...)local Jafp={...}local XWh8Ee={}
-for kpezL1e=1,yRADzw1v do XWh8Ee[kpezL1e]=Jafp[kpezL1e]end;return isN(hUL(XWh8Ee))end end;function S1wg_DG.noarg(h)return function()return h()end end
-function S1wg_DG.rearg(R7yfz_l9,D35PFLu)
-return
-function(...)
-local wK={...}local qeEwE={}
-for cbtvFnSa,fYKH_ in kyWtqIf0(D35PFLu)do qeEwE[cbtvFnSa]=wK[fYKH_]end;return R7yfz_l9(hUL(qeEwE))end end;function S1wg_DG.over(...)local W={...}
-return function(...)local o={}
-for Mm99M,l6YH in kyWtqIf0(W)do o[#o+1]=l6YH(...)end;return o end end
-function S1wg_DG.overEvery(...)
-local gf2=S1wg_DG.over(...)return
-function(...)return
-S1wg_DG.reduce(gf2(...),function(F744Ew,zgxKF4)return F744Ew and zgxKF4 end)end end
-function S1wg_DG.overSome(...)local UlvVvSBR=S1wg_DG.over(...)
+local Jafp={...}return yRADzw1v(Jafp[1])end end
+function S1wg_DG.ary(XWh8Ee,kpezL1e)
+kpezL1e=kpezL1e or 1;return
+function(...)local h={...}local R7yfz_l9={}
+for D35PFLu=1,kpezL1e do R7yfz_l9[D35PFLu]=h[D35PFLu]end;return XWh8Ee(hUL(R7yfz_l9))end end
+function S1wg_DG.noarg(wK)return function()return wK()end end
+function S1wg_DG.rearg(qeEwE,cbtvFnSa)return
+function(...)local fYKH_={...}local W={}
+for o,Mm99M in kyWtqIf0(cbtvFnSa)do W[o]=fYKH_[Mm99M]end;return qeEwE(hUL(W))end end
+function S1wg_DG.over(...)local l6YH={...}return
+function(...)local gf2={}for F744Ew,zgxKF4 in kyWtqIf0(l6YH)do
+gf2[#gf2+1]=zgxKF4(...)end;return gf2 end end
+function S1wg_DG.overEvery(...)local UlvVvSBR=S1wg_DG.over(...)
 return function(...)
 return S1wg_DG.reduce(UlvVvSBR(...),function(i2i,uRGAL)return
-i2i or uRGAL end)end end
-function S1wg_DG.overArgs(UUlqXyb6,...)local fOR92g8={...}
+i2i and uRGAL end)end end
+function S1wg_DG.overSome(...)local UUlqXyb6=S1wg_DG.over(...)
+return function(...)
+return S1wg_DG.reduce(UUlqXyb6(...),function(fOR92g8,jU26)return
+fOR92g8 or jU26 end)end end
+function S1wg_DG.overArgs(WIPTsAPz,...)local DgUx8={...}
 return
-function(...)local jU26={...}for WIPTsAPz=1,#fOR92g8 do
-local DgUx8=fOR92g8[WIPTsAPz]
-if jU26[WIPTsAPz]then jU26[WIPTsAPz]=DgUx8(jU26[WIPTsAPz])end end;return
-UUlqXyb6(hUL(jU26))end end
-function S1wg_DG.converge(imac,xX,Mfb6Kb)return
-function(...)return imac(xX(...),Mfb6Kb(...))end end
-function S1wg_DG.partial(RRjV,...)local TDOaFo={...}
+function(...)local imac={...}for xX=1,#DgUx8 do local Mfb6Kb=DgUx8[xX]if imac[xX]then
+imac[xX]=Mfb6Kb(imac[xX])end end;return
+WIPTsAPz(hUL(imac))end end
+function S1wg_DG.converge(RRjV,TDOaFo,tLo4)return
+function(...)return RRjV(TDOaFo(...),tLo4(...))end end
+function S1wg_DG.partial(m72l,...)local npM3DSU={...}
 return
-function(...)local tLo4={...}local m72l={}for npM3DSU,HGp4e1 in kyWtqIf0(TDOaFo)do
-m72l[npM3DSU]=
-(HGp4e1 =='_')and S1wg_DG.shift(tLo4)or HGp4e1 end;return
-RRjV(hUL(S1wg_DG.append(m72l,tLo4)))end end
-function S1wg_DG.partialRight(uzJt7E,...)local sRe5S32N={...}
+function(...)local HGp4e1={...}local uzJt7E={}for sRe5S32N,Bp in kyWtqIf0(npM3DSU)do
+uzJt7E[sRe5S32N]=(
+Bp=='_')and S1wg_DG.shift(HGp4e1)or Bp end;return
+m72l(hUL(S1wg_DG.append(uzJt7E,HGp4e1)))end end
+function S1wg_DG.partialRight(rg,...)local S={...}
 return
-function(...)local Bp={...}local rg={}for S=1,#sRe5S32N do
-rg[S]=
-(sRe5S32N[S]=='_')and S1wg_DG.shift(Bp)or sRe5S32N[S]end;return
-uzJt7E(hUL(S1wg_DG.append(Bp,rg)))end end
-function S1wg_DG.curry(Fem,cHmVGY)cHmVGY=cHmVGY or 2;local g29sXR={}
-local function Vat(sfnkWAy8)
-if cHmVGY==1 then return Fem(sfnkWAy8)end
-if sfnkWAy8 ~=nil then g29sXR[#g29sXR+1]=sfnkWAy8 end;if#g29sXR<cHmVGY then return Vat else local hbJSGe9={Fem(hUL(g29sXR))}
-g29sXR={}return hUL(hbJSGe9)end end;return Vat end
-function S1wg_DG.time(pI,...)local B7jhm=Mw()local hj3={pI(...)}return Mw()-B7jhm,hUL(hj3)end
-function S1wg_DG.keys(FKxU4)local UW={}for tReY in l(FKxU4)do UW[#UW+1]=tReY end;return UW end;function S1wg_DG.values(lex)local h79Pm={}
-for vksQpy4,gPCIWPt in l(lex)do h79Pm[#h79Pm+1]=gPCIWPt end;return h79Pm end
-function S1wg_DG.path(l4Byxa7,...)
-local Fn8OR,X1Z0van=l4Byxa7,{...}for C_ACFsd,GC in kyWtqIf0(X1Z0van)do if(Fn8OR[GC]==nil)then return end
-Fn8OR=Fn8OR[GC]end;return Fn8OR end
-function S1wg_DG.spreadPath(SC7gSvMB,...)local Ei={...}
-for GFuK1ut,SXmRY3i in kyWtqIf0(Ei)do if SC7gSvMB[SXmRY3i]then
-for b,KApFr in
-l(SC7gSvMB[SXmRY3i])do SC7gSvMB[b]=KApFr;SC7gSvMB[SXmRY3i][b]=nil end end end;return SC7gSvMB end
-function S1wg_DG.flattenPath(jE,...)local yVVmXC={...}
-for MkxwoCeK,AT in kyWtqIf0(yVVmXC)do if jE[AT]then
-for _8KO,NI in l(jE[AT])do jE[_8KO]=NI end end end;return jE end;function S1wg_DG.kvpairs(PE)local a={}
-for GhVWeuQs,kQlY in l(PE)do a[#a+1]={GhVWeuQs,kQlY}end;return a end
-function S1wg_DG.toObj(xIl1shq)local qv={}for pbEt6T,MBdHQ in
-kyWtqIf0(xIl1shq)do qv[MBdHQ[1]]=MBdHQ[2]end;return qv end;function S1wg_DG.invert(STXAhhM)local assFn={}for EXpWzv,kq in l(STXAhhM)do assFn[kq]=EXpWzv end
-return assFn end
-function S1wg_DG.property(up)return function(wlI_l)return
-wlI_l[up]end end
-function S1wg_DG.propertyOf(nK7J)return function(xv)return nK7J[xv]end end;function S1wg_DG.toBoolean(IWG)return not not IWG end
-function S1wg_DG.extend(XVipkEh,...)
-local Y_xg20={...}
-for lOn,Mn29lGrm in kyWtqIf0(Y_xg20)do if v(Mn29lGrm)=='table'then
-for y,ye3DyN in l(Mn29lGrm)do XVipkEh[y]=ye3DyN end end end;return XVipkEh end
-function S1wg_DG.functions(XoIfNq,zCZ)XoIfNq=XoIfNq or S1wg_DG;local KOblE1BH={}
-for YPFM2F,iA in l(XoIfNq)do if
-v(iA)=='function'then KOblE1BH[#KOblE1BH+1]=YPFM2F end end
-if zCZ then local f=QFKEzBf(XoIfNq)if f and f.__index then
-local W=S1wg_DG.functions(f.__index,zCZ)
-for _,_TPK9KUS in kyWtqIf0(W)do KOblE1BH[#KOblE1BH+1]=_TPK9KUS end end end;return KOblE1BH end
-function S1wg_DG.clone(CcTDi,HNz)if v(CcTDi)~='table'then return CcTDi end;local _T9Gn3b2={}for mx,X in l(CcTDi)do
+function(...)local Fem={...}local cHmVGY={}for g29sXR=1,#S do
+cHmVGY[g29sXR]=
+(S[g29sXR]=='_')and S1wg_DG.shift(Fem)or S[g29sXR]end;return
+rg(hUL(S1wg_DG.append(Fem,cHmVGY)))end end
+function S1wg_DG.curry(Vat,sfnkWAy8)sfnkWAy8=sfnkWAy8 or 2;local hbJSGe9={}
+local function pI(B7jhm)
+if sfnkWAy8 ==1 then return Vat(B7jhm)end;if B7jhm~=nil then hbJSGe9[#hbJSGe9+1]=B7jhm end;if#
+hbJSGe9 <sfnkWAy8 then return pI else local hj3={Vat(hUL(hbJSGe9))}
+hbJSGe9={}return hUL(hj3)end end;return pI end
+function S1wg_DG.time(FKxU4,...)local UW=Mw()local tReY={FKxU4(...)}return Mw()-UW,hUL(tReY)end;function S1wg_DG.keys(lex)local h79Pm={}
+for vksQpy4 in l(lex)do h79Pm[#h79Pm+1]=vksQpy4 end;return h79Pm end
+function S1wg_DG.values(gPCIWPt)
+local l4Byxa7={}
+for Fn8OR,X1Z0van in l(gPCIWPt)do l4Byxa7[#l4Byxa7+1]=X1Z0van end;return l4Byxa7 end
+function S1wg_DG.path(C_ACFsd,...)local GC,SC7gSvMB=C_ACFsd,{...}
+for Ei,GFuK1ut in kyWtqIf0(SC7gSvMB)do if
+(GC[GFuK1ut]==nil)then return end;GC=GC[GFuK1ut]end;return GC end
+function S1wg_DG.spreadPath(SXmRY3i,...)local b={...}
+for KApFr,jE in kyWtqIf0(b)do if SXmRY3i[jE]then
+for yVVmXC,MkxwoCeK in l(SXmRY3i[jE])do
+SXmRY3i[yVVmXC]=MkxwoCeK;SXmRY3i[jE][yVVmXC]=nil end end end;return SXmRY3i end
+function S1wg_DG.flattenPath(AT,...)local _8KO={...}
+for NI,PE in kyWtqIf0(_8KO)do if AT[PE]then
+for a,GhVWeuQs in l(AT[PE])do AT[a]=GhVWeuQs end end end;return AT end
+function S1wg_DG.kvpairs(kQlY)local xIl1shq={}for qv,pbEt6T in l(kQlY)do
+xIl1shq[#xIl1shq+1]={qv,pbEt6T}end;return xIl1shq end
+function S1wg_DG.toObj(MBdHQ)local STXAhhM={}for assFn,EXpWzv in kyWtqIf0(MBdHQ)do
+STXAhhM[EXpWzv[1]]=EXpWzv[2]end;return STXAhhM end
+function S1wg_DG.invert(kq)local up={}for wlI_l,nK7J in l(kq)do up[nK7J]=wlI_l end;return up end
+function S1wg_DG.property(xv)return function(IWG)return IWG[xv]end end;function S1wg_DG.propertyOf(XVipkEh)
+return function(Y_xg20)return XVipkEh[Y_xg20]end end;function S1wg_DG.toBoolean(lOn)
+return not not lOn end
+function S1wg_DG.extend(Mn29lGrm,...)local y={...}for ye3DyN,XoIfNq in kyWtqIf0(y)do
 if
-v(X)=='table'then if not HNz then _T9Gn3b2[mx]=S1wg_DG.clone(X,HNz)else
-_T9Gn3b2[mx]=X end else _T9Gn3b2[mx]=X end end;return
-_T9Gn3b2 end;function S1wg_DG.tap(j,hwLm)hwLm(j)return j end;function S1wg_DG.has(Jf1lygU,uCC)return
-Jf1lygU[uCC]~=nil end
-function S1wg_DG.pick(VoL,...)
-local J1Qkmucu=S1wg_DG.flatten{...}local uy8VNDqE={}
-for LCuIIfa,SUcXQMl in l(J1Qkmucu)do if(VoL[SUcXQMl])~=nil then
-uy8VNDqE[SUcXQMl]=VoL[SUcXQMl]end end;return uy8VNDqE end
-function S1wg_DG.omit(lyRouGA3,...)local Q3y7y2=S1wg_DG.flatten{...}local xPOK4sH={}
-for Px1,SUg in l(lyRouGA3)do if not
-S1wg_DG.include(Q3y7y2,Px1)then xPOK4sH[Px1]=SUg end end;return xPOK4sH end
-function S1wg_DG.template(Wf0F6,G3)if not G3 then return Wf0F6 end;for D,Yghyekk in l(G3)do
-if not Wf0F6[D]then Wf0F6[D]=Yghyekk end end;return Wf0F6 end
-function S1wg_DG.isEqual(axo,Sv,aKiYWdc)local tSTVAx=v(axo)local E4dT34=v(Sv)
-if tSTVAx~=E4dT34 then return false end;if tSTVAx~='table'then return(axo==Sv)end;local L0=QFKEzBf(axo)
-local wY=QFKEzBf(Sv)if aKiYWdc then
-if(L0 or wY)and(L0.__eq or wY.__eq)then return L0.__eq(axo,Sv)or
-wY.__eq(Sv,axo)or(axo==Sv)end end;if
-S1wg_DG.size(axo)~=S1wg_DG.size(Sv)then return false end
-local ilY2;for oe1We,jQLYx1y in l(axo)do ilY2=Sv[oe1We]
-if ilY2 ==nil or
-not S1wg_DG.isEqual(jQLYx1y,ilY2,aKiYWdc)then return false end end;for m_zjn in l(Sv)do if
-axo[m_zjn]==nil then return false end end
-return true end
-function S1wg_DG.result(TyjL,JVvqdW4)if TyjL[JVvqdW4]then
-if S1wg_DG.isCallable(TyjL[JVvqdW4])then return
-TyjL[JVvqdW4](TyjL)else return TyjL[JVvqdW4]end end;if
-S1wg_DG.isCallable(JVvqdW4)then return JVvqdW4(TyjL)end end;function S1wg_DG.isTable(kDuC)return v(kDuC)=='table'end
-function S1wg_DG.isCallable(AUw)return
+v(XoIfNq)=='table'then for zCZ,KOblE1BH in l(XoIfNq)do Mn29lGrm[zCZ]=KOblE1BH end end end;return Mn29lGrm end
+function S1wg_DG.functions(YPFM2F,iA)YPFM2F=YPFM2F or S1wg_DG;local f={}for W,_ in l(YPFM2F)do if v(_)=='function'then
+f[#f+1]=W end end
+if iA then
+local _TPK9KUS=QFKEzBf(YPFM2F)
+if _TPK9KUS and _TPK9KUS.__index then
+local CcTDi=S1wg_DG.functions(_TPK9KUS.__index,iA)for HNz,_T9Gn3b2 in kyWtqIf0(CcTDi)do f[#f+1]=_T9Gn3b2 end end end;return f end
+function S1wg_DG.clone(mx,X)if v(mx)~='table'then return mx end;local j={}
+for hwLm,Jf1lygU in l(mx)do
+if
+v(Jf1lygU)=='table'then
+if not X then j[hwLm]=S1wg_DG.clone(Jf1lygU,X)else j[hwLm]=Jf1lygU end else j[hwLm]=Jf1lygU end end;return j end;function S1wg_DG.tap(uCC,VoL)VoL(uCC)return uCC end;function S1wg_DG.has(J1Qkmucu,uy8VNDqE)return
+J1Qkmucu[uy8VNDqE]~=nil end
+function S1wg_DG.pick(LCuIIfa,...)
+local SUcXQMl=S1wg_DG.flatten{...}local lyRouGA3={}
+for Q3y7y2,xPOK4sH in l(SUcXQMl)do if(LCuIIfa[xPOK4sH])~=nil then
+lyRouGA3[xPOK4sH]=LCuIIfa[xPOK4sH]end end;return lyRouGA3 end
+function S1wg_DG.omit(Px1,...)local SUg=S1wg_DG.flatten{...}local Wf0F6={}
+for G3,D in l(Px1)do if not
+S1wg_DG.include(SUg,G3)then Wf0F6[G3]=D end end;return Wf0F6 end
+function S1wg_DG.template(Yghyekk,axo)if not axo then return Yghyekk end;for Sv,aKiYWdc in l(axo)do if not Yghyekk[Sv]then
+Yghyekk[Sv]=aKiYWdc end end;return Yghyekk end
+function S1wg_DG.isEqual(tSTVAx,E4dT34,L0)local wY=v(tSTVAx)local ilY2=v(E4dT34)
+if wY~=ilY2 then return false end;if wY~='table'then return(tSTVAx==E4dT34)end
+local oe1We=QFKEzBf(tSTVAx)local jQLYx1y=QFKEzBf(E4dT34)
+if L0 then
+if(oe1We or jQLYx1y)and
+(oe1We.__eq or jQLYx1y.__eq)then return
+oe1We.__eq(tSTVAx,E4dT34)or
+jQLYx1y.__eq(E4dT34,tSTVAx)or(tSTVAx==E4dT34)end end
+if S1wg_DG.size(tSTVAx)~=S1wg_DG.size(E4dT34)then return false end;local m_zjn;for TyjL,JVvqdW4 in l(tSTVAx)do m_zjn=E4dT34[TyjL]
+if m_zjn==nil or not
+S1wg_DG.isEqual(JVvqdW4,m_zjn,L0)then return false end end;for kDuC in l(E4dT34)do if
+tSTVAx[kDuC]==nil then return false end end;return
+true end
+function S1wg_DG.result(AUw,vCkLg)
+if AUw[vCkLg]then if S1wg_DG.isCallable(AUw[vCkLg])then
+return AUw[vCkLg](AUw)else return AUw[vCkLg]end end;if S1wg_DG.isCallable(vCkLg)then return vCkLg(AUw)end end;function S1wg_DG.isTable(A3mjn)return v(A3mjn)=='table'end
+function S1wg_DG.isCallable(Wt5k)return
 ((
-v(AUw)=='function')or
+v(Wt5k)=='function')or
 (
-(v(AUw)=='table')and QFKEzBf(AUw)and QFKEzBf(AUw).__call~=nil)or false)end
-function S1wg_DG.isArray(vCkLg)
-if not(v(vCkLg)=='table')then return false end;local A3mjn=0;for Wt5k in l(vCkLg)do A3mjn=A3mjn+1
-if vCkLg[A3mjn]==nil then return false end end;return true end;function S1wg_DG.isIterable(fv5Y2j)
-return S1wg_DG.toBoolean((l6Sm5(l,fv5Y2j)))end
-function S1wg_DG.type(bSgv)local Wa5=v(bSgv)if
-Wa5 =='userdata'then local JyrC7=QFKEzBf(bSgv)
-if JyrC7 ==QFKEzBf(io.stdout)then return'file'end end;return Wa5 end
-function S1wg_DG.isEmpty(QP)if(QP==nil)then return true end
-if v(QP)=='string'then return#QP==0 end;if v(QP)=='table'then return e(QP)==nil end;return true end;function S1wg_DG.isString(_N)return v(_N)=='string'end;function S1wg_DG.isFunction(U)return
-v(U)=='function'end;function S1wg_DG.isNil(e5qv6Q)
-return e5qv6Q==nil end
-function S1wg_DG.isNumber(S6XO)return v(S6XO)=='number'end;function S1wg_DG.isNaN(p7ogY)
-return v(p7ogY)=='number'and p7ogY~=p7ogY end;function S1wg_DG.isFinite(ZDP5SDwL)if v(ZDP5SDwL)~='number'then return
-false end
-return ZDP5SDwL>-S9TO and ZDP5SDwL<S9TO end;function S1wg_DG.isBoolean(T7H)return
-v(T7H)=='boolean'end;function S1wg_DG.isInteger(cdPmXFla)
+(v(Wt5k)=='table')and QFKEzBf(Wt5k)and QFKEzBf(Wt5k).__call~=nil)or false)end
+function S1wg_DG.isArray(fv5Y2j)
+if not(v(fv5Y2j)=='table')then return false end;local bSgv=0;for Wa5 in l(fv5Y2j)do bSgv=bSgv+1
+if fv5Y2j[bSgv]==nil then return false end end;return true end;function S1wg_DG.isIterable(JyrC7)
+return S1wg_DG.toBoolean((l6Sm5(l,JyrC7)))end
+function S1wg_DG.type(QP)local _N=v(QP)
+if _N=='userdata'then
+local U=QFKEzBf(QP)if U==QFKEzBf(io.stdout)then return'file'end end;return _N end
+function S1wg_DG.isEmpty(e5qv6Q)if(e5qv6Q==nil)then return true end;if v(e5qv6Q)=='string'then return#
+e5qv6Q==0 end;if v(e5qv6Q)=='table'then return
+e(e5qv6Q)==nil end;return true end;function S1wg_DG.isString(S6XO)return v(S6XO)=='string'end;function S1wg_DG.isFunction(p7ogY)return
+v(p7ogY)=='function'end;function S1wg_DG.isNil(ZDP5SDwL)return ZDP5SDwL==
+nil end;function S1wg_DG.isNumber(T7H)
+return v(T7H)=='number'end
+function S1wg_DG.isNaN(cdPmXFla)return v(cdPmXFla)=='number'and
+cdPmXFla~=cdPmXFla end
+function S1wg_DG.isFinite(gOp2cWZ)if v(gOp2cWZ)~='number'then return false end;return
+gOp2cWZ>-S9TO and gOp2cWZ<S9TO end;function S1wg_DG.isBoolean(A1)return v(A1)=='boolean'end;function S1wg_DG.isInteger(t51v)
 return
-v(cdPmXFla)=='number'and pS78Y(cdPmXFla)==cdPmXFla end
+v(t51v)=='number'and pS78Y(t51v)==t51v end
 do
 S1wg_DG.forEach=S1wg_DG.each;S1wg_DG.forEachi=S1wg_DG.eachi;S1wg_DG.update=S1wg_DG.adjust
 S1wg_DG.alleq=S1wg_DG.allEqual;S1wg_DG.loop=S1wg_DG.cycle;S1wg_DG.collect=S1wg_DG.map
@@ -538,24 +548,24 @@ S1wg_DG.juxt=S1wg_DG.juxtapose;S1wg_DG.uid=S1wg_DG.uniqueId;S1wg_DG.iter=S1wg_DG
 S1wg_DG.nAry=S1wg_DG.ary;S1wg_DG.methods=S1wg_DG.functions;S1wg_DG.choose=S1wg_DG.pick
 S1wg_DG.drop=S1wg_DG.omit;S1wg_DG.defaults=S1wg_DG.template
 S1wg_DG.compare=S1wg_DG.isEqual;S1wg_DG.matches=S1wg_DG.isEqual end
-do local gOp2cWZ={}local A1={}A1.__index=gOp2cWZ;local function t51v(Hp)
-return oUA({_value=Hp,_wrapped=true},A1)end
-oUA(A1,{__call=function(Tee9V,znHly)return t51v(znHly)end,__index=function(cD,I,...)return
-gOp2cWZ[I]end})function A1.chain(AN9)return t51v(AN9)end
-function A1:value()return self._value end;gOp2cWZ.chain,gOp2cWZ.value=A1.chain,A1.value
-for CCI,Ax_b in l(S1wg_DG)do
+do local Hp={}local Tee9V={}Tee9V.__index=Hp;local function znHly(cD)
+return oUA({_value=cD,_wrapped=true},Tee9V)end
+oUA(Tee9V,{__call=function(I,AN9)return znHly(AN9)end,__index=function(CCI,Ax_b,...)return
+Hp[Ax_b]end})function Tee9V.chain(Hgc1S)return znHly(Hgc1S)end;function Tee9V:value()
+return self._value end;Hp.chain,Hp.value=Tee9V.chain,Tee9V.value
+for gszf,GnYt in
+l(S1wg_DG)do
+if gszf~='operator'then
+Hp[gszf]=function(L7g,...)local _IO9=
+v(L7g)=='table'and PizLA9mj(L7g,'_wrapped')or false
+if _IO9 then
+local zcnTZ6pI=L7g._value;local sIPPW=GnYt(zcnTZ6pI,...)return znHly(sIPPW)else return GnYt(L7g,...)end end end end;Hp.operator=S1wg_DG.operator;Hp.op=S1wg_DG.operator
+Hp.import=function(jrXq,T5V8Jm3h)jrXq=
+jrXq or _ENV or _G;local yYkU=S1wg_DG.functions()
+for n0,nOa2 in kyWtqIf0(yYkU)do
 if
-CCI~='operator'then
-gOp2cWZ[CCI]=function(Hgc1S,...)local gszf=
-v(Hgc1S)=='table'and PizLA9mj(Hgc1S,'_wrapped')or false
-if gszf then
-local GnYt=Hgc1S._value;local L7g=Ax_b(GnYt,...)return t51v(L7g)else return Ax_b(Hgc1S,...)end end end end;gOp2cWZ.operator=S1wg_DG.operator;gOp2cWZ.op=S1wg_DG.operator
-gOp2cWZ.import=function(_IO9,zcnTZ6pI)_IO9=
-_IO9 or _ENV or _G;local sIPPW=S1wg_DG.functions()
-for jrXq,T5V8Jm3h in
-kyWtqIf0(sIPPW)do if PizLA9mj(_IO9,T5V8Jm3h)~=nil then if not zcnTZ6pI then
-rawset(_IO9,T5V8Jm3h,S1wg_DG[T5V8Jm3h])end else
-rawset(_IO9,T5V8Jm3h,S1wg_DG[T5V8Jm3h])end end;return _IO9 end;A1._VERSION='Moses v'..SWFtRywD
-A1._URL='http://github.com/Yonaba/Moses'
-A1._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'A1._DESCRIPTION='utility-belt library for functional programming in Lua'
-return A1 end
+PizLA9mj(jrXq,nOa2)~=nil then
+if not T5V8Jm3h then rawset(jrXq,nOa2,S1wg_DG[nOa2])end else rawset(jrXq,nOa2,S1wg_DG[nOa2])end end;return jrXq end;Tee9V._VERSION='Moses v'..SWFtRywD
+Tee9V._URL='http://github.com/Yonaba/Moses'
+Tee9V._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
+Tee9V._DESCRIPTION='utility-belt library for functional programming in Lua'return Tee9V end

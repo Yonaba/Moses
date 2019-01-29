@@ -1,5 +1,5 @@
 require 'luacov'
-local M , require 'moses'
+local M = require 'moses'
 
 describe('Alias specs', function()
   
@@ -22,7 +22,7 @@ describe('Alias specs', function()
     assert.equal(M.filter        , M.select)
     assert.equal(M.discard       , M.reject)
     assert.equal(M.every         , M.all)
-  end
+  end)
   
   it('provide aliases for array functions',function()
     assert.equal(M.takeWhile     , M.selectWhile)
@@ -50,7 +50,7 @@ describe('Alias specs', function()
     assert.equal(M.mirror        , M.invert)
     assert.equal(M.join          , M.concat)
     assert.equal(M.average       , M.mean)
-  end
+  end)
   
   it('provide aliases for utility functions',function()
     assert.equal(M.always        , M.constant)
@@ -59,7 +59,7 @@ describe('Alias specs', function()
     assert.equal(M.uid           , M.uniqueId)
     assert.equal(M.iter          , M.iterator)
     assert.equal(M.nAry          , M.ary)
-  end
+  end)
 
   it('provide aliases for object functions',function()
     assert.equal(M.methods       , M.functions)

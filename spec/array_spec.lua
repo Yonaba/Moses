@@ -679,8 +679,8 @@ describe('Array functions specs', function()
   describe('powerset',function()  
   
     it('generates the powerset of a given array', function()
-      assert.is_true(M.isEqual(M.powerset({1,2,3}),{{1},{2},{3},{1,2},{2,3},{1,2,3}}))
-      assert.is_true(M.isEqual(M.powerset({1,2,3,4}),{{1},{2},{3},{4},{1,2},{2,3},{3,4},{1,2,3},{2,3,4},{1,2,3,4}}))
+      assert.is_true(M.same(M.powerset({1,2,3}),{{},{1},{2},{3},{1,2},{2,3},{1,3},{1,2,3}}))
+      assert.is_true(M.same(M.powerset({1,2,3,4}),{{},{1},{2},{3},{4},{1,2},{1,3},{1,4},{2,3},{2,4},{3,4},{1,2,3},{1,2,4},{1,3,4},{2,3,4},{1,2,3,4}}))
     end)   
     
   end)  

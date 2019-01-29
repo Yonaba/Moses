@@ -1578,20 +1578,22 @@ function M.rep(value, n)
 end
 
 --- Returns the powerset of array values. For instance, when given the set {1,2,3},
--- returns `{{1},{2},{3},{1,2},{2,3},{1,2,3}}`.
+-- returns `{{},{1},{2},{3},{1,2},{2,3},{1,3},{1,2,3}}`.
 -- @name powerset
 -- @param array an array
 -- @return an array
 function M.powerset(array)
   local n = #array
-  if n == 0 then return {{}} end
-  local t = {}
-  for l = 1, n do  
-    for s = 1, n-l+1 do
-      t[#t+1] = M.slice(array,s,s+l-1)
+  local powerset = {}
+  for i, v in ipairs(array) do
+    for j = 1, #powerset do
+      local set = powerset[j]
+      t_insert(powerset, M.push(M.slice(set), v))
     end
+    t_insert(powerset, {v})
   end
-  return t
+  t_insert(powerset, {})
+  return powerset
 end
 
 --- Iterator returning partitions of an array. It returns arrays of length `n` 
