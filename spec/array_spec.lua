@@ -380,6 +380,17 @@ describe('Array functions specs', function()
       assert.is_true(M.isEqual(v[3], {3,3}))
       assert.is_true(M.isEqual(v[4], {4,4}))             
     end)  
+
+    it('chunks in blocks consecutive values when using identity as function', function()
+      local t = {1,1,2,2,3,3,4}
+      local v = M.chunk(t, function(v) return v end)
+      assert.is_nil(v[0])
+      assert.equal(#v, 4)
+      assert.is_true(M.isEqual(v[1], {1,1}))
+      assert.is_true(M.isEqual(v[2], {2,2}))
+      assert.is_true(M.isEqual(v[3], {3,3}))
+      assert.is_true(M.isEqual(v[4], {4}))
+    end)  
     
   end)
   
