@@ -1204,8 +1204,8 @@ function M.chunk(array, f)
   local ch, ck, prev, val = {}, 0
   for k,v in ipairs(array) do
     val = f(v, k)
-    prev = (prev==nil) and val or prev
     ck = ((val~=prev) and (ck+1) or ck)
+    prev = (prev==nil) and val or prev
     if not ch[ck] then
       ch[ck] = {array[k]}
     else
