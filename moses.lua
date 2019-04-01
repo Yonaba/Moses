@@ -1197,11 +1197,12 @@ end
 -- the same value are chunked together. Leaves the first argument untouched if it is not an array.
 -- @name chunk
 -- @param array an array
--- @param f an iterator function prototyped as `f (v, k)`
+-- @param f an iterator function prototyped as `f (v, k)`. Defaults to @{identity}.
 -- @return a table of chunks (arrays)
 -- @see zip
 function M.chunk(array, f)
   local ch, ck, prev, val = {}, 0
+  f = f or M.identity
   for k,v in ipairs(array) do
     val = f(v, k)
     ck = ((val~=prev) and (ck+1) or ck)

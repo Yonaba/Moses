@@ -1,5 +1,14 @@
 # Version history
 
+## Unreleased
+
+### Fixes and improvements
+
+* Fixed `chunk` to avoid generating chunks at index 0. 
+* Made argument `f` to `chunk` optional. Defaults to `identity`
+* Fixed alias to `uniqueId`
+* Fixed `M.powerset`
+
 ## 2.1.0 (09/12/2018)
 
 ### Breaking changes

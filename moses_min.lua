@@ -208,10 +208,10 @@ ruXMob=true end end end end;return nH0LB4c end
 function S1wg_DG.removeRange(BZmaGN,HSav,sDjMr)HSav=HSav or 1;sDjMr=sDjMr or#BZmaGN;if HSav>sDjMr then
 zupvsz("start cannot be greater than finish.")end
 for biQX3Ut=sDjMr,HSav,-1 do lIpFkbLI(BZmaGN,biQX3Ut)end;return BZmaGN end
-function S1wg_DG.chunk(BLEXN_,Ljc)local fpN7T,FNSk_,LmE,pZTFVP={},0
-for XL,L5vC0Jx in kyWtqIf0(BLEXN_)do pZTFVP=Ljc(L5vC0Jx,XL)LmE=
-(LmE==nil)and pZTFVP or LmE;FNSk_=(
-(pZTFVP~=LmE)and(FNSk_+1)or FNSk_)if
+function S1wg_DG.chunk(BLEXN_,Ljc)local fpN7T,FNSk_,LmE,pZTFVP={},0;Ljc=Ljc or S1wg_DG.identity
+for XL,L5vC0Jx in
+kyWtqIf0(BLEXN_)do pZTFVP=Ljc(L5vC0Jx,XL)
+FNSk_=((pZTFVP~=LmE)and(FNSk_+1)or FNSk_)LmE=(LmE==nil)and pZTFVP or LmE;if
 not fpN7T[FNSk_]then fpN7T[FNSk_]={BLEXN_[XL]}else
 fpN7T[FNSk_][#fpN7T[FNSk_]+1]=BLEXN_[XL]end;LmE=pZTFVP end;return fpN7T end
 function S1wg_DG.slice(vpONJ,A,LN)local dA14qP={}for JcQc=A or 1,LN or#vpONJ do
