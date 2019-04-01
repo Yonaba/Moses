@@ -21,7 +21,7 @@ local rawget                     = rawget
 local unpack                     = table.unpack or unpack
 local pairs,ipairs               = pairs,ipairs
 local error                      = error
-local clock                      = os.clock
+local clock                      = os and os.clock or nil
 local M                          = {}
 
 
@@ -2868,7 +2868,8 @@ function M.type(obj)
   local tp = type(obj)
   if tp == 'userdata' then
     local mt = getmetatable(obj)
-    if mt == getmetatable(io.stdout) then 
+    local stdout = io and io.stdout or nil
+    if stdout ~= nil and mt == getmetatable(stdout) then 
       return 'file'
     end
   end

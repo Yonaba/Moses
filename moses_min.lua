@@ -2,13 +2,14 @@ local SWFtRywD='2.1.0'local e,v,l6Sm5=next,type,pcall;local oUA,QFKEzBf=setmetat
 local odpE,p=table.insert,table.sort;local lIpFkbLI,JdUtcU=table.remove,table.concat
 local GQLN,toXyq,S9TO=math.randomseed,math.random,math.huge;local pS78Y,BCf7,RlMSrmdD,VCD=math.floor,math.max,math.min,math.ceil
 local OV7=coroutine.wrap;local X83a=coroutine.yield;local PizLA9mj=rawget
-local hUL=table.unpack or unpack;local l,kyWtqIf0=pairs,ipairs;local zupvsz=error;local Mw=os.clock;local S1wg_DG={}local function sf0(cmWo_v,RoXZEsn)
-return cmWo_v>RoXZEsn end
-local function qxZa6ozV(BKLwtAVx,BMZNmf0)return BKLwtAVx<BMZNmf0 end
-local function hgW2H5(qL9C)local Colg=0;for ex2xo17,I in l(qL9C)do Colg=Colg+1 end;return Colg end
-local function z5i2i(K66,Tq,jmB,...)jmB=jmB or S1wg_DG.identity;local bjO;for QoYPziln,Hj in l(K66)do
-if not bjO then bjO=jmB(Hj,...)else
-local KBlIVi=jmB(Hj,...)bjO=Tq(bjO,KBlIVi)and bjO or KBlIVi end end;return bjO end
+local hUL=table.unpack or unpack;local l,kyWtqIf0=pairs,ipairs;local zupvsz=error;local Mw=os and os.clock or nil
+local S1wg_DG={}local function sf0(cmWo_v,RoXZEsn)return cmWo_v>RoXZEsn end;local function qxZa6ozV(BKLwtAVx,BMZNmf0)
+return BKLwtAVx<BMZNmf0 end;local function hgW2H5(qL9C)local Colg=0
+for ex2xo17,I in l(qL9C)do Colg=Colg+1 end;return Colg end
+local function z5i2i(K66,Tq,jmB,...)
+jmB=jmB or S1wg_DG.identity;local bjO;for QoYPziln,Hj in l(K66)do
+if not bjO then bjO=jmB(Hj,...)else local KBlIVi=jmB(Hj,...)bjO=
+Tq(bjO,KBlIVi)and bjO or KBlIVi end end;return bjO end
 local function MGSnnzOI(OR8it1,GAqAsa,Oc_,Qj)
 for Ybp8=0,#OR8it1,GAqAsa do
 local ZmzyNm=S1wg_DG.slice(OR8it1,Ybp8+1,Ybp8+GAqAsa)
@@ -513,23 +514,23 @@ if fv5Y2j[bSgv]==nil then return false end end;return true end;function S1wg_DG.
 return S1wg_DG.toBoolean((l6Sm5(l,JyrC7)))end
 function S1wg_DG.type(QP)local _N=v(QP)
 if _N=='userdata'then
-local U=QFKEzBf(QP)if U==QFKEzBf(io.stdout)then return'file'end end;return _N end
-function S1wg_DG.isEmpty(e5qv6Q)if(e5qv6Q==nil)then return true end;if v(e5qv6Q)=='string'then return#
-e5qv6Q==0 end;if v(e5qv6Q)=='table'then return
-e(e5qv6Q)==nil end;return true end;function S1wg_DG.isString(S6XO)return v(S6XO)=='string'end;function S1wg_DG.isFunction(p7ogY)return
-v(p7ogY)=='function'end;function S1wg_DG.isNil(ZDP5SDwL)return ZDP5SDwL==
-nil end;function S1wg_DG.isNumber(T7H)
-return v(T7H)=='number'end
-function S1wg_DG.isNaN(cdPmXFla)return v(cdPmXFla)=='number'and
-cdPmXFla~=cdPmXFla end
-function S1wg_DG.isFinite(gOp2cWZ)if v(gOp2cWZ)~='number'then return false end;return
-gOp2cWZ>-S9TO and gOp2cWZ<S9TO end;function S1wg_DG.isBoolean(A1)return v(A1)=='boolean'end;function S1wg_DG.isInteger(t51v)
-return
-v(t51v)=='number'and pS78Y(t51v)==t51v end
-do
-S1wg_DG.forEach=S1wg_DG.each;S1wg_DG.forEachi=S1wg_DG.eachi;S1wg_DG.update=S1wg_DG.adjust
-S1wg_DG.alleq=S1wg_DG.allEqual;S1wg_DG.loop=S1wg_DG.cycle;S1wg_DG.collect=S1wg_DG.map
-S1wg_DG.inject=S1wg_DG.reduce;S1wg_DG.foldl=S1wg_DG.reduce
+local U=QFKEzBf(QP)local e5qv6Q=io and io.stdout or nil;if e5qv6Q~=nil and
+U==QFKEzBf(e5qv6Q)then return'file'end end;return _N end
+function S1wg_DG.isEmpty(S6XO)if(S6XO==nil)then return true end;if v(S6XO)=='string'then return
+#S6XO==0 end
+if v(S6XO)=='table'then return e(S6XO)==nil end;return true end;function S1wg_DG.isString(p7ogY)return v(p7ogY)=='string'end;function S1wg_DG.isFunction(ZDP5SDwL)return
+v(ZDP5SDwL)=='function'end;function S1wg_DG.isNil(T7H)return
+T7H==nil end;function S1wg_DG.isNumber(cdPmXFla)
+return v(cdPmXFla)=='number'end
+function S1wg_DG.isNaN(gOp2cWZ)return v(gOp2cWZ)=='number'and
+gOp2cWZ~=gOp2cWZ end;function S1wg_DG.isFinite(A1)if v(A1)~='number'then return false end;return
+A1 >-S9TO and A1 <S9TO end;function S1wg_DG.isBoolean(t51v)return
+v(t51v)=='boolean'end
+function S1wg_DG.isInteger(Hp)return v(Hp)==
+'number'and pS78Y(Hp)==Hp end
+do S1wg_DG.forEach=S1wg_DG.each;S1wg_DG.forEachi=S1wg_DG.eachi
+S1wg_DG.update=S1wg_DG.adjust;S1wg_DG.alleq=S1wg_DG.allEqual;S1wg_DG.loop=S1wg_DG.cycle
+S1wg_DG.collect=S1wg_DG.map;S1wg_DG.inject=S1wg_DG.reduce;S1wg_DG.foldl=S1wg_DG.reduce
 S1wg_DG.injectr=S1wg_DG.reduceRight;S1wg_DG.foldr=S1wg_DG.reduceRight
 S1wg_DG.mapr=S1wg_DG.mapReduce;S1wg_DG.maprr=S1wg_DG.mapReduceRight
 S1wg_DG.any=S1wg_DG.include;S1wg_DG.some=S1wg_DG.include;S1wg_DG.contains=S1wg_DG.include
@@ -548,24 +549,24 @@ S1wg_DG.juxt=S1wg_DG.juxtapose;S1wg_DG.uid=S1wg_DG.uniqueId;S1wg_DG.iter=S1wg_DG
 S1wg_DG.nAry=S1wg_DG.ary;S1wg_DG.methods=S1wg_DG.functions;S1wg_DG.choose=S1wg_DG.pick
 S1wg_DG.drop=S1wg_DG.omit;S1wg_DG.defaults=S1wg_DG.template
 S1wg_DG.compare=S1wg_DG.isEqual;S1wg_DG.matches=S1wg_DG.isEqual end
-do local Hp={}local Tee9V={}Tee9V.__index=Hp;local function znHly(cD)
-return oUA({_value=cD,_wrapped=true},Tee9V)end
-oUA(Tee9V,{__call=function(I,AN9)return znHly(AN9)end,__index=function(CCI,Ax_b,...)return
-Hp[Ax_b]end})function Tee9V.chain(Hgc1S)return znHly(Hgc1S)end;function Tee9V:value()
-return self._value end;Hp.chain,Hp.value=Tee9V.chain,Tee9V.value
-for gszf,GnYt in
-l(S1wg_DG)do
-if gszf~='operator'then
-Hp[gszf]=function(L7g,...)local _IO9=
-v(L7g)=='table'and PizLA9mj(L7g,'_wrapped')or false
-if _IO9 then
-local zcnTZ6pI=L7g._value;local sIPPW=GnYt(zcnTZ6pI,...)return znHly(sIPPW)else return GnYt(L7g,...)end end end end;Hp.operator=S1wg_DG.operator;Hp.op=S1wg_DG.operator
-Hp.import=function(jrXq,T5V8Jm3h)jrXq=
-jrXq or _ENV or _G;local yYkU=S1wg_DG.functions()
-for n0,nOa2 in kyWtqIf0(yYkU)do
+do local Tee9V={}local znHly={}znHly.__index=Tee9V;local function cD(I)
+return oUA({_value=I,_wrapped=true},znHly)end
+oUA(znHly,{__call=function(AN9,CCI)return cD(CCI)end,__index=function(Ax_b,Hgc1S,...)return
+Tee9V[Hgc1S]end})function znHly.chain(gszf)return cD(gszf)end
+function znHly:value()return self._value end;Tee9V.chain,Tee9V.value=znHly.chain,znHly.value
+for GnYt,L7g in l(S1wg_DG)do
 if
-PizLA9mj(jrXq,nOa2)~=nil then
-if not T5V8Jm3h then rawset(jrXq,nOa2,S1wg_DG[nOa2])end else rawset(jrXq,nOa2,S1wg_DG[nOa2])end end;return jrXq end;Tee9V._VERSION='Moses v'..SWFtRywD
-Tee9V._URL='http://github.com/Yonaba/Moses'
-Tee9V._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
-Tee9V._DESCRIPTION='utility-belt library for functional programming in Lua'return Tee9V end
+GnYt~='operator'then
+Tee9V[GnYt]=function(_IO9,...)local zcnTZ6pI=v(_IO9)=='table'and PizLA9mj(_IO9,'_wrapped')or
+false
+if zcnTZ6pI then
+local sIPPW=_IO9._value;local jrXq=L7g(sIPPW,...)return cD(jrXq)else return L7g(_IO9,...)end end end end;Tee9V.operator=S1wg_DG.operator;Tee9V.op=S1wg_DG.operator
+Tee9V.import=function(T5V8Jm3h,yYkU)T5V8Jm3h=
+T5V8Jm3h or _ENV or _G;local n0=S1wg_DG.functions()
+for nOa2,r in
+kyWtqIf0(n0)do
+if PizLA9mj(T5V8Jm3h,r)~=nil then if not yYkU then
+rawset(T5V8Jm3h,r,S1wg_DG[r])end else rawset(T5V8Jm3h,r,S1wg_DG[r])end end;return T5V8Jm3h end;znHly._VERSION='Moses v'..SWFtRywD
+znHly._URL='http://github.com/Yonaba/Moses'
+znHly._LICENSE='MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
+znHly._DESCRIPTION='utility-belt library for functional programming in Lua'return znHly end

@@ -8,6 +8,7 @@
 * Made argument `f` to `chunk` optional. Defaults to `identity`
 * Fixed alias to `uniqueId`
 * Fixed `M.powerset`
+* Prevents straight calls to io and os modules for Redis compatibility
 
 ## 2.1.0 (09/12/2018)
 
