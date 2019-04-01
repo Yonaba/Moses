@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Additions
+
+* Added `mapi (t, f)` in table functions.
+
 ### Fixes and improvements
 
 * Fixed `chunk` to avoid generating chunks at index 0. 

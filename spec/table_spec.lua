@@ -242,6 +242,22 @@ describe('Table functions specs', function()
     
   end)
   
+  describe('mapi', function()
+  
+    it('applies an iterator function over each key-value pair ', function()
+      assert.is_true(M.isEqual(M.mapi({1,2,3},function(v) 
+          return v+10 
+        end),{11,12,13}))
+    end)
+
+    it('iterates only on array values', function()
+      assert.is_true(M.isEqual(M.mapi({a = 1, 2, 3, 4},function(v,k) 
+          return k..v 
+        end),{'12','23','34'}))
+    end)
+    
+  end)
+  
   describe('reduce', function()
   
     it('folds a collection (left to right) from an initial state', function()

@@ -254,6 +254,24 @@ M.map({a = 1, b = 2},function(v, k)
 end) -- => "{aa = 2, bb = 4}"
 ````
 
+### mapi (t, f)
+
+Executes a function on each value in a given array.
+
+```lua
+M.mapi({1,2,3},function(v) 
+  return v+10 
+end) -- => "{11,12,13}"
+````
+
+It only works for the array-part of the given table.
+
+```lua
+M.map({a = 1, 2, 3, 4, 5},function(v, k) 
+  return k..v 
+end) -- => "{'12','23','34','45'}"
+````
+
 ### reduce (t, f [, state = next(t)])
 *Aliases: `inject`, `foldl`*.
 
