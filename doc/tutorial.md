@@ -2430,9 +2430,9 @@ The passed-in interceptor should be prototyped as `f(obj,...)`.
 ```lua
 local v = M.chain({1,2,3,4,5,6,7,8,9,10})
   :filter(function(v) return v%2~=0 end) -- retain odd values
-  :tap(function(v) print('Max is', M.max(v) end) -- Tap max value 
+  :tap(function(v) print('Max is', M.max(v)) end) -- Tap max value 
   :map(function(v) return v^2 end)
-  :value() -- =>	 Max is 89
+  :value() -- =>	 Max is 81
 ````
 
 ### has (obj, key)
@@ -2448,7 +2448,7 @@ M.has(math,'random') -- => true
 ### pick (obj, ...)
 *Aliases: `choose`*.
 
-Collects whilelisted properties of a given object.
+Collects whitelisted properties of a given object.
 
 ```lua
 local object = {a = 1, b = 2, c = 3}
