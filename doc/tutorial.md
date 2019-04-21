@@ -456,7 +456,7 @@ M.select({1,2,3,4,5,6,7}, isOdd) -- => "{1,3,5,7}"
 ````
 
 ### reject (t, f)
-*Aliases: `reject`*.
+*Aliases: `discard`*.
 
 Removes all values failing (returning false or nil) a validation test:
 
