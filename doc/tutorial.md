@@ -2225,8 +2225,8 @@ Curries a function. If the given function `f` takes multiple arguments, it retur
 ```lua
 local function sumOf3args(x,y,z) return x + y + z end
 local curried_sumOf3args = M.curry(sumOf3args, 3)
-sumOf3args(1)(2)(3)) -- => 6
-sumOf3args(0)(6)(9)) -- => 15
+curried_sumOf3args(1)(2)(3) -- => 6
+curried_sumOf3args(0)(6)(9) -- => 15
 ````
 
 `n_args` defaults to 2.
