@@ -1780,7 +1780,7 @@ sqrt2() -- => 1.4142135623731
 Binds a value to be the second argument to a function.
 
 ```lua
-local last2 = M.bind(M.last,2)
+local last2 = M.bind2(M.last,2)
 last2({1,2,3,4,5,6}) -- => {5,6}
 ````
 
