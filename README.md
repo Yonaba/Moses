@@ -28,7 +28,7 @@ local fibsum = M.sum(M.map(M.range(25), fib))
 print(fibsum) -- 196417
 ````
 
-Or let us do the same, opbject-oriented style with chaining :
+Or let us do the same, object-oriented style with chaining :
 
 ```lua
 local function fib(n) return n < 2 and n or fib(n - 1) + fib(n - 2) end
