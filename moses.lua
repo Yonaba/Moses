@@ -2421,7 +2421,7 @@ end
 function M.converge(f, g, h) return function(...) return f(g(...),h(...)) end end
 
 --- Partially apply a function by filling in any number of its arguments. 
--- One may pass a string `'M'` as a placeholder in the list of arguments to specify an argument 
+-- One may pass a string `'_'` as a placeholder in the list of arguments to specify an argument 
 -- that should not be pre-filled, but left open to be supplied at call-time. 
 -- @name partial
 -- @param f a function

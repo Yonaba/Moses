@@ -456,7 +456,7 @@ M.select({1,2,3,4,5,6,7}, isOdd) -- => "{1,3,5,7}"
 ````
 
 ### reject (t, f)
-*Aliases: `reject`*.
+*Aliases: `discard`*.
 
 Removes all values failing (returning false or nil) a validation test:
 
@@ -1780,7 +1780,7 @@ sqrt2() -- => 1.4142135623731
 Binds a value to be the second argument to a function.
 
 ```lua
-local last2 = M.bind(M.last,2)
+local last2 = M.bind2(M.last,2)
 last2({1,2,3,4,5,6}) -- => {5,6}
 ````
 
@@ -2225,8 +2225,8 @@ Curries a function. If the given function `f` takes multiple arguments, it retur
 ```lua
 local function sumOf3args(x,y,z) return x + y + z end
 local curried_sumOf3args = M.curry(sumOf3args, 3)
-sumOf3args(1)(2)(3)) -- => 6
-sumOf3args(0)(6)(9)) -- => 15
+curried_sumOf3args(1)(2)(3) -- => 6
+curried_sumOf3args(0)(6)(9) -- => 15
 ````
 
 `n_args` defaults to 2.
@@ -2430,9 +2430,9 @@ The passed-in interceptor should be prototyped as `f(obj,...)`.
 ```lua
 local v = M.chain({1,2,3,4,5,6,7,8,9,10})
   :filter(function(v) return v%2~=0 end) -- retain odd values
-  :tap(function(v) print('Max is', M.max(v) end) -- Tap max value 
+  :tap(function(v) print('Max is', M.max(v)) end) -- Tap max value 
   :map(function(v) return v^2 end)
-  :value() -- =>	 Max is 89
+  :value() -- =>	 Max is 81
 ````
 
 ### has (obj, key)
@@ -2448,7 +2448,7 @@ M.has(math,'random') -- => true
 ### pick (obj, ...)
 *Aliases: `choose`*.
 
-Collects whilelisted properties of a given object.
+Collects whitelisted properties of a given object.
 
 ```lua
 local object = {a = 1, b = 2, c = 3}
