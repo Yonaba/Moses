@@ -1598,7 +1598,7 @@ where the first item is the function and the following are the remaining args ne
 
 ```lua
 local function inc(x) return x + 1 end
-local function add(x, y) return x * y end
+local function add(x, y) return x + y end
 local function pow(x, y) return x ^ y end
 M.thread(2, inc, {add, 3}, {pow, 2}) -- => 36
 M.thread(2, {add, 4}, inc, {pow, 2}) -- => 49
@@ -1612,7 +1612,7 @@ the remaining args neeeded. The value is used as the last input.
 
 ```lua
 local function inc(x) return x + 1 end
-local function add(x, y) return x * y end
+local function add(x, y) return x + y end
 local function pow(x, y) return x ^ y end
 M.threadRight(2, inc, {add, 3}, {pow, 2}) -- => 64
 M.threadRight(2, {add, 4}, inc, {pow, 2}) -- => 128
